@@ -1,0 +1,313 @@
+init
+  node (s, safe)
+/*
+  (set, Set) -> (emp, empty)
+  (set, Set) -> (syn, sync)
+  (set, Set) -> (nsyn, not_sync)
+  (set, Set) -> (mov, mover)
+  (set, Set) -> (nmov, not_mover)
+*/
+
+transition "newSet(): Set"
+pre
+  node (s, safe)
+post
+  node (s, safe)
+  (set, Set) -> (emp, empty)
+  (set, Set) -> (syn, sync)
+  (set, Set) -> (nsyn, not_sync)
+  (set, Set) -> (mov, mover)
+  (set, Set) -> (nmov, not_mover)
+==>
+  s -> s
+<==
+
+transition "newIter(Set): Iter; on emp"
+pre
+  node (s, safe)
+  (callee, Set) -> (emp, empty)
+  (callee, Set) -> (syn, sync)
+  (callee, Set) -> (nmov, not_mover)
+post
+  node (s, safe)
+  (callee, Set) -> (emp, empty)
+  (callee, Set) -> (syn, sync)
+  (callee, Set) -> (nmov, not_mover)
+  (i, Iter) -> (callee, Set)
+  (i, Iter) -> (syn, sync)
+  (i, Iter) -> (nmov, not_mover)
+==>
+  emp -> emp
+  s -> s
+  callee -> callee
+  syn -> syn
+  nmov -> nmov
+<==
+
+
+transition "newIter(Set): Iter; on notemp"
+pre
+  node (s, safe)
+  (callee, Set) -> (emp, not_empty)
+  (callee, Set) -> (syn, sync)
+  (callee, Set) -> (mov, mover)
+post
+  node (s, safe)
+  (callee, Set) -> (emp, not_empty)
+  (callee, Set) -> (syn, sync)
+  (callee, Set) -> (mov, mover)
+  (i, Iter) -> (callee, Set)
+  (i, Iter) -> (syn, sync)
+  (i, Iter) -> (mov, mover)
+==>
+  emp -> emp
+  s -> s
+  callee -> callee
+  syn -> syn
+  mov -> mov
+<==
+
+transition "add(Set); on emp"
+pre
+  node (s, safe)
+  (callee, Set) -> (emp, empty)
+  (callee, Set) -> (syn, sync)
+  (callee, Set) -> (nsyn, not_sync)
+post
+  (s, transientAddLoop) -> (callee, Set)
+  (callee, Set) -> (emp, not_empty)
+  (callee, Set) -> (syn1, sync)
+  (callee, Set) -> (nsyn, not_sync)
+==>
+  s -> s
+  callee -> callee
+  syn -> nsyn
+  nsyn -> nsyn
+<==
+
+transition "add(Set); on notemp"
+pre
+  node (s, safe)
+  (callee, Set) -> (emp, not_empty)
+  (callee, Set) -> (syn, sync)
+  (callee, Set) -> (nsyn, not_sync)
+post
+  (s, transientAddLoop) -> (callee, Set)
+  (callee, Set) -> (emp, not_empty)
+  (callee, Set) -> (syn1, sync)
+  (callee, Set) -> (nsyn, not_sync)
+==>
+  s -> s
+  callee -> callee
+  syn -> nsyn
+  nsyn -> nsyn
+<==
+
+transition "add loop"
+pre
+  (s, transientAddLoop) -> (callee, Set)
+  (callee, Set) -> (nmov, not_mover)
+  (callee, Set) -> (mov, mover)
+  (i, Iter) -> (nmov, not_mover)
+post
+  (s, transientAddLoop) -> (callee, Set)
+  (callee, Set) -> (nmov, not_mover)
+  (callee, Set) -> (mov, mover)
+  (i, Iter) -> (mov, mover)
+==>
+  s -> s
+  callee -> callee
+  mov -> mov
+  nmov -> nmov
+  i -> i
+<==
+
+transition "add loop exit"
+pre
+  (s, transientAddLoop) -> (callee, Set)
+post
+  node (s, safe)
+  node (callee, Set)
+==>
+  s -> s
+  callee -> callee
+<==
+
+
+transition "next(Iter); stay mover"
+pre
+  node (s, safe)
+  (set, Set) -> (syn, sync)
+  (set, Set) -> (mov, mover)
+  (callee, Iter) -> (syn, sync)	
+  (callee, Iter) -> (set, Set)
+  (callee, Iter) -> (mov, mover)
+post
+  node (s, safe)
+  (set, Set) -> (syn, sync)
+  (set, Set) -> (mov, mover)
+  (callee, Iter) -> (set, Set)
+  (callee, Iter) -> (mov, mover)
+  (callee, Iter) -> (syn, sync)
+==>
+  s -> s
+  callee -> callee
+  set -> set
+  syn -> syn
+  mov -> mov
+<==
+
+transition "next(Iter); become notmover"
+pre
+  node (s, safe)
+  (set, Set) -> (syn, sync)
+  (set, Set) -> (mov, mover)
+  (set, Set) -> (nmov, not_mover)
+  (callee, Iter) -> (syn, sync)	
+  (callee, Iter) -> (set, Set)
+  (callee, Iter) -> (mov, mover)
+post
+  node (s, safe)
+  (set, Set) -> (syn, sync)
+  (set, Set) -> (mov, mover)
+  (set, Set) -> (nmov, not_mover)
+  (callee, Iter) -> (set, Set)
+  (callee, Iter) -> (nmov, not_mover)
+  (callee, Iter) -> (syn, sync)
+==>
+  s -> s
+  callee -> callee
+  set -> set
+  syn -> syn
+  mov -> mov
+  nmov -> nmov
+<==
+
+
+transition "remove(Iter); stay notemp"
+pre
+  node (s, safe)
+  (set, Set) -> (emp, not_empty)
+  (set, Set) -> (syn, sync)
+  (set, Set) -> (nsyn, not_sync)
+  (callee, Iter) -> (set, Set)
+  (callee, Iter) -> (syn, sync)
+post
+  (s, transientRemoveLoop) -> (set, Set)
+  (set, Set) -> (emp, not_empty)
+  (set, Set) -> (syn1, sync)
+  (set, Set) -> (nsyn, not_sync)
+  (callee, Iter) -> (set, Set)
+  (callee, Iter) -> (syn1, sync)
+==>
+  s -> s
+  callee -> callee
+  set -> set
+  syn -> nsyn
+  nsyn -> nsyn
+<==
+
+transition "remove(Iter); become emp"
+pre
+  node (s, safe)
+  (set, Set) -> (emp, not_empty)
+  (set, Set) -> (syn, sync)
+  (set, Set) -> (nsyn, not_sync)
+  (callee, Iter) -> (set, Set)
+  (callee, Iter) -> (syn, sync)
+post
+  (s, transientRemoveLoop) -> (set, Set)
+  (set, Set) -> (emp, empty)
+  (set, Set) -> (syn1, sync)
+  (set, Set) -> (nsyn, not_sync)
+  (callee, Iter) -> (set, Set)
+  (callee, Iter) -> (syn1, sync)
+==>
+  s -> s
+  callee -> callee
+  set -> set
+  syn -> nsyn
+  nsyn -> nsyn
+<==
+
+transition "remove loop"
+pre
+  (s, transientRemoveLoop) -> (set, Set)
+  (set, Set) -> (nmov, not_mover)
+  (set, Set) -> (mov, mover)
+  (callee, Iter) -> (mov, mover)
+post
+  (s, transientRemoveLoop) -> (set, Set)
+  (set, Set) -> (nmov, not_mover)
+  (set, Set) -> (mov, mover)
+  (callee, Iter) -> (nmov, not_mover)
+==>
+  s -> s
+  set -> set
+  mov -> mov
+  nmov -> nmov
+  callee -> callee
+<==
+
+transition "remove loop exit"
+pre
+  (s, transientRemoveLoop) -> (set, Set)
+post
+  node (s, safe)
+  node (set, Set)
+==>
+  s -> s
+  set -> set
+<==
+
+
+// ERRORS
+
+transition "next(Iter); error unsynced"
+pre
+  node (s, safe)
+  (set, Set) -> (nsync, not_sync)
+  (callee, Iter) -> (nsync, not_sync)
+  (callee, Iter) -> (set, Set)
+post
+  (set, Set) -> (nsync, not_sync)
+  (callee, IterErrorSync) -> (nsync, not_sync)
+  (callee, IterErrorSync) -> (set, Set)
+==>
+  set -> set
+  callee -> callee
+  nsync -> nsync
+<==
+
+transition "next(Iter), error non-mover"
+pre
+  node (s, safe)
+  (set, Set) -> (nmov, not_mover)
+  (callee, Iter) -> (nmov, not_mover)
+  (callee, Iter) -> (set, Set)
+post
+  (set, Set) -> (nmov, not_mover)
+  (callee, IterErrorMover) -> (nmov, not_mover)
+  (callee, IterErrorMover) -> (set, Set)
+==>
+  set -> set
+  callee -> callee
+  nmov -> nmov
+<==
+
+transition "remove(Iter); error"
+pre
+  node (s, safe)
+  (set, Set) -> (nsync, not_sync)
+  (callee, Iter) -> (nsync, not_sync)
+  (callee, Iter) -> (set, Set)
+post
+  (set, Set) -> (nsync, not_sync)
+  (callee, IterErrorSync) -> (nsync, not_sync)
+  (callee, IterErrorSync) -> (set, Set)
+==>
+  set -> set
+  callee -> callee
+  nsync -> nsync
+<==
+

@@ -1,0 +1,125 @@
+// Herlihy Wing queue from "Linearizability: A Correctness Condition for Concurrent Objects" (1990)
+//
+//  Enq = proc(q: queue, x: item)
+//      i: int := INC(q.back) %Allocate a new slot.
+//      STORE (q.items[i], x) %Fill it.
+//  end Enq
+//
+//  Deq = proc(q: queue) returns (item)
+//    while true do
+//      range: int := READ(q.back) - 1
+//      for i: int in 1 .. range do
+//        x: item := SWAP(q.items[i], null)
+//        if x != null then return(x) end
+//      end
+//    end
+//  end Deq
+//
+//To make this example terminating  we need to impose the folloing fairness constraints:
+// there cannot be infinitely many Deq steps without Enq steps
+
+init
+    (q, Q) -> (n, Null) [back]
+    (e, enq)* -> (x, x)*
+    node (d, deq)*
+    node (f, fairness)*
+
+
+transition "Enq: allocate a new slot"
+pre
+    (q, Q) -> (b, _) [back]
+    (e, enq) -> (x, x)
+post
+    (q, Q) -> (n, Null) [back]
+    (q, Q) -> (b, _) [middle]
+    (e, enq1) -> (x, x)
+    (e, enq1) -> (n, Null)
+    node (f, fairness)*
+==>
+    q -> q
+    e -> e
+    x -> x
+<==
+    b -> b
+
+transition "Enq: store"
+pre
+    (e, enq1) -> (x, x)
+    (e, enq1) -> (n, Null)
+post
+    node (e, enqDone)
+    node (n, x)
+    node (f, fairness)*
+==>
+    e -> e
+    n -> n
+<==
+
+transition "Deq: read back"
+pre
+    node (f, fairness)
+    (q, Q) -> (b, _) [back]
+    node (d, deq)
+post
+    (q, Q) -> (b, _) [back]
+    (d, deq1) -> (b, _) [range]
+==>
+    q -> q
+    d -> d
+<==
+    b -> b
+
+transition "Deq: swap item (middle, success)"
+pre
+    node (f, fairness)
+    (q, Q) -> (m, x) [middle]
+    (d, deq1) -> (b, _) [range]
+post
+    (q, Q) -> (m, Null) [middle]
+    node (d, deqDone)
+    node (b, _)
+==>
+    q -> q
+    d -> d
+    m -> m
+<==
+    b -> b
+
+transition "Deq: swap item (middle, fail)"
+pre
+    node (f, fairness)
+    (q, Q) -> (m, Null) [middle]
+    (d, deq1) -> (b, _) [range]
+post
+    (q, Q) -> (m, Null) [middle]
+    (d, deq1) -> (b, _) [range]
+==>
+    q -> q
+    d -> d
+    m -> m
+<==
+    b -> b
+
+transition "Deq: swap item (back, success)"
+pre
+    node (f, fairness)
+    (d, deq1) -> (b, x) [range]
+post
+    node (b, Null)
+    node (d, deqDone)
+==>
+    d -> d
+    b -> b
+<==
+
+transition "Deq: swap item (back, fail and retry)"
+pre
+    node (f, fairness)
+    (d, deq1) -> (b, Null) [range]
+post
+    node (d, deq)
+    node (b, Null)
+==>
+    d -> d
+    b -> b
+<==

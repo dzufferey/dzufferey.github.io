@@ -1,0 +1,61 @@
+/*  Compact encoding of:
+ *  S(x, head) = out(x)(head).S(x, head)
+ *             + in(x)(h2, h, succ, fail).([head = h].out(succ)().S(x, h2) |
+ *                                         [head != h].out(fail)().S(x, head))
+ *
+ *  Op1(x) = in(x)(h).Op2(x,h)
+ *   Op2(x,h) = (\nu h2,succ,fail) out(x)(h2, h, succ, fail).(in(succ)().0 | in(fail)().Op1(x))
+ */
+
+init
+  (s, S) -> (h, head) [head]
+  (o, Op1)* -> (s, S) [x]
+
+transition "client: Op1 -> Op2" 
+pre
+  (s, S) -> (h, head) [head]
+  (o, Op1) -> (s, S) [x]
+post
+  (s, S) -> (h, head) [head]
+  (o, Op2) -> (s, S) [x]
+  (o, Op2) -> (h, head) [h]
+  (o, Op2) -> (h2, head) [h2]
+==>
+  s -> s
+  o -> o
+  h -> h
+<==
+
+transition "client: Op2 Success" 
+pre
+  (s, S) -> (h, head) [head]
+  (o, Op2) -> (s, S) [x]
+  (o, Op2) -> (h, head) [h]
+  (o, Op2) -> (h2, head) [h2]
+post
+  (s, S) -> (h2, head) [head]
+  node (h, head)
+==>
+  s -> s
+  h -> h
+  h2 -> h2
+<==
+
+transition "client: Op2 Fail" 
+pre
+  (s, S) -> (h, head) [head]
+  (o, Op2) -> (s, S) [x]
+  (o, Op2) -> (h3, head) [h]
+  (o, Op2) -> (h2, head) [h2]
+post
+  (s, S) -> (h, head) [head]
+  (o, Op1) -> (s, S) [x]
+  node (h2, head)
+  node (h3, head)
+==>
+  s -> s
+  o -> o
+  h -> h
+  h2 -> h2
+  h3 -> h3
+<==

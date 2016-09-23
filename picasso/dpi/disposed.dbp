@@ -1,0 +1,212 @@
+//example from
+//  Deriving Object Typestates in the Presence of Inter-Object References
+//  by Mangala Gowri Nanda, Christian Grothoff, and Satish Chandra
+//  in OOPSLA 05
+
+/*
+class V {
+  L f;
+  public void V() {
+    f := null;
+  }
+  public void run() {
+    if (f != null) f.run();
+  }
+  public void done() {
+    if (f != null) f.dispose();
+  }
+  public void set(L l) {
+    if (f != null) f.dispose();
+    f = l;
+  }
+}
+
+class L {
+  boolean disposed;
+  public void L() {
+    disposed := false;
+  }
+  protected void run() {
+    if (disposed) throw new Error();
+  }
+  protected void dispose() {
+    if (disposed) throw new Error();
+    disposed = true;
+  }
+}
+*/
+
+init
+  node (s, safe)
+
+transition "newV(): V"
+pre
+  node (s, safe)
+post
+  node (s, safe)
+  (v, V) -> (n, Null) [f]
+==>
+  s -> s
+<==
+
+
+transition "newL(): L"
+pre
+  node (s, safe)
+post
+  node (s, safe)
+  (l, L) -> (d, not_disposed)
+==>
+  s -> s
+<==
+
+transition "run(V), null"
+pre
+  node (s, safe)
+  (callee, V) -> (n, Null) [f]
+post
+  node (s, safe)
+  (callee, V) -> (n, Null) [f]
+==>
+  s -> s
+  callee -> callee
+  n -> n
+<==
+
+transition "run(V); not null & not disposed"
+pre
+  node (s, safe)
+  (callee, V) -> (l, L) [f]
+  (l, L) -> (d, not_disposed)
+post
+  node (s, safe)
+  (callee, V) -> (l, L) [f]
+  (l, L) -> (d, not_disposed)
+==>
+  s -> s
+  callee -> callee
+  l -> l
+  d -> d
+<==
+
+transition "run(V); not null & disposed"
+pre
+  node (s, safe)
+  (callee, V) -> (l, L) [f]
+  (l, L) -> (d, disposed)
+post
+  (callee, V) -> (l, LError) [f]
+  (l, LError) -> (d, disposed)
+==>
+  callee -> callee
+  l -> l
+  d -> d
+<==
+
+transition "done(V); null"
+pre
+  node (s, safe)
+  (callee, V) -> (n, Null) [f]
+post
+  node (s, safe)
+  (callee, V) -> (n, Null) [f]
+==>
+  s -> s
+  callee -> callee
+  n -> n
+<==
+
+transition "done(V); not null & not disposed"
+pre
+  node (s, safe)
+  (callee, V) -> (l, L) [f]
+  (l, L) -> (d, not_disposed)
+post
+  node (s, safe)
+  (callee, V) -> (l, L) [f]
+  (l, L) -> (d, disposed)
+==>
+  s -> s
+  callee -> callee
+  l -> l
+  d -> d
+<==
+
+transition "done(V); not null & disposed"
+pre
+  node (s, safe)
+  (callee, V) -> (l, L) [f]
+  (l, L) -> (d, disposed)
+post
+  (callee, V) -> (l, LError) [f]
+  (l, LError) -> (d, disposed)
+==>
+  callee -> callee
+  l -> l
+  d -> d
+<==
+
+transition "set(V, L); null"
+pre
+  node (s, safe)
+  (callee, V) -> (n, Null) [f]
+  node (arg0, L)
+post
+  node (s, safe)
+  (callee, V) -> (arg0, L) [f]
+  node (n, Null)
+==>
+  s -> s
+  callee -> callee
+  n -> n
+  arg0 -> arg0
+<==
+
+transition "set(V, L); not null & not disposed & not aliased"
+pre
+  node (s, safe)
+  (callee, V) -> (l, L) [f]
+  (l, L) -> (d, not_disposed)
+  node (arg0, L)
+post
+  node (s, safe)
+  (callee, V) -> (arg0, L) [f]
+  (l, L) -> (d, disposed)
+==>
+  s -> s
+  callee -> callee
+  l -> l
+  arg0 -> arg0
+  d -> d
+<==
+
+transition "set(V, L); not null & not disposed & aliased"
+pre
+  node (s, safe)
+  (callee, V) -> (arg0, L) [f]
+  (arg0, L) -> (d, not_disposed)
+post
+  node (s, safe)
+  (callee, V) -> (arg0, L) [f]
+  (arg0, L) -> (d, disposed)
+==>
+  s -> s
+  callee -> callee
+  arg0 -> arg0
+  d -> d
+<==
+
+transition "set(V, L); not null & disposed"
+pre
+  node (s, safe)
+  (callee, V) -> (l, L) [f]
+  (l, L) -> (d, disposed)
+post
+  (callee, V) -> (l, LError) [f]
+  (l, LError) -> (d, disposed)
+==>
+  callee -> callee
+  l -> l
+  d -> d
+<==
+

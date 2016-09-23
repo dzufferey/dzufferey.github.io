@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>PICASSO: a PI-CAlculus-based Static SOftware analyzer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+    <link rel="stylesheet" href="http://jquerymobile.com/demos/1.2.0/docs/_assets/css/jqm-docs.css"/>
+    <link rel="stylesheet" href="picasso.css" />
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script src="http://jquerymobile.com/demos/1.2.0/docs/_assets/js/jqm-docs.js"></script>
+    <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+</head>    
+<body>
+
+  
+<div data-role="page" class="type-interior">
+
+  <div data-role="header">
+    <h1>PICASSO: a PI-CAlculus-based Static SOftware analyzer</h1>
+  </div> 
+
+  <div data-role="content">
+    <div class="content-primary">
+        <h2>About Picasso</h2>
+
+        <p>
+	Picasso is a static analyzer for depth-bounded systems (DBS).
+	The main use case of Picasso is to take a DBS [as input] and compute an over-approximations of its covering set.
+	DBS are well-structured graph rewriting systems that generalize Petri nets and subsume a diverse range of infinite-state systems.
+	Picasso computes an invariant of the input DBS by using specialized algorithms that exploit the monotonic structure of DBS.
+        </p>
+
+        <p>
+        This site is still <strong>under construction</strong>.
+        Therefore, there are still many gaps to fill (the manual!!).
+        We will fill them as time permits.
+        <!--You have been warned, good luck!-->
+        </p>
+
+	<p>
+A <em>DBS</em> is a graph rewriting system for which there exists a bound on the length of all acyclic paths in all reachable graphs of the system.
+Often, the graph rewriting models of concurrent programs are depth-bounded or have natural depth-bounded abstractions that preserve important properties such as safety and progress guarantees.
+DBS are also well-structured transition systems (WSTS), which makes them amenable to automated analysis.
+<br/>
+A WSTS is a transition system equipped with a well-quasi-ordering that is monotonic with respect to state transitions, i.e., states that are small in the ordering exhibit less behavior than larger states.
+Many verification problems of a WSTS can be reduced to computing its <em>covering set</em>, which is the downward closure (with respect to the ordering) of the set of all reachable states of the system.
+In the case of DBS the ordering used is subgraph isomorphism.
+A graph G1 is smaller than G2 if it is a subgraph of G2.
+	</p>
+
+	<p>
+<em>Input formats.</em> Picasso has two main frontends: a graph rewriting frontend
+presented and a simple high-level language inspired by early actor-model languages.
+In fact, this language just provides a convenient syntax for sets of recursive equations in the π -calculus.
+The programs written in the actor language are compiled into a graph rewriting system and then analyzed as such.
+The grammars of the input formats is in the manual.
+	</p>
+
+	<p>
+<em>Analyses and outputs</em>. The default analysis of Picasso is to compute the covering set of a given DBS.
+Picasso produces an HTML report that contains the textual input and a graphical representation of the rewrite rules, the graphs representing the initial states and the computed covering set.
+If the input system is expressed in terms of the actor language, then the control-flow automaton of each actor is also included in the report.
+	</p>
+
+    </div> <!--/content-primary -->
+
+    <div class="content-secondary">
+	<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+		<h3>Menu</h3>
+		<ul data-role="listview"  data-theme="c" data-dividertheme="d">
+			<li data-role="list-divider">Overview</li>
+			<li data-theme="a"><a href="index.html">About Picasso</a></li>
+			<li><a href="download.html">Download</a></li>	
+			<li><a href="example.html">Examples and applications</a></li>
+			<li><a href="manual.html">Manual</a></li>
+			<li><a href="pub.html">People and publications</a></li>
+		</ul>
+	</div>
+    </div>
+        
+  </div><!-- content -->
+
+  <div data-role="footer">
+  <p>
+    <a href="http://www.ist.ac.at" target="_self">IST Austria</a>
+  </p>
+  </div>
+
+</div><!-- page -->
+</body>
+</html>

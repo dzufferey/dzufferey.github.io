@@ -1,0 +1,1534 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Analysis report for Computing Termination of mapReduce.dbp</title>
+<style type="text/css">
+</style>
+</head>
+<body>
+<a name="Ref_"> <h1>Computing Termination of mapReduce.dbp</h1> </a>
+<li><a href="#Ref_"> <span></span> <span>Computing Termination of mapReduce.dbp</span> </a>
+<ul>
+<li><a href="#Ref_0"> <span>0</span> <span>Input</span> </a></li>
+<li><a href="#Ref_1"> <span>1</span> <span>Graph rewriting system</span> </a>
+<ul>
+<li><a href="#Ref_1_0"> <span>1.0</span> <span>Initial Configuration</span> </a></li>
+<li><a href="#Ref_1_1"> <span>1.1</span> <span>Transitions</span> </a>
+<ul>
+<li><a href="#Ref_1_1_0"> <span>1.1.0</span> <span>master: make mappers</span> </a></li>
+<li><a href="#Ref_1_1_1"> <span>1.1.1</span> <span>master: mappers created</span> </a></li>
+<li><a href="#Ref_1_1_2"> <span>1.1.2</span> <span>master: mapping done</span> </a></li>
+<li><a href="#Ref_1_1_3"> <span>1.1.3</span> <span>master: reducer</span> </a></li>
+<li><a href="#Ref_1_1_4"> <span>1.1.4</span> <span>master: reducers created</span> </a></li>
+<li><a href="#Ref_1_1_5"> <span>1.1.5</span> <span>master: done</span> </a></li>
+<li><a href="#Ref_1_1_6"> <span>1.1.6</span> <span>mapper</span> </a></li>
+<li><a href="#Ref_1_1_7"> <span>1.1.7</span> <span>reducer</span> </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#Ref_2"> <span>2</span> <span>Cover</span> </a>
+<ul>
+<li><a href="#Ref_2_0"> <span>2.0</span> <span>cover element 0</span> </a></li>
+<li><a href="#Ref_2_1"> <span>2.1</span> <span>cover element 1</span> </a></li>
+<li><a href="#Ref_2_2"> <span>2.2</span> <span>cover element 2</span> </a></li>
+<li><a href="#Ref_2_3"> <span>2.3</span> <span>cover element 3</span> </a></li>
+<li><a href="#Ref_2_4"> <span>2.4</span> <span>cover element 4</span> </a></li>
+</ul>
+</li>
+<li><a href="#Ref_3"> <span>3</span> <span>Numerical Abstraction</span> </a></li>
+<li><a href="#Ref_4"> <span>4</span> <span>ARMC output</span> </a></li>
+</ul>
+</li>
+<a name="Ref_0"> <h2>Input</h2> </a>
+<pre>//example from &quot;Actors in Scala&quot; chapter 9
+
+//  def mapReduce[K, V, K2, V2](
+//    input: List[(K, V)],
+//    mapping: (K, V) =&gt; List[(K2, V2)],
+//    reducing: (K2, List[V2]) =&gt; List[V2]
+//  ): Map[K2, List[V2]] = {
+//    case class Intermediate(list: List[(K2, V2)])
+//    case class Reduced(key: K2, values: List[V2])
+//    val master = self
+//    val workers = for ((key, value) &lt;- input) yield
+//      actor {
+//        master ! Intermediate(mapping(key, value))
+//      }
+//    var intermediates = List[(K2, V2)]()
+//    for (_ &lt;- 1 to input.length)
+//      receive {
+//        case Intermediate(list) =&gt; intermediates :::= list
+//      }
+//    var dict = Map[K2, List[V2]]() withDefault (k =&gt; List())
+//    for ((key, value) &lt;- intermediates)
+//      dict += (key -&gt; (value :: dict(key)))
+//    val reducers = for ((key, values) &lt;- dict) yield
+//      actor {
+//        master ! Reduced(key, reducing(key, values))
+//      }
+//    var result = Map[K2, List[V2]]()
+//    for (_ &lt;- 1 to dict.size)
+//      receive {
+//        case Reduced(key, values) =&gt;
+//          result += (key -&gt; values)
+//      }
+//    result
+//  }
+
+init
+    (m, master) -&gt; (i, input)*
+
+transition &quot;master: make mappers&quot;
+pre
+    (m, master) -&gt; (i, input)
+post
+    (m, master) -&gt; (w, mapper)
+    (w, mapper) -&gt; (i, input)
+==&gt;
+    m -&gt; m
+    i -&gt; i
+&lt;==
+
+transition &quot;master: mappers created&quot;
+pre
+    node (m, master)
+post
+    node (m, master1)
+==&gt;
+    m -&gt; m
+&lt;==
+no
+    (m, master) -&gt; (i, input)
+==&gt;
+    m -&gt; m
+
+transition &quot;master: mapping done&quot;
+pre
+    node (m, master1)
+post
+    node (m, master2)
+==&gt;
+    m -&gt; m
+&lt;==
+no
+    (m, master1) -&gt; (w, mapper)
+    (w, mapper) -&gt; (i, input)
+==&gt;
+    m -&gt; m
+
+transition &quot;master: reducer&quot;
+pre
+    (m, master2) -&gt; (k1, key) [inter]
+post
+    (m, master2) -&gt; (w, reducer)
+    (w, reducer) -&gt; (k1, key)
+    (w, reducer) -&gt; (v1, value)
+==&gt;
+    m -&gt; m
+    k1 -&gt; k1
+&lt;==
+
+transition &quot;master: reducers created&quot;
+pre
+    node (m, master2)
+post
+    node (m, master3)
+==&gt;
+    m -&gt; m
+&lt;==
+no
+    (m, master2) -&gt; (k, key) [inter]
+==&gt;
+    m -&gt; m
+
+transition &quot;master: done&quot;
+pre
+    node (m, master3)
+post
+    node (m, master4)
+==&gt;
+    m -&gt; m
+&lt;==
+no
+    (m, master3) -&gt; (w, reducer)
+    (w, reducer) -&gt; (k1, key)
+==&gt;
+    m -&gt; m
+
+transition &quot;mapper&quot;
+pre
+    (m, _) -&gt; (w, mapper)
+    (w, mapper) -&gt; (i, input)
+post
+    (m, _) -&gt; (k, key)* [inter]
+    (k, key)* -&gt; (v, value)**
+==&gt;
+&lt;==
+    m -&gt; m
+
+transition &quot;reducer&quot;
+pre
+    (m, _) -&gt; (w, reducer)
+    (w, reducer) -&gt; (k1, key)
+    (w, reducer) -&gt; (v1, value)
+post
+    (m, _) -&gt; (k2, key) [result]
+    (k2, key) -&gt; (v1, value)
+==&gt;
+    k1 -&gt; k2
+    v1 -&gt; v1
+&lt;==
+    m -&gt; m
+no
+    (k1, key) -&gt; (v2, value)
+==&gt;
+    k1 -&gt; k1
+</pre>
+<a name="Ref_1"> <h2>Graph rewriting system</h2> </a>
+<ul>
+<li>
+<a name="Ref_1_0"> <h3>Initial Configuration</h3> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: init Pages: 1 -->
+<svg width="261pt" height="66pt"
+ viewBox="0.00 0.00 261.00 66.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 62)">
+<title>init</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-62 258,-62 258,5 -4,5"/>
+<!-- 0 -->
+<g id="node1" class="node"><title>0</title>
+<ellipse fill="none" stroke="black" cx="54.3664" cy="-39.27" rx="53.0059" ry="18"/>
+<text text-anchor="middle" x="54.3664" y="-35.17" font-family="Times Roman,serif" font-size="14.00">(input,1)</text>
+</g>
+<!-- 1 -->
+<g id="node2" class="node"><title>1</title>
+<ellipse fill="none" stroke="black" cx="189.862" cy="-19.0263" rx="61.8445" ry="18"/>
+<text text-anchor="middle" x="189.862" y="-14.9263" font-family="Times Roman,serif" font-size="14.00">(master,0)</text>
+</g>
+<!-- 1&#45;&gt;0 -->
+<g id="edge2" class="edge"><title>1&#45;&gt;0</title>
+<path fill="none" stroke="black" d="M134.36,-27.3186C127.387,-28.3604 120.235,-29.4288 113.214,-30.478"/>
+<polygon fill="black" stroke="black" points="112.428,-27.0564 103.055,-31.9958 113.462,-33.9796 112.428,-27.0564"/>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1"> <h3>Transitions</h3> </a>
+<ul>
+<li>
+<a name="Ref_1_1_0"> <h4>master: make mappers</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="316pt" height="322pt"
+ viewBox="0.00 0.00 316.00 322.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 318)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-318 313,-318 313,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="160,-152 160,-306 300,-306 300,-152 160,-152"/>
+<text text-anchor="middle" x="230" y="-289.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="8,-8 8,-229 152,-229 152,-8 8,-8"/>
+<text text-anchor="middle" x="80" y="-212.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trslhs0 -->
+<g id="node2" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="225" cy="-178" rx="53.0059" ry="18"/>
+<text text-anchor="middle" x="225" y="-173.9" font-family="Times Roman,serif" font-size="14.00">(input,0)</text>
+</g>
+<!-- trsrhs0 -->
+<g id="node6" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="85" cy="-34" rx="53.0059" ry="18"/>
+<text text-anchor="middle" x="85" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(input,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs0 -->
+<g id="edge12" class="edge"><title>trslhs0&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="#0000aa" d="M212.794,-160.458C199.257,-141.584 176.246,-111.163 153,-88 141.72,-76.7609 128.173,-65.6034 116.148,-56.3736"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="118.206,-53.5412 108.114,-50.3143 113.991,-59.1301 118.206,-53.5412"/>
+</g>
+<!-- trslhs1 -->
+<g id="node3" class="node"><title>trslhs1</title>
+<ellipse fill="none" stroke="black" cx="230" cy="-255" rx="61.8445" ry="18"/>
+<text text-anchor="middle" x="230" y="-250.9" font-family="Times Roman,serif" font-size="14.00">(master,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trslhs0 -->
+<g id="edge3" class="edge"><title>trslhs1&#45;&gt;trslhs0</title>
+<path fill="none" stroke="black" d="M228.815,-236.752C228.224,-227.642 227.495,-216.417 226.833,-206.228"/>
+<polygon fill="black" stroke="black" points="230.317,-205.869 226.176,-196.117 223.332,-206.323 230.317,-205.869"/>
+</g>
+<!-- trsrhs2 -->
+<g id="node8" class="node"><title>trsrhs2</title>
+<ellipse fill="none" stroke="black" cx="81" cy="-178" rx="61.8445" ry="18"/>
+<text text-anchor="middle" x="81" y="-173.9" font-family="Times Roman,serif" font-size="14.00">(master,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trsrhs2 -->
+<g id="edge10" class="edge"><title>trslhs1&#45;&gt;trsrhs2</title>
+<path fill="none" stroke="#0000aa" d="M186.952,-241.992C176.598,-238.29 165.725,-233.91 156,-229 140.434,-221.141 124.3,-210.538 111.003,-201.035"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="112.852,-198.052 102.709,-194.99 108.728,-203.708 112.852,-198.052"/>
+</g>
+<!-- trsrhs1 -->
+<g id="node7" class="node"><title>trsrhs1</title>
+<ellipse fill="none" stroke="black" cx="80" cy="-106" rx="63.9292" ry="18"/>
+<text text-anchor="middle" x="80" y="-101.9" font-family="Times Roman,serif" font-size="14.00">(mapper,0)</text>
+</g>
+<!-- trsrhs1&#45;&gt;trsrhs0 -->
+<g id="edge6" class="edge"><title>trsrhs1&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="black" d="M81.2617,-87.8314C81.7965,-80.131 82.4323,-70.9743 83.0266,-62.4166"/>
+<polygon fill="black" stroke="black" points="86.52,-62.6317 83.7213,-52.4133 79.5368,-62.1467 86.52,-62.6317"/>
+</g>
+<!-- trsrhs2&#45;&gt;trsrhs1 -->
+<g id="edge8" class="edge"><title>trsrhs2&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="black" d="M80.7477,-159.831C80.6407,-152.131 80.5135,-142.974 80.3947,-134.417"/>
+<polygon fill="black" stroke="black" points="83.8944,-134.364 80.2557,-124.413 76.8951,-134.461 83.8944,-134.364"/>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1_1"> <h4>master: mappers created</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="324pt" height="258pt"
+ viewBox="0.00 0.00 324.00 258.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 254)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-254 321,-254 321,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trsguard</title>
+<polygon fill="none" stroke="black" points="8,-8 8,-157 148,-157 148,-8 8,-8"/>
+<text text-anchor="middle" x="78" y="-140.4" font-family="Times Roman,serif" font-size="14.00">GUARD</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="47,-165 47,-242 187,-242 187,-165 47,-165"/>
+<text text-anchor="middle" x="117" y="-225.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph4" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="156,-80 156,-157 308,-157 308,-80 156,-80"/>
+<text text-anchor="middle" x="232" y="-140.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trsguard0 -->
+<g id="node2" class="node"><title>trsguard0</title>
+<ellipse fill="none" stroke="black" cx="78" cy="-34" rx="53.0059" ry="18"/>
+<text text-anchor="middle" x="78" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(input,0)</text>
+</g>
+<!-- trsguard1 -->
+<g id="node3" class="node"><title>trsguard1</title>
+<ellipse fill="none" stroke="black" cx="78" cy="-106" rx="61.8445" ry="18"/>
+<text text-anchor="middle" x="78" y="-101.9" font-family="Times Roman,serif" font-size="14.00">(master,0)</text>
+</g>
+<!-- trsguard1&#45;&gt;trsguard0 -->
+<g id="edge3" class="edge"><title>trsguard1&#45;&gt;trsguard0</title>
+<path fill="none" stroke="black" d="M78,-87.8314C78,-80.131 78,-70.9743 78,-62.4166"/>
+<polygon fill="black" stroke="black" points="81.5001,-62.4132 78,-52.4133 74.5001,-62.4133 81.5001,-62.4132"/>
+</g>
+<!-- trslhs0 -->
+<g id="node6" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="117" cy="-191" rx="61.8445" ry="18"/>
+<text text-anchor="middle" x="117" y="-186.9" font-family="Times Roman,serif" font-size="14.00">(master,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsguard1 -->
+<g id="edge9" class="edge"><title>trslhs0&#45;&gt;trsguard1</title>
+<path fill="none" stroke="#aa0000" d="M104.416,-163.573C98.4665,-150.607 91.5305,-135.49 86.259,-124"/>
+<polygon fill="#aa0000" stroke="#aa0000" points="101.378,-165.344 108.729,-172.974 107.74,-162.425 101.378,-165.344"/>
+</g>
+<!-- trsrhs0 -->
+<g id="node8" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="232" cy="-106" rx="68.0985" ry="18"/>
+<text text-anchor="middle" x="232" y="-101.9" font-family="Times Roman,serif" font-size="14.00">(master1,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs0 -->
+<g id="edge7" class="edge"><title>trslhs0&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="#0000aa" d="M139.72,-174.207C157.168,-161.31 181.461,-143.355 200.741,-129.104"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="202.972,-131.808 208.933,-123.049 198.811,-126.179 202.972,-131.808"/>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1_2"> <h4>master: mapping done</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="336pt" height="330pt"
+ viewBox="0.00 0.00 336.00 330.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 326)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-326 333,-326 333,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trsguard</title>
+<polygon fill="none" stroke="black" points="8,-8 8,-229 160,-229 160,-8 8,-8"/>
+<text text-anchor="middle" x="84" y="-212.4" font-family="Times Roman,serif" font-size="14.00">GUARD</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="48,-237 48,-314 200,-314 200,-237 48,-237"/>
+<text text-anchor="middle" x="124" y="-297.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph4" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="168,-152 168,-229 320,-229 320,-152 168,-152"/>
+<text text-anchor="middle" x="244" y="-212.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trsguard0 -->
+<g id="node2" class="node"><title>trsguard0</title>
+<ellipse fill="none" stroke="black" cx="84" cy="-34" rx="53.0059" ry="18"/>
+<text text-anchor="middle" x="84" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(input,0)</text>
+</g>
+<!-- trsguard1 -->
+<g id="node3" class="node"><title>trsguard1</title>
+<ellipse fill="none" stroke="black" cx="84" cy="-106" rx="63.9292" ry="18"/>
+<text text-anchor="middle" x="84" y="-101.9" font-family="Times Roman,serif" font-size="14.00">(mapper,0)</text>
+</g>
+<!-- trsguard1&#45;&gt;trsguard0 -->
+<g id="edge3" class="edge"><title>trsguard1&#45;&gt;trsguard0</title>
+<path fill="none" stroke="black" d="M84,-87.8314C84,-80.131 84,-70.9743 84,-62.4166"/>
+<polygon fill="black" stroke="black" points="87.5001,-62.4132 84,-52.4133 80.5001,-62.4133 87.5001,-62.4132"/>
+</g>
+<!-- trsguard2 -->
+<g id="node4" class="node"><title>trsguard2</title>
+<ellipse fill="none" stroke="black" cx="84" cy="-178" rx="68.0985" ry="18"/>
+<text text-anchor="middle" x="84" y="-173.9" font-family="Times Roman,serif" font-size="14.00">(master1,0)</text>
+</g>
+<!-- trsguard2&#45;&gt;trsguard1 -->
+<g id="edge5" class="edge"><title>trsguard2&#45;&gt;trsguard1</title>
+<path fill="none" stroke="black" d="M84,-159.831C84,-152.131 84,-142.974 84,-134.417"/>
+<polygon fill="black" stroke="black" points="87.5001,-134.413 84,-124.413 80.5001,-134.413 87.5001,-134.413"/>
+</g>
+<!-- trslhs0 -->
+<g id="node8" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="124" cy="-263" rx="68.0985" ry="18"/>
+<text text-anchor="middle" x="124" y="-258.9" font-family="Times Roman,serif" font-size="14.00">(master1,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsguard2 -->
+<g id="edge11" class="edge"><title>trslhs0&#45;&gt;trsguard2</title>
+<path fill="none" stroke="#aa0000" d="M111.093,-235.573C104.991,-222.607 97.8775,-207.49 92.4707,-196"/>
+<polygon fill="#aa0000" stroke="#aa0000" points="108.092,-237.416 115.517,-244.974 114.426,-234.435 108.092,-237.416"/>
+</g>
+<!-- trsrhs0 -->
+<g id="node10" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="244" cy="-178" rx="68.0985" ry="18"/>
+<text text-anchor="middle" x="244" y="-173.9" font-family="Times Roman,serif" font-size="14.00">(master2,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs0 -->
+<g id="edge9" class="edge"><title>trslhs0&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="#0000aa" d="M147.995,-246.003C166.309,-233.031 191.723,-215.03 211.803,-200.806"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="213.909,-203.604 220.046,-194.967 209.863,-197.891 213.909,-203.604"/>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1_3"> <h4>master: reducer</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="416pt" height="362pt"
+ viewBox="0.00 0.00 416.00 362.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 358)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-358 413,-358 413,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="8,-156 8,-346 160,-346 160,-156 8,-156"/>
+<text text-anchor="middle" x="84" y="-329.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="168,-8 168,-233 400,-233 400,-8 168,-8"/>
+<text text-anchor="middle" x="284" y="-216.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trslhs0 -->
+<g id="node2" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="101" cy="-182" rx="45.1673" ry="18"/>
+<text text-anchor="middle" x="101" y="-177.9" font-family="Times Roman,serif" font-size="14.00">(key,0)</text>
+</g>
+<!-- trsrhs2 -->
+<g id="node8" class="node"><title>trsrhs2</title>
+<ellipse fill="none" stroke="black" cx="221" cy="-34" rx="45.1673" ry="18"/>
+<text text-anchor="middle" x="221" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(key,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs2 -->
+<g id="edge14" class="edge"><title>trslhs0&#45;&gt;trsrhs2</title>
+<path fill="none" stroke="#0000aa" d="M113.761,-164.389C127.498,-145.635 150.185,-115.238 171,-90 179.552,-79.6307 189.327,-68.5282 197.953,-58.966"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="200.742,-61.1009 204.876,-51.3458 195.561,-56.3938 200.742,-61.1009"/>
+</g>
+<!-- trslhs1 -->
+<g id="node3" class="node"><title>trslhs1</title>
+<ellipse fill="none" stroke="black" cx="84" cy="-295" rx="68.0985" ry="18"/>
+<text text-anchor="middle" x="84" y="-290.9" font-family="Times Roman,serif" font-size="14.00">(master2,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trslhs0 -->
+<g id="edge3" class="edge"><title>trslhs1&#45;&gt;trslhs0</title>
+<path fill="none" stroke="black" d="M86.7313,-276.845C89.4452,-258.805 93.6446,-230.892 96.786,-210.01"/>
+<polygon fill="black" stroke="black" points="100.249,-210.52 98.2754,-200.11 93.3266,-209.478 100.249,-210.52"/>
+<text text-anchor="middle" x="109" y="-245.9" font-family="Times Roman,serif" font-size="14.00">inter</text>
+</g>
+<!-- trsrhs3 -->
+<g id="node9" class="node"><title>trsrhs3</title>
+<ellipse fill="none" stroke="black" cx="244" cy="-182" rx="68.0985" ry="18"/>
+<text text-anchor="middle" x="244" y="-177.9" font-family="Times Roman,serif" font-size="14.00">(master2,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trsrhs3 -->
+<g id="edge12" class="edge"><title>trslhs1&#45;&gt;trsrhs3</title>
+<path fill="none" stroke="#0000aa" d="M107.954,-278.083C135.525,-258.611 180.944,-226.533 211.642,-204.853"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="213.733,-207.661 219.883,-199.033 209.695,-201.943 213.733,-207.661"/>
+</g>
+<!-- trsrhs0 -->
+<g id="node6" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="338" cy="-34" rx="54.2008" ry="18"/>
+<text text-anchor="middle" x="338" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(value,0)</text>
+</g>
+<!-- trsrhs1 -->
+<g id="node7" class="node"><title>trsrhs1</title>
+<ellipse fill="none" stroke="black" cx="244" cy="-108" rx="64.1231" ry="18"/>
+<text text-anchor="middle" x="244" y="-103.9" font-family="Times Roman,serif" font-size="14.00">(reducer,0)</text>
+</g>
+<!-- trsrhs1&#45;&gt;trsrhs0 -->
+<g id="edge6" class="edge"><title>trsrhs1&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="black" d="M265.802,-90.8369C278.467,-80.8661 294.599,-68.1665 308.4,-57.3018"/>
+<polygon fill="black" stroke="black" points="310.948,-59.7506 316.641,-50.8149 306.618,-54.2504 310.948,-59.7506"/>
+</g>
+<!-- trsrhs1&#45;&gt;trsrhs2 -->
+<g id="edge8" class="edge"><title>trsrhs1&#45;&gt;trsrhs2</title>
+<path fill="none" stroke="black" d="M238.315,-89.7079C235.696,-81.2843 232.533,-71.1052 229.63,-61.7649"/>
+<polygon fill="black" stroke="black" points="232.93,-60.5923 226.62,-52.0817 226.246,-62.67 232.93,-60.5923"/>
+</g>
+<!-- trsrhs3&#45;&gt;trsrhs1 -->
+<g id="edge10" class="edge"><title>trsrhs3&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="black" d="M244,-163.708C244,-155.464 244,-145.538 244,-136.362"/>
+<polygon fill="black" stroke="black" points="247.5,-136.082 244,-126.082 240.5,-136.082 247.5,-136.082"/>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1_4"> <h4>master: reducers created</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="336pt" height="288pt"
+ viewBox="0.00 0.00 336.00 288.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 284)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-284 333,-284 333,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trsguard</title>
+<polygon fill="none" stroke="black" points="8,-8 8,-175 160,-175 160,-8 8,-8"/>
+<text text-anchor="middle" x="84" y="-158.4" font-family="Times Roman,serif" font-size="14.00">GUARD</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="25,-195 25,-272 177,-272 177,-195 25,-195"/>
+<text text-anchor="middle" x="101" y="-255.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph4" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="168,-98 168,-175 320,-175 320,-98 168,-98"/>
+<text text-anchor="middle" x="244" y="-158.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trsguard0 -->
+<g id="node2" class="node"><title>trsguard0</title>
+<ellipse fill="none" stroke="black" cx="84" cy="-34" rx="45.1673" ry="18"/>
+<text text-anchor="middle" x="84" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(key,0)</text>
+</g>
+<!-- trsguard1 -->
+<g id="node3" class="node"><title>trsguard1</title>
+<ellipse fill="none" stroke="black" cx="84" cy="-124" rx="68.0985" ry="18"/>
+<text text-anchor="middle" x="84" y="-119.9" font-family="Times Roman,serif" font-size="14.00">(master2,0)</text>
+</g>
+<!-- trsguard1&#45;&gt;trsguard0 -->
+<g id="edge3" class="edge"><title>trsguard1&#45;&gt;trsguard0</title>
+<path fill="none" stroke="black" d="M84,-105.787C84,-93.3443 84,-76.6053 84,-62.4211"/>
+<polygon fill="black" stroke="black" points="87.5001,-62.1857 84,-52.1858 80.5001,-62.1858 87.5001,-62.1857"/>
+<text text-anchor="middle" x="101" y="-74.9" font-family="Times Roman,serif" font-size="14.00">inter</text>
+</g>
+<!-- trslhs0 -->
+<g id="node6" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="101" cy="-221" rx="68.0985" ry="18"/>
+<text text-anchor="middle" x="101" y="-216.9" font-family="Times Roman,serif" font-size="14.00">(master2,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsguard1 -->
+<g id="edge9" class="edge"><title>trslhs0&#45;&gt;trsguard1</title>
+<path fill="none" stroke="#aa0000" d="M96.0357,-192.674C93.1784,-176.371 89.6725,-156.367 87.1832,-142.163"/>
+<polygon fill="#aa0000" stroke="#aa0000" points="92.6286,-193.509 97.8024,-202.755 99.5235,-192.301 92.6286,-193.509"/>
+</g>
+<!-- trsrhs0 -->
+<g id="node8" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="244" cy="-124" rx="68.0985" ry="18"/>
+<text text-anchor="middle" x="244" y="-119.9" font-family="Times Roman,serif" font-size="14.00">(master3,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs0 -->
+<g id="edge7" class="edge"><title>trslhs0&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="#0000aa" d="M125.909,-204.104C149.346,-188.206 184.613,-164.283 210.506,-146.72"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="212.586,-149.538 218.897,-141.028 208.656,-143.745 212.586,-149.538"/>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1_5"> <h4>master: done</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="336pt" height="330pt"
+ viewBox="0.00 0.00 336.00 330.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 326)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-326 333,-326 333,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trsguard</title>
+<polygon fill="none" stroke="black" points="8,-8 8,-229 160,-229 160,-8 8,-8"/>
+<text text-anchor="middle" x="84" y="-212.4" font-family="Times Roman,serif" font-size="14.00">GUARD</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="48,-237 48,-314 200,-314 200,-237 48,-237"/>
+<text text-anchor="middle" x="124" y="-297.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph4" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="168,-152 168,-229 320,-229 320,-152 168,-152"/>
+<text text-anchor="middle" x="244" y="-212.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trsguard0 -->
+<g id="node2" class="node"><title>trsguard0</title>
+<ellipse fill="none" stroke="black" cx="84" cy="-34" rx="45.1673" ry="18"/>
+<text text-anchor="middle" x="84" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(key,0)</text>
+</g>
+<!-- trsguard1 -->
+<g id="node3" class="node"><title>trsguard1</title>
+<ellipse fill="none" stroke="black" cx="84" cy="-106" rx="64.1231" ry="18"/>
+<text text-anchor="middle" x="84" y="-101.9" font-family="Times Roman,serif" font-size="14.00">(reducer,0)</text>
+</g>
+<!-- trsguard1&#45;&gt;trsguard0 -->
+<g id="edge3" class="edge"><title>trsguard1&#45;&gt;trsguard0</title>
+<path fill="none" stroke="black" d="M84,-87.8314C84,-80.131 84,-70.9743 84,-62.4166"/>
+<polygon fill="black" stroke="black" points="87.5001,-62.4132 84,-52.4133 80.5001,-62.4133 87.5001,-62.4132"/>
+</g>
+<!-- trsguard2 -->
+<g id="node4" class="node"><title>trsguard2</title>
+<ellipse fill="none" stroke="black" cx="84" cy="-178" rx="68.0985" ry="18"/>
+<text text-anchor="middle" x="84" y="-173.9" font-family="Times Roman,serif" font-size="14.00">(master3,0)</text>
+</g>
+<!-- trsguard2&#45;&gt;trsguard1 -->
+<g id="edge5" class="edge"><title>trsguard2&#45;&gt;trsguard1</title>
+<path fill="none" stroke="black" d="M84,-159.831C84,-152.131 84,-142.974 84,-134.417"/>
+<polygon fill="black" stroke="black" points="87.5001,-134.413 84,-124.413 80.5001,-134.413 87.5001,-134.413"/>
+</g>
+<!-- trslhs0 -->
+<g id="node8" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="124" cy="-263" rx="68.0985" ry="18"/>
+<text text-anchor="middle" x="124" y="-258.9" font-family="Times Roman,serif" font-size="14.00">(master3,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsguard2 -->
+<g id="edge11" class="edge"><title>trslhs0&#45;&gt;trsguard2</title>
+<path fill="none" stroke="#aa0000" d="M111.093,-235.573C104.991,-222.607 97.8775,-207.49 92.4707,-196"/>
+<polygon fill="#aa0000" stroke="#aa0000" points="108.092,-237.416 115.517,-244.974 114.426,-234.435 108.092,-237.416"/>
+</g>
+<!-- trsrhs0 -->
+<g id="node10" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="244" cy="-178" rx="68.0985" ry="18"/>
+<text text-anchor="middle" x="244" y="-173.9" font-family="Times Roman,serif" font-size="14.00">(master4,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs0 -->
+<g id="edge9" class="edge"><title>trslhs0&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="#0000aa" d="M147.995,-246.003C166.309,-233.031 191.723,-215.03 211.803,-200.806"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="213.909,-203.604 220.046,-194.967 209.863,-197.891 213.909,-203.604"/>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1_6"> <h4>mapper</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="300pt" height="362pt"
+ viewBox="0.00 0.00 300.00 362.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 358)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-358 297,-358 297,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="8,-82 8,-346 152,-346 152,-82 8,-82"/>
+<text text-anchor="middle" x="80" y="-329.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="160,-8 160,-249 284,-249 284,-8 160,-8"/>
+<text text-anchor="middle" x="222" y="-232.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trslhs0 -->
+<g id="node2" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="80" cy="-108" rx="53.0059" ry="18"/>
+<text text-anchor="middle" x="80" y="-103.9" font-family="Times Roman,serif" font-size="14.00">(input,0)</text>
+</g>
+<!-- trslhs1 -->
+<g id="node3" class="node"><title>trslhs1</title>
+<ellipse fill="none" stroke="black" cx="80" cy="-198" rx="63.9292" ry="18"/>
+<text text-anchor="middle" x="80" y="-193.9" font-family="Times Roman,serif" font-size="14.00">(mapper,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trslhs0 -->
+<g id="edge3" class="edge"><title>trslhs1&#45;&gt;trslhs0</title>
+<path fill="none" stroke="black" d="M80,-179.787C80,-167.344 80,-150.605 80,-136.421"/>
+<polygon fill="black" stroke="black" points="83.5001,-136.186 80,-126.186 76.5001,-136.186 83.5001,-136.186"/>
+</g>
+<!-- trslhs2 -->
+<g id="node4" class="node"><title>trslhs2</title>
+<ellipse fill="none" stroke="black" cx="101" cy="-295" rx="32.8565" ry="18"/>
+<text text-anchor="middle" x="101" y="-290.9" font-family="Times Roman,serif" font-size="14.00">(_,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trslhs1 -->
+<g id="edge5" class="edge"><title>trslhs2&#45;&gt;trslhs1</title>
+<path fill="none" stroke="black" d="M97.0501,-276.755C93.9702,-262.529 89.6386,-242.521 86.1121,-226.232"/>
+<polygon fill="black" stroke="black" points="89.469,-225.196 83.9322,-216.163 82.6275,-226.677 89.469,-225.196"/>
+</g>
+<!-- trsrhs2 -->
+<g id="node10" class="node"><title>trsrhs2</title>
+<ellipse fill="none" stroke="black" cx="207" cy="-198" rx="32.8565" ry="18"/>
+<text text-anchor="middle" x="207" y="-193.9" font-family="Times Roman,serif" font-size="14.00">(_,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trsrhs2 -->
+<g id="edge12" class="edge"><title>trslhs2&#45;&gt;trsrhs2</title>
+<path fill="none" stroke="#00aa00" d="M127.426,-273.703C136.622,-266.082 146.907,-257.318 156,-249 168.38,-237.674 181.773,-224.232 191.727,-213.992"/>
+<polygon fill="#00aa00" stroke="#00aa00" points="125.187,-271.013 119.683,-280.066 129.631,-276.422 125.187,-271.013"/>
+</g>
+<!-- trsrhs0 -->
+<g id="node8" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="222" cy="-34" rx="54.2008" ry="18"/>
+<text text-anchor="middle" x="222" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(value,2)</text>
+</g>
+<!-- trsrhs1 -->
+<g id="node9" class="node"><title>trsrhs1</title>
+<ellipse fill="none" stroke="black" cx="217" cy="-108" rx="45.1673" ry="18"/>
+<text text-anchor="middle" x="217" y="-103.9" font-family="Times Roman,serif" font-size="14.00">(key,1)</text>
+</g>
+<!-- trsrhs1&#45;&gt;trsrhs0 -->
+<g id="edge8" class="edge"><title>trsrhs1&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="black" d="M218.236,-89.7079C218.799,-81.3739 219.478,-71.3216 220.104,-62.0633"/>
+<polygon fill="black" stroke="black" points="223.596,-62.295 220.778,-52.0817 216.612,-61.823 223.596,-62.295"/>
+</g>
+<!-- trsrhs2&#45;&gt;trsrhs1 -->
+<g id="edge10" class="edge"><title>trsrhs2&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="black" d="M209.024,-179.787C210.406,-167.344 212.266,-150.605 213.842,-136.421"/>
+<polygon fill="black" stroke="black" points="217.354,-136.511 214.979,-126.186 210.396,-135.738 217.354,-136.511"/>
+<text text-anchor="middle" x="229" y="-148.9" font-family="Times Roman,serif" font-size="14.00">inter</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1_7"> <h4>reducer</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="388pt" height="459pt"
+ viewBox="0.00 0.00 388.00 459.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 455)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-455 385,-455 385,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trsguard</title>
+<polygon fill="none" stroke="black" points="20,-8 20,-159 144,-159 144,-8 20,-8"/>
+<text text-anchor="middle" x="82" y="-142.4" font-family="Times Roman,serif" font-size="14.00">GUARD</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="8,-195 8,-443 240,-443 240,-195 8,-195"/>
+<text text-anchor="middle" x="124" y="-426.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph4" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="248,-8 248,-272 372,-272 372,-8 248,-8"/>
+<text text-anchor="middle" x="310" y="-255.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trsguard0 -->
+<g id="node2" class="node"><title>trsguard0</title>
+<ellipse fill="none" stroke="black" cx="82" cy="-34" rx="54.2008" ry="18"/>
+<text text-anchor="middle" x="82" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(value,0)</text>
+</g>
+<!-- trsguard1 -->
+<g id="node3" class="node"><title>trsguard1</title>
+<ellipse fill="none" stroke="black" cx="87" cy="-108" rx="45.1673" ry="18"/>
+<text text-anchor="middle" x="87" y="-103.9" font-family="Times Roman,serif" font-size="14.00">(key,0)</text>
+</g>
+<!-- trsguard1&#45;&gt;trsguard0 -->
+<g id="edge3" class="edge"><title>trsguard1&#45;&gt;trsguard0</title>
+<path fill="none" stroke="black" d="M85.764,-89.7079C85.2009,-81.3739 84.5217,-71.3216 83.8962,-62.0633"/>
+<polygon fill="black" stroke="black" points="87.388,-61.823 83.2217,-52.0817 80.4039,-62.295 87.388,-61.823"/>
+</g>
+<!-- trslhs0 -->
+<g id="node6" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="70" cy="-221" rx="54.2008" ry="18"/>
+<text text-anchor="middle" x="70" y="-216.9" font-family="Times Roman,serif" font-size="14.00">(value,0)</text>
+</g>
+<!-- trsrhs0 -->
+<g id="node14" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="310" cy="-34" rx="54.2008" ry="18"/>
+<text text-anchor="middle" x="310" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(value,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs0 -->
+<g id="edge19" class="edge"><title>trslhs0&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="#0000aa" d="M91.2984,-204.405C134.352,-170.859 231.792,-94.9373 280.758,-56.7846"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="283.012,-59.465 288.749,-50.5578 278.71,-53.9432 283.012,-59.465"/>
+</g>
+<!-- trslhs1 -->
+<g id="node7" class="node"><title>trslhs1</title>
+<ellipse fill="none" stroke="black" cx="168" cy="-318" rx="64.1231" ry="18"/>
+<text text-anchor="middle" x="168" y="-313.9" font-family="Times Roman,serif" font-size="14.00">(reducer,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trslhs0 -->
+<g id="edge6" class="edge"><title>trslhs1&#45;&gt;trslhs0</title>
+<path fill="none" stroke="black" d="M150.48,-300.658C135.011,-285.347 112.283,-262.852 94.9225,-245.668"/>
+<polygon fill="black" stroke="black" points="96.9382,-242.739 87.3688,-238.192 92.0139,-247.714 96.9382,-242.739"/>
+</g>
+<!-- trslhs2 -->
+<g id="node8" class="node"><title>trslhs2</title>
+<ellipse fill="none" stroke="black" cx="187" cy="-221" rx="45.1673" ry="18"/>
+<text text-anchor="middle" x="187" y="-216.9" font-family="Times Roman,serif" font-size="14.00">(key,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trslhs2 -->
+<g id="edge8" class="edge"><title>trslhs1&#45;&gt;trslhs2</title>
+<path fill="none" stroke="black" d="M171.574,-299.755C174.36,-285.529 178.279,-265.521 181.47,-249.232"/>
+<polygon fill="black" stroke="black" points="184.955,-249.649 183.442,-239.163 178.085,-248.304 184.955,-249.649"/>
+</g>
+<!-- trslhs2&#45;&gt;trsguard1 -->
+<g id="edge23" class="edge"><title>trslhs2&#45;&gt;trsguard1</title>
+<path fill="none" stroke="#aa0000" d="M164.961,-196.096C145.973,-174.639 119.055,-144.223 102.331,-125.324"/>
+<polygon fill="#aa0000" stroke="#aa0000" points="162.564,-198.669 171.812,-203.838 167.806,-194.029 162.564,-198.669"/>
+</g>
+<!-- trsrhs1 -->
+<g id="node15" class="node"><title>trsrhs1</title>
+<ellipse fill="none" stroke="black" cx="301" cy="-108" rx="45.1673" ry="18"/>
+<text text-anchor="middle" x="301" y="-103.9" font-family="Times Roman,serif" font-size="14.00">(key,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trsrhs1 -->
+<g id="edge17" class="edge"><title>trslhs2&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="#0000aa" d="M204.314,-203.838C223.593,-184.728 254.895,-153.701 276.639,-132.147"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="279.258,-134.479 283.896,-124.954 274.33,-129.508 279.258,-134.479"/>
+</g>
+<!-- trslhs3 -->
+<g id="node9" class="node"><title>trslhs3</title>
+<ellipse fill="none" stroke="black" cx="191" cy="-392" rx="32.8565" ry="18"/>
+<text text-anchor="middle" x="191" y="-387.9" font-family="Times Roman,serif" font-size="14.00">(_,0)</text>
+</g>
+<!-- trslhs3&#45;&gt;trslhs1 -->
+<g id="edge10" class="edge"><title>trslhs3&#45;&gt;trslhs1</title>
+<path fill="none" stroke="black" d="M185.432,-374.087C182.796,-365.605 179.587,-355.281 176.645,-345.814"/>
+<polygon fill="black" stroke="black" points="179.907,-344.515 173.596,-336.005 173.222,-346.593 179.907,-344.515"/>
+</g>
+<!-- trsrhs2 -->
+<g id="node16" class="node"><title>trsrhs2</title>
+<ellipse fill="none" stroke="black" cx="295" cy="-221" rx="32.8565" ry="18"/>
+<text text-anchor="middle" x="295" y="-216.9" font-family="Times Roman,serif" font-size="14.00">(_,0)</text>
+</g>
+<!-- trslhs3&#45;&gt;trsrhs2 -->
+<g id="edge21" class="edge"><title>trslhs3&#45;&gt;trsrhs2</title>
+<path fill="none" stroke="#00aa00" d="M214.604,-368.652C223.551,-359.05 233.402,-347.497 241,-336 262.159,-303.98 279.501,-262.36 288.441,-238.983"/>
+<polygon fill="#00aa00" stroke="#00aa00" points="212.061,-366.247 207.683,-375.895 217.122,-371.083 212.061,-366.247"/>
+</g>
+<!-- trsrhs1&#45;&gt;trsrhs0 -->
+<g id="edge13" class="edge"><title>trsrhs1&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="black" d="M303.225,-89.7079C304.238,-81.3739 305.461,-71.3216 306.587,-62.0633"/>
+<polygon fill="black" stroke="black" points="310.068,-62.4312 307.801,-52.0817 303.119,-61.586 310.068,-62.4312"/>
+</g>
+<!-- trsrhs2&#45;&gt;trsrhs1 -->
+<g id="edge15" class="edge"><title>trsrhs2&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="black" d="M295.964,-202.845C296.917,-184.888 298.39,-157.147 299.498,-136.297"/>
+<polygon fill="black" stroke="black" points="303.003,-136.282 300.038,-126.11 296.013,-135.911 303.003,-136.282"/>
+<text text-anchor="middle" x="317" y="-171.9" font-family="Times Roman,serif" font-size="14.00">result</text>
+</g>
+</g>
+</svg>
+
+</li>
+</ul>
+</li>
+</ul>
+<a name="Ref_2"> <h2>Cover</h2> </a>
+<ul>
+<li>
+<a name="Ref_2_0"> <h3>cover element 0</h3> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: cover Pages: 1 -->
+<svg width="246pt" height="473pt"
+ viewBox="0.00 0.00 246.00 473.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 469)">
+<title>cover</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-469 243,-469 243,5 -4,5"/>
+<!-- 0 -->
+<g id="node1" class="node"><title>0</title>
+<ellipse fill="none" stroke="black" cx="131.466" cy="-18.9516" rx="54.2008" ry="18"/>
+<text text-anchor="middle" x="131.466" y="-14.8516" font-family="Times Roman,serif" font-size="14.00">(value,2)</text>
+</g>
+<!-- 2 -->
+<g id="node2" class="node"><title>2</title>
+<ellipse fill="none" stroke="black" cx="192.229" cy="-98.7939" rx="45.1673" ry="18"/>
+<text text-anchor="middle" x="192.229" y="-94.6939" font-family="Times Roman,serif" font-size="14.00">(key,1)</text>
+</g>
+<!-- 2&#45;&gt;0 -->
+<g id="edge4" class="edge"><title>2&#45;&gt;0</title>
+<path fill="none" stroke="black" d="M179.045,-81.4693C170.82,-70.6626 160.089,-56.562 150.9,-44.4879"/>
+<polygon fill="black" stroke="black" points="153.676,-42.3561 144.835,-36.5181 148.106,-46.5954 153.676,-42.3561"/>
+</g>
+<!-- 1 -->
+<g id="node3" class="node"><title>1</title>
+<ellipse fill="none" stroke="black" cx="64.9745" cy="-304.92" rx="63.9292" ry="18"/>
+<text text-anchor="middle" x="64.9745" y="-300.82" font-family="Times Roman,serif" font-size="14.00">(mapper,1)</text>
+</g>
+<!-- 3 -->
+<g id="node5" class="node"><title>3</title>
+<ellipse fill="none" stroke="black" cx="89.8767" cy="-446.05" rx="53.0059" ry="18"/>
+<text text-anchor="middle" x="89.8767" y="-441.95" font-family="Times Roman,serif" font-size="14.00">(input,1)</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge"><title>1&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M68.179,-323.082C72.4189,-347.111 79.9359,-389.712 84.9133,-417.921"/>
+<polygon fill="black" stroke="black" points="81.5,-418.719 86.6845,-427.959 88.3935,-417.502 81.5,-418.719"/>
+</g>
+<!-- 4 -->
+<g id="node4" class="node"><title>4</title>
+<ellipse fill="none" stroke="black" cx="143.214" cy="-235.993" rx="68.0985" ry="18"/>
+<text text-anchor="middle" x="143.214" y="-231.893" font-family="Times Roman,serif" font-size="14.00">(master1,0)</text>
+</g>
+<!-- 4&#45;&gt;2 -->
+<g id="edge8" class="edge"><title>4&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M149.622,-218.056C157.951,-194.741 172.584,-153.784 182.342,-126.47"/>
+<polygon fill="black" stroke="black" points="185.752,-127.329 185.82,-116.735 179.16,-124.974 185.752,-127.329"/>
+<text text-anchor="middle" x="147.982" y="-162.163" font-family="Times Roman,serif" font-size="14.00">inter</text>
+</g>
+<!-- 4&#45;&gt;1 -->
+<g id="edge6" class="edge"><title>4&#45;&gt;1</title>
+<path fill="none" stroke="black" d="M123.471,-253.386C113.947,-261.776 102.374,-271.972 92.0434,-281.073"/>
+<polygon fill="black" stroke="black" points="89.6301,-278.535 84.4402,-287.771 94.2574,-283.787 89.6301,-278.535"/>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_2_1"> <h3>cover element 1</h3> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: cover Pages: 1 -->
+<svg width="218pt" height="249pt"
+ viewBox="0.00 0.00 218.00 249.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 245)">
+<title>cover</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-245 215,-245 215,5 -4,5"/>
+<!-- 0 -->
+<g id="node1" class="node"><title>0</title>
+<ellipse fill="none" stroke="black" cx="65.8596" cy="-153.177" rx="45.1673" ry="18"/>
+<text text-anchor="middle" x="65.8596" y="-149.077" font-family="Times Roman,serif" font-size="14.00">(key,1)</text>
+</g>
+<!-- 1 -->
+<g id="node2" class="node"><title>1</title>
+<ellipse fill="none" stroke="black" cx="155.11" cy="-222.314" rx="54.2008" ry="18"/>
+<text text-anchor="middle" x="155.11" y="-218.214" font-family="Times Roman,serif" font-size="14.00">(value,1)</text>
+</g>
+<!-- 0&#45;&gt;1 -->
+<g id="edge2" class="edge"><title>0&#45;&gt;1</title>
+<path fill="none" stroke="black" d="M86.5597,-169.213C98.134,-178.178 112.757,-189.506 125.521,-199.394"/>
+<polygon fill="black" stroke="black" points="123.541,-202.287 133.59,-205.644 127.828,-196.753 123.541,-202.287"/>
+</g>
+<!-- 2 -->
+<g id="node3" class="node"><title>2</title>
+<ellipse fill="none" stroke="black" cx="69.3969" cy="-19.2109" rx="68.0985" ry="18"/>
+<text text-anchor="middle" x="69.3969" y="-15.1109" font-family="Times Roman,serif" font-size="14.00">(master4,0)</text>
+</g>
+<!-- 2&#45;&gt;0 -->
+<g id="edge4" class="edge"><title>2&#45;&gt;0</title>
+<path fill="none" stroke="black" d="M68.9198,-37.2782C68.3265,-59.7504 67.3067,-98.3737 66.6086,-124.81"/>
+<polygon fill="black" stroke="black" points="63.1057,-124.879 66.3404,-134.968 70.1032,-125.064 63.1057,-124.879"/>
+<text text-anchor="middle" x="85.7642" y="-76.9439" font-family="Times Roman,serif" font-size="14.00">result</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_2_2"> <h3>cover element 2</h3> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: cover Pages: 1 -->
+<svg width="458pt" height="392pt"
+ viewBox="0.00 0.00 458.00 392.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 388)">
+<title>cover</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-388 455,-388 455,5 -4,5"/>
+<!-- 3 -->
+<g id="node1" class="node"><title>3</title>
+<ellipse fill="none" stroke="black" cx="165.063" cy="-293.111" rx="45.1673" ry="18"/>
+<text text-anchor="middle" x="165.063" y="-289.011" font-family="Times Roman,serif" font-size="14.00">(key,1)</text>
+</g>
+<!-- 1 -->
+<g id="node6" class="node"><title>1</title>
+<ellipse fill="none" stroke="black" cx="55.2377" cy="-193.633" rx="54.2008" ry="18"/>
+<text text-anchor="middle" x="55.2377" y="-189.533" font-family="Times Roman,serif" font-size="14.00">(value,2)</text>
+</g>
+<!-- 3&#45;&gt;1 -->
+<g id="edge10" class="edge"><title>3&#45;&gt;1</title>
+<path fill="none" stroke="black" d="M146.432,-276.236C128.603,-260.087 101.539,-235.572 81.5205,-217.439"/>
+<polygon fill="black" stroke="black" points="83.7206,-214.71 73.9594,-210.591 79.0213,-219.898 83.7206,-214.71"/>
+</g>
+<!-- 5 -->
+<g id="node2" class="node"><title>5</title>
+<ellipse fill="none" stroke="black" cx="395.926" cy="-365.437" rx="53.0059" ry="18"/>
+<text text-anchor="middle" x="395.926" y="-361.337" font-family="Times Roman,serif" font-size="14.00">(input,1)</text>
+</g>
+<!-- 4 -->
+<g id="node3" class="node"><title>4</title>
+<ellipse fill="none" stroke="black" cx="239.489" cy="-18.588" rx="53.0059" ry="18"/>
+<text text-anchor="middle" x="239.489" y="-14.488" font-family="Times Roman,serif" font-size="14.00">(input,1)</text>
+</g>
+<!-- 0 -->
+<g id="node4" class="node"><title>0</title>
+<ellipse fill="none" stroke="black" cx="306.442" cy="-246.108" rx="61.8445" ry="18"/>
+<text text-anchor="middle" x="306.442" y="-242.008" font-family="Times Roman,serif" font-size="14.00">(master,0)</text>
+</g>
+<!-- 0&#45;&gt;3 -->
+<g id="edge6" class="edge"><title>0&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M265.549,-259.703C248.071,-265.514 227.619,-272.314 209.745,-278.256"/>
+<polygon fill="black" stroke="black" points="208.5,-274.981 200.115,-281.458 210.709,-281.624 208.5,-274.981"/>
+<text text-anchor="middle" x="241.647" y="-277.88" font-family="Times Roman,serif" font-size="14.00">inter</text>
+</g>
+<!-- 0&#45;&gt;5 -->
+<g id="edge2" class="edge"><title>0&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M319.645,-263.715C334.647,-283.721 359.274,-316.561 376.475,-339.498"/>
+<polygon fill="black" stroke="black" points="373.869,-341.857 382.668,-347.757 379.469,-337.657 373.869,-341.857"/>
+</g>
+<!-- 2 -->
+<g id="node5" class="node"><title>2</title>
+<ellipse fill="none" stroke="black" cx="331.089" cy="-100.658" rx="63.9292" ry="18"/>
+<text text-anchor="middle" x="331.089" y="-96.5582" font-family="Times Roman,serif" font-size="14.00">(mapper,1)</text>
+</g>
+<!-- 0&#45;&gt;2 -->
+<g id="edge4" class="edge"><title>0&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M309.513,-227.981C313.72,-203.157 321.316,-158.334 326.28,-129.038"/>
+<polygon fill="black" stroke="black" points="329.759,-129.458 327.979,-119.014 322.857,-128.288 329.759,-129.458"/>
+</g>
+<!-- 2&#45;&gt;4 -->
+<g id="edge8" class="edge"><title>2&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M311.663,-83.2532C298.459,-71.4224 280.817,-55.6164 266.281,-42.5927"/>
+<polygon fill="black" stroke="black" points="268.357,-39.7528 258.573,-35.6865 263.686,-44.9663 268.357,-39.7528"/>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_2_3"> <h3>cover element 3</h3> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: cover Pages: 1 -->
+<svg width="587pt" height="464pt"
+ viewBox="0.00 0.00 587.00 464.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 460)">
+<title>cover</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-460 584,-460 584,5 -4,5"/>
+<!-- 0 -->
+<g id="node1" class="node"><title>0</title>
+<ellipse fill="none" stroke="black" cx="62.3374" cy="-437.328" rx="54.2008" ry="18"/>
+<text text-anchor="middle" x="62.3374" y="-433.228" font-family="Times Roman,serif" font-size="14.00">(value,1)</text>
+</g>
+<!-- 1 -->
+<g id="node2" class="node"><title>1</title>
+<ellipse fill="none" stroke="black" cx="423.146" cy="-211.341" rx="45.1673" ry="18"/>
+<text text-anchor="middle" x="423.146" y="-207.241" font-family="Times Roman,serif" font-size="14.00">(key,1)</text>
+</g>
+<!-- 3 -->
+<g id="node6" class="node"><title>3</title>
+<ellipse fill="none" stroke="black" cx="524.308" cy="-297.389" rx="54.2008" ry="18"/>
+<text text-anchor="middle" x="524.308" y="-293.289" font-family="Times Roman,serif" font-size="14.00">(value,1)</text>
+</g>
+<!-- 1&#45;&gt;3 -->
+<g id="edge2" class="edge"><title>1&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M442.651,-227.932C457.947,-240.943 479.433,-259.218 496.526,-273.758"/>
+<polygon fill="black" stroke="black" points="494.633,-276.742 504.518,-280.555 499.168,-271.41 494.633,-276.742"/>
+</g>
+<!-- 2 -->
+<g id="node3" class="node"><title>2</title>
+<ellipse fill="none" stroke="black" cx="300.287" cy="-314.59" rx="68.0985" ry="18"/>
+<text text-anchor="middle" x="300.287" y="-310.49" font-family="Times Roman,serif" font-size="14.00">(master3,0)</text>
+</g>
+<!-- 2&#45;&gt;1 -->
+<g id="edge6" class="edge"><title>2&#45;&gt;1</title>
+<path fill="none" stroke="black" d="M320.851,-297.308C341.414,-280.027 373.159,-253.349 395.829,-234.298"/>
+<polygon fill="black" stroke="black" points="398.329,-236.769 403.732,-227.656 393.825,-231.41 398.329,-236.769"/>
+<text text-anchor="middle" x="370.34" y="-275.703" font-family="Times Roman,serif" font-size="14.00">result</text>
+</g>
+<!-- 6 -->
+<g id="node4" class="node"><title>6</title>
+<ellipse fill="none" stroke="black" cx="123.697" cy="-273.001" rx="64.1231" ry="18"/>
+<text text-anchor="middle" x="123.697" y="-268.901" font-family="Times Roman,serif" font-size="14.00">(reducer,1)</text>
+</g>
+<!-- 2&#45;&gt;6 -->
+<g id="edge4" class="edge"><title>2&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M249.21,-302.561C228.457,-297.673 204.347,-291.995 182.837,-286.929"/>
+<polygon fill="black" stroke="black" points="183.372,-283.46 172.836,-284.574 181.768,-290.273 183.372,-283.46"/>
+</g>
+<!-- 6&#45;&gt;0 -->
+<g id="edge10" class="edge"><title>6&#45;&gt;0</title>
+<path fill="none" stroke="black" d="M116.896,-291.215C106.208,-319.841 85.3984,-375.569 72.7962,-409.319"/>
+<polygon fill="black" stroke="black" points="69.3882,-408.44 69.1689,-419.033 75.9459,-410.889 69.3882,-408.44"/>
+</g>
+<!-- 5 -->
+<g id="node5" class="node"><title>5</title>
+<ellipse fill="none" stroke="black" cx="46.2491" cy="-173.733" rx="45.1673" ry="18"/>
+<text text-anchor="middle" x="46.2491" y="-169.633" font-family="Times Roman,serif" font-size="14.00">(key,1)</text>
+</g>
+<!-- 6&#45;&gt;5 -->
+<g id="edge12" class="edge"><title>6&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M109.851,-255.254C97.6618,-239.631 79.7691,-216.697 66.0642,-199.131"/>
+<polygon fill="black" stroke="black" points="68.6269,-196.726 59.7161,-190.994 63.1079,-201.032 68.6269,-196.726"/>
+</g>
+<!-- 4 -->
+<g id="node7" class="node"><title>4</title>
+<ellipse fill="none" stroke="black" cx="112.798" cy="-18.8295" rx="54.2008" ry="18"/>
+<text text-anchor="middle" x="112.798" y="-14.7295" font-family="Times Roman,serif" font-size="14.00">(value,2)</text>
+</g>
+<!-- 5&#45;&gt;4 -->
+<g id="edge8" class="edge"><title>5&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M53.8831,-155.964C65.4049,-129.145 87.3338,-78.1014 100.945,-46.4196"/>
+<polygon fill="black" stroke="black" points="104.316,-47.4384 105.048,-36.8688 97.8847,-44.6753 104.316,-47.4384"/>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_2_4"> <h3>cover element 4</h3> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: cover Pages: 1 -->
+<svg width="571pt" height="585pt"
+ viewBox="0.00 0.00 571.00 585.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 581)">
+<title>cover</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-581 568,-581 568,5 -4,5"/>
+<!-- 3 -->
+<g id="node1" class="node"><title>3</title>
+<ellipse fill="none" stroke="black" cx="285.51" cy="-166.785" rx="45.1673" ry="18"/>
+<text text-anchor="middle" x="285.51" y="-162.685" font-family="Times Roman,serif" font-size="14.00">(key,1)</text>
+</g>
+<!-- 2 -->
+<g id="node8" class="node"><title>2</title>
+<ellipse fill="none" stroke="black" cx="245.981" cy="-18.6149" rx="54.2008" ry="18"/>
+<text text-anchor="middle" x="245.981" y="-14.5149" font-family="Times Roman,serif" font-size="14.00">(value,2)</text>
+</g>
+<!-- 3&#45;&gt;2 -->
+<g id="edge4" class="edge"><title>3&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M280.663,-148.616C273.877,-123.178 261.48,-76.7108 253.493,-46.7712"/>
+<polygon fill="black" stroke="black" points="256.827,-45.692 250.868,-36.9321 250.064,-47.4964 256.827,-45.692"/>
+</g>
+<!-- 0 -->
+<g id="node2" class="node"><title>0</title>
+<ellipse fill="none" stroke="black" cx="507.756" cy="-213.028" rx="54.2008" ry="18"/>
+<text text-anchor="middle" x="507.756" y="-208.928" font-family="Times Roman,serif" font-size="14.00">(value,1)</text>
+</g>
+<!-- 8 -->
+<g id="node3" class="node"><title>8</title>
+<ellipse fill="none" stroke="black" cx="361.516" cy="-238.928" rx="64.1231" ry="18"/>
+<text text-anchor="middle" x="361.516" y="-234.828" font-family="Times Roman,serif" font-size="14.00">(reducer,1)</text>
+</g>
+<!-- 8&#45;&gt;0 -->
+<g id="edge14" class="edge"><title>8&#45;&gt;0</title>
+<path fill="none" stroke="black" d="M415.971,-229.284C427.038,-227.324 438.716,-225.255 449.896,-223.275"/>
+<polygon fill="black" stroke="black" points="450.756,-226.678 459.992,-221.487 449.535,-219.785 450.756,-226.678"/>
+</g>
+<!-- 7 -->
+<g id="node6" class="node"><title>7</title>
+<ellipse fill="none" stroke="black" cx="199.684" cy="-245.824" rx="45.1673" ry="18"/>
+<text text-anchor="middle" x="199.684" y="-241.724" font-family="Times Roman,serif" font-size="14.00">(key,1)</text>
+</g>
+<!-- 8&#45;&gt;7 -->
+<g id="edge16" class="edge"><title>8&#45;&gt;7</title>
+<path fill="none" stroke="black" d="M298.02,-241.634C283.766,-242.241 268.755,-242.881 254.872,-243.473"/>
+<polygon fill="black" stroke="black" points="254.348,-239.992 244.506,-243.914 254.646,-246.985 254.348,-239.992"/>
+</g>
+<!-- 1 -->
+<g id="node4" class="node"><title>1</title>
+<ellipse fill="none" stroke="black" cx="292.586" cy="-441.226" rx="45.1673" ry="18"/>
+<text text-anchor="middle" x="292.586" y="-437.126" font-family="Times Roman,serif" font-size="14.00">(key,1)</text>
+</g>
+<!-- 5 -->
+<g id="node5" class="node"><title>5</title>
+<ellipse fill="none" stroke="black" cx="387.827" cy="-557.74" rx="54.2008" ry="18"/>
+<text text-anchor="middle" x="387.827" y="-553.64" font-family="Times Roman,serif" font-size="14.00">(value,1)</text>
+</g>
+<!-- 1&#45;&gt;5 -->
+<g id="edge2" class="edge"><title>1&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M306.639,-458.418C322.584,-477.925 348.745,-509.929 367.049,-532.322"/>
+<polygon fill="black" stroke="black" points="364.365,-534.568 373.404,-540.095 369.785,-530.138 364.365,-534.568"/>
+</g>
+<!-- 6 -->
+<g id="node7" class="node"><title>6</title>
+<ellipse fill="none" stroke="black" cx="54.5327" cy="-222.327" rx="54.2008" ry="18"/>
+<text text-anchor="middle" x="54.5327" y="-218.227" font-family="Times Roman,serif" font-size="14.00">(value,2)</text>
+</g>
+<!-- 7&#45;&gt;6 -->
+<g id="edge12" class="edge"><title>7&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M157.7,-239.028C143.89,-236.792 128.272,-234.264 113.443,-231.863"/>
+<polygon fill="black" stroke="black" points="113.765,-228.37 103.335,-230.227 112.647,-235.28 113.765,-228.37"/>
+</g>
+<!-- 4 -->
+<g id="node9" class="node"><title>4</title>
+<ellipse fill="none" stroke="black" cx="310.329" cy="-313.407" rx="68.0985" ry="18"/>
+<text text-anchor="middle" x="310.329" y="-309.307" font-family="Times Roman,serif" font-size="14.00">(master2,0)</text>
+</g>
+<!-- 4&#45;&gt;3 -->
+<g id="edge6" class="edge"><title>4&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M307.236,-295.133C302.977,-269.973 295.268,-224.431 290.271,-194.911"/>
+<polygon fill="black" stroke="black" points="293.684,-194.104 288.564,-184.828 286.782,-195.272 293.684,-194.104"/>
+<text text-anchor="middle" x="279.754" y="-243.922" font-family="Times Roman,serif" font-size="14.00">inter</text>
+</g>
+<!-- 4&#45;&gt;8 -->
+<g id="edge8" class="edge"><title>4&#45;&gt;8</title>
+<path fill="none" stroke="black" d="M322.72,-295.377C328.945,-286.321 336.604,-275.176 343.468,-265.189"/>
+<polygon fill="black" stroke="black" points="346.46,-267.015 349.239,-256.791 340.691,-263.05 346.46,-267.015"/>
+</g>
+<!-- 4&#45;&gt;1 -->
+<g id="edge10" class="edge"><title>4&#45;&gt;1</title>
+<path fill="none" stroke="black" d="M307.825,-331.449C304.882,-352.644 299.965,-388.065 296.514,-412.926"/>
+<polygon fill="black" stroke="black" points="293.043,-412.475 295.135,-422.862 299.977,-413.438 293.043,-412.475"/>
+<text text-anchor="middle" x="284.169" y="-366.087" font-family="Times Roman,serif" font-size="14.00">result</text>
+</g>
+</g>
+</svg>
+
+</li>
+</ul>
+<a name="Ref_3"> <h2>Numerical Abstraction</h2> </a>
+<pre>% BEGIN FIXED PREAMBLE
+:- multifile r/5,implicit_updates/0,var2names/2,preds/2,trans_preds/3,
+cube_size/1,start/1,error/1,refinement/1,cutpoint/1,invgen_template/2,
+invgen_template/1,cfg_exit_relation/1,stmtsrc/2,strengthening/2,globals/3,
+bound_var/2,bounding_vars/2,transition_access/2,atomic/3.
+refinement(inter).
+cube_size(1).
+% END FIXED PREAMBLE
+
+var2names( p(_, data(Key_25, Key_2, Value_16, Input_7, Reducer_1, Value_35, Value_3, Value_1, Input_6, Mapper_1, Key_26)), [(Key_25, 'key$25'), (Key_2, 'key$2'), (Value_16, 'value$16'), (Input_7, 'input$7'), (Reducer_1, 'reducer$1'), (Value_35, 'value$35'), (Value_3, 'value$3'), (Value_1, 'value$1'), (Input_6, 'input$6'), (Mapper_1, 'mapper$1'), (Key_26, 'key$26')]).
+
+preds( p(_, data(Key_25, Key_2, Value_16, Input_7, Reducer_1, Value_35, Value_3, Value_1, Input_6, Mapper_1, Key_26)), []).
+
+trans_preds(
+  p(_, data(Key_25, Key_2, Value_16, Input_7, Reducer_1, Value_35, Value_3, Value_1, Input_6, Mapper_1, Key_26)),  
+  p(_, data(Key_25_prime, Key_2_prime, Value_16_prime, Input_7_prime, Reducer_1_prime, Value_35_prime, Value_3_prime, Value_1_prime, Input_6_prime, Mapper_1_prime, Key_26_prime)),  
+  [ 0 = Key_25_prime,
+    0 =&lt; Key_25_prime,
+    Key_25_prime &lt; Key_25,
+    Key_25_prime = Key_25,
+    0 = Key_2_prime,
+    0 =&lt; Key_2_prime,
+    Key_2_prime &lt; Key_2,
+    Key_2_prime = Key_2,
+    0 = Value_16_prime,
+    0 =&lt; Value_16_prime,
+    Value_16_prime &lt; Value_16,
+    Value_16_prime = Value_16,
+    0 = Input_7_prime,
+    0 =&lt; Input_7_prime,
+    Input_7_prime &lt; Input_7,
+    Input_7_prime = Input_7,
+    0 = Reducer_1_prime,
+    0 =&lt; Reducer_1_prime,
+    Reducer_1_prime &lt; Reducer_1,
+    Reducer_1_prime = Reducer_1,
+    0 = Value_35_prime,
+    0 =&lt; Value_35_prime,
+    Value_35_prime &lt; Value_35,
+    Value_35_prime = Value_35,
+    0 = Value_3_prime,
+    0 =&lt; Value_3_prime,
+    Value_3_prime &lt; Value_3,
+    Value_3_prime = Value_3,
+    0 = Value_1_prime,
+    0 =&lt; Value_1_prime,
+    Value_1_prime &lt; Value_1,
+    Value_1_prime = Value_1,
+    0 = Input_6_prime,
+    0 =&lt; Input_6_prime,
+    Input_6_prime &lt; Input_6,
+    Input_6_prime = Input_6,
+    0 = Mapper_1_prime,
+    0 =&lt; Mapper_1_prime,
+    Mapper_1_prime &lt; Mapper_1,
+    Mapper_1_prime = Mapper_1,
+    0 = Key_26_prime,
+    0 =&lt; Key_26_prime,
+    Key_26_prime &lt; Key_26,
+    Key_26_prime = Key_26
+  ]).
+
+start( pc(s__36)).
+cutpoint(pc(s__16)).
+cutpoint(pc(s__3)).
+cutpoint(pc(s__1)).
+cutpoint(pc(s__17)).
+
+% unfolding; morphing, master: reducer; folding; covering
+r(  p(pc(s__16), data(Key_25, Key_2, Value_16, Input_7, Reducer_1, Value_35, Value_3, Value_1, Input_6, Mapper_1, Key_26)),
+    p(pc(s__16), data(Key_25_prime, Key_2_prime, Value_16_prime, Input_7_prime, Reducer_1_prime, Value_35_prime, Value_3_prime, Value_1_prime, Input_6_prime, Mapper_1_prime, Key_26_prime)),
+    [ Key_2 - Key_2_prime = -1, (Value_3 + Value_1 + 0 - Value_1_prime) - Value_3_prime = 0, Key_26_prime - Key_26 = -1, Key_25 = Key_25_prime, Value_16_prime = Value_16, Value_35 - Value_35_prime = -1, Reducer_1_prime - Reducer_1 = 1, Value_1 =&lt; Value_1_prime + Value_3_prime, Value_1_prime =&lt; Value_1, 1 =&lt; Key_2_prime, 1 =&lt; Key_26, 0 =&lt; Value_16, 1 =&lt; Value_35_prime, 0 =&lt; Value_1_prime, 0 =&lt; Reducer_1, 0 =&lt; Key_25_prime, Input_7_prime = 0, Input_6_prime = 0, Mapper_1_prime = 0 ],
+    [], 0).
+% unfolding; inhibiting; morphing, reducer; folding; covering
+r(  p(pc(s__16), data(Key_25, Key_2, Value_16, Input_7, Reducer_1, Value_35, Value_3, Value_1, Input_6, Mapper_1, Key_26)),
+    p(pc(s__16), data(Key_25_prime, Key_2_prime, Value_16_prime, Input_7_prime, Reducer_1_prime, Value_35_prime, Value_3_prime, Value_1_prime, Input_6_prime, Mapper_1_prime, Key_26_prime)),
+    [ Key_2 - Key_2_prime = 1, Value_1 = Value_1_prime, Key_25 - Key_25_prime = -1, Key_26_prime = Key_26, Value_35 - Value_35_prime = 1, Reducer_1_prime - Reducer_1 = -1, Value_16_prime - Value_16 = 1, Value_3_prime =&lt; Value_3, 1 =&lt; Key_25_prime, 0 =&lt; Key_26, 0 =&lt; Key_2_prime, 0 =&lt; Value_16, 0 =&lt; Value_1_prime, 0 =&lt; Value_35_prime, 0 =&lt; Value_3_prime, 1 =&lt; Reducer_1, Input_7_prime = 0, Input_6_prime = 0, Mapper_1_prime = 0 ],
+    [], 1).
+% inhibiting; morphing, master: reducers created; folding; covering
+r(  p(pc(s__16), data(Key_25, Key_2, Value_16, Input_7, Reducer_1, Value_35, Value_3, Value_1, Input_6, Mapper_1, Key_26)),
+    p(pc(s__1), data(Key_25_prime, Key_2_prime, Value_16_prime, Input_7_prime, Reducer_1_prime, Value_35_prime, Value_3_prime, Value_1_prime, Input_6_prime, Mapper_1_prime, Key_26_prime)),
+    [ Key_2 = Key_2_prime, (Value_1_prime + 0 - Value_1) - Value_35 = 0, Value_3 = Value_3_prime, Value_16_prime = Value_16, Key_25 = Key_25_prime, Reducer_1_prime = Reducer_1, Input_7_prime = 0, Value_35_prime = 0, Input_6_prime = 0, Mapper_1_prime = 0, Key_26_prime = 0 ],
+    [], 2).
+% inhibiting; morphing, master: mapping done; covering
+r(  p(pc(s__3), data(Key_25, Key_2, Value_16, Input_7, Reducer_1, Value_35, Value_3, Value_1, Input_6, Mapper_1, Key_26)),
+    p(pc(s__16), data(Key_25_prime, Key_2_prime, Value_16_prime, Input_7_prime, Reducer_1_prime, Value_35_prime, Value_3_prime, Value_1_prime, Input_6_prime, Mapper_1_prime, Key_26_prime)),
+    [ Key_25 = Key_26_prime, Value_1 = Value_1_prime, Key_25_prime = 0, Value_35_prime = 0, Key_2_prime = 0, Value_3_prime = 0, Reducer_1_prime = 0, Value_16_prime = 0, Input_7_prime = 0, Input_6_prime = 0, Mapper_1_prime = 0 ],
+    [], 3).
+% unfolding; morphing, mapper; folding; covering
+r(  p(pc(s__3), data(Key_25, Key_2, Value_16, Input_7, Reducer_1, Value_35, Value_3, Value_1, Input_6, Mapper_1, Key_26)),
+    p(pc(s__3), data(Key_25_prime, Key_2_prime, Value_16_prime, Input_7_prime, Reducer_1_prime, Value_35_prime, Value_3_prime, Value_1_prime, Input_6_prime, Mapper_1_prime, Key_26_prime)),
+    [ Input_7_prime - Input_7 = -1, Mapper_1_prime - Mapper_1 = -1, Key_25 =&lt; Key_25_prime, 0 =&lt; Key_25, Value_1 =&lt; Value_1_prime, 0 =&lt; Value_1, 1 =&lt; Input_7, 1 =&lt; Mapper_1, Key_2_prime = 0, Value_16_prime = 0, Reducer_1_prime = 0, Value_35_prime = 0, Value_3_prime = 0, Input_6_prime = 0, Key_26_prime = 0 ],
+    [], 4).
+% unfolding; inhibiting; morphing, reducer; folding; covering
+r(  p(pc(s__1), data(Key_25, Key_2, Value_16, Input_7, Reducer_1, Value_35, Value_3, Value_1, Input_6, Mapper_1, Key_26)),
+    p(pc(s__1), data(Key_25_prime, Key_2_prime, Value_16_prime, Input_7_prime, Reducer_1_prime, Value_35_prime, Value_3_prime, Value_1_prime, Input_6_prime, Mapper_1_prime, Key_26_prime)),
+    [ Key_25 - Key_25_prime = -1, Reducer_1 - Reducer_1_prime = 1, Value_1 - Value_1_prime = 1, Key_2 - Key_2_prime = 1, Value_16 - Value_16_prime = -1, Value_3_prime =&lt; Value_3, 0 =&lt; Value_3_prime, 0 =&lt; Value_1_prime, 0 =&lt; Reducer_1_prime, 0 =&lt; Key_2_prime, 1 =&lt; Value_16_prime, 1 =&lt; Key_25_prime, Input_7_prime = 0, Value_35_prime = 0, Input_6_prime = 0, Mapper_1_prime = 0, Key_26_prime = 0 ],
+    [], 5).
+% inhibiting; morphing, master: done; folding; covering
+r(  p(pc(s__1), data(Key_25, Key_2, Value_16, Input_7, Reducer_1, Value_35, Value_3, Value_1, Input_6, Mapper_1, Key_26)),
+    p(pc(s__9), data(Key_25_prime, Key_2_prime, Value_16_prime, Input_7_prime, Reducer_1_prime, Value_35_prime, Value_3_prime, Value_1_prime, Input_6_prime, Mapper_1_prime, Key_26_prime)),
+    [ Key_25 = Key_25_prime, (Value_1 + Value_16 + Value_3) - Value_16_prime = 0, Key_2_prime = 0, Input_7_prime = 0, Reducer_1_prime = 0, Value_35_prime = 0, Value_3_prime = 0, Value_1_prime = 0, Input_6_prime = 0, Mapper_1_prime = 0, Key_26_prime = 0 ],
+    [], 6).
+% initialize
+r(  p(pc(s__36), data(Key_25, Key_2, Value_16, Input_7, Reducer_1, Value_35, Value_3, Value_1, Input_6, Mapper_1, Key_26)),
+    p(pc(s__16), data(Key_25_prime, Key_2_prime, Value_16_prime, Input_7_prime, Reducer_1_prime, Value_35_prime, Value_3_prime, Value_1_prime, Input_6_prime, Mapper_1_prime, Key_26_prime)),
+    [ 0 =&lt; Key_26_prime, 0 =&lt; Value_3_prime, 0 =&lt; Reducer_1_prime, 0 =&lt; Key_25_prime, 0 =&lt; Value_1_prime, 0 =&lt; Value_16_prime, 0 =&lt; Key_2_prime, 0 =&lt; Value_35_prime, Input_7_prime = 0, Input_6_prime = 0, Mapper_1_prime = 0 ],
+    [], 7).
+% initialize
+r(  p(pc(s__36), data(Key_25, Key_2, Value_16, Input_7, Reducer_1, Value_35, Value_3, Value_1, Input_6, Mapper_1, Key_26)),
+    p(pc(s__3), data(Key_25_prime, Key_2_prime, Value_16_prime, Input_7_prime, Reducer_1_prime, Value_35_prime, Value_3_prime, Value_1_prime, Input_6_prime, Mapper_1_prime, Key_26_prime)),
+    [ 0 =&lt; Input_7_prime, 0 =&lt; Value_1_prime, 0 =&lt; Key_25_prime, 0 =&lt; Mapper_1_prime, Key_2_prime = 0, Value_16_prime = 0, Reducer_1_prime = 0, Value_35_prime = 0, Value_3_prime = 0, Input_6_prime = 0, Key_26_prime = 0 ],
+    [], 8).
+% initialize
+r(  p(pc(s__36), data(Key_25, Key_2, Value_16, Input_7, Reducer_1, Value_35, Value_3, Value_1, Input_6, Mapper_1, Key_26)),
+    p(pc(s__1), data(Key_25_prime, Key_2_prime, Value_16_prime, Input_7_prime, Reducer_1_prime, Value_35_prime, Value_3_prime, Value_1_prime, Input_6_prime, Mapper_1_prime, Key_26_prime)),
+    [ 0 =&lt; Key_25_prime, 0 =&lt; Key_2_prime, 0 =&lt; Reducer_1_prime, 0 =&lt; Value_1_prime, 0 =&lt; Value_16_prime, 0 =&lt; Value_3_prime, Input_7_prime = 0, Value_35_prime = 0, Input_6_prime = 0, Mapper_1_prime = 0, Key_26_prime = 0 ],
+    [], 9).
+% initialize
+r(  p(pc(s__36), data(Key_25, Key_2, Value_16, Input_7, Reducer_1, Value_35, Value_3, Value_1, Input_6, Mapper_1, Key_26)),
+    p(pc(s__9), data(Key_25_prime, Key_2_prime, Value_16_prime, Input_7_prime, Reducer_1_prime, Value_35_prime, Value_3_prime, Value_1_prime, Input_6_prime, Mapper_1_prime, Key_26_prime)),
+    [ 0 =&lt; Key_25_prime, 0 =&lt; Value_16_prime, Key_2_prime = 0, Input_7_prime = 0, Reducer_1_prime = 0, Value_35_prime = 0, Value_3_prime = 0, Value_1_prime = 0, Input_6_prime = 0, Mapper_1_prime = 0, Key_26_prime = 0 ],
+    [], 10).
+% initialize
+r(  p(pc(s__36), data(Key_25, Key_2, Value_16, Input_7, Reducer_1, Value_35, Value_3, Value_1, Input_6, Mapper_1, Key_26)),
+    p(pc(s__17), data(Key_25_prime, Key_2_prime, Value_16_prime, Input_7_prime, Reducer_1_prime, Value_35_prime, Value_3_prime, Value_1_prime, Input_6_prime, Mapper_1_prime, Key_26_prime)),
+    [ 0 =&lt; Input_6_prime, 0 =&lt; Value_1_prime, 0 =&lt; Input_7_prime, 0 =&lt; Key_25_prime, 0 =&lt; Mapper_1_prime, Key_2_prime = 0, Value_16_prime = 0, Reducer_1_prime = 0, Value_35_prime = 0, Value_3_prime = 0, Key_26_prime = 0 ],
+    [], 11).
+% inhibiting; morphing, master: mappers created; covering
+r(  p(pc(s__17), data(Key_25, Key_2, Value_16, Input_7, Reducer_1, Value_35, Value_3, Value_1, Input_6, Mapper_1, Key_26)),
+    p(pc(s__3), data(Key_25_prime, Key_2_prime, Value_16_prime, Input_7_prime, Reducer_1_prime, Value_35_prime, Value_3_prime, Value_1_prime, Input_6_prime, Mapper_1_prime, Key_26_prime)),
+    [ Mapper_1 = Mapper_1_prime, Key_25 = Key_25_prime, Value_1 = Value_1_prime, Input_6 = Input_7_prime, Key_2_prime = 0, Value_16_prime = 0, Reducer_1_prime = 0, Value_35_prime = 0, Value_3_prime = 0, Input_6_prime = 0, Key_26_prime = 0 ],
+    [], 12).
+% unfolding; morphing, master: make mappers; folding; covering
+r(  p(pc(s__17), data(Key_25, Key_2, Value_16, Input_7, Reducer_1, Value_35, Value_3, Value_1, Input_6, Mapper_1, Key_26)),
+    p(pc(s__17), data(Key_25_prime, Key_2_prime, Value_16_prime, Input_7_prime, Reducer_1_prime, Value_35_prime, Value_3_prime, Value_1_prime, Input_6_prime, Mapper_1_prime, Key_26_prime)),
+    [ Mapper_1 - Mapper_1_prime = -1, Input_7 - Input_7_prime = 1, Value_1_prime = Value_1, Key_25 = Key_25_prime, Input_6_prime - Input_6 = 1, 1 =&lt; Mapper_1_prime, 0 =&lt; Input_7_prime, 0 =&lt; Value_1, 0 =&lt; Input_6, 0 =&lt; Key_25_prime, Key_2_prime = 0, Value_16_prime = 0, Reducer_1_prime = 0, Value_35_prime = 0, Value_3_prime = 0, Key_26_prime = 0 ],
+    [], 13).
+% unfolding; morphing, mapper; folding; covering
+r(  p(pc(s__17), data(Key_25, Key_2, Value_16, Input_7, Reducer_1, Value_35, Value_3, Value_1, Input_6, Mapper_1, Key_26)),
+    p(pc(s__17), data(Key_25_prime, Key_2_prime, Value_16_prime, Input_7_prime, Reducer_1_prime, Value_35_prime, Value_3_prime, Value_1_prime, Input_6_prime, Mapper_1_prime, Key_26_prime)),
+    [ Mapper_1 - Mapper_1_prime = 1, Input_7 = Input_7_prime, Input_6_prime - Input_6 = -1, Key_25 =&lt; Key_25_prime, 0 =&lt; Key_25, 0 =&lt; Mapper_1_prime, Value_1 =&lt; Value_1_prime, 0 =&lt; Value_1, 0 =&lt; Input_7_prime, 1 =&lt; Input_6, Key_2_prime = 0, Value_16_prime = 0, Reducer_1_prime = 0, Value_35_prime = 0, Value_3_prime = 0, Key_26_prime = 0 ],
+    [], 14).
+</pre>
+<a name="Ref_4"> <h2>ARMC output</h2> </a>
+<pre>ARMC3: Abstraction Refinement Model Checker, v. 3.20.05 (May-21-2008)
+rybal@mpi-sws.mpg.de
+cmd line: [live,/tmp/tmp.O2fHhllD1y
+]
+reading input from /tmp/tmp.O2fHhllD1y
+...done.
+
+
+
+--------------------------------------------------
+abstraction refinement iteration 0:
+lfp iteration 0 1 2 3 4 5 6 7 
+
+
+==================================================
+ARMC-LIVE: program is correct
+
+abstract trans fixpoint
+abstract_trans_state(0, pc(s__36), pc(s__36), [], stem, 1, (0,0)).
+abstract_trans_state(1, pc(s__36), pc(s__16), [2,6,10,13,14,18,22,26,30,33,34,37,38,42], stem, 2, (1,7)).
+abstract_trans_state(1, pc(s__36), pc(s__3), [2,5,6,9,10,14,17,18,21,22,25,26,30,33,34,38,41,42], stem, 3, (1,8)).
+abstract_trans_state(1, pc(s__36), pc(s__1), [2,6,10,13,14,18,21,22,26,30,33,34,37,38,41,42], stem, 4, (1,9)).
+abstract_trans_state(1, pc(s__36), pc(s__9), [2,5,6,10,13,14,17,18,21,22,25,26,29,30,33,34,37,38,41,42], stem, 5, (1,10)).
+abstract_trans_state(1, pc(s__36), pc(s__17), [2,5,6,9,10,14,17,18,21,22,25,26,30,34,38,41,42], stem, 6, (1,11)).
+abstract_trans_state(2, pc(s__16), pc(s__16), [2,4,6,10,12,13,14,16,18,22,26,30,33,34,36,37,38,40,42,43], loop, 7, (2,0)).
+abstract_trans_state(2, pc(s__16), pc(s__16), [2,6,7,10,13,14,16,18,19,22,23,26,30,32,33,34,36,37,38,40,42,44], loop, 8, (2,1)).
+abstract_trans_state(2, pc(s__16), pc(s__1), [2,4,6,8,10,12,13,14,16,18,20,21,22,26,28,30,33,34,36,37,38,40,41,42], loop, 9, (2,2)).
+abstract_trans_state(2, pc(s__3), pc(s__16), [1,2,5,6,8,9,10,12,13,14,17,18,20,21,22,24,25,26,28,30,32,33,34,36,37,38,42], loop, 10, (3,3)).
+abstract_trans_state(2, pc(s__3), pc(s__3), [2,5,6,8,9,10,12,14,15,17,18,20,21,22,24,25,26,28,30,33,34,36,38,39,41,42,44], loop, 11, (3,4)).
+abstract_trans_state(2, pc(s__1), pc(s__1), [2,6,7,10,13,14,16,18,19,21,22,24,26,30,31,33,34,36,37,38,40,41,42,44], loop, 12, (4,5)).
+abstract_trans_state(2, pc(s__1), pc(s__9), [2,4,5,6,10,13,14,16,17,18,21,22,24,25,26,29,30,33,34,36,37,38,40,41,42,44], loop, 13, (4,6)).
+abstract_trans_state(2, pc(s__17), pc(s__3), [2,4,5,6,8,9,10,12,14,17,18,20,21,22,24,25,26,28,30,32,33,34,38,40,41,42,44], loop, 14, (6,12)).
+abstract_trans_state(2, pc(s__17), pc(s__17), [2,4,5,6,8,9,10,12,14,15,17,18,20,21,22,24,25,26,28,30,32,34,38,41,42,44], loop, 15, (6,13)).
+abstract_trans_state(2, pc(s__17), pc(s__17), [2,5,6,8,9,10,12,14,16,17,18,20,21,22,24,25,26,28,30,34,35,38,39,41,42,44], loop, 16, (6,14)).
+abstract_trans_state(3, pc(s__16), pc(s__16), [2,6,10,13,14,16,18,22,26,30,33,34,36,37,38,40,42,43], loop, 17, (7,1)).
+abstract_trans_state(3, pc(s__16), pc(s__1), [2,4,6,10,12,13,14,16,18,21,22,26,30,33,34,36,37,38,40,41,42,43], loop, 18, (7,2)).
+abstract_trans_state(3, pc(s__16), pc(s__1), [2,6,7,10,13,14,16,18,19,21,22,23,26,30,33,34,36,37,38,40,41,42], loop, 19, (8,2)).
+abstract_trans_state(3, pc(s__16), pc(s__1), [2,6,7,10,13,14,16,18,19,21,22,26,30,33,34,36,37,38,40,41,42], loop, 20, (9,5)).
+abstract_trans_state(3, pc(s__16), pc(s__9), [2,4,5,6,10,13,14,16,17,18,21,22,25,26,29,30,33,34,36,37,38,40,41,42], loop, 21, (9,6)).
+abstract_trans_state(3, pc(s__3), pc(s__16), [1,2,6,9,10,12,13,14,18,22,26,30,33,34,36,37,38,42], loop, 22, (10,0)).
+abstract_trans_state(3, pc(s__3), pc(s__1), [1,2,5,6,8,9,10,12,13,14,17,18,20,21,22,24,25,26,28,30,32,33,34,36,37,38,41,42], loop, 23, (10,2)).
+abstract_trans_state(3, pc(s__1), pc(s__9), [2,5,6,7,10,13,14,16,17,18,19,21,22,24,25,26,29,30,31,33,34,36,37,38,40,41,42,44], loop, 24, (12,6)).
+abstract_trans_state(3, pc(s__17), pc(s__16), [1,2,5,6,8,9,10,12,13,14,17,18,20,21,22,24,25,26,28,30,32,33,34,37,38,42], loop, 25, (14,3)).
+abstract_trans_state(3, pc(s__17), pc(s__3), [2,5,6,8,9,10,12,14,17,18,20,21,22,24,25,26,28,30,33,34,38,39,41,42,44], loop, 26, (14,4)).
+abstract_trans_state(3, pc(s__17), pc(s__3), [2,4,5,6,8,9,10,12,14,17,18,20,21,22,24,25,26,28,30,32,33,34,38,41,42,44], loop, 27, (15,12)).
+abstract_trans_state(3, pc(s__17), pc(s__17), [2,5,6,8,9,10,12,14,15,17,18,20,21,22,24,25,26,28,30,34,38,41,42,44], loop, 28, (15,14)).
+abstract_trans_state(4, pc(s__16), pc(s__1), [2,6,10,13,14,16,18,21,22,26,30,33,34,36,37,38,40,41,42,43], loop, 29, (17,2)).
+abstract_trans_state(4, pc(s__16), pc(s__9), [2,5,6,7,10,13,14,16,17,18,19,21,22,23,25,26,29,30,33,34,36,37,38,40,41,42], loop, 30, (19,6)).
+abstract_trans_state(4, pc(s__16), pc(s__9), [2,5,6,7,10,13,14,16,17,18,19,21,22,25,26,29,30,33,34,36,37,38,40,41,42], loop, 31, (20,6)).
+abstract_trans_state(4, pc(s__3), pc(s__16), [2,6,10,13,14,18,22,26,30,33,34,36,37,38,42], loop, 32, (22,1)).
+abstract_trans_state(4, pc(s__3), pc(s__1), [1,2,6,9,10,12,13,14,18,21,22,26,30,33,34,36,37,38,41,42], loop, 33, (22,2)).
+abstract_trans_state(4, pc(s__3), pc(s__9), [1,2,5,6,8,10,13,14,17,18,20,21,22,24,25,26,28,29,30,33,34,36,37,38,41,42], loop, 34, (23,6)).
+abstract_trans_state(4, pc(s__17), pc(s__16), [1,2,6,9,10,12,13,14,18,22,26,30,33,34,37,38,42], loop, 35, (25,0)).
+abstract_trans_state(4, pc(s__17), pc(s__1), [1,2,5,6,8,9,10,12,13,14,17,18,20,21,22,24,25,26,28,30,32,33,34,37,38,41,42], loop, 36, (25,2)).
+abstract_trans_state(4, pc(s__17), pc(s__3), [2,5,6,8,9,10,12,14,17,18,20,21,22,24,25,26,28,30,33,34,38,41,42,44], loop, 37, (27,4)).
+abstract_trans_state(5, pc(s__16), pc(s__9), [2,5,6,10,13,14,16,17,18,21,22,25,26,29,30,33,34,36,37,38,40,41,42,43], loop, 38, (29,6)).
+abstract_trans_state(5, pc(s__3), pc(s__1), [2,6,10,13,14,18,21,22,26,30,33,34,36,37,38,41,42], loop, 39, (32,2)).
+abstract_trans_state(5, pc(s__3), pc(s__9), [1,2,5,6,10,13,14,17,18,21,22,25,26,29,30,33,34,36,37,38,41,42], loop, 40, (33,6)).
+abstract_trans_state(5, pc(s__17), pc(s__16), [2,6,10,13,14,18,22,26,30,33,34,37,38,42], loop, 41, (35,1)).
+abstract_trans_state(5, pc(s__17), pc(s__1), [1,2,6,9,10,12,13,14,18,21,22,26,30,33,34,37,38,41,42], loop, 42, (35,2)).
+abstract_trans_state(5, pc(s__17), pc(s__9), [1,2,5,6,8,10,13,14,17,18,20,21,22,24,25,26,28,29,30,33,34,37,38,41,42], loop, 43, (36,6)).
+abstract_trans_state(6, pc(s__3), pc(s__9), [2,5,6,10,13,14,17,18,21,22,25,26,29,30,33,34,36,37,38,41,42], loop, 44, (39,6)).
+abstract_trans_state(6, pc(s__17), pc(s__1), [2,6,10,13,14,18,21,22,26,30,33,34,37,38,41,42], loop, 45, (41,2)).
+abstract_trans_state(6, pc(s__17), pc(s__9), [1,2,5,6,10,13,14,17,18,21,22,25,26,29,30,33,34,37,38,41,42], loop, 46, (42,6)).
+abstract_trans_state(7, pc(s__17), pc(s__9), [2,5,6,10,13,14,17,18,21,22,25,26,29,30,33,34,37,38,41,42], loop, 47, (45,6)).
+
+frontier 0: stem 1 (pc(s__36)-&gt;pc(s__36)) from 0 by applying 0: 	T
+frontier 1: stem 2 (pc(s__36)-&gt;pc(s__16)) from 1 by applying 7: 	0=&lt;key$25', 0=&lt;key$2', 0=&lt;value$16', 0=input$7', 0=&lt;input$7', 0=&lt;reducer$1', 0=&lt;value$35', 0=&lt;value$3', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', 0=mapper$1', 0=&lt;mapper$1', 0=&lt;key$26'
+frontier 1: stem 3 (pc(s__36)-&gt;pc(s__3)) from 1 by applying 8: 	0=&lt;key$25', 0=key$2', 0=&lt;key$2', 0=value$16', 0=&lt;value$16', 0=&lt;input$7', 0=reducer$1', 0=&lt;reducer$1', 0=value$35', 0=&lt;value$35', 0=value$3', 0=&lt;value$3', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26'
+frontier 1: stem 4 (pc(s__36)-&gt;pc(s__1)) from 1 by applying 9: 	0=&lt;key$25', 0=&lt;key$2', 0=&lt;value$16', 0=input$7', 0=&lt;input$7', 0=&lt;reducer$1', 0=value$35', 0=&lt;value$35', 0=&lt;value$3', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', 0=mapper$1', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26'
+frontier 1: stem 5 (pc(s__36)-&gt;pc(s__9)) from 1 by applying 10: 	0=&lt;key$25', 0=key$2', 0=&lt;key$2', 0=&lt;value$16', 0=input$7', 0=&lt;input$7', 0=reducer$1', 0=&lt;reducer$1', 0=value$35', 0=&lt;value$35', 0=value$3', 0=&lt;value$3', 0=value$1', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', 0=mapper$1', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26'
+frontier 1: stem 6 (pc(s__36)-&gt;pc(s__17)) from 1 by applying 11: 	0=&lt;key$25', 0=key$2', 0=&lt;key$2', 0=value$16', 0=&lt;value$16', 0=&lt;input$7', 0=reducer$1', 0=&lt;reducer$1', 0=value$35', 0=&lt;value$35', 0=value$3', 0=&lt;value$3', 0=&lt;value$1', 0=&lt;input$6', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26'
+frontier 2: loop 7 (pc(s__16)-&gt;pc(s__16)) from 2 by applying 0: 	0=&lt;key$25', key$25'=key$25, 0=&lt;key$2', 0=&lt;value$16', value$16'=value$16, 0=input$7', 0=&lt;input$7', input$7'=input$7, 0=&lt;reducer$1', 0=&lt;value$35', 0=&lt;value$3', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', mapper$1'=mapper$1, 0=&lt;key$26', key$26'&lt;key$26
+frontier 2: loop 8 (pc(s__16)-&gt;pc(s__16)) from 2 by applying 1: 	0=&lt;key$25', 0=&lt;key$2', key$2'&lt;key$2, 0=&lt;value$16', 0=input$7', 0=&lt;input$7', input$7'=input$7, 0=&lt;reducer$1', reducer$1'&lt;reducer$1, 0=&lt;value$35', value$35'&lt;value$35, 0=&lt;value$3', 0=&lt;value$1', value$1'=value$1, 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', mapper$1'=mapper$1, 0=&lt;key$26', key$26'=key$26
+frontier 2: loop 9 (pc(s__16)-&gt;pc(s__1)) from 2 by applying 2: 	0=&lt;key$25', key$25'=key$25, 0=&lt;key$2', key$2'=key$2, 0=&lt;value$16', value$16'=value$16, 0=input$7', 0=&lt;input$7', input$7'=input$7, 0=&lt;reducer$1', reducer$1'=reducer$1, 0=value$35', 0=&lt;value$35', 0=&lt;value$3', value$3'=value$3, 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', mapper$1'=mapper$1, 0=key$26', 0=&lt;key$26'
+frontier 2: loop 10 (pc(s__3)-&gt;pc(s__16)) from 3 by applying 3: 	0=key$25', 0=&lt;key$25', 0=key$2', 0=&lt;key$2', key$2'=key$2, 0=value$16', 0=&lt;value$16', value$16'=value$16, 0=input$7', 0=&lt;input$7', 0=reducer$1', 0=&lt;reducer$1', reducer$1'=reducer$1, 0=value$35', 0=&lt;value$35', value$35'=value$35, 0=value$3', 0=&lt;value$3', value$3'=value$3, 0=&lt;value$1', value$1'=value$1, 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', 0=&lt;key$26'
+frontier 2: loop 11 (pc(s__3)-&gt;pc(s__3)) from 3 by applying 4: 	0=&lt;key$25', 0=key$2', 0=&lt;key$2', key$2'=key$2, 0=value$16', 0=&lt;value$16', value$16'=value$16, 0=&lt;input$7', input$7'&lt;input$7, 0=reducer$1', 0=&lt;reducer$1', reducer$1'=reducer$1, 0=value$35', 0=&lt;value$35', value$35'=value$35, 0=value$3', 0=&lt;value$3', value$3'=value$3, 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=&lt;mapper$1', mapper$1'&lt;mapper$1, 0=key$26', 0=&lt;key$26', key$26'=key$26
+frontier 2: loop 12 (pc(s__1)-&gt;pc(s__1)) from 4 by applying 5: 	0=&lt;key$25', 0=&lt;key$2', key$2'&lt;key$2, 0=&lt;value$16', 0=input$7', 0=&lt;input$7', input$7'=input$7, 0=&lt;reducer$1', reducer$1'&lt;reducer$1, 0=value$35', 0=&lt;value$35', value$35'=value$35, 0=&lt;value$3', 0=&lt;value$1', value$1'&lt;value$1, 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', mapper$1'=mapper$1, 0=key$26', 0=&lt;key$26', key$26'=key$26
+frontier 2: loop 13 (pc(s__1)-&gt;pc(s__9)) from 4 by applying 6: 	0=&lt;key$25', key$25'=key$25, 0=key$2', 0=&lt;key$2', 0=&lt;value$16', 0=input$7', 0=&lt;input$7', input$7'=input$7, 0=reducer$1', 0=&lt;reducer$1', 0=value$35', 0=&lt;value$35', value$35'=value$35, 0=value$3', 0=&lt;value$3', 0=value$1', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', mapper$1'=mapper$1, 0=key$26', 0=&lt;key$26', key$26'=key$26
+frontier 2: loop 14 (pc(s__17)-&gt;pc(s__3)) from 6 by applying 12: 	0=&lt;key$25', key$25'=key$25, 0=key$2', 0=&lt;key$2', key$2'=key$2, 0=value$16', 0=&lt;value$16', value$16'=value$16, 0=&lt;input$7', 0=reducer$1', 0=&lt;reducer$1', reducer$1'=reducer$1, 0=value$35', 0=&lt;value$35', value$35'=value$35, 0=value$3', 0=&lt;value$3', value$3'=value$3, 0=&lt;value$1', value$1'=value$1, 0=input$6', 0=&lt;input$6', 0=&lt;mapper$1', mapper$1'=mapper$1, 0=key$26', 0=&lt;key$26', key$26'=key$26
+frontier 2: loop 15 (pc(s__17)-&gt;pc(s__17)) from 6 by applying 13: 	0=&lt;key$25', key$25'=key$25, 0=key$2', 0=&lt;key$2', key$2'=key$2, 0=value$16', 0=&lt;value$16', value$16'=value$16, 0=&lt;input$7', input$7'&lt;input$7, 0=reducer$1', 0=&lt;reducer$1', reducer$1'=reducer$1, 0=value$35', 0=&lt;value$35', value$35'=value$35, 0=value$3', 0=&lt;value$3', value$3'=value$3, 0=&lt;value$1', value$1'=value$1, 0=&lt;input$6', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26', key$26'=key$26
+frontier 2: loop 16 (pc(s__17)-&gt;pc(s__17)) from 6 by applying 14: 	0=&lt;key$25', 0=key$2', 0=&lt;key$2', key$2'=key$2, 0=value$16', 0=&lt;value$16', value$16'=value$16, 0=&lt;input$7', input$7'=input$7, 0=reducer$1', 0=&lt;reducer$1', reducer$1'=reducer$1, 0=value$35', 0=&lt;value$35', value$35'=value$35, 0=value$3', 0=&lt;value$3', value$3'=value$3, 0=&lt;value$1', 0=&lt;input$6', input$6'&lt;input$6, 0=&lt;mapper$1', mapper$1'&lt;mapper$1, 0=key$26', 0=&lt;key$26', key$26'=key$26
+frontier 3: loop 17 (pc(s__16)-&gt;pc(s__16)) from 7 by applying 1: 	0=&lt;key$25', 0=&lt;key$2', 0=&lt;value$16', 0=input$7', 0=&lt;input$7', input$7'=input$7, 0=&lt;reducer$1', 0=&lt;value$35', 0=&lt;value$3', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', mapper$1'=mapper$1, 0=&lt;key$26', key$26'&lt;key$26
+frontier 3: loop 18 (pc(s__16)-&gt;pc(s__1)) from 7 by applying 2: 	0=&lt;key$25', key$25'=key$25, 0=&lt;key$2', 0=&lt;value$16', value$16'=value$16, 0=input$7', 0=&lt;input$7', input$7'=input$7, 0=&lt;reducer$1', 0=value$35', 0=&lt;value$35', 0=&lt;value$3', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', mapper$1'=mapper$1, 0=key$26', 0=&lt;key$26', key$26'&lt;key$26
+frontier 3: loop 19 (pc(s__16)-&gt;pc(s__1)) from 8 by applying 2: 	0=&lt;key$25', 0=&lt;key$2', key$2'&lt;key$2, 0=&lt;value$16', 0=input$7', 0=&lt;input$7', input$7'=input$7, 0=&lt;reducer$1', reducer$1'&lt;reducer$1, 0=value$35', 0=&lt;value$35', value$35'&lt;value$35, 0=&lt;value$3', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', mapper$1'=mapper$1, 0=key$26', 0=&lt;key$26'
+frontier 3: loop 20 (pc(s__16)-&gt;pc(s__1)) from 9 by applying 5: 	0=&lt;key$25', 0=&lt;key$2', key$2'&lt;key$2, 0=&lt;value$16', 0=input$7', 0=&lt;input$7', input$7'=input$7, 0=&lt;reducer$1', reducer$1'&lt;reducer$1, 0=value$35', 0=&lt;value$35', 0=&lt;value$3', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', mapper$1'=mapper$1, 0=key$26', 0=&lt;key$26'
+frontier 3: loop 21 (pc(s__16)-&gt;pc(s__9)) from 9 by applying 6: 	0=&lt;key$25', key$25'=key$25, 0=key$2', 0=&lt;key$2', 0=&lt;value$16', 0=input$7', 0=&lt;input$7', input$7'=input$7, 0=reducer$1', 0=&lt;reducer$1', 0=value$35', 0=&lt;value$35', 0=value$3', 0=&lt;value$3', 0=value$1', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', mapper$1'=mapper$1, 0=key$26', 0=&lt;key$26'
+frontier 3: loop 22 (pc(s__3)-&gt;pc(s__16)) from 10 by applying 0: 	0=key$25', 0=&lt;key$25', 0=&lt;key$2', 0=value$16', 0=&lt;value$16', value$16'=value$16, 0=input$7', 0=&lt;input$7', 0=&lt;reducer$1', 0=&lt;value$35', 0=&lt;value$3', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', 0=&lt;key$26'
+frontier 3: loop 23 (pc(s__3)-&gt;pc(s__1)) from 10 by applying 2: 	0=key$25', 0=&lt;key$25', 0=key$2', 0=&lt;key$2', key$2'=key$2, 0=value$16', 0=&lt;value$16', value$16'=value$16, 0=input$7', 0=&lt;input$7', 0=reducer$1', 0=&lt;reducer$1', reducer$1'=reducer$1, 0=value$35', 0=&lt;value$35', value$35'=value$35, 0=value$3', 0=&lt;value$3', value$3'=value$3, 0=&lt;value$1', value$1'=value$1, 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26'
+frontier 3: loop 24 (pc(s__1)-&gt;pc(s__9)) from 12 by applying 6: 	0=&lt;key$25', 0=key$2', 0=&lt;key$2', key$2'&lt;key$2, 0=&lt;value$16', 0=input$7', 0=&lt;input$7', input$7'=input$7, 0=reducer$1', 0=&lt;reducer$1', reducer$1'&lt;reducer$1, 0=value$35', 0=&lt;value$35', value$35'=value$35, 0=value$3', 0=&lt;value$3', 0=value$1', 0=&lt;value$1', value$1'&lt;value$1, 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', mapper$1'=mapper$1, 0=key$26', 0=&lt;key$26', key$26'=key$26
+frontier 3: loop 25 (pc(s__17)-&gt;pc(s__16)) from 14 by applying 3: 	0=key$25', 0=&lt;key$25', 0=key$2', 0=&lt;key$2', key$2'=key$2, 0=value$16', 0=&lt;value$16', value$16'=value$16, 0=input$7', 0=&lt;input$7', 0=reducer$1', 0=&lt;reducer$1', reducer$1'=reducer$1, 0=value$35', 0=&lt;value$35', value$35'=value$35, 0=value$3', 0=&lt;value$3', value$3'=value$3, 0=&lt;value$1', value$1'=value$1, 0=input$6', 0=&lt;input$6', 0=mapper$1', 0=&lt;mapper$1', 0=&lt;key$26'
+frontier 3: loop 26 (pc(s__17)-&gt;pc(s__3)) from 14 by applying 4: 	0=&lt;key$25', 0=key$2', 0=&lt;key$2', key$2'=key$2, 0=value$16', 0=&lt;value$16', value$16'=value$16, 0=&lt;input$7', 0=reducer$1', 0=&lt;reducer$1', reducer$1'=reducer$1, 0=value$35', 0=&lt;value$35', value$35'=value$35, 0=value$3', 0=&lt;value$3', value$3'=value$3, 0=&lt;value$1', 0=input$6', 0=&lt;input$6', 0=&lt;mapper$1', mapper$1'&lt;mapper$1, 0=key$26', 0=&lt;key$26', key$26'=key$26
+frontier 3: loop 27 (pc(s__17)-&gt;pc(s__3)) from 15 by applying 12: 	0=&lt;key$25', key$25'=key$25, 0=key$2', 0=&lt;key$2', key$2'=key$2, 0=value$16', 0=&lt;value$16', value$16'=value$16, 0=&lt;input$7', 0=reducer$1', 0=&lt;reducer$1', reducer$1'=reducer$1, 0=value$35', 0=&lt;value$35', value$35'=value$35, 0=value$3', 0=&lt;value$3', value$3'=value$3, 0=&lt;value$1', value$1'=value$1, 0=input$6', 0=&lt;input$6', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26', key$26'=key$26
+frontier 3: loop 28 (pc(s__17)-&gt;pc(s__17)) from 15 by applying 14: 	0=&lt;key$25', 0=key$2', 0=&lt;key$2', key$2'=key$2, 0=value$16', 0=&lt;value$16', value$16'=value$16, 0=&lt;input$7', input$7'&lt;input$7, 0=reducer$1', 0=&lt;reducer$1', reducer$1'=reducer$1, 0=value$35', 0=&lt;value$35', value$35'=value$35, 0=value$3', 0=&lt;value$3', value$3'=value$3, 0=&lt;value$1', 0=&lt;input$6', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26', key$26'=key$26
+frontier 4: loop 29 (pc(s__16)-&gt;pc(s__1)) from 17 by applying 2: 	0=&lt;key$25', 0=&lt;key$2', 0=&lt;value$16', 0=input$7', 0=&lt;input$7', input$7'=input$7, 0=&lt;reducer$1', 0=value$35', 0=&lt;value$35', 0=&lt;value$3', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', mapper$1'=mapper$1, 0=key$26', 0=&lt;key$26', key$26'&lt;key$26
+frontier 4: loop 30 (pc(s__16)-&gt;pc(s__9)) from 19 by applying 6: 	0=&lt;key$25', 0=key$2', 0=&lt;key$2', key$2'&lt;key$2, 0=&lt;value$16', 0=input$7', 0=&lt;input$7', input$7'=input$7, 0=reducer$1', 0=&lt;reducer$1', reducer$1'&lt;reducer$1, 0=value$35', 0=&lt;value$35', value$35'&lt;value$35, 0=value$3', 0=&lt;value$3', 0=value$1', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', mapper$1'=mapper$1, 0=key$26', 0=&lt;key$26'
+frontier 4: loop 31 (pc(s__16)-&gt;pc(s__9)) from 20 by applying 6: 	0=&lt;key$25', 0=key$2', 0=&lt;key$2', key$2'&lt;key$2, 0=&lt;value$16', 0=input$7', 0=&lt;input$7', input$7'=input$7, 0=reducer$1', 0=&lt;reducer$1', reducer$1'&lt;reducer$1, 0=value$35', 0=&lt;value$35', 0=value$3', 0=&lt;value$3', 0=value$1', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', mapper$1'=mapper$1, 0=key$26', 0=&lt;key$26'
+frontier 4: loop 32 (pc(s__3)-&gt;pc(s__16)) from 22 by applying 1: 	0=&lt;key$25', 0=&lt;key$2', 0=&lt;value$16', 0=input$7', 0=&lt;input$7', 0=&lt;reducer$1', 0=&lt;value$35', 0=&lt;value$3', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', 0=&lt;key$26'
+frontier 4: loop 33 (pc(s__3)-&gt;pc(s__1)) from 22 by applying 2: 	0=key$25', 0=&lt;key$25', 0=&lt;key$2', 0=value$16', 0=&lt;value$16', value$16'=value$16, 0=input$7', 0=&lt;input$7', 0=&lt;reducer$1', 0=value$35', 0=&lt;value$35', 0=&lt;value$3', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26'
+frontier 4: loop 34 (pc(s__3)-&gt;pc(s__9)) from 23 by applying 6: 	0=key$25', 0=&lt;key$25', 0=key$2', 0=&lt;key$2', key$2'=key$2, 0=&lt;value$16', 0=input$7', 0=&lt;input$7', 0=reducer$1', 0=&lt;reducer$1', reducer$1'=reducer$1, 0=value$35', 0=&lt;value$35', value$35'=value$35, 0=value$3', 0=&lt;value$3', value$3'=value$3, 0=value$1', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26'
+frontier 4: loop 35 (pc(s__17)-&gt;pc(s__16)) from 25 by applying 0: 	0=key$25', 0=&lt;key$25', 0=&lt;key$2', 0=value$16', 0=&lt;value$16', value$16'=value$16, 0=input$7', 0=&lt;input$7', 0=&lt;reducer$1', 0=&lt;value$35', 0=&lt;value$3', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', 0=mapper$1', 0=&lt;mapper$1', 0=&lt;key$26'
+frontier 4: loop 36 (pc(s__17)-&gt;pc(s__1)) from 25 by applying 2: 	0=key$25', 0=&lt;key$25', 0=key$2', 0=&lt;key$2', key$2'=key$2, 0=value$16', 0=&lt;value$16', value$16'=value$16, 0=input$7', 0=&lt;input$7', 0=reducer$1', 0=&lt;reducer$1', reducer$1'=reducer$1, 0=value$35', 0=&lt;value$35', value$35'=value$35, 0=value$3', 0=&lt;value$3', value$3'=value$3, 0=&lt;value$1', value$1'=value$1, 0=input$6', 0=&lt;input$6', 0=mapper$1', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26'
+frontier 4: loop 37 (pc(s__17)-&gt;pc(s__3)) from 27 by applying 4: 	0=&lt;key$25', 0=key$2', 0=&lt;key$2', key$2'=key$2, 0=value$16', 0=&lt;value$16', value$16'=value$16, 0=&lt;input$7', 0=reducer$1', 0=&lt;reducer$1', reducer$1'=reducer$1, 0=value$35', 0=&lt;value$35', value$35'=value$35, 0=value$3', 0=&lt;value$3', value$3'=value$3, 0=&lt;value$1', 0=input$6', 0=&lt;input$6', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26', key$26'=key$26
+frontier 5: loop 38 (pc(s__16)-&gt;pc(s__9)) from 29 by applying 6: 	0=&lt;key$25', 0=key$2', 0=&lt;key$2', 0=&lt;value$16', 0=input$7', 0=&lt;input$7', input$7'=input$7, 0=reducer$1', 0=&lt;reducer$1', 0=value$35', 0=&lt;value$35', 0=value$3', 0=&lt;value$3', 0=value$1', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', mapper$1'=mapper$1, 0=key$26', 0=&lt;key$26', key$26'&lt;key$26
+frontier 5: loop 39 (pc(s__3)-&gt;pc(s__1)) from 32 by applying 2: 	0=&lt;key$25', 0=&lt;key$2', 0=&lt;value$16', 0=input$7', 0=&lt;input$7', 0=&lt;reducer$1', 0=value$35', 0=&lt;value$35', 0=&lt;value$3', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26'
+frontier 5: loop 40 (pc(s__3)-&gt;pc(s__9)) from 33 by applying 6: 	0=key$25', 0=&lt;key$25', 0=key$2', 0=&lt;key$2', 0=&lt;value$16', 0=input$7', 0=&lt;input$7', 0=reducer$1', 0=&lt;reducer$1', 0=value$35', 0=&lt;value$35', 0=value$3', 0=&lt;value$3', 0=value$1', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26'
+frontier 5: loop 41 (pc(s__17)-&gt;pc(s__16)) from 35 by applying 1: 	0=&lt;key$25', 0=&lt;key$2', 0=&lt;value$16', 0=input$7', 0=&lt;input$7', 0=&lt;reducer$1', 0=&lt;value$35', 0=&lt;value$3', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', 0=mapper$1', 0=&lt;mapper$1', 0=&lt;key$26'
+frontier 5: loop 42 (pc(s__17)-&gt;pc(s__1)) from 35 by applying 2: 	0=key$25', 0=&lt;key$25', 0=&lt;key$2', 0=value$16', 0=&lt;value$16', value$16'=value$16, 0=input$7', 0=&lt;input$7', 0=&lt;reducer$1', 0=value$35', 0=&lt;value$35', 0=&lt;value$3', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', 0=mapper$1', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26'
+frontier 5: loop 43 (pc(s__17)-&gt;pc(s__9)) from 36 by applying 6: 	0=key$25', 0=&lt;key$25', 0=key$2', 0=&lt;key$2', key$2'=key$2, 0=&lt;value$16', 0=input$7', 0=&lt;input$7', 0=reducer$1', 0=&lt;reducer$1', reducer$1'=reducer$1, 0=value$35', 0=&lt;value$35', value$35'=value$35, 0=value$3', 0=&lt;value$3', value$3'=value$3, 0=value$1', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', 0=mapper$1', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26'
+frontier 6: loop 44 (pc(s__3)-&gt;pc(s__9)) from 39 by applying 6: 	0=&lt;key$25', 0=key$2', 0=&lt;key$2', 0=&lt;value$16', 0=input$7', 0=&lt;input$7', 0=reducer$1', 0=&lt;reducer$1', 0=value$35', 0=&lt;value$35', 0=value$3', 0=&lt;value$3', 0=value$1', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26'
+frontier 6: loop 45 (pc(s__17)-&gt;pc(s__1)) from 41 by applying 2: 	0=&lt;key$25', 0=&lt;key$2', 0=&lt;value$16', 0=input$7', 0=&lt;input$7', 0=&lt;reducer$1', 0=value$35', 0=&lt;value$35', 0=&lt;value$3', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', 0=mapper$1', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26'
+frontier 6: loop 46 (pc(s__17)-&gt;pc(s__9)) from 42 by applying 6: 	0=key$25', 0=&lt;key$25', 0=key$2', 0=&lt;key$2', 0=&lt;value$16', 0=input$7', 0=&lt;input$7', 0=reducer$1', 0=&lt;reducer$1', 0=value$35', 0=&lt;value$35', 0=value$3', 0=&lt;value$3', 0=value$1', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', 0=mapper$1', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26'
+frontier 7: loop 47 (pc(s__17)-&gt;pc(s__9)) from 45 by applying 6: 	0=&lt;key$25', 0=key$2', 0=&lt;key$2', 0=&lt;value$16', 0=input$7', 0=&lt;input$7', 0=reducer$1', 0=&lt;reducer$1', 0=value$35', 0=&lt;value$35', 0=value$3', 0=&lt;value$3', 0=value$1', 0=&lt;value$1', 0=input$6', 0=&lt;input$6', 0=mapper$1', 0=&lt;mapper$1', 0=key$26', 0=&lt;key$26'
+
+_6498-&gt;_6501:	#44:	0=key$25', 0=&lt;key$25', key$25'&lt;key$25, key$25'=key$25, 0=key$2', 0=&lt;key$2', key$2'&lt;key$2, key$2'=key$2, 0=value$16', 0=&lt;value$16', value$16'&lt;value$16, value$16'=value$16, 0=input$7', 0=&lt;input$7', input$7'&lt;input$7, input$7'=input$7, 0=reducer$1', 0=&lt;reducer$1', reducer$1'&lt;reducer$1, reducer$1'=reducer$1, 0=value$35', 0=&lt;value$35', value$35'&lt;value$35, value$35'=value$35, 0=value$3', 0=&lt;value$3', value$3'&lt;value$3, value$3'=value$3, 0=value$1', 0=&lt;value$1', value$1'&lt;value$1, value$1'=value$1, 0=input$6', 0=&lt;input$6', input$6'&lt;input$6, input$6'=input$6, 0=mapper$1', 0=&lt;mapper$1', mapper$1'&lt;mapper$1, mapper$1'=mapper$1, 0=key$26', 0=&lt;key$26', key$26'&lt;key$26, key$26'=key$26
+---------------------------------------------+----run(s)----+---wall(s)----+
+Time on instantiating uf axioms              |     0.00     |     0.00     |
+Time on cli constraint solving               |     0.00     |     0.00     |
+Time on cli constraint preparation           |     0.00     |     0.00     |
+Time on cli matrix parsing                   |     0.00     |     0.00     |
+Time on cli preprocessing                    |     0.00     |     0.00     |
+Time on concretizing trans rel               |     0.00     |     0.00     |
+Time on concretizing from state              |     0.00     |     0.00     |
+Time on computing the subsumer subtree       |     0.00     |     0.00     |
+Time on finding the location of subsumer in queue|     0.00     |     0.00     |
+Time on path invariant generation            |     0.00     |     0.00     |
+Time on new predicate selection              |     0.00     |     0.00     |
+Time on refinement preprocessing cut         |     0.00     |     0.00     |
+Time on refinement cutting trace             |     0.00     |     0.00     |
+Time on refinement finding unsat subtrace    |     0.00     |     0.00     |
+Time on refinement                           |     0.00     |     0.00     |
+Time on fixpoint abstraction                 |     0.00     |     0.00     |
+Time on fixpoint test                        |     0.02     |     0.02     |
+Time on abstract check                       |     0.00     |     0.00     |
+Time on total including result checking      |     0.00     |     0.00     |
+Time on check result                         |     0.00     |     0.00     |
+Time on total                                |     0.00     |     0.00     |
+---------------------------------------------+--------------+--------------+
+
+
+
+==================================================
+ARMC-LIVE: program is correct
+
+</pre>
+</body>
+</html>

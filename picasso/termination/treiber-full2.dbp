@@ -1,0 +1,128 @@
+// Treiber with stack size
+
+init
+  (s, stack) -> (e, emp) [H]
+  (s, stack) -> (p1, push0)* [op]
+  (p1, push0)* -> (x, x)* [x]
+  (s, stack) -> (p2, pop0)* [op]
+
+// ****************************************************************
+
+transition "push read"
+pre
+  (s, stack) -> (p, push0) [op]
+  (s, stack) -> (w, _) [H]  
+post
+  (s, stack) -> (p, push1) [op]
+  (s, stack) -> (w, _) [H]  
+  (p, push1) -> (w, _) [H]
+==>
+  p -> p
+  s -> s
+<==
+  w -> w
+
+
+// ****************************************************************
+
+transition "push succeed"
+pre
+  (s, stack) -> (p, push1) [op]
+  (s, stack) -> (w, _) [H]  
+  (p, push1) -> (w, _) [H]
+  (p, push1) -> (x, x) [x]
+post
+  (s, stack) -> (x, x) [H]  
+  (s, stack) -> (w, _) [A]
+==>
+  x -> x
+  s -> s
+<==
+  w -> w
+
+transition "push fail"
+pre
+  (s, stack) -> (p, push1) [op]
+  (s, stack) -> (w1, _) [H]  
+  (p, push1) -> (w2, _) [H]
+  (p, push1) -> (x, x) [x]
+post
+  (s, stack) -> (p, push0) [op]
+  (s, stack) -> (w1, _) [H]  
+  (p, push0) -> (x, x) [x]
+==>
+  x -> x
+  p -> p
+  s -> s
+<==
+  w1 -> w1
+
+// ****************************************************************
+// POP
+
+
+transition "pop read"
+pre
+  (s, stack) -> (p, pop0) [op]
+  (s, stack) -> (w, _) [H]  
+post
+  (s, stack) -> (p, pop1) [op]
+  (s, stack) -> (w, _) [H]  
+  (p, pop1) -> (w, _) [H]
+==>
+  p -> p
+  s -> s
+<==
+  w -> w
+
+
+
+transition "pop fail"
+pre
+  (s, stack) -> (p, pop1) [op]
+  (s, stack) -> (w1, _) [H]  
+  (p, pop1) -> (w2, _) [H]
+post
+  (s, stack) -> (p, pop0) [op]
+  (s, stack) -> (w1, _) [H]  
+==>
+  p -> p
+  s -> s
+<==
+  w1 -> w1
+
+
+transition "pop success"
+pre
+  (s, stack) -> (p, pop1) [op]
+  (s, stack) -> (w1, _) [H]  
+  (p, pop1) -> (w1, _) [H]
+  (s, stack) -> (e, emp) [A]
+  (s, stack) -> (w2, _) [A]
+post
+  (s, stack) -> (e, emp) [A]
+  (s, stack) -> (w2, _) [H]
+==>
+  s -> s
+  e -> e
+<==
+  w2 -> w2
+
+
+transition "pop success2"
+pre
+  (s, stack) -> (p, pop1) [op]
+  (s, stack) -> (w1, _) [H]  
+  (p, pop1) -> (w1, _) [H]
+  (s, stack) -> (e, emp) [A]
+post
+  (s, stack) -> (e, emp) [
+H]
+==>
+  s -> s
+  e -> e
+<==
+no
+  (s, stack) -> (w2, _) [A]
+==>
+  s -> s

@@ -1,0 +1,486 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>PICASSO: a PI-CAlculus-based Static SOftware analyzer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+    <link rel="stylesheet" href="http://jquerymobile.com/demos/1.2.0/docs/_assets/css/jqm-docs.css"/>
+    <link rel="stylesheet" href="picasso.css" />
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script src="http://jquerymobile.com/demos/1.2.0/docs/_assets/js/jqm-docs.js"></script>
+    <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+</head>    
+<body>
+
+  
+<div data-role="page" class="type-interior">
+
+  <div data-role="header">
+    <h1>PICASSO: a PI-CAlculus-based Static SOftware analyzer</h1>
+  </div> 
+
+  <div data-role="content">
+  
+    <div class="content-primary">
+        <h2>Manual</h2>
+        <h3>Dependencies</h3>
+        <p>To compile and run Picasso from the sources you will need <a href="https://github.com/harrah/xsbt/wiki">sbt 0.12</a> (or a more recent version).</p>
+        <p>When proving termination of depth-bounded processes Picasso uses the additional tools:
+           <a href="http://www7.in.tum.de/~rybal/armc/">ARMC</a>,
+           <a href="http://www.philipp.ruemmer.org/princess.shtml">Princess</a>,
+           <a href="http://research.microsoft.com/en-us/um/redmond/projects/z3/">Z3</a>
+        </p>
+
+        <h3>Overview</h3>
+        <p>
+        Picasso is a tool for reachability analysis of mobile processes.
+        From a technical perspective Picasso focuses on depth-bounded processes (a subset of the π-calculus) and the problem it tries to solve of the control-state reachability (or covering) problem.
+        The core algorithm is a saturation algorithm based on forward exploration of the state-space with widening.
+        </p>
+        <p>
+        Picasso has currently one main frontend that works on graph rewriting systems.
+        Additional frontends are for a simple actor language (with boolean variables and <em>names</em> as data) and for the Scala language (as a compiler plug-in).
+        </p>
+
+        <h3>How to run the graph rewriting system version</h3>
+        <p>
+        Picasso can directly reads graph rewriting systems.
+        This version offers a greater degree of flexibility but can quite painful to write by hand.
+        When using Picasso from the SVN repository the <span class="tt">runGraph.sh</span> script run Picasso with for graph rewriting systems.
+        The script takes as argument one input file, and computes the cover of the graph rewriting system contained in the file.
+        It is possible to get more details of the computation using the <span class="tt">-v</span> option (twice for debug output).
+        The result can be saved in an html report using the <span class="tt">-r</span> option.
+        </p>
+
+        <h4>BNF grammar of the graph rewriting systems</h4>
+
+        <p>
+        A node consists of an identifier and a label.
+        The identifier is unique to the node.
+        On the other hand many nodes can have the same label.
+        In case the label is not known, it is possible to have a special wildcard label (denoted _).
+        Furthermore, it is possible to specify the multiplicity (nesting depth) of a node using *.
+        <table>
+        <tr> <!-- node -->
+        <td> <em>node</em> </td>
+        <td align="right"> ::= </td>
+        <td> (<em>ident</em>, <em>label</em>) </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> (<em>ident</em>, _ ) </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> <em>node</em> * </td>
+        </tr>
+        </table> 
+        </p>
+
+        <p>
+        An edge is given by a pair of nodes.
+        Optionally, the edge can be labelled.
+        <table>
+        <tr> <!-- edge -->
+        <td> <em>edge</em> </td>
+        <td align="right"> ::= </td>
+        <td> <em>node</em> -&gt; <em>node</em> </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> <em>node</em> -&gt; <em>node</em> [ <em>label</em> ] </td>
+        </tr>
+        </table> 
+        </p>
+        
+        <p>
+        A graph is given by a sequence of edges.
+        In case a node is not connected, it can be declared by prefixing it with "node". 
+        <table>
+        <tr> <!-- graph -->
+        <td> <em>graph</em> </td>
+        <td align="right"> ::= </td>
+        <td> <em>edge</em> &nbsp; <em>graph</em> </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> node <em>node</em> &nbsp; <em>graph</em> </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> </td>
+        </tr>
+        </table> 
+        </p>
+        
+        <p>
+        A mapping is a dictionary between nodes identifiers.
+        It is given by a sequence of pairs.
+        <table>
+        <tr> <!-- mapping -->
+        <td> <em>mapping</em> </td>
+        <td align="right"> ::= </td>
+        <td> <em>ident<em> -&gt; <em>ident</em> &nbsp; <em>mapping</em> </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> </td>
+        </tr>
+        </table> 
+        </p>
+        
+        <p>
+        A transition transform a subgraph (pre) into another one (post).
+        The pre is matched within a larger graph (subgraph) and then replaced by the post.
+        To preserve the connections with the rest of the graph during the replacement, the nodes in pre and post need to be connected by mappings.
+        The forward mapping (==&gt;) maps non-wildcard nodes from pre into non-wildcard nodes of post.
+        The backward mapping (&lt;==) maps wildcard nodes of post to wildcard nodes of pre.
+	It is also possible to specify an inhibitory pattern that prevent the transition from firing.
+        <table>
+        <tr> <!-- transition -->
+        <td> <em>transition</em> </td>
+        <td align="right"> ::= </td>
+        <td> transition <em>stringLit</em> &nbsp; pre <em>graph</em> &nbsp; post <em>graph</em> &nbsp; ==&gt; <em>mapping</em> &nbsp; &lt;== <em>mapping</em> </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> transition <em>stringLit</em> &nbsp; pre <em>graph</em> &nbsp; post <em>graph</em> &nbsp; ==&gt; <em>mapping</em> &nbsp; &lt;== <em>mapping</em> &nbsp; no <em>graph</em> </td>
+        </tr>
+        </table> 
+        </p>
+        
+        <p>
+        A system is given by an initial state (a graph), a sequence of transitions, and, optionally, a target state.
+
+        <table>
+        <tr> <!-- initial -->
+        <td> <em>initial</em> </td>
+        <td align="right"> ::= </td>
+        <td> init <em>graph</em> </td>
+        </tr>
+        </table> 
+        
+        <table>
+        <tr> <!-- transitions -->
+        <td> <em>transitions</em> </td>
+        <td align="right"> ::= </td>
+        <td> <em>transition</em> &nbsp; <em>transitions</em> </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> </td>
+        </tr>
+        </table> 
+
+        <table>
+        <tr> <!-- target -->
+        <td> <em>target</em> </td>
+        <td align="right"> ::= </td>
+        <td> target <em>graph</em> </td>
+        </tr>
+        </table> 
+
+        <table>
+        <tr> <!-- system -->
+        <td> <em>system</em> </td>
+        <td align="right"> ::= </td>
+        <td> <em>init</em> <em>transitions</em> <em>target</em> </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> <em>init</em> <em>transitions</em> </td>
+        </tr>
+        </table> 
+        </p>
+
+        <h4>Graph rewriting system example</h4>
+        <p>
+        Here is a simple client-server example.
+        The process consists of one single server thread, an environment thread, and an unbounded number of client threads.
+        In each loop iteration of a client, the client non-deterministically chooses to either wait for a response from the server, or to send a new request to the server.
+        Requests are sent asynchronously and carry both the address of the server and the client.
+        In each iteration of the server loop, the server waits for incoming requests and then asynchronously sends a response back to the client using the client's address received in the request.
+        The environment thread models the fact that new clients can enter the system at anytime.
+        In each iteration of the environment thread, it spawns a new client thread.
+        The initial state of the system consists only of the server and the environment thread.
+
+        <div class="code">
+<pre>init
+  (e, env) -&gt; (s, server) [S]
+
+transition "new client" 
+pre
+  (e, env) -&gt; (s, server) [S]
+post
+  (e, env) -&gt; (s, server) [S]
+  (c, client) -&gt; (s, server) [S]
+==&gt;
+  e -&gt; e
+  s -&gt; s
+&lt;==
+
+transition "request" 
+pre
+  (c, client) -&gt; (s, server) [S]
+post
+  (c, client) -&gt; (s, server) [S]
+  (m, msg) -&gt;  (s, server) [S]
+  (m, msg) -&gt;  (c, client) [C]
+==&gt;
+  s -&gt; s
+  c -&gt; c
+&lt;==
+
+transition "reply" 
+pre
+  (m, msg) -&gt; (s, server) [S]
+  (m, msg) -&gt; (c, _) [C]
+post
+  (r, reply) -&gt; (c, _) [C]
+  node (s, server)
+==&gt;
+  s -&gt; s
+&lt;==
+  c -&gt; c
+
+transition "receive reply" 
+pre
+  (r, reply) -> (c, _) [C]
+post
+  node (c, _)
+==>
+<==
+  c -> c</pre>
+        </div>
+        
+        Assuming that this file is named <span class="tt">example.dbp</span>, it is possible to run the example with the command:<br/>
+        <span class="tt"># java -jar picasso-core.jar example.dbp</span>
+        </p>
+
+        <h3>How to run the basic version</h3>
+        <p>
+          The so-called basic input language is a layer of syntactic sugar on top of the π-calculus.
+          The goal is to have an human readable language that looks like some of the simple/early actor languages.
+        </p>
+
+        <h4>EBNF grammar of the basic frontend</h4>
+        <p>TODO short intro</p>
+        
+        <p>A <em>literal</em> is either true, false, or a string literal.</p>
+        
+        <p>A <em>pattern</em> is either a wild card, a literal, an identifier, or a constructor (algebraic data type).</p>
+        <table>
+        <tr> <!-- pattern -->
+        <td> <em>pattern</em> </td>
+        <td align="right"> ::= </td>
+        <td> "_" </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> <em>literal</em> </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> <em>ident</em> &nbsp; [ "(" <em>pattern</em> {"," <em>pattern</em>} ")"] </td>
+        </tr>
+        </table> 
+        
+        <p>An <em>expression</em> is either a wild card (for undefined values), a literal, an identifier, or a constructor (algebraic data type). </p>
+        <table>
+        <tr> <!-- expression -->
+        <td> <em>expression</em> </td>
+        <td align="right"> ::= </td>
+        <td> "_" </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> <em>literal</em> </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> <em>ident</em> &nbsp; [ "(" <em>expression</em> {"," <em>expression</em>} ")"] </td>
+        </tr>
+        </table> 
+
+        <p>A <em>process</em> is a sequence of statements.</p>
+        <table>
+        <tr> <!-- process -->
+        <td> <em>process</em> </td>
+        <td align="right"> ::= </td>
+        <td> "begin" [ <em>process</em> {";" <em>process</em> } ] "end" </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> "var" <em>ident</em> ":=" <em>expression</em> </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> "val" <em>ident</em> ":=" <em>expression</em> </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> <em>ident</em> ":=" <em>expression</em> </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> <em>expression</em> "!" <em>expression</em> </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> <em>expression</em> </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> "new" <em>ident</em> "(" [ <em>expression</em> {"," <em>expression</em>} ] ")" </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> "if" <em>expression</em> "then" <em>process</em> [ "else" <em>process</em> ] </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> "while" <em>expression</em> "do" <em>process</em> </td>
+        </tr>
+        <tr>
+        <td> </td>
+        <td align="right"> | </td>
+        <td> "select" { "case" <em>expression</em> "?" <em>pattern</em> "=&gt;" <em>process</em> } </td>
+        </tr>
+        </table> 
+<!--
+    | ("foreach" ~> ident) ~ ("in" ~> expr) ~ ("do" ~> proc) ~ opt(("yield" ~> ident) ~ ("in" ~> ident)) ^^ {
+                                                      case x ~ set ~ body ~ None => ForEach(ID(x), set, body)
+                                                      case x ~ setX ~ body ~ Some(y ~ setY) => ForEachYield(ID(x), setX, ID(y), ID(setY), body)
+                                                    }
+    )
+-->
+
+        <p>An <em>actor</em> is just a syntactic unit that binds the free parameters occurring in a <em>process</em>.</p>
+        <table>
+        <tr> <!-- actor -->
+        <td> <em>actor</em> </td>
+        <td align="right"> ::= </td>
+        <td> <em>ident</em> "(" [ <em>ident</em> { "," }  <em>ident</em> ] ")" <em>process</em> </td>
+        </tr>
+        </table> 
+
+        <p>
+        The <em>initial</em> configuration of the system is a list of actors.
+        Identifiers in the arguments of the actors are assume to be top-level bounds names.
+        </p>
+        <table>
+        <tr> <!-- initial -->
+        <td> <em>initial</em> </td>
+        <td align="right"> ::= </td>
+        <td> "initial" <em>ident</em> "(" [ <em>ident</em> { "," }  <em>ident</em> ] ")" {";" <em>ident</em> "(" [ <em>ident</em> { "," }  <em>ident</em> ] ")" } </td>
+        </tr>
+        </table> 
+<!--
+  def initial: Parser[Expression] =
+    "initial" ~> rep1sep(ident ~ ("(" ~> repsep(expr, ",") <~")"), ";")  ^^ (lst => Tuple(lst map {case id ~ args => Create(id, args)}))
+    //The set of names can be inferred from the parameters of the actors.
+-->
+        
+        <h4>Type system of the basic frontend</h4>
+        <p>TODO</p>
+
+        <h4>Example</h4>
+        <p>
+        Here is a simple ping-pong example inspired from a <a href="http://www.scala-lang.org/node/54">scala example</a>.
+        There are two main difference compared to the scala version.
+        First, we do not yet support integers.
+        Therefore, we have replaced the counter by non-deterministic choice.
+        Second, in scala each actor has its own channel.
+        In out language the notions of channels (names) and processes are decoupled like in the π-calculus.
+        Thus, the receive operations has to explicitly specify what it is receiving from.
+        </p>
+        <div class="code">
+<pre>Ping(self, pong)
+  while true do
+    select
+      case self ? Start() =>
+        pong ! Ping(self)
+      case self ? SendPing() =>
+        pong ! Ping(self)
+      case self ? Pong() =>
+        if random() then
+          self ! SendPing()
+        else
+          begin
+            pong ! Stop();
+            exit()
+          end
+
+Pong(self)
+  while true do
+    select
+      case self ? Ping(sender) => sender ! Pong()
+      case self ? Stop() => exit()
+
+Main()
+  begin
+    val ping := newChannel();
+    val pong := newChannel();
+    new Ping(ping, pong);
+    new Pong(pong);
+    ping ! Start()
+  end
+
+initial
+  Main()</pre>
+        </div>
+        
+        Assuming you are using Picasso from a copy of the SVN repository, you can possible to run the example with the command:<br/>
+        <span class="tt"># ./runBasic.sh frontend/basic/src/test/resources/basic/scala-ping-pong.basic</span>
+
+        <h3>How to run the scala compiler plug-in</h3>
+        <p>TODO</p>
+
+    </div> <!--/content-primary -->
+
+    <div class="content-secondary">
+	<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+		<h3>Menu</h3>
+		<ul data-role="listview"  data-theme="c" data-dividertheme="d">
+			<li data-role="list-divider">Overview</li>
+			<li><a href="index.html">About Picasso</a></li>
+			<li><a href="download.html">Download</a></li>	
+			<li><a href="example.html">Examples and applications</a></li>
+			<li data-theme="a"><a href="manual.html">Manual</a></li>
+			<li><a href="pub.html">People and publications</a></li>
+		</ul>
+	</div>
+    </div>
+  </div><!-- content -->
+
+  <div data-role="footer">
+  <p>
+    <a href="http://www.ist.ac.at" target="_self">IST Austria</a>
+  </p>
+  </div>
+
+</div><!-- page -->
+</body>
+</html>

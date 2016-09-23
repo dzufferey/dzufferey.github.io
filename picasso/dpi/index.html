@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>PICASSO Dynamic Package Interfaces</title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+    <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+    <link rel="stylesheet" href="picasso.css" />
+</head>    
+<body>
+
+  
+<div data-role="page" id="mainPage">
+
+  <div data-role="header">
+    <h1>PICASSO Dynamic Package Interfaces</h1>
+  </div> 
+
+  <div data-role="content">
+
+    <div data-role="collapsible-set">
+
+        <div data-role="collapsible" data-collapsed="false">
+        <h3>Downloading and using Picasso</h3>
+        <p>
+        The sources of Picasso can be obtained from the <a href=".." target="_blank">tool webpage</a>.
+        Currently only the version in the SVN repository contains the dynamic package interfaces features.
+        </p>
+        
+        <p>
+        To compile and run Picasso from the sources you will need <a href="https://github.com/harrah/xsbt/wiki">sbt</a>. (tested with sbt 0.11.3)
+        When sbt is installed simply execute <span class="tt">sbt compile</span> in Picasso's folder.
+        </p>
+
+        <p>
+	To run Picasso with the interface generate enabled use the <span class="tt">runGraph.sh</span> script with the -r and --interface options.
+        Assuming that this file is named <span class="tt">input.dbp</span>, it is possible to run the example with the command:<br/>
+        <span class="tt"># runGraph.sh -r --interface input.dbp</span><br/>
+        Picasso produces a file called <span class="tt">input-report.html</span> that contains the interface.
+        </p>
+
+        </div>
+        
+        <div data-role="collapsible">
+        <h3>Graph-rewriting system from code.</h3>
+        <p>
+Picasso accepts graph-rewriting rules for concrete graphs (i.e., rules over graphs that have nodes with nesting levels 0). 
+Therefore, we have to first transform the code into graph-rewriting rules.
+A graph rewriting rule is composed of two graphs and a mapping bewteen them.
+We call the two graphs the left- and right-hand side of the rule.
+Informally, the LHS of a rule is matched against a configuration and the matched part is then replaced by the RHS.
+The mapping is used to handle the frame, i.e. the nodes not matched by the LHS.
+Those nodes might still have edges from/to matched nodes and the mapping tells how to update those edges.
+        </p>
+        <p>
+Both the objects and their corresponding abstraction predicates are represented as graph nodes.
+The nodes have labels that determine whether they represent an object or a predicate.
+The labels also carry information like the class for an object and the predicate name and valuation for a predicate.
+Furthermore, nodes can have annotations such as the role in a method call.
+        </p>
+        <p>
+The edges between two object nodes represent reference between those two objects.
+The edges between an object node and a predicate node tells the valuation of the predicate for the corresponding object.
+If a predicate is defined over the attributes of two objects, then their corresponding nodes are connected to a mutual predicate node; e.g., the ``sync'' predicate for a set and an iterator is modelled as a node that is pointed by both the set and iterator objects.
+        </p>
+        <p>
+For each method call, we manually encode its semantics as a graph rewriting rule that specifies how the objects in the scope of the method are changed.
+Due to the limited precision of the abstraction it is possible that some predicates take either the valuation true or false after the update.
+When this occurs for a concrete object we creates multiple graph-rewriting rule, one for each case.
+When this occurs for abstract objects we add a ``loop'' that non-deterministically update the value of the predicate for the objects one at the time.
+Such a case is when an iterator removes an item from a set, an indeterminate number of iterators pointing to the set become non-movers.
+The graph rewriting rules to model the semantics of a package can all be automatically computed, as outlined in the paper.
+        </p>
+        </div>
+        
+        <div data-role="collapsible">
+        <h3>Examples</h3>
+
+        <h4>Dispose example</h4>
+        <p>
+	input: <a href="disposed.dbp" target="_blank">disposed.dbp</a><br/>
+	interface: <a href="disposed-report.html" target="_blank">disposed-report.html</a>
+        </p>
+
+        <h4>Set iterator example</h4>
+        <p>
+	input: <a href="set_iterator.dbp" target="_blank">set_iterator.dbp</a><br/>
+	interface: <a href="set_iterator-report.html" target="_blank">set_iterator-report.html</a><br/>
+	The abstraction requires an additional binary predicate "iterator.iver &leq; set.sver".
+        This predicate is needed to improve the precision of the post computation.
+        However, it is always true, therefore, we omit it in the rule.
+        </p>
+
+        <h4>JDBC example</h4>
+        <p>
+	input: <a href="jdbc.dbp" target="_blank">jdbc.dbp</a><br/>
+	interface: <a href="jdbc-report.html" target="_blank">jdbc-report.html</a>
+        </p>
+
+        </div>
+
+        <div data-role="collapsible">
+        <h3>People</h3>
+        <ul data-role="listview" data-inset="true">
+          <li><a href="http://www.mpi-sws.org/~shahram/" target="_self">
+            <h4>Shahram Esmaeilsabzali</h4>
+          </a></li>
+          <li><a href="http://www.cs.ucla.edu/~rupak/" target="_self">
+            <h4>Rupak Majumdar</h4>
+          </a></li>
+          <li><a href="http://pub.ist.ac.at/~zufferey/" target="_self">
+            <h4>Damien Zufferey</h4>
+          </a></li>
+          <li><a href="http://cs.nyu.edu/~wies/" target="_self">
+            <h4>Thomas Wies</h4>
+          </a></li>
+        </ul>
+        
+        </div>
+        
+    </div><!-- collapsible-set -->
+
+  </div><!-- content -->
+
+  <div data-role="footer">
+  <p>
+    <a href="http://www.ist.ac.at" target="_self">IST Austria</a>
+  </p>
+  </div>
+
+</div><!-- page -->
+</body>
+</html>

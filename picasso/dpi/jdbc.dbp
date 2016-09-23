@@ -1,0 +1,286 @@
+init
+  node (s, safe)
+/*
+  (con, Con) -> (actc, activeCon)
+  (con, Con) -> (acts, activeStmt)
+  (con, Con) -> (nacts, not_activeStmt)
+  (con, Con) -> (open, open)
+  (con, Con) -> (nopen, not_open)
+  (con, Con) -> (hr, has_result)
+  (con, Con) -> (nr, not_has_result)
+*/
+
+transition "newConn(): Con"
+pre
+  node (s, safe)
+post
+  node (s, safe)
+  (con, Con) -> (actc, activeCon)
+  (con, Con) -> (acts, activeStmt)
+  (con, Con) -> (nacts, not_activeStmt)
+  (con, Con) -> (open, open)
+  (con, Con) -> (nopen, not_open)
+  (con, Con) -> (hr, has_result)
+  (con, Con) -> (nr, not_has_result)
+==>
+  s -> s
+<==
+
+transition "newStmt(Con): Stmt; on active"
+pre
+  node (s, safe)
+  (callee, Con) -> (actc, activeCon)
+  (callee, Con) -> (acts, activeStmt)
+  (callee, Con) -> (nr, not_has_result)
+post
+  node (s, safe)
+  (callee, Con) -> (actc, activeCon)
+  (callee, Con) -> (acts, activeStmt)
+  (st, Stmt) -> (acts, activeStmt)
+  (st, Stmt) -> (callee, Con)
+  (callee, Con) -> (nr, not_has_result)
+  (st, Stmt) -> (nr, not_has_result)
+==>
+  actc -> actc
+  s -> s
+  callee -> callee
+  acts -> acts
+  nr -> nr
+<==
+
+
+transition "newStmt(Con): Stmt; on not_active"
+pre
+  node (s, safe)
+  (callee, Con) -> (nactc, not_activeCon)
+post
+  (callee, ConError) -> (nactc, not_activeCon)
+==>
+  callee -> callee
+  nactc -> nactc
+<==
+
+transition "execute(Stmt): Result; on active, no result"
+pre
+  node (s, safe)
+  (callee, Stmt) -> (con, Con)
+  (callee, Stmt) -> (acts, activeStmt)
+  (con, Con) -> (open, open)
+  (con, Con) -> (acts, activeStmt)
+  (con, Con) -> (hr, has_result)
+  (callee, Stmt) -> (nr, not_has_result)
+post
+  node (s, safe)
+  node (nr, not_has_result)
+  (callee, Stmt) -> (con, Con)
+  (callee, Stmt) -> (acts, activeStmt)
+  (con, Con) -> (open, open)
+  (con, Con) -> (acts, activeStmt)
+  (con, Con) -> (hr, has_result)
+  (r, Result) -> (open, open)
+  (r, Result) -> (callee, Stmt)
+  (callee, Stmt) -> (r, Result)
+  (callee, Stmt) -> (hr, has_result)
+==>
+  s -> s
+  con -> con
+  acts -> acts
+  callee -> callee
+  open -> open
+  hr -> hr
+  nr -> nr
+<==
+
+transition "execute(Stmt): Result; on active, has result"
+pre
+  node (s, safe)
+  (callee, Stmt) -> (con, Con)
+  (callee, Stmt) -> (acts, activeStmt)
+  (con, Con) -> (open, open)
+  (con, Con) -> (acts, activeStmt)
+  (con, Con) -> (nopen, not_open)
+  (callee, Stmt) -> (hr, has_result)
+  (callee, Stmt) -> (r, Result)
+  (r, Result) -> (open, open)
+  (r, Result) -> (callee, Stmt)
+post
+  node (s, safe)
+  (callee, Stmt) -> (con, Con)
+  (callee, Stmt) -> (acts, activeStmt)
+  (con, Con) -> (open, open)
+  (con, Con) -> (acts, activeStmt)
+  (con, Con) -> (nopen, not_open)
+  (r, Result) -> (callee, Stmt)
+  (r, Result) -> (nopen, not_open)
+  (r1, Result) -> (open, open)
+  (r1, Result) -> (callee, Stmt)
+  (callee, Stmt) -> (r1, Result)
+  (callee, Stmt) -> (hr, has_result)
+==>
+  s -> s
+  con -> con
+  acts -> acts
+  callee -> callee
+  open -> open
+  nopen -> nopen
+  r -> r
+  hr -> hr
+<==
+
+transition "closeResult(Result); active, has result"
+pre
+  node (s, safe)
+  (callee, Result) -> (open, open)
+  (callee, Result) -> (st, Stmt)
+  (con, Con) -> (nopen, not_open)
+  (con, Con) -> (open, open)
+  (con, Con) -> (nr, not_has_result)
+  (st, Stmt) -> (callee, Result)
+  (st, Stmt) -> (hr, has_result)
+  (st, Stmt) -> (con, Con)
+post
+  node (s, safe)
+  node (hr, has_result)
+  (callee, Result) -> (nopen, not_open)
+  (callee, Result) -> (st, Stmt)
+  (con, Con) -> (nopen, not_open)
+  (con, Con) -> (open, open)
+  (con, Con) -> (nr, not_has_result)
+  (st, Stmt) -> (nr, not_has_result)
+  (st, Stmt) -> (con, Con)
+==>
+  s -> s
+  con -> con
+  nopen -> nopen
+  open -> open
+  st -> st
+  callee -> callee
+  hr -> hr
+  nr -> nr
+<==
+
+
+transition "closeStmt(Stmt); active, has result"
+pre
+  node (s, safe)
+  (r, Result) -> (open, open)
+  (r, Result) -> (callee, Stmt)
+  (con, Con) -> (nopen, not_open)
+  (con, Con) -> (open, open)
+  (con, Con) -> (hr, has_result)
+  (con, Con) -> (nr, not_has_result)
+  (con, Con) -> (nacts, not_activeStmt)
+  (callee, Stmt) -> (acts, activeStmt)
+  (callee, Stmt) -> (r, Result)
+  (callee, Stmt) -> (hr, has_result)
+  (callee, Stmt) -> (con, Con)
+post
+  node (s, safe)
+  node (acts, activeStmt)
+  node (hr, has_result)
+  (r, Result) -> (nopen, not_open)
+  (r, Result) -> (callee, Stmt)
+  (con, Con) -> (nopen, not_open)
+  (con, Con) -> (open, open)
+  (con, Con) -> (hr, has_result)
+  (con, Con) -> (nr, not_has_result)
+  (con, Con) -> (nacts, not_activeStmt)
+  (callee, Stmt) -> (nacts, not_activeStmt)
+  (callee, Stmt) -> (nr, not_has_result)
+  (callee, Stmt) -> (con, Con)
+  (callee, Stmt) -> (r, Result)
+==>
+  s -> s
+  con -> con
+  nopen -> nopen
+  open -> open
+  acts -> acts
+  nacts -> nacts
+  callee -> callee
+  r -> r
+  nr -> nr
+  hr -> hr
+<==
+
+transition "closeStmt(Stmt); active, has no result"
+pre
+  node (s, safe)
+  (con, Con) -> (nopen, not_open)
+  (con, Con) -> (open, open)
+  (con, Con) -> (nr, not_has_result)
+  (con, Con) -> (nacts, not_activeStmt)
+  (callee, Stmt) -> (acts, activeStmt)
+  (callee, Stmt) -> (nr, not_has_result)
+  (callee, Stmt) -> (con, Con)
+post
+  node (s, safe)
+  node (acts, activeStmt)
+  (con, Con) -> (nopen, not_open)
+  (con, Con) -> (nr, not_has_result)
+  (con, Con) -> (open, open)
+  (con, Con) -> (nacts, not_activeStmt)
+  (callee, Stmt) -> (nacts, not_activeStmt)
+  (callee, Stmt) -> (nr, not_has_result)
+  (callee, Stmt) -> (con, Con)
+==>
+  s -> s
+  con -> con
+  nopen -> nopen
+  open -> open
+  acts -> acts
+  nacts -> nacts
+  callee -> callee
+  nr -> nr
+<==
+
+transition "closeCon(Con); active"
+pre
+  node (s, safe)
+  (callee, Con) -> (actc, activeCon)
+  (callee, Con) -> (nopen, not_open)
+  (callee, Con) -> (open, open)
+  (callee, Con) -> (nr, not_has_result)
+  (callee, Con) -> (hr, has_result)
+  (callee, Con) -> (nacts, not_activeStmt)
+  (callee, Con) -> (acts, activeStmt)
+post
+  node (s, safe)
+  (callee, Con) -> (nactc, not_activeCon)
+  (callee, Con) -> (nopen, not_open)
+  (callee, Con) -> (open, open)
+  (callee, Con) -> (nacts, not_activeStmt)
+  (callee, Con) -> (acts, activeStmt)
+  (callee, Con) -> (hr, has_result)
+  (callee, Con) -> (nr, not_has_result)
+==>
+  s -> s
+  callee -> callee
+  nopen -> nopen
+  open -> nopen
+  acts -> nacts
+  nacts -> nacts
+  hr -> nr
+  nr -> nr
+<==
+
+transition "accessResult(Result); not open"
+pre
+  node (s, safe)
+  (callee, Result) -> (nopen, not_open)
+post
+  (callee, ResultErr) -> (nopen, not_open)
+==>
+  callee -> callee
+  nopen -> nopen
+<==
+
+transition "execute(Stmt): Result; not active"
+pre
+  node (s, safe)
+  (callee, Stmt) -> (nacts, not_activeStmt)
+post
+  (callee, StmtErr) -> (nacts, not_activeStmt)
+==>
+  callee -> callee
+  nacts -> nacts
+<==

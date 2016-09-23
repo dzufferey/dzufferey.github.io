@@ -1,0 +1,30 @@
+// Work stealing.
+
+init
+  (w1, worker)* -> (j, job)** [job]
+ 
+// *****************************************************************************
+
+transition "steal"
+pre
+  (w1, worker) -> (j, job) [job]
+  node (w2, worker)
+post
+  node (w1, worker)
+  (w2, worker) -> (j, stolen) [job]
+==>
+  w1 -> w1
+  w2 -> w2
+  j -> j
+<==
+
+transition "consume"
+pre
+  (w1, worker) -> (j, _) [job]
+post
+  node (w1, worker)
+==>
+  w1 -> w1
+<==
+
+// *****************************************************************************

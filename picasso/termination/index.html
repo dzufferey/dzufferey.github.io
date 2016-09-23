@@ -1,0 +1,349 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>PICASSO: Termination of Depth-Bounded Processes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+    <link rel="stylesheet" href="picasso.css" />
+</head>    
+<body>
+
+  
+<div data-role="page" id="mainPage">
+
+  <div data-role="header">
+    <h1>PICASSO: Termination of Depth-Bounded Processes</h1>
+  </div> 
+
+  <div data-role="content">
+
+    <div data-role="collapsible-set">
+
+        <div data-role="collapsible" data-collapsed="false">
+        <h3>Downloading and using Picasso</h3>
+        <p>
+        The sources of Picasso can be obtained from the <a href=".." target="_blank">tool webpage</a>.
+        </p>
+
+        <p>For termination proofs Picasso uses the additional tools:
+           <a href="http://www7.in.tum.de/~rybal/armc/">ARMC</a>,
+           <a href="http://www.philipp.ruemmer.org/princess.shtml">Princess</a>,
+           <a href="http://research.microsoft.com/en-us/um/redmond/projects/z3/">Z3</a>
+        </p>
+        
+        <p>
+	To run Picasso and prove termination the option to use is <span class="tt">--termination</span>.
+        Assuming that this file is named <span class="tt">input.dbp</span>, it is possible to run the example with the command:<br/>
+        <span class="tt"># java -jar picasso-core-0.2.jar --termination input.dbp</span><br/>
+        Additionally it is possible to use the <span class="tt">-r</span> option to get an html report that contains the important information about the execution.
+        With <span class="tt">-r</span> Picasso produces a file called <span class="tt">input-report.html</span>.
+        </p>
+
+        <p>
+        Other useful options are:
+	<ul>
+	<li><span class="tt">-h</span>:&nbsp; for help.</li>
+	<li><span class="tt">-v</span>:&nbsp; to increase the verbosity.</li>
+	<li><span class="tt">--stats</span>:&nbsp; to record and print some statistics.</li>
+	<li><span class="tt">--noAssert</span>:&nbsp; to skip some runtime checks, resulting in faster execution.</li>
+	<li><span class="tt">--armc</span>:&nbsp; give the command for armc (when it is not in the path).</li>
+	<li><span class="tt">--smtSolver</span>:&nbsp; give the command to use for smtlib2 queries (when z3 is not in the path).</li>
+	<li><span class="tt">--princess</span>:&nbsp; give the command for pricess (when it is not in the path).</li>
+	</ul>
+        </p>
+
+        </div>
+	
+	<div data-role="collapsible">
+        <h3>Summary</h3>
+	
+	<table>
+	<tr>
+	<th>Example</th>
+	<th># loc</th>
+	<th># variables</th>
+	<th># transitions</th>
+	<th>Cover</th>
+	<th>Abstraction</th>
+	<th>ARMC</th>
+	<th>Total</th>
+	</tr>
+	<tr>
+	<td>split/merge</td>
+	<td>4</td>
+	<td>3</td>
+	<td>9</td>
+	<td>1.5</td>
+	<td>6.8</td>
+	<td>0.1</td>
+	<td>8.4</td>
+	</tr>
+	<tr>
+	<td>Work stealing, 3 workers</td>
+	<td>4</td>
+	<td>4</td>
+	<td>20</td>
+	<td>1.7</td>
+	<td>13.1</td>
+	<td>0.2</td>
+	<td>15</td>
+	</tr>
+	<tr>
+	<td>Work stealing, parametrized</td>
+	<td>2</td>
+	<td>3</td>
+	<td>4</td>
+	<td>1.5</td>
+	<td>5.6</td>
+	<td>0.1</td>
+	<td>6.2</td>
+	</tr>
+	<tr>
+	<td>Compute server job queue</td>
+	<td>2</td>
+	<td>5</td>
+	<td>4</td>
+	<td>1.6</td>
+	<td>6.1</td>
+	<td>0.1</td>
+	<td>7.8</td>
+	</tr>
+	<tr>
+	<td>Chatroom</td>
+	<td>5</td>
+	<td>34</td>
+	<td>80</td>
+	<td>9.8</td>
+	<td>61.3</td>
+	<td>5 min.</td>
+	<td>6 min.</td>
+	</tr>
+	<tr>
+	<td>Map reduce</td>
+	<td>6</td>
+	<td>10</td>
+	<td>15</td>
+	<td>2.0</td>
+	<td>8.8</td>
+	<td>0.2</td>
+	<td>11.0</td>
+	</tr>
+	<tr>
+	<td>Map reduce with failures</td>
+	<td>6</td>
+	<td>15</td>
+	<td>21</td>
+	<td>2.3</td>
+	<td>11.1</td>
+	<td>0.9</td>
+	<td>14.3</td>
+	</tr>
+	<tr>
+	<td>Treiber’s stack (coarse-grained)</td>
+	<td>2</td>
+	<td>6</td>
+	<td>4</td>
+	<td>1.9</td>
+	<td>7.2</td>
+	<td>0.2</td>
+	<td>9.3</td>
+	</tr>
+	<tr>
+	<td>Treiber’s stack (fine-grained)</td>
+	<td>3</td>
+	<td>14</td>
+	<td>13</td>
+	<td>2.7</td>
+	<td>14.2</td>
+	<td>1.2</td>
+	<td>17.1</td>
+	</tr>
+	<tr>
+	<td>Herlihy/Wing queue</td>
+	<td>3</td>
+	<td>13</td>
+	<td>25</td>
+	<td>3.8</td>
+	<td>24.9</td>
+	<td>6.5</td>
+	<td>34.2</td>
+	</tr>
+	<tr>
+	<td>Michael/Scott queue (dequeue only)</td>
+	<td>4</td>
+	<td>7</td>
+	<td>23</td>
+	<td>2.8</td>
+	<td>13</td>
+	<td>0.6</td>
+	<td>16.4</td>
+	</tr>
+	<tr>
+	<td>Michael/Scott queue (enqueue only)</td>
+	<td>7</td>
+	<td>15</td>
+	<td>53</td>
+	<td>3.8</td>
+	<td>43.7</td>
+	<td>7.6</td>
+	<td>55.1</td>
+	</tr>
+	<tr>
+	<td>Michael/Scott queue</td>
+	<td>9</td>
+	<td>31</td>
+	<td>223</td>
+	<td>25</td>
+	<td>265</td>
+	<td>3 wks</td>
+	<td>3 wks</td>
+	</tr>
+	</table> 
+        <p>
+	Summary of the experimental results. First, we give some statistics about the size of the numerical abstraction: number of locations, variables, and transitions.
+	Then, the time required to compute the covering set, extract the numerical abstraction, and the time requires to prove termination.
+	The time are given in second unless another unit is specified.
+	</p>
+
+        </div>
+
+	<div data-role="collapsible">
+        <h3>Examples</h3>
+
+	<p>
+	Here are the inputs give to Picasso and the resulting output.
+	We also give the command that was used.
+	You may notice that some commands also contains hints for the transitions predicates given to ARMC.
+	Picasso generates transition predicates by summing the variables which names start by the given prefixes.
+	</p>
+	
+        <h4>split/merge</h4>
+        <p>
+	input: <a href="split_merge.dbp" target="_blank">split_merge.dbp</a><br/>
+	command: <span class="tt">java -jar picasso-core-0.2.jar --termination split_merge.dbp</span><br/>
+	report: <a href="split_merge-report.html" target="_blank">split_merge-report.html</a>
+        </p>
+
+        <h4>Work stealing, 3 workers</h4>
+        <p>
+	input: <a href="stealing-3proc.dbp" target="_blank">stealing-3proc.dbp</a><br/>
+	command: <span class="tt">java -jar picasso-core-0.2.jar --termination stealing-3proc.dbp --namedTPreds job</span><br/>
+	report: <a href="stealing-3proc-report.html" target="_blank">stealing-3proc-report.html</a>
+        </p>
+
+        <h4>Work stealing, parametrized</h4>
+        <p>
+	input: <a href="stealing3.dbp" target="_blank">stealing3.dbp</a><br/>
+	command: <span class="tt">java -jar picasso-core-0.2.jar --termination stealing3.dbp</span><br/>
+	report: <a href="stealing3-report.html" target="_blank">stealing3-report.html</a>
+        </p>
+
+        <h4>Compute server job queue</h4>
+        <p>
+	input: <a href="clientserver.dbp" target="_blank">clientserver.dbp</a><br/>
+	command: <span class="tt">java -jar picasso-core-0.2.jar --termination clientserver.dbp</span><br/>
+	report: <a href="clientserver-report.html" target="_blank">clientserver-report.html</a>
+        </p>
+
+        <h4>Chatroom</h4>
+        <p>
+	input: <a href="chatroom.dbp" target="_blank">chatroom.dbp</a><br/>
+	command: <span class="tt">java -jar picasso-core-0.2.jar --termination chatroom.dbp --namedTPreds posts --namedTPreds userpost</span><br/>
+	report: <a href="chatroom-report.html" target="_blank">chatroom-report.html</a> (warning: large file, ~18MB)
+        </p>
+
+        <h4>Map reduce</h4>
+        <p>
+	input: <a href="mapReduce.dbp" target="_blank">mapReduce.dbp</a><br/>
+	command: <span class="tt">java -jar picasso-core-0.2.jar --termination mapReduce.dbp</span><br/>
+	report: <a href="mapReduce-report.html" target="_blank">mapReduce-report.html</a>
+        </p>
+
+        <h4>Map reduce with failures</h4>
+        <p>
+	input: <a href="mapReduceFailure.dbp" target="_blank">mapReduceFailure.dbp</a><br/>
+	command: <span class="tt">java -jar picasso-core-0.2.jar --termination mapReduceFailure.dbp --namedTPreds mapper,crash --namedTPreds reducer,crash</span><br/>
+	report: <a href="mapReduceFailure-report.html" target="_blank">mapReduceFailure-report.html</a>
+        </p>
+
+        <h4>Treiber’s stack (coarse-grained)</h4>
+        <p>
+	input: <a href="simple_non_blocking.dbp" target="_blank">simple_non_blocking.dbp</a><br/>
+	command: <span class="tt">java -jar picasso-core-0.2.jar --termination simple_non_blocking.dbp --namedTPreds Op</span><br/>
+	report: <a href="simple_non_blocking-report.html" target="_blank">simple_non_blocking-report.html</a>
+        </p>
+
+        <h4>Treiber’s stack (fined-grained)</h4>
+        <p>
+	input: <a href="treiber-full2.dbp" target="_blank">treiber-full2.dbp</a><br/>
+	command: <span class="tt">java -jar picasso-core-0.2.jar --termination treiber-full2.dbp --namedTPreds push</span><br/>
+	report: <a href="treiber-full2-report.html" target="_blank">treiber-full2-report.html</a>
+        </p>
+
+        <h4>Herlihy/Wing queue</h4>
+        <p>
+	input: <a href="HWqueue.dbp" target="_blank">HWqueue.dbp</a><br/>
+	command: <span class="tt">java -jar picasso-core-0.2.jar --termination HWqueue.dbp</span><br/>
+	report: <a href="HWqueue-report.html" target="_blank">HWqueue-report.html</a>
+        </p>
+
+        <h4>Michael/Scott queue (dequeue only)</h4>
+        <p>
+	input: <a href="msq6-deq-only.dbp" target="_blank">msq6-deq-only.dbp</a><br/>
+	command: <span class="tt">java -jar picasso-core-0.2.jar --termination msq6-deq-only.dbp</span><br/>
+	report: <a href="msq6-deq-only-report.html" target="_blank">msq6-deq-only-report.html</a>
+        </p>
+
+        <h4>Michael/Scott queue (enqueue only)</h4>
+        <p>
+	input: <a href="msq6-enq-only.dbp" target="_blank">msq6-enq-only.dbp</a><br/>
+	command: <span class="tt">java -jar picasso-core-0.2.jar --termination msq6-enq-only.dbp --namedTPreds "enq1,enq3,enq0"</span><br/>
+	report: <a href="msq6-enq-only-report.html" target="_blank">msq6-enq-only-report.html</a>
+        </p>
+        
+	<h4>Michael/Scott queue</h4>
+        <p>
+	input: <a href="msq6.dbp" target="_blank">msq6.dbp</a><br/>
+	command: <span class="tt">java -jar picasso-core-0.2.jar --termination msq6.dbp --namedTPreds "enq1,enq3,enq0" --namedTPreds "enq0,enq1,enq3,deq" --namedTPreds deq</span><br/>
+	partial report: <a href="msq6-partial-report.html" target="_blank">msq6-partial-report.html</a>
+        </p>
+
+
+        </div>
+
+        <div data-role="collapsible">
+        <h3>People</h3>
+        <ul data-role="listview" data-inset="true">
+          <li><a href="http://www.cs.nyu.edu/~kshitij/" target="_self">
+            <h4>Kshitij Bansal</h4>
+          </a></li>
+          <li><a href="https://cs.nyu.edu/~ejk/" target="_self">
+            <h4>Eric Koskinen</h4>
+          </a></li>
+          <li><a href="http://cs.nyu.edu/~wies/" target="_self">
+            <h4>Thomas Wies</h4>
+          </a></li>
+          <li><a href="http://pub.ist.ac.at/~zufferey/" target="_self">
+            <h4>Damien Zufferey</h4>
+          </a></li>
+        </ul>
+        
+        </div>
+        
+        
+    </div><!-- collapsible-set -->
+
+  </div><!-- content -->
+
+  <div data-role="footer">
+  <p>
+    <a href="http://www.ist.ac.at" target="_self">IST Austria</a>
+  </p>
+  </div>
+
+</div><!-- page -->
+</body>
+</html>

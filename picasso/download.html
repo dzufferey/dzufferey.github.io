@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>PICASSO: a PI-CAlculus-based Static SOftware analyzer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+    <link rel="stylesheet" href="http://jquerymobile.com/demos/1.2.0/docs/_assets/css/jqm-docs.css"/>
+    <link rel="stylesheet" href="picasso.css" />
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script src="http://jquerymobile.com/demos/1.2.0/docs/_assets/js/jqm-docs.js"></script>
+    <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+</head>    
+<body>
+
+  
+<div data-role="page" class="type-interior">
+
+  <div data-role="header">
+    <h1>PICASSO: a PI-CAlculus-based Static SOftware analyzer</h1>
+  </div> 
+
+  <div data-role="content">
+  
+    <div class="content-primary">
+        <h2>Download</h2>
+
+        <p>
+        Picasso is available in different versions: 
+        <ul data-role="listview" data-inset="true">
+          <li>
+            <a href="download/picasso-core-0.2.jar" target="_blank">
+            <!--<a href="download/picasso_2.9.1-0.1.jar" target="_blank">-->
+              <h4>Compiled version (jar).</h4>
+              <p>Version that runs out of the shelf (modulo external tools). See the manual section of this page to learn how to run Picasso.</p>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/dzufferey/picasso" target="_blank">
+            <h4>Picasso repository at https://github.com/dzufferey/picasso</h4>
+            </a>
+          </li>
+          <li>
+            <a href="download/picasso-core-components_2.9.2-0.2-sources.jar" target="_blank">
+            <!--<a href="download/picasso-0.1.tar.gz" target="_blank">-->
+              <h4>The sources of the core components (graph rewriting and backend).</h4>
+              <p>The archive contains all the files to compile and run Picasso on graph rewriting systems.</p>
+            </a>
+          </li> 
+          <li>
+            <a href="download/picasso-basic-frontend_2.9.2-0.1-sources.jar" target="_blank">
+              <h4>The sources of the basic frontend.</h4>
+              <p>
+                The archive contains a frontend to run Picasso on pi-calculus processes (with human friendly syntax).
+                The core components are required to use the frontend.
+              </p>
+            </a>
+          </li> 
+          <li>
+            <a href="download/picasso-scala-compiler-plug-in_2.9.2-0.1-sources.jar" target="_blank">
+              <h4>The sources of the scala compiler plug-in.</h4>
+              <p>
+                The archive contains a frontend to run Picasso on scala programs (small subset of the language).
+                The core components are required to use the frontend.
+              </p>
+            </a>
+          </li> 
+        </ul>
+        </p>
+	<p>
+	Currently, the scala plug-in is on hold and we do not recommend using it.
+        Hopefully, we will find time to rewrite it at some point in the future.
+	</p>
+    </div> <!--/content-primary -->
+
+    <div class="content-secondary">
+	<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+		<h3>Menu</h3>
+		<ul data-role="listview"  data-theme="c" data-dividertheme="d">
+			<li data-role="list-divider">Overview</li>
+			<li><a href="index.html">About Picasso</a></li>
+			<li data-theme="a"><a href="download.html">Download</a></li>	
+			<li><a href="example.html">Examples and applications</a></li>
+			<li><a href="manual.html">Manual</a></li>
+			<li><a href="pub.html">People and publications</a></li>
+		</ul>
+	</div>
+    </div>
+  </div><!-- content -->
+
+  <div data-role="footer">
+  <p>
+    <a href="http://www.ist.ac.at" target="_self">IST Austria</a>
+  </p>
+  </div>
+
+</div><!-- page -->
+</body>
+</html>

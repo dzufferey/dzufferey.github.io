@@ -1,0 +1,19 @@
+.code {
+    width: 80ex;
+    border-style: solid;
+    padding: 10px;
+    margin: 10px;
+    background: white
+}
+
+.img {
+    border-style: solid;
+    padding: 10px;
+    margin: 10px;
+    background: white
+}
+
+.tt {
+    font-family: monospace
+}
+

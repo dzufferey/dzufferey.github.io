@@ -1,0 +1,205 @@
+//dbp encoding of the chatroom example in "Actors in Scala" chap 4
+
+//  case class User(name: String)
+//  case class Subscribe(user: User)
+//  case class Unsubscribe(user: User)
+//  case class Post(msg: String)
+//  case class UserPost(user: User, post: Post)
+//
+//  import scala.actors.Actor
+//  class ChatRoom extends Actor {
+//    def act() {
+//      var session = Map.empty[User, Actor]
+//      while (true) {
+//        receive {
+//          case Subscribe(user) =>      // handle subscriptions
+//            val sessionUser =
+//              actor {
+//                while (true) {
+//                  self.receive {
+//                    case Post(msg) => // Send message to sender
+//                  }
+//                }
+//              }
+//            session = session + (user -> sessionUser)
+//            reply("Subscribed " + user)
+//          case Unsubscribe(user) =>    // handle unsubscriptions
+//            session = session - user
+//          case UserPost(user, post) => // handle user posts
+//            for (key <- session.keys; if key != user) {
+//              session(key) ! msg
+//            }
+//        }
+//      }
+//    }
+//  }
+//  //more complex session
+//  val sessionUser = actor {
+//    while (true) {
+//      self.receiveWithin (1800 * 1000) {
+//        case Post(msg) => subscriber ! Post(msg)
+//        case TIMEOUT =>
+//          room ! Unsubscribe(user)
+//          self.exit()
+//        }
+//      }
+//  }
+//
+//  We also need to come with a client:
+//  - fisrt subscribe,
+//  - then either receive or post (fixed but unbounded number of posts)
+//  - can also choose to unsubscribe
+
+init
+    node (cr, chatroom)
+    (cl, client)* -> (cr, chatroom)
+    (cl, client)* -> (ps, posts)**
+
+
+transition "client: send subscribe"
+pre
+    (cl, client) -> (cr, chatroom)
+post
+    (cl, client_wait_reply) -> (cr, chatroom)
+    (s, subscribe) -> (cl, client_wait_reply) [from]
+    (s, subscribe) -> (cr, chatroom) [to]
+==>
+    cl -> cl
+    cr -> cr
+<==
+
+transition "client: receive reply"
+pre
+    (r, reply) -> (cl, client_wait_reply) [to]
+post
+    node (cl, client_subscribed)
+==>
+    cl -> cl
+<==
+
+transition "client: send userpost"
+pre
+    (cl, client_subscribed) -> (cr, chatroom)
+    (cl, client_subscribed) -> (p, posts)
+post
+    (cl, client_subscribed) -> (cr, chatroom)
+    (u, userpost) -> (cl, client_subscribed) [from]
+    (u, userpost) -> (cr, chatroom) [to]
+==>
+    cl -> cl
+    cr -> cr
+<==
+
+transition "client: unsubscribe"
+pre
+    (cl, client_subscribed) -> (cr, chatroom)
+post
+    (cl, client_unsubscribed) -> (cr, chatroom)
+    (u, unsubscribe) -> (cl, client_unsubscribed) [from]
+    (u, unsubscribe) -> (cr, chatroom) [to]
+==>
+    cl -> cl
+    cr -> cr
+<==
+
+transition "server: receive subscribe" //create session and reply
+pre
+    (s, subscribe) -> (cl, _) [from]
+    (s, subscribe) -> (cr, chatroom) [to]
+post
+    (cr, chatroom) -> (se, session)
+    (se, session) -> (cl, _)
+    (r, reply) -> (cr,  chatroom) [from] 
+    (r, reply) -> (cl,  _) [to] 
+==>
+    cr -> cr
+<==
+    cl -> cl
+
+transition "server: receive userpost"
+pre
+    (u, userpost) -> (cl, _) [from]
+    (u, userpost) -> (cr, chatroom) [to]
+post
+    (cr, chatroom_forward) -> (cl, _) [sender]
+==>
+    cr -> cr
+<==
+    cl -> cl
+
+transition "server: forwarding post"
+pre
+    (cr, chatroom_forward) -> (cl, _)
+    (cr, chatroom_forward) -> (se, session)
+post
+    (cr, chatroom_forward) -> (cl, _)
+    (cr, chatroom_forward) -> (se, session) [forwarded]
+    (p, msg) -> (se, session)
+==>
+    cr -> cr
+<==
+    cl -> cl
+no
+    (se, session) -> (cl, _)
+==>
+    se -> se
+    cl -> cl
+    
+transition "server: switch to copy_back_session"
+pre
+    node (cr, chatroom_forward)
+post
+    node (cr, chatroom_cpy_back)
+==>
+    cr -> cr
+<==
+no
+    (cr, chatroom_forward) -> (se, session)
+==>
+    cr -> cr
+
+transition "server: copy_back_session"
+pre
+    (cr, chatroom_cpy_back) -> (se, session) [forwarded]
+post
+    (cr, chatroom_cpy_back) -> (se, session)
+==>
+    cr -> cr
+    se -> se
+<==
+
+transition "server: copy_back_session done"
+pre
+    node (cr, chatroom_cpy_back)
+post
+    node (cr, chatroom)
+==>
+    cr -> cr
+<==
+no
+    (cr, chatroom_cpy_back) -> (se, session) [forwarded]
+==>
+    cr -> cr
+
+transition "server: receive unsubscribe"
+pre
+    (u, unsubscribe) -> (cl, _) [from]
+    (u, unsubscribe) -> (cr, chatroom) [to]
+    (cr, chatroom) -> (se, session)
+    (se, session) -> (cl, _)
+post
+    node (cr, chatroom)
+    node (cl, _)
+==>
+    cr -> cr
+<==
+    cl -> cl
+
+transition "session: receive post"
+pre
+    (p, msg) -> (se, session)
+post
+    node (se, session)
+==>
+    se -> se
+<==

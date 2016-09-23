@@ -1,0 +1,289 @@
+//Michael scott queue
+//The ordering of the content of the queue is abstracted in order to keep the system depth-bounded.
+//The queue Q have 4 kind of ougoing pointers:
+//H: the head
+//M: middle (any node that is neither the head nor the tail)
+//T: the tail
+//A: after (node being enqueued)
+//the difficulty is that X.next mith be different thing depending on wheter the queue is empty or not.
+//we need to do some case splitting (or use inhibitors)
+//to avoid A getting replicated we need to give A the NULL value when it is null.
+//to avoid T+H+deq chain, we need to remove the nodes when it gets dequeued.
+
+init
+  (q, queue) -> (x1, x) [H]
+  (q, queue) -> (x2, x)* [M]
+  (q, queue) -> (x3, x) [T]
+  (q, queue) -> (n, NULL) [A]
+  node (d, deq0)*
+
+////what does the dequeue do:
+//dequeue(Q: pointer to queue_t, pvalue: pointer to data type): boolean
+//D1:   loop                // Keep trying until Dequeue is done
+//D2:      head = Q->Head        // Read Head
+//D3:      tail = Q->Tail         // Read Tail
+//D4:      next = head.ptr->next    // Read Head.ptr->next
+//D5:      if head == Q->Head       // Are head, tail, and next consistent?
+//D6:         if head.ptr == tail.ptr // Is queue empty or Tail falling behind?
+//D7:            if next.ptr == NULL  // Is queue empty?
+//D8:               return FALSE      // Queue is empty, couldn't dequeue
+//D9:            endif
+//                // Tail is falling behind.  Try to advance it
+//D10:            CAS(&Q->Tail, tail, <next.ptr, tail.count+1>)
+//D11:         else           // No need to deal with Tail
+//                // Read value before CAS
+//                // Otherwise, another dequeue might free the next node
+//D12:            *pvalue = next.ptr->value
+//                // Try to swing Head to the next node
+//D13:            if CAS(&Q->Head, head, <next.ptr, head.count+1>)
+//D14:               break             // Dequeue is done.  Exit loop
+//D15:            endif
+//D16:         endif
+//D17:      endif
+//D18:   endloop
+//D19:   free(head.ptr)             // It is safe now to free the old node
+//D20:   return TRUE                   // Queue was not empty, dequeue succeeded
+
+//deq0 -> deq1: read the head, the tail, and check for consistency
+//deq3 -> deqFalse (empty): guard = no A, pre T = H
+//deq3 -> deq0 (retry): guard: pre: T=H exists A, try to swing the tail
+//deq3 -> deqTrue: pre: T<>H, guard no middle, post T=H
+//deq3 -> deqTrue: pre: T<>H exists M, post M become T
+
+transition "deq0 -> deq1: read H"
+pre
+  (q, queue) -> (w, x) [H]
+  node (e, deq0)
+post
+  (q, queue) -> (w, x) [H]
+  (e, deq1) -> (w, x) [H] 
+==>
+  q -> q
+  e -> e
+  w -> w
+<==
+
+transition "deq1 -> deq2: read T"
+pre
+  (q, queue) -> (w, x) [T]
+  node (e, deq1)
+post
+  (q, queue) -> (w, x) [T]
+  (e, deq2) -> (w, x) [T] 
+==>
+  q -> q
+  e -> e
+  w -> w
+<==
+
+transition "deq2 -> deq3: read H+T is consistent"
+pre
+  (q, queue) -> (w, x) [H]
+  (e, deq2) -> (w, x) [H]
+post
+  (q, queue) -> (w, x) [H]
+  (e, deq3) -> (w, x) [H]
+==>
+  q -> q
+  e -> e
+  w -> w
+<==
+
+transition "deq2 -> deq0: read H+T is isconsistent (case H=T)"
+pre
+  (q, queue) -> (w1, x) [H]
+  (e, deq2) -> (w2, x) [H]
+  (e, deq2) -> (w2, x) [T]
+post
+  (q, queue) -> (w1, x) [H]
+  node (e, deq0)
+  node (w2, x)
+==>
+  q -> q
+  e -> e
+  w1 -> w1
+  w2 -> w2
+<==
+
+transition "deq2 -> deq0: read H+T is isconsistent (case H<>T)"
+pre
+  (q, queue) -> (w1, x) [H]
+  (e, deq2) -> (w2, x) [H]
+  (e, deq2) -> (w3, x) [T]
+post
+  (q, queue) -> (w1, x) [H]
+  node (e, deq0)
+  node (w2, x)
+  node (w3, x)
+==>
+  q -> q
+  e -> e
+  w1 -> w1
+  w2 -> w2
+  w3 -> w3
+<==
+
+transition "deq3 -> deqFalse (empty): guard = no A, pre T = H"
+pre
+  (q, queue) -> (n, NULL) [A]
+  (e, deq3) -> (w, x) [H]
+  (e, deq3) -> (w, x) [T]
+post
+  (q, queue) -> (n, NULL) [A]
+  //node (e, deqFalse)
+  node (w, x)
+==>
+  q -> q
+  //e -> e
+  w -> w
+  n -> n
+<==
+
+transition "deq3 -> deqTrue: pre: T<>H, guard no middle, post T=H"
+pre
+  (q, queue) -> (w1, x) [H]
+  (e, deq3) -> (w1, x) [H]
+  (e, deq3) -> (w2, x) [T]
+post
+  (q, queue) -> (w2, x) [H]
+  node (w2, x)
+  //node (e, deqTrue)
+  //node (w1, x)
+==>
+  q -> q
+  //e -> e
+  //w1 -> w1
+  w2 -> w2
+<==
+no
+  (q, queue) -> (w3, x) [M]
+==>
+  q -> q
+
+transition "deq3 -> deqTrue: pre: T<>H exists M, post M become T"
+pre
+  (q, queue) -> (w3, x) [M]
+  (q, queue) -> (w1, x) [H]
+  (e, deq3) -> (w1, x) [H]
+  (e, deq3) -> (w2, x) [T]
+post
+  (q, queue) -> (w3, x) [H]
+  node (w2, x)
+  //node (e, deqTrue)
+  //node (w1, x)
+==>
+  q -> q
+  //e -> e
+  //w1 -> w1
+  w2 -> w2
+  w3 -> w3
+<==
+
+transition "deq3 -> deq0 (retry): guard: pre: T=H exists A, try to swing the tail (size = 0)"
+pre
+  (q, queue) -> (w2, x) [A]
+  (q, queue) -> (w1, x) [H]
+  (q, queue) -> (w1, x) [T]
+  (e, deq3) -> (w1, x) [H]
+  (e, deq3) -> (w1, x) [T]
+post
+  (q, queue) -> (w1, x) [H]
+  (q, queue) -> (w2, x) [T]
+  (q, queue) -> (n, NULL) [A]
+  node (e, deq0)
+==>
+  q -> q
+  e -> e
+  w1 -> w1
+  w2 -> w2
+<==
+
+transition "deq3 -> deq0 (retry): guard: pre: T=H exists A, try to swing the tail (size > 0)"
+pre
+  (q, queue) -> (w2, x) [A]
+  (q, queue) -> (w3, x) [H]
+  (q, queue) -> (w1, x) [T]
+  (e, deq3) -> (w1, x) [H]
+  (e, deq3) -> (w1, x) [T]
+post
+  (q, queue) -> (w1, x) [H]
+  (q, queue) -> (w3, x) [M]
+  (q, queue) -> (w2, x) [T]
+  (q, queue) -> (n, NULL) [A]
+  node (e, deq0)
+==>
+  q -> q
+  e -> e
+  w1 -> w1
+  w2 -> w2
+  w3 -> w3
+<==
+
+transition "deq3 -> deq0 (retry): guard: pre: T=H exists A, try to swing the tail (already done)"
+pre
+  (q, queue) -> (w2, x) [T]
+  (e, deq3) -> (w1, x) [H]
+  (e, deq3) -> (w1, x) [T]
+post
+  (q, queue) -> (w2, x) [T]
+  node (e, deq0)
+  node (w1, x)
+==>
+  q -> q
+  e -> e
+  w1 -> w1
+  w2 -> w2
+<==
+
+//T cannot be removed before H is removed
+
+transition "Head was removed: deq2 -> retry"
+pre
+  node (e, deq2)
+post
+  node (e, deq4)
+==>
+  e -> e
+<==
+no
+  (e, deq2) -> (w, x) [H]
+==>
+  e -> e
+
+transition "Head was removed: deq3 -> retry"
+pre
+  node (e, deq3)
+post
+  node (e, deq4)
+==>
+  e -> e
+<==
+no
+  (e, deq3) -> (w, x) [H]
+==>
+  e -> e
+
+//in deq4: there is no H, but there might still be some T.
+transition "no Tail: deq4 -> retry"
+pre
+  node (e, deq4)
+post
+  node (e, deq0)
+==>
+  e -> e
+<==
+no
+  (e, deq4) -> (w, x) [T]
+==>
+  e -> e
+
+transition "still pointing to Tail: deq4 -> retry"
+pre
+  (e, deq4) -> (w, x) [T]
+post
+  node (e, deq0)
+  node (w, x)
+==>
+  e -> e
+  w -> w
+<==

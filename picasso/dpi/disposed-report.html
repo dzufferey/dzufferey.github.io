@@ -1,0 +1,3147 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Analysis report for Computing Cover of core/src/test/resources/dbp_graph/interface/disposed.dbp</title>
+<style type="text/css">
+</style>
+</head>
+<body>
+<a name="Ref_"> <h1>Computing Cover of core/src/test/resources/dbp_graph/interface/disposed.dbp</h1> </a>
+<li><a href="#Ref_"> <span></span> <span>Computing Cover of core/src/test/resources/dbp_graph/interface/disposed.dbp</span> </a>
+<ul>
+<li><a href="#Ref_0"> <span>0</span> <span>Input</span> </a></li>
+<li><a href="#Ref_1"> <span>1</span> <span>Graph rewriting system</span> </a>
+<ul>
+<li><a href="#Ref_1_0"> <span>1.0</span> <span>Initial Configuration</span> </a></li>
+<li><a href="#Ref_1_1"> <span>1.1</span> <span>Transitions</span> </a>
+<ul>
+<li><a href="#Ref_1_1_0"> <span>1.1.0</span> <span>newV(): V</span> </a></li>
+<li><a href="#Ref_1_1_1"> <span>1.1.1</span> <span>newL(): L</span> </a></li>
+<li><a href="#Ref_1_1_2"> <span>1.1.2</span> <span>run(V), null</span> </a></li>
+<li><a href="#Ref_1_1_3"> <span>1.1.3</span> <span>run(V); not null &amp; not disposed</span> </a></li>
+<li><a href="#Ref_1_1_4"> <span>1.1.4</span> <span>run(V); not null &amp; disposed</span> </a></li>
+<li><a href="#Ref_1_1_5"> <span>1.1.5</span> <span>done(V); null</span> </a></li>
+<li><a href="#Ref_1_1_6"> <span>1.1.6</span> <span>done(V); not null &amp; not disposed</span> </a></li>
+<li><a href="#Ref_1_1_7"> <span>1.1.7</span> <span>done(V); not null &amp; disposed</span> </a></li>
+<li><a href="#Ref_1_1_8"> <span>1.1.8</span> <span>set(V, L); null</span> </a></li>
+<li><a href="#Ref_1_1_9"> <span>1.1.9</span> <span>set(V, L); not null &amp; not disposed &amp; not aliased</span> </a></li>
+<li><a href="#Ref_1_1_10"> <span>1.1.10</span> <span>set(V, L); not null &amp; not disposed &amp; aliased</span> </a></li>
+<li><a href="#Ref_1_1_11"> <span>1.1.11</span> <span>set(V, L); not null &amp; disposed</span> </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#Ref_2"> <span>2</span> <span>Cover</span> </a>
+<ul>
+<li><a href="#Ref_2_0"> <span>2.0</span> <span>cover element 0</span> </a></li>
+<li><a href="#Ref_2_1"> <span>2.1</span> <span>cover element 1</span> </a></li>
+</ul>
+</li>
+<li><a href="#Ref_3"> <span>3</span> <span>Interface</span> </a>
+<ul>
+<li><a href="#Ref_3_0"> <span>3.0</span> <span>Outline</span> </a></li>
+<li><a href="#Ref_3_1"> <span>3.1</span> <span>Cover</span> </a>
+<ul>
+<li><a href="#Ref_3_1_0"> <span>3.1.0</span> <span>cover_0</span> </a></li>
+<li><a href="#Ref_3_1_1"> <span>3.1.1</span> <span>cover_1</span> </a></li>
+</ul>
+</li>
+<li><a href="#Ref_3_2"> <span>3.2</span> <span>Transitions</span> </a>
+<ul>
+<li><a href="#Ref_3_2_0"> <span>3.2.0</span> <span>t_0: V(f -&gt; Set(L))[]{}.set(L()[disposed -&gt; false]{})</span> </a></li>
+<li><a href="#Ref_3_2_1"> <span>3.2.1</span> <span>t_1: V(f -&gt; Set(L))[]{}.done()</span> </a></li>
+<li><a href="#Ref_3_2_2"> <span>3.2.2</span> <span>t_2: V(f -&gt; Set(L))[]{}.set()</span> </a></li>
+<li><a href="#Ref_3_2_3"> <span>3.2.3</span> <span>t_3: V(f -&gt; Set(L))[]{}.set(L()[disposed -&gt; false]{})</span> </a></li>
+<li><a href="#Ref_3_2_4"> <span>3.2.4</span> <span>t_4: V(f -&gt; Set(Null))[]{}.run()</span> </a></li>
+<li><a href="#Ref_3_2_5"> <span>3.2.5</span> <span>t_5: V(f -&gt; Set(L))[]{}.done()</span> </a></li>
+<li><a href="#Ref_3_2_6"> <span>3.2.6</span> <span>t_6: V(f -&gt; Set(L))[]{}.run()</span> </a></li>
+<li><a href="#Ref_3_2_7"> <span>3.2.7</span> <span>t_7: ???.newL()</span> </a></li>
+<li><a href="#Ref_3_2_8"> <span>3.2.8</span> <span>t_8: V(f -&gt; Set(L))[]{}.set(L()[disposed -&gt; true]{})</span> </a></li>
+<li><a href="#Ref_3_2_9"> <span>3.2.9</span> <span>t_9: ???.newV()</span> </a></li>
+<li><a href="#Ref_3_2_10"> <span>3.2.10</span> <span>t_10: V(f -&gt; Set(Null))[]{}.done()</span> </a></li>
+<li><a href="#Ref_3_2_11"> <span>3.2.11</span> <span>t_11: V(f -&gt; Set(Null))[]{}.set(L()[disposed -&gt; true]{})</span> </a></li>
+<li><a href="#Ref_3_2_12"> <span>3.2.12</span> <span>t_12: V(f -&gt; Set(Null))[]{}.set(L()[disposed -&gt; false]{})</span> </a></li>
+<li><a href="#Ref_3_2_13"> <span>3.2.13</span> <span>t_13: V(f -&gt; Set(L))[]{}.run()</span> </a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<a name="Ref_0"> <h2>Input</h2> </a>
+<pre>//example from
+//  Deriving Object Typestates in the Presence of Inter-Object References
+//  by Mangala Gowri Nanda, Christian Grothoff, and Satish Chandra
+//  in OOPSLA 05
+
+/*
+class V {
+  L f;
+  public void V() {
+    f := null;
+  }
+  public void run() {
+    if (f != null) f.run();
+  }
+  public void done() {
+    if (f != null) f.dispose();
+  }
+  public void set(L l) {
+    if (f != null) f.dispose();
+    f = l;
+  }
+}
+
+class L {
+  boolean disposed;
+  public void L() {
+    disposed := false;
+  }
+  protected void run() {
+    if (disposed) throw new Error();
+  }
+  protected void dispose() {
+    if (disposed) throw new Error();
+    disposed = true;
+  }
+}
+*/
+
+init
+  node (s, safe)
+
+transition &quot;newV(): V&quot;
+pre
+  node (s, safe)
+post
+  node (s, safe)
+  (v, V) -&gt; (n, Null) [f]
+==&gt;
+  s -&gt; s
+&lt;==
+
+
+transition &quot;newL(): L&quot;
+pre
+  node (s, safe)
+post
+  node (s, safe)
+  (l, L) -&gt; (d, not_disposed)
+==&gt;
+  s -&gt; s
+&lt;==
+
+transition &quot;run(V), null&quot;
+pre
+  node (s, safe)
+  (callee, V) -&gt; (n, Null) [f]
+post
+  node (s, safe)
+  (callee, V) -&gt; (n, Null) [f]
+==&gt;
+  s -&gt; s
+  callee -&gt; callee
+  n -&gt; n
+&lt;==
+
+transition &quot;run(V); not null &amp; not disposed&quot;
+pre
+  node (s, safe)
+  (callee, V) -&gt; (l, L) [f]
+  (l, L) -&gt; (d, not_disposed)
+post
+  node (s, safe)
+  (callee, V) -&gt; (l, L) [f]
+  (l, L) -&gt; (d, not_disposed)
+==&gt;
+  s -&gt; s
+  callee -&gt; callee
+  l -&gt; l
+  d -&gt; d
+&lt;==
+
+transition &quot;run(V); not null &amp; disposed&quot;
+pre
+  node (s, safe)
+  (callee, V) -&gt; (l, L) [f]
+  (l, L) -&gt; (d, disposed)
+post
+  (callee, V) -&gt; (l, LError) [f]
+  (l, LError) -&gt; (d, disposed)
+==&gt;
+  callee -&gt; callee
+  l -&gt; l
+  d -&gt; d
+&lt;==
+
+transition &quot;done(V); null&quot;
+pre
+  node (s, safe)
+  (callee, V) -&gt; (n, Null) [f]
+post
+  node (s, safe)
+  (callee, V) -&gt; (n, Null) [f]
+==&gt;
+  s -&gt; s
+  callee -&gt; callee
+  n -&gt; n
+&lt;==
+
+transition &quot;done(V); not null &amp; not disposed&quot;
+pre
+  node (s, safe)
+  (callee, V) -&gt; (l, L) [f]
+  (l, L) -&gt; (d, not_disposed)
+post
+  node (s, safe)
+  (callee, V) -&gt; (l, L) [f]
+  (l, L) -&gt; (d, disposed)
+==&gt;
+  s -&gt; s
+  callee -&gt; callee
+  l -&gt; l
+  d -&gt; d
+&lt;==
+
+transition &quot;done(V); not null &amp; disposed&quot;
+pre
+  node (s, safe)
+  (callee, V) -&gt; (l, L) [f]
+  (l, L) -&gt; (d, disposed)
+post
+  (callee, V) -&gt; (l, LError) [f]
+  (l, LError) -&gt; (d, disposed)
+==&gt;
+  callee -&gt; callee
+  l -&gt; l
+  d -&gt; d
+&lt;==
+
+transition &quot;set(V, L); null&quot;
+pre
+  node (s, safe)
+  (callee, V) -&gt; (n, Null) [f]
+  node (arg0, L)
+post
+  node (s, safe)
+  (callee, V) -&gt; (arg0, L) [f]
+  node (n, Null)
+==&gt;
+  s -&gt; s
+  callee -&gt; callee
+  n -&gt; n
+  arg0 -&gt; arg0
+&lt;==
+
+transition &quot;set(V, L); not null &amp; not disposed &amp; not aliased&quot;
+pre
+  node (s, safe)
+  (callee, V) -&gt; (l, L) [f]
+  (l, L) -&gt; (d, not_disposed)
+  node (arg0, L)
+post
+  node (s, safe)
+  (callee, V) -&gt; (arg0, L) [f]
+  (l, L) -&gt; (d, disposed)
+==&gt;
+  s -&gt; s
+  callee -&gt; callee
+  l -&gt; l
+  arg0 -&gt; arg0
+  d -&gt; d
+&lt;==
+
+transition &quot;set(V, L); not null &amp; not disposed &amp; aliased&quot;
+pre
+  node (s, safe)
+  (callee, V) -&gt; (arg0, L) [f]
+  (arg0, L) -&gt; (d, not_disposed)
+post
+  node (s, safe)
+  (callee, V) -&gt; (arg0, L) [f]
+  (arg0, L) -&gt; (d, disposed)
+==&gt;
+  s -&gt; s
+  callee -&gt; callee
+  arg0 -&gt; arg0
+  d -&gt; d
+&lt;==
+
+transition &quot;set(V, L); not null &amp; disposed&quot;
+pre
+  node (s, safe)
+  (callee, V) -&gt; (l, L) [f]
+  (l, L) -&gt; (d, disposed)
+post
+  (callee, V) -&gt; (l, LError) [f]
+  (l, LError) -&gt; (d, disposed)
+==&gt;
+  callee -&gt; callee
+  l -&gt; l
+  d -&gt; d
+&lt;==
+
+</pre>
+<a name="Ref_1"> <h2>Graph rewriting system</h2> </a>
+<ul>
+<li>
+<a name="Ref_1_0"> <h3>Initial Configuration</h3> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: init Pages: 1 -->
+<svg width="105pt" height="46pt"
+ viewBox="0.00 0.00 105.00 46.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 42)">
+<title>init</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-42 102,-42 102,5 -4,5"/>
+<!-- 0 -->
+<g id="node1" class="node"><title>0</title>
+<ellipse fill="none" stroke="black" cx="48.7937" cy="-19.1363" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="48.7937" y="-15.0363" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1"> <h3>Transitions</h3> </a>
+<ul>
+<li>
+<a name="Ref_1_1_0"> <h4>newV(): V</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="220pt" height="288pt"
+ viewBox="0.00 0.00 220.00 288.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 284)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-284 217,-284 217,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="8,-195 8,-272 118,-272 118,-195 8,-195"/>
+<text text-anchor="middle" x="63" y="-255.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="8,-8 8,-175 204,-175 204,-8 8,-8"/>
+<text text-anchor="middle" x="106" y="-158.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trslhs0 -->
+<g id="node2" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="63" cy="-221" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="63" y="-216.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trsrhs2 -->
+<g id="node6" class="node"><title>trsrhs2</title>
+<ellipse fill="none" stroke="black" cx="63" cy="-124" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="63" y="-119.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs2 -->
+<g id="edge6" class="edge"><title>trslhs0&#45;&gt;trsrhs2</title>
+<path fill="none" stroke="#0000aa" d="M63,-202.755C63,-188.529 63,-168.521 63,-152.232"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="66.5001,-152.163 63,-142.163 59.5001,-152.163 66.5001,-152.163"/>
+</g>
+<!-- trsrhs0 -->
+<g id="node4" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="149" cy="-34" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="149" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(Null,0)</text>
+</g>
+<!-- trsrhs1 -->
+<g id="node5" class="node"><title>trsrhs1</title>
+<ellipse fill="none" stroke="black" cx="162" cy="-124" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="162" y="-119.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trsrhs1&#45;&gt;trsrhs0 -->
+<g id="edge4" class="edge"><title>trsrhs1&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="black" d="M159.369,-105.787C157.572,-93.3443 155.154,-76.6053 153.105,-62.4211"/>
+<polygon fill="black" stroke="black" points="156.521,-61.5826 151.627,-52.1858 149.592,-62.5834 156.521,-61.5826"/>
+<text text-anchor="middle" x="158.5" y="-74.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1_1"> <h4>newL(): L</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="220pt" height="258pt"
+ viewBox="0.00 0.00 220.00 258.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 254)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-254 217,-254 217,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="8,-165 8,-242 118,-242 118,-165 8,-165"/>
+<text text-anchor="middle" x="63" y="-225.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="8,-8 8,-157 204,-157 204,-8 8,-8"/>
+<text text-anchor="middle" x="106" y="-140.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trslhs0 -->
+<g id="node2" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="63" cy="-191" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="63" y="-186.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trsrhs2 -->
+<g id="node6" class="node"><title>trsrhs2</title>
+<ellipse fill="none" stroke="black" cx="63" cy="-106" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="63" y="-101.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs2 -->
+<g id="edge6" class="edge"><title>trslhs0&#45;&gt;trsrhs2</title>
+<path fill="none" stroke="#0000aa" d="M63,-172.974C63,-161.704 63,-146.952 63,-134.163"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="66.5001,-134 63,-124 59.5001,-134 66.5001,-134"/>
+</g>
+<!-- trsrhs0 -->
+<g id="node4" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="106" cy="-34" rx="89.8356" ry="18"/>
+<text text-anchor="middle" x="106" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(not_disposed,0)</text>
+</g>
+<!-- trsrhs1 -->
+<g id="node5" class="node"><title>trsrhs1</title>
+<ellipse fill="none" stroke="black" cx="162" cy="-106" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="162" y="-101.9" font-family="Times Roman,serif" font-size="14.00">(L,0)</text>
+</g>
+<!-- trsrhs1&#45;&gt;trsrhs0 -->
+<g id="edge4" class="edge"><title>trsrhs1&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="black" d="M149.012,-89.3008C142.196,-80.538 133.696,-69.6091 126.056,-59.7863"/>
+<polygon fill="black" stroke="black" points="128.799,-57.6119 119.897,-51.8671 123.273,-61.9095 128.799,-57.6119"/>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1_2"> <h4>run(V), null</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="424pt" height="304pt"
+ viewBox="0.00 0.00 424.00 304.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 300)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-300 421,-300 421,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="8,-98 8,-288 204,-288 204,-98 8,-98"/>
+<text text-anchor="middle" x="106" y="-271.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="212,-8 212,-175 408,-175 408,-8 212,-8"/>
+<text text-anchor="middle" x="310" y="-158.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trslhs0 -->
+<g id="node2" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="106" cy="-124" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="106" y="-119.9" font-family="Times Roman,serif" font-size="14.00">(Null,0)</text>
+</g>
+<!-- trsrhs0 -->
+<g id="node7" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="267" cy="-34" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="267" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(Null,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs0 -->
+<g id="edge12" class="edge"><title>trslhs0&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="#0000aa" d="M132.586,-109.138C159.62,-94.0261 201.668,-70.5212 231.529,-53.8287"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="233.354,-56.8183 240.375,-48.8837 229.938,-50.7082 233.354,-56.8183"/>
+</g>
+<!-- trslhs1 -->
+<g id="node3" class="node"><title>trslhs1</title>
+<ellipse fill="none" stroke="black" cx="50" cy="-237" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="50" y="-232.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trslhs0 -->
+<g id="edge3" class="edge"><title>trslhs1&#45;&gt;trslhs0</title>
+<path fill="none" stroke="black" d="M58.75,-219.344C67.8199,-201.042 82.1129,-172.201 92.6055,-151.028"/>
+<polygon fill="black" stroke="black" points="95.8222,-152.419 97.1266,-141.905 89.5502,-149.311 95.8222,-152.419"/>
+<text text-anchor="middle" x="79.5" y="-187.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- trsrhs1 -->
+<g id="node8" class="node"><title>trsrhs1</title>
+<ellipse fill="none" stroke="black" cx="254" cy="-124" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="254" y="-119.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trsrhs1 -->
+<g id="edge10" class="edge"><title>trslhs1&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="#0000aa" d="M76.7846,-225.637C82.143,-223.406 87.741,-221.106 93,-219 143.802,-198.654 162.87,-205.952 208,-175 218.343,-167.906 227.953,-158.032 235.685,-148.859"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="238.416,-151.048 241.969,-141.067 232.967,-146.654 238.416,-151.048"/>
+</g>
+<!-- trslhs2 -->
+<g id="node4" class="node"><title>trslhs2</title>
+<ellipse fill="none" stroke="black" cx="149" cy="-237" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="149" y="-232.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trsrhs2 -->
+<g id="node9" class="node"><title>trsrhs2</title>
+<ellipse fill="none" stroke="black" cx="353" cy="-124" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="353" y="-119.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trsrhs2 -->
+<g id="edge8" class="edge"><title>trslhs2&#45;&gt;trsrhs2</title>
+<path fill="none" stroke="#0000aa" d="M185.679,-225.576C216.713,-215.009 261.65,-197.544 297,-175 308.723,-167.524 320.315,-157.523 329.885,-148.359"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="332.428,-150.767 337.09,-141.253 327.512,-145.783 332.428,-150.767"/>
+</g>
+<!-- trsrhs1&#45;&gt;trsrhs0 -->
+<g id="edge6" class="edge"><title>trsrhs1&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="black" d="M256.631,-105.787C258.428,-93.3443 260.846,-76.6053 262.895,-62.4211"/>
+<polygon fill="black" stroke="black" points="266.408,-62.5834 264.373,-52.1858 259.479,-61.5826 266.408,-62.5834"/>
+<text text-anchor="middle" x="263.5" y="-74.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1_3"> <h4>run(V); not null &amp; not disposed</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="424pt" height="378pt"
+ viewBox="0.00 0.00 424.00 378.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 374)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-374 421,-374 421,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="8,-82 8,-362 204,-362 204,-82 8,-82"/>
+<text text-anchor="middle" x="106" y="-345.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="212,-8 212,-249 408,-249 408,-8 212,-8"/>
+<text text-anchor="middle" x="310" y="-232.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trslhs0 -->
+<g id="node2" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="106" cy="-108" rx="89.8356" ry="18"/>
+<text text-anchor="middle" x="106" y="-103.9" font-family="Times Roman,serif" font-size="14.00">(not_disposed,0)</text>
+</g>
+<!-- trsrhs0 -->
+<g id="node9" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="310" cy="-34" rx="89.8356" ry="18"/>
+<text text-anchor="middle" x="310" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(not_disposed,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs0 -->
+<g id="edge18" class="edge"><title>trslhs0&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="#0000aa" d="M149.513,-92.2159C180.825,-80.8576 223.243,-65.4705 256.607,-53.3682"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="257.996,-56.5876 266.203,-49.8873 255.608,-50.0072 257.996,-56.5876"/>
+</g>
+<!-- trslhs1 -->
+<g id="node3" class="node"><title>trslhs1</title>
+<ellipse fill="none" stroke="black" cx="106" cy="-198" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="106" y="-193.9" font-family="Times Roman,serif" font-size="14.00">(L,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trslhs0 -->
+<g id="edge3" class="edge"><title>trslhs1&#45;&gt;trslhs0</title>
+<path fill="none" stroke="black" d="M106,-179.787C106,-167.344 106,-150.605 106,-136.421"/>
+<polygon fill="black" stroke="black" points="109.5,-136.186 106,-126.186 102.5,-136.186 109.5,-136.186"/>
+</g>
+<!-- trsrhs1 -->
+<g id="node10" class="node"><title>trsrhs1</title>
+<ellipse fill="none" stroke="black" cx="254" cy="-108" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="254" y="-103.9" font-family="Times Roman,serif" font-size="14.00">(L,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trsrhs1 -->
+<g id="edge16" class="edge"><title>trslhs1&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="#0000aa" d="M128.478,-184.331C153.579,-169.067 194.38,-144.255 222.619,-127.083"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="224.585,-129.984 231.31,-121.798 220.948,-124.003 224.585,-129.984"/>
+</g>
+<!-- trslhs2 -->
+<g id="node4" class="node"><title>trslhs2</title>
+<ellipse fill="none" stroke="black" cx="50" cy="-311" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="50" y="-306.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trslhs1 -->
+<g id="edge5" class="edge"><title>trslhs2&#45;&gt;trslhs1</title>
+<path fill="none" stroke="black" d="M58.75,-293.344C67.8733,-274.934 82.2812,-245.861 92.7903,-224.655"/>
+<polygon fill="black" stroke="black" points="96.007,-226.047 97.3114,-215.532 89.735,-222.938 96.007,-226.047"/>
+<text text-anchor="middle" x="79.5" y="-261.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- trsrhs2 -->
+<g id="node11" class="node"><title>trsrhs2</title>
+<ellipse fill="none" stroke="black" cx="254" cy="-198" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="254" y="-193.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trsrhs2 -->
+<g id="edge14" class="edge"><title>trslhs2&#45;&gt;trsrhs2</title>
+<path fill="none" stroke="#0000aa" d="M76.7846,-299.637C82.143,-297.406 87.741,-295.106 93,-293 143.802,-272.654 162.87,-279.952 208,-249 218.343,-241.906 227.953,-232.032 235.685,-222.859"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="238.416,-225.048 241.969,-215.067 232.967,-220.654 238.416,-225.048"/>
+</g>
+<!-- trslhs3 -->
+<g id="node5" class="node"><title>trslhs3</title>
+<ellipse fill="none" stroke="black" cx="149" cy="-311" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="149" y="-306.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trsrhs3 -->
+<g id="node12" class="node"><title>trsrhs3</title>
+<ellipse fill="none" stroke="black" cx="353" cy="-198" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="353" y="-193.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trslhs3&#45;&gt;trsrhs3 -->
+<g id="edge12" class="edge"><title>trslhs3&#45;&gt;trsrhs3</title>
+<path fill="none" stroke="#0000aa" d="M185.679,-299.576C216.713,-289.009 261.65,-271.544 297,-249 308.723,-241.524 320.315,-231.523 329.885,-222.359"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="332.428,-224.767 337.09,-215.253 327.512,-219.783 332.428,-224.767"/>
+</g>
+<!-- trsrhs1&#45;&gt;trsrhs0 -->
+<g id="edge8" class="edge"><title>trsrhs1&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="black" d="M266.707,-91.2083C273.615,-82.08 282.314,-70.5847 290.099,-60.2971"/>
+<polygon fill="black" stroke="black" points="293.121,-62.1043 296.365,-52.0182 287.539,-57.8802 293.121,-62.1043"/>
+</g>
+<!-- trsrhs2&#45;&gt;trsrhs1 -->
+<g id="edge10" class="edge"><title>trsrhs2&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="black" d="M254,-179.787C254,-167.344 254,-150.605 254,-136.421"/>
+<polygon fill="black" stroke="black" points="257.5,-136.186 254,-126.186 250.5,-136.186 257.5,-136.186"/>
+<text text-anchor="middle" x="256.5" y="-148.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1_4"> <h4>run(V); not null &amp; disposed</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="382pt" height="378pt"
+ viewBox="0.00 0.00 382.00 378.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 374)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-374 379,-374 379,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="8,-82 8,-362 204,-362 204,-82 8,-82"/>
+<text text-anchor="middle" x="106" y="-345.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="212,-8 212,-249 366,-249 366,-8 212,-8"/>
+<text text-anchor="middle" x="289" y="-232.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trslhs0 -->
+<g id="node2" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="127" cy="-108" rx="68.7933" ry="18"/>
+<text text-anchor="middle" x="127" y="-103.9" font-family="Times Roman,serif" font-size="14.00">(disposed,0)</text>
+</g>
+<!-- trsrhs0 -->
+<g id="node9" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="289" cy="-34" rx="68.7933" ry="18"/>
+<text text-anchor="middle" x="289" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(disposed,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs0 -->
+<g id="edge16" class="edge"><title>trslhs0&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="#0000aa" d="M161.356,-92.3065C185.841,-81.122 218.952,-65.9972 245.315,-53.955"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="247.052,-57.0095 254.693,-49.6709 244.143,-50.6423 247.052,-57.0095"/>
+</g>
+<!-- trslhs1 -->
+<g id="node3" class="node"><title>trslhs1</title>
+<ellipse fill="none" stroke="black" cx="162" cy="-198" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="162" y="-193.9" font-family="Times Roman,serif" font-size="14.00">(L,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trslhs0 -->
+<g id="edge3" class="edge"><title>trslhs1&#45;&gt;trslhs0</title>
+<path fill="none" stroke="black" d="M155.085,-180.219C150.132,-167.482 143.367,-150.086 137.717,-135.559"/>
+<polygon fill="black" stroke="black" points="140.907,-134.104 134.02,-126.052 134.383,-136.641 140.907,-134.104"/>
+</g>
+<!-- trsrhs1 -->
+<g id="node10" class="node"><title>trsrhs1</title>
+<ellipse fill="none" stroke="black" cx="278" cy="-108" rx="57.8712" ry="18"/>
+<text text-anchor="middle" x="278" y="-103.9" font-family="Times Roman,serif" font-size="14.00">(LError,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trsrhs1 -->
+<g id="edge14" class="edge"><title>trslhs1&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="#0000aa" d="M181.416,-182.936C199.636,-168.8 227.154,-147.45 248.162,-131.15"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="250.392,-133.85 256.147,-124.955 246.101,-128.319 250.392,-133.85"/>
+</g>
+<!-- trslhs2 -->
+<g id="node4" class="node"><title>trslhs2</title>
+<ellipse fill="none" stroke="black" cx="162" cy="-311" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="162" y="-306.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trslhs1 -->
+<g id="edge5" class="edge"><title>trslhs2&#45;&gt;trslhs1</title>
+<path fill="none" stroke="black" d="M162,-292.845C162,-274.888 162,-247.147 162,-226.297"/>
+<polygon fill="black" stroke="black" points="165.5,-226.11 162,-216.11 158.5,-226.11 165.5,-226.11"/>
+<text text-anchor="middle" x="164.5" y="-261.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- trsrhs2 -->
+<g id="node11" class="node"><title>trsrhs2</title>
+<ellipse fill="none" stroke="black" cx="266" cy="-198" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="266" y="-193.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trsrhs2 -->
+<g id="edge12" class="edge"><title>trslhs2&#45;&gt;trsrhs2</title>
+<path fill="none" stroke="#0000aa" d="M176.901,-294.81C194.409,-275.787 223.624,-244.043 243.802,-222.119"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="246.592,-224.256 250.789,-214.528 241.441,-219.515 246.592,-224.256"/>
+</g>
+<!-- trslhs3 -->
+<g id="node5" class="node"><title>trslhs3</title>
+<ellipse fill="none" stroke="black" cx="63" cy="-311" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="63" y="-306.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trsrhs1&#45;&gt;trsrhs0 -->
+<g id="edge8" class="edge"><title>trsrhs1&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="black" d="M280.719,-89.7079C281.958,-81.3739 283.452,-71.3216 284.828,-62.0633"/>
+<polygon fill="black" stroke="black" points="288.304,-62.4877 286.312,-52.0817 281.38,-61.4584 288.304,-62.4877"/>
+</g>
+<!-- trsrhs2&#45;&gt;trsrhs1 -->
+<g id="edge10" class="edge"><title>trsrhs2&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="black" d="M268.428,-179.787C270.087,-167.344 272.319,-150.605 274.211,-136.421"/>
+<polygon fill="black" stroke="black" points="277.723,-136.561 275.575,-126.186 270.784,-135.635 277.723,-136.561"/>
+<text text-anchor="middle" x="275.5" y="-148.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1_5"> <h4>done(V); null</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="424pt" height="304pt"
+ viewBox="0.00 0.00 424.00 304.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 300)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-300 421,-300 421,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="8,-98 8,-288 204,-288 204,-98 8,-98"/>
+<text text-anchor="middle" x="106" y="-271.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="212,-8 212,-175 408,-175 408,-8 212,-8"/>
+<text text-anchor="middle" x="310" y="-158.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trslhs0 -->
+<g id="node2" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="106" cy="-124" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="106" y="-119.9" font-family="Times Roman,serif" font-size="14.00">(Null,0)</text>
+</g>
+<!-- trsrhs0 -->
+<g id="node7" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="267" cy="-34" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="267" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(Null,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs0 -->
+<g id="edge12" class="edge"><title>trslhs0&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="#0000aa" d="M132.586,-109.138C159.62,-94.0261 201.668,-70.5212 231.529,-53.8287"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="233.354,-56.8183 240.375,-48.8837 229.938,-50.7082 233.354,-56.8183"/>
+</g>
+<!-- trslhs1 -->
+<g id="node3" class="node"><title>trslhs1</title>
+<ellipse fill="none" stroke="black" cx="50" cy="-237" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="50" y="-232.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trslhs0 -->
+<g id="edge3" class="edge"><title>trslhs1&#45;&gt;trslhs0</title>
+<path fill="none" stroke="black" d="M58.75,-219.344C67.8199,-201.042 82.1129,-172.201 92.6055,-151.028"/>
+<polygon fill="black" stroke="black" points="95.8222,-152.419 97.1266,-141.905 89.5502,-149.311 95.8222,-152.419"/>
+<text text-anchor="middle" x="79.5" y="-187.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- trsrhs1 -->
+<g id="node8" class="node"><title>trsrhs1</title>
+<ellipse fill="none" stroke="black" cx="254" cy="-124" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="254" y="-119.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trsrhs1 -->
+<g id="edge10" class="edge"><title>trslhs1&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="#0000aa" d="M76.7846,-225.637C82.143,-223.406 87.741,-221.106 93,-219 143.802,-198.654 162.87,-205.952 208,-175 218.343,-167.906 227.953,-158.032 235.685,-148.859"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="238.416,-151.048 241.969,-141.067 232.967,-146.654 238.416,-151.048"/>
+</g>
+<!-- trslhs2 -->
+<g id="node4" class="node"><title>trslhs2</title>
+<ellipse fill="none" stroke="black" cx="149" cy="-237" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="149" y="-232.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trsrhs2 -->
+<g id="node9" class="node"><title>trsrhs2</title>
+<ellipse fill="none" stroke="black" cx="353" cy="-124" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="353" y="-119.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trsrhs2 -->
+<g id="edge8" class="edge"><title>trslhs2&#45;&gt;trsrhs2</title>
+<path fill="none" stroke="#0000aa" d="M185.679,-225.576C216.713,-215.009 261.65,-197.544 297,-175 308.723,-167.524 320.315,-157.523 329.885,-148.359"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="332.428,-150.767 337.09,-141.253 327.512,-145.783 332.428,-150.767"/>
+</g>
+<!-- trsrhs1&#45;&gt;trsrhs0 -->
+<g id="edge6" class="edge"><title>trsrhs1&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="black" d="M256.631,-105.787C258.428,-93.3443 260.846,-76.6053 262.895,-62.4211"/>
+<polygon fill="black" stroke="black" points="266.408,-62.5834 264.373,-52.1858 259.479,-61.5826 266.408,-62.5834"/>
+<text text-anchor="middle" x="263.5" y="-74.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1_6"> <h4>done(V); not null &amp; not disposed</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="424pt" height="378pt"
+ viewBox="0.00 0.00 424.00 378.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 374)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-374 421,-374 421,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="8,-82 8,-362 204,-362 204,-82 8,-82"/>
+<text text-anchor="middle" x="106" y="-345.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="212,-8 212,-249 408,-249 408,-8 212,-8"/>
+<text text-anchor="middle" x="310" y="-232.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trslhs0 -->
+<g id="node2" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="106" cy="-108" rx="89.8356" ry="18"/>
+<text text-anchor="middle" x="106" y="-103.9" font-family="Times Roman,serif" font-size="14.00">(not_disposed,0)</text>
+</g>
+<!-- trsrhs0 -->
+<g id="node9" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="289" cy="-34" rx="68.7933" ry="18"/>
+<text text-anchor="middle" x="289" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(disposed,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs0 -->
+<g id="edge18" class="edge"><title>trslhs0&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="#0000aa" d="M146.16,-91.7604C174.452,-80.3201 212.425,-64.9646 242.108,-52.962"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="243.472,-56.1857 251.431,-49.192 240.848,-49.6962 243.472,-56.1857"/>
+</g>
+<!-- trslhs1 -->
+<g id="node3" class="node"><title>trslhs1</title>
+<ellipse fill="none" stroke="black" cx="106" cy="-198" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="106" y="-193.9" font-family="Times Roman,serif" font-size="14.00">(L,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trslhs0 -->
+<g id="edge3" class="edge"><title>trslhs1&#45;&gt;trslhs0</title>
+<path fill="none" stroke="black" d="M106,-179.787C106,-167.344 106,-150.605 106,-136.421"/>
+<polygon fill="black" stroke="black" points="109.5,-136.186 106,-126.186 102.5,-136.186 109.5,-136.186"/>
+</g>
+<!-- trsrhs1 -->
+<g id="node10" class="node"><title>trsrhs1</title>
+<ellipse fill="none" stroke="black" cx="254" cy="-108" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="254" y="-103.9" font-family="Times Roman,serif" font-size="14.00">(L,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trsrhs1 -->
+<g id="edge16" class="edge"><title>trslhs1&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="#0000aa" d="M128.478,-184.331C153.579,-169.067 194.38,-144.255 222.619,-127.083"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="224.585,-129.984 231.31,-121.798 220.948,-124.003 224.585,-129.984"/>
+</g>
+<!-- trslhs2 -->
+<g id="node4" class="node"><title>trslhs2</title>
+<ellipse fill="none" stroke="black" cx="50" cy="-311" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="50" y="-306.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trslhs1 -->
+<g id="edge5" class="edge"><title>trslhs2&#45;&gt;trslhs1</title>
+<path fill="none" stroke="black" d="M58.75,-293.344C67.8733,-274.934 82.2812,-245.861 92.7903,-224.655"/>
+<polygon fill="black" stroke="black" points="96.007,-226.047 97.3114,-215.532 89.735,-222.938 96.007,-226.047"/>
+<text text-anchor="middle" x="79.5" y="-261.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- trsrhs2 -->
+<g id="node11" class="node"><title>trsrhs2</title>
+<ellipse fill="none" stroke="black" cx="254" cy="-198" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="254" y="-193.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trsrhs2 -->
+<g id="edge14" class="edge"><title>trslhs2&#45;&gt;trsrhs2</title>
+<path fill="none" stroke="#0000aa" d="M76.7846,-299.637C82.143,-297.406 87.741,-295.106 93,-293 143.802,-272.654 162.87,-279.952 208,-249 218.343,-241.906 227.953,-232.032 235.685,-222.859"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="238.416,-225.048 241.969,-215.067 232.967,-220.654 238.416,-225.048"/>
+</g>
+<!-- trslhs3 -->
+<g id="node5" class="node"><title>trslhs3</title>
+<ellipse fill="none" stroke="black" cx="149" cy="-311" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="149" y="-306.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trsrhs3 -->
+<g id="node12" class="node"><title>trsrhs3</title>
+<ellipse fill="none" stroke="black" cx="353" cy="-198" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="353" y="-193.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trslhs3&#45;&gt;trsrhs3 -->
+<g id="edge12" class="edge"><title>trslhs3&#45;&gt;trsrhs3</title>
+<path fill="none" stroke="#0000aa" d="M185.679,-299.576C216.713,-289.009 261.65,-271.544 297,-249 308.723,-241.524 320.315,-231.523 329.885,-222.359"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="332.428,-224.767 337.09,-215.253 327.512,-219.783 332.428,-224.767"/>
+</g>
+<!-- trsrhs1&#45;&gt;trsrhs0 -->
+<g id="edge8" class="edge"><title>trsrhs1&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="black" d="M262.295,-90.463C266.418,-81.7441 271.496,-71.0094 276.112,-61.2495"/>
+<polygon fill="black" stroke="black" points="279.41,-62.4615 280.522,-51.9251 273.082,-59.4685 279.41,-62.4615"/>
+</g>
+<!-- trsrhs2&#45;&gt;trsrhs1 -->
+<g id="edge10" class="edge"><title>trsrhs2&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="black" d="M254,-179.787C254,-167.344 254,-150.605 254,-136.421"/>
+<polygon fill="black" stroke="black" points="257.5,-136.186 254,-126.186 250.5,-136.186 257.5,-136.186"/>
+<text text-anchor="middle" x="256.5" y="-148.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1_7"> <h4>done(V); not null &amp; disposed</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="382pt" height="378pt"
+ viewBox="0.00 0.00 382.00 378.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 374)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-374 379,-374 379,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="8,-82 8,-362 204,-362 204,-82 8,-82"/>
+<text text-anchor="middle" x="106" y="-345.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="212,-8 212,-249 366,-249 366,-8 212,-8"/>
+<text text-anchor="middle" x="289" y="-232.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trslhs0 -->
+<g id="node2" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="127" cy="-108" rx="68.7933" ry="18"/>
+<text text-anchor="middle" x="127" y="-103.9" font-family="Times Roman,serif" font-size="14.00">(disposed,0)</text>
+</g>
+<!-- trsrhs0 -->
+<g id="node9" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="289" cy="-34" rx="68.7933" ry="18"/>
+<text text-anchor="middle" x="289" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(disposed,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs0 -->
+<g id="edge16" class="edge"><title>trslhs0&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="#0000aa" d="M161.356,-92.3065C185.841,-81.122 218.952,-65.9972 245.315,-53.955"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="247.052,-57.0095 254.693,-49.6709 244.143,-50.6423 247.052,-57.0095"/>
+</g>
+<!-- trslhs1 -->
+<g id="node3" class="node"><title>trslhs1</title>
+<ellipse fill="none" stroke="black" cx="162" cy="-198" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="162" y="-193.9" font-family="Times Roman,serif" font-size="14.00">(L,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trslhs0 -->
+<g id="edge3" class="edge"><title>trslhs1&#45;&gt;trslhs0</title>
+<path fill="none" stroke="black" d="M155.085,-180.219C150.132,-167.482 143.367,-150.086 137.717,-135.559"/>
+<polygon fill="black" stroke="black" points="140.907,-134.104 134.02,-126.052 134.383,-136.641 140.907,-134.104"/>
+</g>
+<!-- trsrhs1 -->
+<g id="node10" class="node"><title>trsrhs1</title>
+<ellipse fill="none" stroke="black" cx="278" cy="-108" rx="57.8712" ry="18"/>
+<text text-anchor="middle" x="278" y="-103.9" font-family="Times Roman,serif" font-size="14.00">(LError,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trsrhs1 -->
+<g id="edge14" class="edge"><title>trslhs1&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="#0000aa" d="M181.416,-182.936C199.636,-168.8 227.154,-147.45 248.162,-131.15"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="250.392,-133.85 256.147,-124.955 246.101,-128.319 250.392,-133.85"/>
+</g>
+<!-- trslhs2 -->
+<g id="node4" class="node"><title>trslhs2</title>
+<ellipse fill="none" stroke="black" cx="162" cy="-311" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="162" y="-306.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trslhs1 -->
+<g id="edge5" class="edge"><title>trslhs2&#45;&gt;trslhs1</title>
+<path fill="none" stroke="black" d="M162,-292.845C162,-274.888 162,-247.147 162,-226.297"/>
+<polygon fill="black" stroke="black" points="165.5,-226.11 162,-216.11 158.5,-226.11 165.5,-226.11"/>
+<text text-anchor="middle" x="164.5" y="-261.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- trsrhs2 -->
+<g id="node11" class="node"><title>trsrhs2</title>
+<ellipse fill="none" stroke="black" cx="266" cy="-198" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="266" y="-193.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trsrhs2 -->
+<g id="edge12" class="edge"><title>trslhs2&#45;&gt;trsrhs2</title>
+<path fill="none" stroke="#0000aa" d="M176.901,-294.81C194.409,-275.787 223.624,-244.043 243.802,-222.119"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="246.592,-224.256 250.789,-214.528 241.441,-219.515 246.592,-224.256"/>
+</g>
+<!-- trslhs3 -->
+<g id="node5" class="node"><title>trslhs3</title>
+<ellipse fill="none" stroke="black" cx="63" cy="-311" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="63" y="-306.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trsrhs1&#45;&gt;trsrhs0 -->
+<g id="edge8" class="edge"><title>trsrhs1&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="black" d="M280.719,-89.7079C281.958,-81.3739 283.452,-71.3216 284.828,-62.0633"/>
+<polygon fill="black" stroke="black" points="288.304,-62.4877 286.312,-52.0817 281.38,-61.4584 288.304,-62.4877"/>
+</g>
+<!-- trsrhs2&#45;&gt;trsrhs1 -->
+<g id="edge10" class="edge"><title>trsrhs2&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="black" d="M268.428,-179.787C270.087,-167.344 272.319,-150.605 274.211,-136.421"/>
+<polygon fill="black" stroke="black" points="277.723,-136.561 275.575,-126.186 270.784,-135.635 277.723,-136.561"/>
+<text text-anchor="middle" x="275.5" y="-148.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1_8"> <h4>set(V, L); null</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="359pt" height="378pt"
+ viewBox="0.00 0.00 359.00 378.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 374)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-374 356,-374 356,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="8,-195 8,-362 290,-362 290,-195 8,-195"/>
+<text text-anchor="middle" x="149" y="-345.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="35,-8 35,-175 343,-175 343,-8 35,-8"/>
+<text text-anchor="middle" x="189" y="-158.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trslhs0 -->
+<g id="node2" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="50" cy="-311" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="50" y="-306.9" font-family="Times Roman,serif" font-size="14.00">(L,0)</text>
+</g>
+<!-- trsrhs1 -->
+<g id="node9" class="node"><title>trsrhs1</title>
+<ellipse fill="none" stroke="black" cx="105" cy="-34" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="105" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(L,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs1 -->
+<g id="edge14" class="edge"><title>trslhs0&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="#0000aa" d="M43.4,-293.164C30.9337,-256.512 7.45017,-170.736 34,-106 42.5089,-85.2529 60.2029,-67.2844 75.7977,-54.4871"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="77.9993,-57.2083 83.7016,-48.2789 73.6754,-51.7034 77.9993,-57.2083"/>
+</g>
+<!-- trslhs1 -->
+<g id="node3" class="node"><title>trslhs1</title>
+<ellipse fill="none" stroke="black" cx="235" cy="-221" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="235" y="-216.9" font-family="Times Roman,serif" font-size="14.00">(Null,0)</text>
+</g>
+<!-- trsrhs0 -->
+<g id="node8" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="288" cy="-124" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="288" y="-119.9" font-family="Times Roman,serif" font-size="14.00">(Null,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trsrhs0 -->
+<g id="edge12" class="edge"><title>trslhs1&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="#0000aa" d="M244.721,-203.209C252.79,-188.441 264.384,-167.222 273.542,-150.462"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="276.617,-152.132 278.341,-141.679 270.474,-148.776 276.617,-152.132"/>
+</g>
+<!-- trslhs2 -->
+<g id="node4" class="node"><title>trslhs2</title>
+<ellipse fill="none" stroke="black" cx="248" cy="-311" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="248" y="-306.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trslhs1 -->
+<g id="edge3" class="edge"><title>trslhs2&#45;&gt;trslhs1</title>
+<path fill="none" stroke="black" d="M245.369,-292.787C243.572,-280.344 241.154,-263.605 239.105,-249.421"/>
+<polygon fill="black" stroke="black" points="242.521,-248.583 237.627,-239.186 235.592,-249.583 242.521,-248.583"/>
+<text text-anchor="middle" x="244.5" y="-261.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- trsrhs2 -->
+<g id="node10" class="node"><title>trsrhs2</title>
+<ellipse fill="none" stroke="black" cx="189" cy="-124" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="189" y="-119.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trsrhs2 -->
+<g id="edge10" class="edge"><title>trslhs2&#45;&gt;trsrhs2</title>
+<path fill="none" stroke="#0000aa" d="M227.287,-296.584C210.708,-283.675 188.683,-263.097 179,-239 167.675,-210.815 173.266,-175.692 179.712,-151.727"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="183.144,-152.459 182.578,-141.879 176.423,-150.503 183.144,-152.459"/>
+</g>
+<!-- trslhs3 -->
+<g id="node5" class="node"><title>trslhs3</title>
+<ellipse fill="none" stroke="black" cx="149" cy="-311" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="149" y="-306.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trsrhs3 -->
+<g id="node11" class="node"><title>trsrhs3</title>
+<ellipse fill="none" stroke="black" cx="90" cy="-124" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="90" y="-119.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trslhs3&#45;&gt;trsrhs3 -->
+<g id="edge8" class="edge"><title>trslhs3&#45;&gt;trsrhs3</title>
+<path fill="none" stroke="#0000aa" d="M143.343,-293.07C132.991,-260.258 110.938,-190.363 98.6771,-151.502"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="101.987,-150.36 95.64,-141.876 95.3112,-152.466 101.987,-150.36"/>
+</g>
+<!-- trsrhs2&#45;&gt;trsrhs1 -->
+<g id="edge6" class="edge"><title>trsrhs2&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="black" d="M173.593,-107.493C160.687,-93.6642 142.088,-73.7376 127.513,-58.1211"/>
+<polygon fill="black" stroke="black" points="129.691,-55.3252 120.309,-50.4027 124.574,-60.1014 129.691,-55.3252"/>
+<text text-anchor="middle" x="156.5" y="-74.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1_9"> <h4>set(V, L); not null &amp; not disposed &amp; not aliased</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="596pt" height="378pt"
+ viewBox="0.00 0.00 596.00 378.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 374)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-374 593,-374 593,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="8,-98 8,-362 290,-362 290,-98 8,-98"/>
+<text text-anchor="middle" x="149" y="-345.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="298,-8 298,-175 580,-175 580,-8 298,-8"/>
+<text text-anchor="middle" x="439" y="-158.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trslhs2 -->
+<g id="node2" class="node"><title>trslhs2</title>
+<ellipse fill="none" stroke="black" cx="50" cy="-311" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="50" y="-306.9" font-family="Times Roman,serif" font-size="14.00">(L,0)</text>
+</g>
+<!-- trsrhs4 -->
+<g id="node10" class="node"><title>trsrhs4</title>
+<ellipse fill="none" stroke="black" cx="496" cy="-34" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="496" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(L,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trsrhs4 -->
+<g id="edge16" class="edge"><title>trslhs2&#45;&gt;trsrhs4</title>
+<path fill="none" stroke="#0000aa" d="M47.414,-292.882C42.6372,-251.502 37.4838,-149.651 93,-98 152.047,-43.0643 375.097,-72.8712 453,-52 455.621,-51.2977 458.294,-50.4706 460.958,-49.5634"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="462.331,-52.7869 470.473,-46.0075 459.881,-46.2299 462.331,-52.7869"/>
+</g>
+<!-- trslhs0 -->
+<g id="node3" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="235" cy="-311" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="235" y="-306.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trsrhs1 -->
+<g id="node13" class="node"><title>trsrhs1</title>
+<ellipse fill="none" stroke="black" cx="525" cy="-124" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="525" y="-119.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs1 -->
+<g id="edge12" class="edge"><title>trslhs0&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="#0000aa" d="M269.622,-298.791C286.158,-292.472 306,-284.165 323,-275 392.231,-237.678 407.334,-223.817 469,-175 479.471,-166.711 490.448,-156.971 499.881,-148.237"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="502.495,-150.584 507.397,-141.191 497.708,-145.477 502.495,-150.584"/>
+</g>
+<!-- trslhs4 -->
+<g id="node4" class="node"><title>trslhs4</title>
+<ellipse fill="none" stroke="black" cx="192" cy="-124" rx="89.8356" ry="18"/>
+<text text-anchor="middle" x="192" y="-119.9" font-family="Times Roman,serif" font-size="14.00">(not_disposed,0)</text>
+</g>
+<!-- trsrhs3 -->
+<g id="node11" class="node"><title>trsrhs3</title>
+<ellipse fill="none" stroke="black" cx="375" cy="-34" rx="68.7933" ry="18"/>
+<text text-anchor="middle" x="375" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(disposed,0)</text>
+</g>
+<!-- trslhs4&#45;&gt;trsrhs3 -->
+<g id="edge20" class="edge"><title>trslhs4&#45;&gt;trsrhs3</title>
+<path fill="none" stroke="#0000aa" d="M225.992,-107.283C256.285,-92.3845 300.72,-70.5311 333.182,-54.5662"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="334.991,-57.5769 342.42,-50.0229 331.902,-51.2954 334.991,-57.5769"/>
+</g>
+<!-- trslhs1 -->
+<g id="node5" class="node"><title>trslhs1</title>
+<ellipse fill="none" stroke="black" cx="192" cy="-221" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="192" y="-216.9" font-family="Times Roman,serif" font-size="14.00">(L,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trslhs4 -->
+<g id="edge3" class="edge"><title>trslhs1&#45;&gt;trslhs4</title>
+<path fill="none" stroke="black" d="M192,-202.755C192,-188.529 192,-168.521 192,-152.232"/>
+<polygon fill="black" stroke="black" points="195.5,-152.163 192,-142.163 188.5,-152.163 195.5,-152.163"/>
+</g>
+<!-- trsrhs0 -->
+<g id="node12" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="340" cy="-124" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="340" y="-119.9" font-family="Times Roman,serif" font-size="14.00">(L,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trsrhs0 -->
+<g id="edge14" class="edge"><title>trslhs1&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="#0000aa" d="M221.409,-211.43C242.77,-203.633 271.715,-191.258 294,-175 304.03,-167.683 313.511,-157.881 321.23,-148.826"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="324.163,-150.768 327.789,-140.812 318.747,-146.334 324.163,-150.768"/>
+</g>
+<!-- trslhs3 -->
+<g id="node6" class="node"><title>trslhs3</title>
+<ellipse fill="none" stroke="black" cx="136" cy="-311" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="136" y="-306.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs3&#45;&gt;trslhs1 -->
+<g id="edge5" class="edge"><title>trslhs3&#45;&gt;trslhs1</title>
+<path fill="none" stroke="black" d="M146.797,-293.647C155.009,-280.449 166.444,-262.071 175.758,-247.103"/>
+<polygon fill="black" stroke="black" points="178.924,-248.639 181.236,-238.3 172.981,-244.941 178.924,-248.639"/>
+<text text-anchor="middle" x="172.5" y="-261.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- trsrhs2 -->
+<g id="node14" class="node"><title>trsrhs2</title>
+<ellipse fill="none" stroke="black" cx="426" cy="-124" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="426" y="-119.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs3&#45;&gt;trsrhs2 -->
+<g id="edge18" class="edge"><title>trslhs3&#45;&gt;trsrhs2</title>
+<path fill="none" stroke="#0000aa" d="M161.266,-298.575C216.329,-271.26 345.241,-205.962 383,-175 392.094,-167.543 400.739,-157.977 407.861,-149.149"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="410.817,-151.049 414.187,-141.004 405.289,-146.755 410.817,-151.049"/>
+</g>
+<!-- trsrhs0&#45;&gt;trsrhs3 -->
+<g id="edge8" class="edge"><title>trsrhs0&#45;&gt;trsrhs3</title>
+<path fill="none" stroke="black" d="M346.915,-106.219C351.868,-93.4823 358.633,-76.086 364.283,-61.5587"/>
+<polygon fill="black" stroke="black" points="367.617,-62.6409 367.98,-52.0522 361.093,-60.1037 367.617,-62.6409"/>
+</g>
+<!-- trsrhs2&#45;&gt;trsrhs4 -->
+<g id="edge10" class="edge"><title>trsrhs2&#45;&gt;trsrhs4</title>
+<path fill="none" stroke="black" d="M439.166,-107.072C449.726,-93.4953 464.7,-74.243 476.627,-58.9079"/>
+<polygon fill="black" stroke="black" points="479.516,-60.8948 482.893,-50.8524 473.99,-56.5971 479.516,-60.8948"/>
+<text text-anchor="middle" x="469.5" y="-74.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1_10"> <h4>set(V, L); not null &amp; not disposed &amp; aliased</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="424pt" height="378pt"
+ viewBox="0.00 0.00 424.00 378.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 374)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-374 421,-374 421,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="8,-82 8,-362 204,-362 204,-82 8,-82"/>
+<text text-anchor="middle" x="106" y="-345.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="212,-8 212,-249 408,-249 408,-8 212,-8"/>
+<text text-anchor="middle" x="310" y="-232.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trslhs0 -->
+<g id="node2" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="106" cy="-108" rx="89.8356" ry="18"/>
+<text text-anchor="middle" x="106" y="-103.9" font-family="Times Roman,serif" font-size="14.00">(not_disposed,0)</text>
+</g>
+<!-- trsrhs0 -->
+<g id="node9" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="289" cy="-34" rx="68.7933" ry="18"/>
+<text text-anchor="middle" x="289" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(disposed,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs0 -->
+<g id="edge18" class="edge"><title>trslhs0&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="#0000aa" d="M146.16,-91.7604C174.452,-80.3201 212.425,-64.9646 242.108,-52.962"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="243.472,-56.1857 251.431,-49.192 240.848,-49.6962 243.472,-56.1857"/>
+</g>
+<!-- trslhs1 -->
+<g id="node3" class="node"><title>trslhs1</title>
+<ellipse fill="none" stroke="black" cx="106" cy="-198" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="106" y="-193.9" font-family="Times Roman,serif" font-size="14.00">(L,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trslhs0 -->
+<g id="edge3" class="edge"><title>trslhs1&#45;&gt;trslhs0</title>
+<path fill="none" stroke="black" d="M106,-179.787C106,-167.344 106,-150.605 106,-136.421"/>
+<polygon fill="black" stroke="black" points="109.5,-136.186 106,-126.186 102.5,-136.186 109.5,-136.186"/>
+</g>
+<!-- trsrhs1 -->
+<g id="node10" class="node"><title>trsrhs1</title>
+<ellipse fill="none" stroke="black" cx="254" cy="-108" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="254" y="-103.9" font-family="Times Roman,serif" font-size="14.00">(L,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trsrhs1 -->
+<g id="edge16" class="edge"><title>trslhs1&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="#0000aa" d="M128.478,-184.331C153.579,-169.067 194.38,-144.255 222.619,-127.083"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="224.585,-129.984 231.31,-121.798 220.948,-124.003 224.585,-129.984"/>
+</g>
+<!-- trslhs2 -->
+<g id="node4" class="node"><title>trslhs2</title>
+<ellipse fill="none" stroke="black" cx="50" cy="-311" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="50" y="-306.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trslhs1 -->
+<g id="edge5" class="edge"><title>trslhs2&#45;&gt;trslhs1</title>
+<path fill="none" stroke="black" d="M58.75,-293.344C67.8733,-274.934 82.2812,-245.861 92.7903,-224.655"/>
+<polygon fill="black" stroke="black" points="96.007,-226.047 97.3114,-215.532 89.735,-222.938 96.007,-226.047"/>
+<text text-anchor="middle" x="79.5" y="-261.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- trsrhs2 -->
+<g id="node11" class="node"><title>trsrhs2</title>
+<ellipse fill="none" stroke="black" cx="254" cy="-198" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="254" y="-193.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trsrhs2 -->
+<g id="edge14" class="edge"><title>trslhs2&#45;&gt;trsrhs2</title>
+<path fill="none" stroke="#0000aa" d="M76.7846,-299.637C82.143,-297.406 87.741,-295.106 93,-293 143.802,-272.654 162.87,-279.952 208,-249 218.343,-241.906 227.953,-232.032 235.685,-222.859"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="238.416,-225.048 241.969,-215.067 232.967,-220.654 238.416,-225.048"/>
+</g>
+<!-- trslhs3 -->
+<g id="node5" class="node"><title>trslhs3</title>
+<ellipse fill="none" stroke="black" cx="149" cy="-311" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="149" y="-306.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trsrhs3 -->
+<g id="node12" class="node"><title>trsrhs3</title>
+<ellipse fill="none" stroke="black" cx="353" cy="-198" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="353" y="-193.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trslhs3&#45;&gt;trsrhs3 -->
+<g id="edge12" class="edge"><title>trslhs3&#45;&gt;trsrhs3</title>
+<path fill="none" stroke="#0000aa" d="M185.679,-299.576C216.713,-289.009 261.65,-271.544 297,-249 308.723,-241.524 320.315,-231.523 329.885,-222.359"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="332.428,-224.767 337.09,-215.253 327.512,-219.783 332.428,-224.767"/>
+</g>
+<!-- trsrhs1&#45;&gt;trsrhs0 -->
+<g id="edge8" class="edge"><title>trsrhs1&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="black" d="M262.295,-90.463C266.418,-81.7441 271.496,-71.0094 276.112,-61.2495"/>
+<polygon fill="black" stroke="black" points="279.41,-62.4615 280.522,-51.9251 273.082,-59.4685 279.41,-62.4615"/>
+</g>
+<!-- trsrhs2&#45;&gt;trsrhs1 -->
+<g id="edge10" class="edge"><title>trsrhs2&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="black" d="M254,-179.787C254,-167.344 254,-150.605 254,-136.421"/>
+<polygon fill="black" stroke="black" points="257.5,-136.186 254,-126.186 250.5,-136.186 257.5,-136.186"/>
+<text text-anchor="middle" x="256.5" y="-148.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_1_1_11"> <h4>set(V, L); not null &amp; disposed</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: trs Pages: 1 -->
+<svg width="382pt" height="378pt"
+ viewBox="0.00 0.00 382.00 378.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 374)">
+<title>trs</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-374 379,-374 379,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_trslhs</title>
+<polygon fill="none" stroke="black" points="8,-82 8,-362 204,-362 204,-82 8,-82"/>
+<text text-anchor="middle" x="106" y="-345.4" font-family="Times Roman,serif" font-size="14.00">LHS</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_trsrhs</title>
+<polygon fill="none" stroke="black" points="212,-8 212,-249 366,-249 366,-8 212,-8"/>
+<text text-anchor="middle" x="289" y="-232.4" font-family="Times Roman,serif" font-size="14.00">RHS</text>
+</g>
+<!-- trslhs0 -->
+<g id="node2" class="node"><title>trslhs0</title>
+<ellipse fill="none" stroke="black" cx="127" cy="-108" rx="68.7933" ry="18"/>
+<text text-anchor="middle" x="127" y="-103.9" font-family="Times Roman,serif" font-size="14.00">(disposed,0)</text>
+</g>
+<!-- trsrhs0 -->
+<g id="node9" class="node"><title>trsrhs0</title>
+<ellipse fill="none" stroke="black" cx="289" cy="-34" rx="68.7933" ry="18"/>
+<text text-anchor="middle" x="289" y="-29.9" font-family="Times Roman,serif" font-size="14.00">(disposed,0)</text>
+</g>
+<!-- trslhs0&#45;&gt;trsrhs0 -->
+<g id="edge16" class="edge"><title>trslhs0&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="#0000aa" d="M161.356,-92.3065C185.841,-81.122 218.952,-65.9972 245.315,-53.955"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="247.052,-57.0095 254.693,-49.6709 244.143,-50.6423 247.052,-57.0095"/>
+</g>
+<!-- trslhs1 -->
+<g id="node3" class="node"><title>trslhs1</title>
+<ellipse fill="none" stroke="black" cx="162" cy="-198" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="162" y="-193.9" font-family="Times Roman,serif" font-size="14.00">(L,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trslhs0 -->
+<g id="edge3" class="edge"><title>trslhs1&#45;&gt;trslhs0</title>
+<path fill="none" stroke="black" d="M155.085,-180.219C150.132,-167.482 143.367,-150.086 137.717,-135.559"/>
+<polygon fill="black" stroke="black" points="140.907,-134.104 134.02,-126.052 134.383,-136.641 140.907,-134.104"/>
+</g>
+<!-- trsrhs1 -->
+<g id="node10" class="node"><title>trsrhs1</title>
+<ellipse fill="none" stroke="black" cx="278" cy="-108" rx="57.8712" ry="18"/>
+<text text-anchor="middle" x="278" y="-103.9" font-family="Times Roman,serif" font-size="14.00">(LError,0)</text>
+</g>
+<!-- trslhs1&#45;&gt;trsrhs1 -->
+<g id="edge14" class="edge"><title>trslhs1&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="#0000aa" d="M181.416,-182.936C199.636,-168.8 227.154,-147.45 248.162,-131.15"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="250.392,-133.85 256.147,-124.955 246.101,-128.319 250.392,-133.85"/>
+</g>
+<!-- trslhs2 -->
+<g id="node4" class="node"><title>trslhs2</title>
+<ellipse fill="none" stroke="black" cx="162" cy="-311" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="162" y="-306.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trslhs1 -->
+<g id="edge5" class="edge"><title>trslhs2&#45;&gt;trslhs1</title>
+<path fill="none" stroke="black" d="M162,-292.845C162,-274.888 162,-247.147 162,-226.297"/>
+<polygon fill="black" stroke="black" points="165.5,-226.11 162,-216.11 158.5,-226.11 165.5,-226.11"/>
+<text text-anchor="middle" x="164.5" y="-261.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- trsrhs2 -->
+<g id="node11" class="node"><title>trsrhs2</title>
+<ellipse fill="none" stroke="black" cx="266" cy="-198" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="266" y="-193.9" font-family="Times Roman,serif" font-size="14.00">(V,0)</text>
+</g>
+<!-- trslhs2&#45;&gt;trsrhs2 -->
+<g id="edge12" class="edge"><title>trslhs2&#45;&gt;trsrhs2</title>
+<path fill="none" stroke="#0000aa" d="M176.901,-294.81C194.409,-275.787 223.624,-244.043 243.802,-222.119"/>
+<polygon fill="#0000aa" stroke="#0000aa" points="246.592,-224.256 250.789,-214.528 241.441,-219.515 246.592,-224.256"/>
+</g>
+<!-- trslhs3 -->
+<g id="node5" class="node"><title>trslhs3</title>
+<ellipse fill="none" stroke="black" cx="63" cy="-311" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="63" y="-306.9" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- trsrhs1&#45;&gt;trsrhs0 -->
+<g id="edge8" class="edge"><title>trsrhs1&#45;&gt;trsrhs0</title>
+<path fill="none" stroke="black" d="M280.719,-89.7079C281.958,-81.3739 283.452,-71.3216 284.828,-62.0633"/>
+<polygon fill="black" stroke="black" points="288.304,-62.4877 286.312,-52.0817 281.38,-61.4584 288.304,-62.4877"/>
+</g>
+<!-- trsrhs2&#45;&gt;trsrhs1 -->
+<g id="edge10" class="edge"><title>trsrhs2&#45;&gt;trsrhs1</title>
+<path fill="none" stroke="black" d="M268.428,-179.787C270.087,-167.344 272.319,-150.605 274.211,-136.421"/>
+<polygon fill="black" stroke="black" points="277.723,-136.561 275.575,-126.186 270.784,-135.635 277.723,-136.561"/>
+<text text-anchor="middle" x="275.5" y="-148.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+</ul>
+</li>
+</ul>
+<a name="Ref_2"> <h2>Cover</h2> </a>
+<ul>
+<li>
+<a name="Ref_2_0"> <h3>cover element 0</h3> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: cover Pages: 1 -->
+<svg width="354pt" height="535pt"
+ viewBox="0.00 0.00 354.00 535.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 531)">
+<title>cover</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-531 351,-531 351,5 -4,5"/>
+<!-- 0 -->
+<g id="node1" class="node"><title>0</title>
+<ellipse fill="none" stroke="black" cx="220.86" cy="-307.177" rx="57.8712" ry="18"/>
+<text text-anchor="middle" x="220.86" y="-303.077" font-family="Times Roman,serif" font-size="14.00">(LError,0)</text>
+</g>
+<!-- 1 -->
+<g id="node5" class="node"><title>1</title>
+<ellipse fill="none" stroke="black" cx="224.397" cy="-173.211" rx="68.7933" ry="18"/>
+<text text-anchor="middle" x="224.397" y="-169.111" font-family="Times Roman,serif" font-size="14.00">(disposed,0)</text>
+</g>
+<!-- 0&#45;&gt;1 -->
+<g id="edge2" class="edge"><title>0&#45;&gt;1</title>
+<path fill="none" stroke="black" d="M221.337,-289.11C221.93,-266.638 222.95,-228.015 223.648,-201.579"/>
+<polygon fill="black" stroke="black" points="227.151,-201.509 223.916,-191.42 220.153,-201.324 227.151,-201.509"/>
+</g>
+<!-- 8 -->
+<g id="node2" class="node"><title>8</title>
+<ellipse fill="none" stroke="black" cx="100.86" cy="-439.177" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="100.86" y="-435.077" font-family="Times Roman,serif" font-size="14.00">(L,1)</text>
+</g>
+<!-- 4 -->
+<g id="node8" class="node"><title>4</title>
+<ellipse fill="none" stroke="black" cx="190.11" cy="-508.314" rx="68.7933" ry="18"/>
+<text text-anchor="middle" x="190.11" y="-504.214" font-family="Times Roman,serif" font-size="14.00">(disposed,1)</text>
+</g>
+<!-- 8&#45;&gt;4 -->
+<g id="edge10" class="edge"><title>8&#45;&gt;4</title>
+<path fill="none" stroke="black" d="M120.226,-454.179C131.749,-463.105 146.623,-474.627 159.685,-484.746"/>
+<polygon fill="black" stroke="black" points="157.904,-487.794 167.953,-491.151 162.191,-482.26 157.904,-487.794"/>
+</g>
+<!-- 5 -->
+<g id="node3" class="node"><title>5</title>
+<ellipse fill="none" stroke="black" cx="145.437" cy="-101.765" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="145.437" y="-97.6655" font-family="Times Roman,serif" font-size="14.00">(V,1)</text>
+</g>
+<!-- 6 -->
+<g id="node10" class="node"><title>6</title>
+<ellipse fill="none" stroke="black" cx="260.791" cy="-84.5309" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="260.791" y="-80.4309" font-family="Times Roman,serif" font-size="14.00">(Null,1)</text>
+</g>
+<!-- 5&#45;&gt;6 -->
+<g id="edge8" class="edge"><title>5&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M178.184,-96.8728C187.083,-95.5433 196.962,-94.0674 206.704,-92.6119"/>
+<polygon fill="black" stroke="black" points="207.386,-96.0488 216.759,-91.1095 206.352,-89.1257 207.386,-96.0488"/>
+<text text-anchor="middle" x="193.444" y="-99.6423" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- 10 -->
+<g id="node4" class="node"><title>10</title>
+<ellipse fill="none" stroke="black" cx="310.11" cy="-376.314" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="310.11" y="-372.214" font-family="Times Roman,serif" font-size="14.00">(V,1)</text>
+</g>
+<!-- 10&#45;&gt;0 -->
+<g id="edge14" class="edge"><title>10&#45;&gt;0</title>
+<path fill="none" stroke="black" d="M290.744,-361.313C279.026,-352.235 263.843,-340.474 250.624,-330.234"/>
+<polygon fill="black" stroke="black" points="252.745,-327.45 242.696,-324.093 248.458,-332.984 252.745,-327.45"/>
+<text text-anchor="middle" x="265.684" y="-348.674" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- 3 -->
+<g id="node6" class="node"><title>3</title>
+<ellipse fill="none" stroke="black" cx="34.8596" cy="-153.177" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="34.8596" y="-149.077" font-family="Times Roman,serif" font-size="14.00">(L,1)</text>
+</g>
+<!-- 7 -->
+<g id="node7" class="node"><title>7</title>
+<ellipse fill="none" stroke="black" cx="124.11" cy="-222.314" rx="89.8356" ry="18"/>
+<text text-anchor="middle" x="124.11" y="-218.214" font-family="Times Roman,serif" font-size="14.00">(not_disposed,1)</text>
+</g>
+<!-- 3&#45;&gt;7 -->
+<g id="edge6" class="edge"><title>3&#45;&gt;7</title>
+<path fill="none" stroke="black" d="M54.2256,-168.179C65.5806,-176.975 80.1891,-188.292 93.1113,-198.302"/>
+<polygon fill="black" stroke="black" points="91.2595,-201.294 101.308,-204.651 95.5463,-195.761 91.2595,-201.294"/>
+</g>
+<!-- 2 -->
+<g id="node9" class="node"><title>2</title>
+<ellipse fill="none" stroke="black" cx="38.3969" cy="-19.2109" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="38.3969" y="-15.1109" font-family="Times Roman,serif" font-size="14.00">(V,2)</text>
+</g>
+<!-- 2&#45;&gt;3 -->
+<g id="edge4" class="edge"><title>2&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M37.9198,-37.2782C37.3265,-59.7504 36.3067,-98.3737 35.6086,-124.81"/>
+<polygon fill="black" stroke="black" points="32.1057,-124.879 35.3404,-134.968 39.1032,-125.064 32.1057,-124.879"/>
+<text text-anchor="middle" x="39.7642" y="-76.9439" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- 9 -->
+<g id="node11" class="node"><title>9</title>
+<ellipse fill="none" stroke="black" cx="104.397" cy="-305.211" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="104.397" y="-301.111" font-family="Times Roman,serif" font-size="14.00">(V,2)</text>
+</g>
+<!-- 9&#45;&gt;8 -->
+<g id="edge12" class="edge"><title>9&#45;&gt;8</title>
+<path fill="none" stroke="black" d="M103.92,-323.278C103.326,-345.75 102.307,-384.374 101.609,-410.81"/>
+<polygon fill="black" stroke="black" points="98.1057,-410.879 101.34,-420.968 105.103,-411.064 98.1057,-410.879"/>
+<text text-anchor="middle" x="105.764" y="-362.944" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_2_1"> <h3>cover element 1</h3> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: cover Pages: 1 -->
+<svg width="441pt" height="315pt"
+ viewBox="0.00 0.00 441.00 315.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 311)">
+<title>cover</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-311 438,-311 438,5 -4,5"/>
+<!-- 3 -->
+<g id="node1" class="node"><title>3</title>
+<ellipse fill="none" stroke="black" cx="178.005" cy="-220.695" rx="68.7933" ry="18"/>
+<text text-anchor="middle" x="178.005" y="-216.595" font-family="Times Roman,serif" font-size="14.00">(disposed,1)</text>
+</g>
+<!-- 1 -->
+<g id="node2" class="node"><title>1</title>
+<ellipse fill="none" stroke="black" cx="35.7246" cy="-214.753" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="35.7246" y="-210.653" font-family="Times Roman,serif" font-size="14.00">(V,2)</text>
+</g>
+<!-- 2 -->
+<g id="node7" class="node"><title>2</title>
+<ellipse fill="none" stroke="black" cx="128.926" cy="-155.701" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="128.926" y="-151.601" font-family="Times Roman,serif" font-size="14.00">(L,1)</text>
+</g>
+<!-- 1&#45;&gt;2 -->
+<g id="edge2" class="edge"><title>1&#45;&gt;2</title>
+<path fill="none" stroke="black" d="M57.812,-200.759C69.8833,-193.11 85.0224,-183.518 98.2263,-175.152"/>
+<polygon fill="black" stroke="black" points="100.423,-177.904 106.997,-169.595 96.6764,-171.991 100.423,-177.904"/>
+<text text-anchor="middle" x="73.0191" y="-175.855" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- 5 -->
+<g id="node3" class="node"><title>5</title>
+<ellipse fill="none" stroke="black" cx="282.437" cy="-287.765" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="282.437" y="-283.665" font-family="Times Roman,serif" font-size="14.00">(Null,1)</text>
+</g>
+<!-- 8 -->
+<g id="node4" class="node"><title>8</title>
+<ellipse fill="none" stroke="black" cx="393.993" cy="-185.908" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="393.993" y="-181.808" font-family="Times Roman,serif" font-size="14.00">(V,2)</text>
+</g>
+<!-- 7 -->
+<g id="node6" class="node"><title>7</title>
+<ellipse fill="none" stroke="black" cx="290.583" cy="-145.084" rx="34.0492" ry="18"/>
+<text text-anchor="middle" x="290.583" y="-140.984" font-family="Times Roman,serif" font-size="14.00">(L,1)</text>
+</g>
+<!-- 8&#45;&gt;7 -->
+<g id="edge10" class="edge"><title>8&#45;&gt;7</title>
+<path fill="none" stroke="black" d="M366.553,-175.075C354.632,-170.369 340.487,-164.785 327.652,-159.718"/>
+<polygon fill="black" stroke="black" points="328.738,-156.384 318.152,-155.967 326.168,-162.895 328.738,-156.384"/>
+<text text-anchor="middle" x="350.103" y="-154.296" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- 0 -->
+<g id="node5" class="node"><title>0</title>
+<ellipse fill="none" stroke="black" cx="66.7937" cy="-91.1363" rx="46.7546" ry="18"/>
+<text text-anchor="middle" x="66.7937" y="-87.0363" font-family="Times Roman,serif" font-size="14.00">(safe,0)</text>
+</g>
+<!-- 7&#45;&gt;3 -->
+<g id="edge8" class="edge"><title>7&#45;&gt;3</title>
+<path fill="none" stroke="black" d="M269.408,-159.306C253.059,-170.286 230.129,-185.687 211.326,-198.315"/>
+<polygon fill="black" stroke="black" points="209.366,-195.416 203.016,-203.897 213.269,-201.227 209.366,-195.416"/>
+</g>
+<!-- 6 -->
+<g id="node8" class="node"><title>6</title>
+<ellipse fill="none" stroke="black" cx="134.02" cy="-19.4155" rx="89.8356" ry="18"/>
+<text text-anchor="middle" x="134.02" y="-15.3155" font-family="Times Roman,serif" font-size="14.00">(not_disposed,1)</text>
+</g>
+<!-- 2&#45;&gt;6 -->
+<g id="edge4" class="edge"><title>2&#45;&gt;6</title>
+<path fill="none" stroke="black" d="M129.602,-137.603C130.462,-114.591 131.957,-74.6097 132.967,-47.5919"/>
+<polygon fill="black" stroke="black" points="136.464,-47.7118 133.34,-37.588 129.469,-47.4502 136.464,-47.7118"/>
+</g>
+<!-- 4 -->
+<g id="node9" class="node"><title>4</title>
+<ellipse fill="none" stroke="black" cx="397.791" cy="-270.531" rx="34.2406" ry="18"/>
+<text text-anchor="middle" x="397.791" y="-266.431" font-family="Times Roman,serif" font-size="14.00">(V,1)</text>
+</g>
+<!-- 4&#45;&gt;5 -->
+<g id="edge6" class="edge"><title>4&#45;&gt;5</title>
+<path fill="none" stroke="black" d="M365.044,-275.424C356.146,-276.753 346.267,-278.229 336.525,-279.684"/>
+<polygon fill="black" stroke="black" points="335.842,-276.247 326.469,-281.187 336.877,-283.171 335.842,-276.247"/>
+<text text-anchor="middle" x="349.784" y="-264.454" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+</ul>
+<a name="Ref_3"> <h2>Interface</h2> </a>
+<ul>
+<li>
+<a name="Ref_3_0"> <h3>Outline</h3> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: outline Pages: 1 -->
+<svg width="584pt" height="144pt"
+ viewBox="0.00 0.00 584.00 144.33" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 140.328)">
+<title>outline</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-140.328 581,-140.328 581,5 -4,5"/>
+<!-- outline0 -->
+<g id="node1" class="node"><title>outline0</title>
+<ellipse fill="none" stroke="black" cx="49" cy="-108" rx="48.8383" ry="18"/>
+<text text-anchor="middle" x="49" y="-103.9" font-family="Times Roman,serif" font-size="14.00">cover_0</text>
+</g>
+<!-- outline0&#45;&gt;outline0 -->
+<g id="edge2" class="edge"><title>outline0&#45;&gt;outline0</title>
+<path fill="none" stroke="black" d="M98.0804,-109.452C108.486,-109.304 116,-108.82 116,-108 116,-107.487 113.065,-107.106 108.323,-106.856"/>
+<polygon fill="black" stroke="black" points="108.181,-103.35 98.0804,-106.548 107.971,-110.347 108.181,-103.35"/>
+<text text-anchor="middle" x="127.5" y="-103.9" font-family="Times Roman,serif" font-size="14.00">t_0</text>
+</g>
+<!-- outline0&#45;&gt;outline0 -->
+<g id="edge4" class="edge"><title>outline0&#45;&gt;outline0</title>
+<path fill="none" stroke="black" d="M84.3011,-120.566C111.163,-124.954 139,-120.766 139,-108 139,-96.8301 117.687,-92.2268 94.3636,-94.1903"/>
+<polygon fill="black" stroke="black" points="93.7963,-90.7337 84.3011,-95.4338 94.6549,-97.6809 93.7963,-90.7337"/>
+<text text-anchor="middle" x="150.5" y="-103.9" font-family="Times Roman,serif" font-size="14.00">t_1</text>
+</g>
+<!-- outline0&#45;&gt;outline0 -->
+<g id="edge22" class="edge"><title>outline0&#45;&gt;outline0</title>
+<path fill="none" stroke="black" d="M85.2504,-120.172C167.481,-140.32 300,-136.263 300,-108 300,-80.8413 177.632,-76.034 95.1061,-93.578"/>
+<polygon fill="black" stroke="black" points="94.2204,-90.19 85.2504,-95.8283 95.7786,-97.0144 94.2204,-90.19"/>
+<text text-anchor="middle" x="316" y="-103.9" font-family="Times Roman,serif" font-size="14.00">t_10</text>
+</g>
+<!-- outline0&#45;&gt;outline0 -->
+<g id="edge24" class="edge"><title>outline0&#45;&gt;outline0</title>
+<path fill="none" stroke="black" d="M85.5215,-120.093C176.584,-142.383 332,-138.352 332,-108 332,-78.7155 187.319,-73.9333 95.3548,-93.6536"/>
+<polygon fill="black" stroke="black" points="94.4871,-90.2616 85.5215,-95.9068 96.0506,-97.0847 94.4871,-90.2616"/>
+<text text-anchor="middle" x="348" y="-103.9" font-family="Times Roman,serif" font-size="14.00">t_11</text>
+</g>
+<!-- outline0&#45;&gt;outline0 -->
+<g id="edge26" class="edge"><title>outline0&#45;&gt;outline0</title>
+<path fill="none" stroke="black" d="M85.8403,-120.059C185.467,-144.431 364,-140.411 364,-108 364,-76.6334 196.788,-71.8577 95.7094,-93.673"/>
+<polygon fill="black" stroke="black" points="94.8025,-90.2901 85.8403,-95.9408 96.3702,-97.1123 94.8025,-90.2901"/>
+<text text-anchor="middle" x="380" y="-103.9" font-family="Times Roman,serif" font-size="14.00">t_12</text>
+</g>
+<!-- outline0&#45;&gt;outline0 -->
+<g id="edge8" class="edge"><title>outline0&#45;&gt;outline0</title>
+<path fill="none" stroke="black" d="M84.5936,-120.516C120.472,-127.43 162,-123.258 162,-108 162,-94.1726 127.894,-89.4498 94.7946,-93.8316"/>
+<polygon fill="black" stroke="black" points="93.9053,-90.43 84.5936,-95.4838 95.0245,-97.3399 93.9053,-90.43"/>
+<text text-anchor="middle" x="173.5" y="-103.9" font-family="Times Roman,serif" font-size="14.00">t_3</text>
+</g>
+<!-- outline0&#45;&gt;outline0 -->
+<g id="edge10" class="edge"><title>outline0&#45;&gt;outline0</title>
+<path fill="none" stroke="black" d="M84.8739,-120.453C129.208,-129.715 185,-125.564 185,-108 185,-91.7392 137.182,-86.9746 94.907,-93.7064"/>
+<polygon fill="black" stroke="black" points="94.0781,-90.2999 84.8739,-95.5471 95.3413,-97.185 94.0781,-90.2999"/>
+<text text-anchor="middle" x="196.5" y="-103.9" font-family="Times Roman,serif" font-size="14.00">t_4</text>
+</g>
+<!-- outline0&#45;&gt;outline0 -->
+<g id="edge14" class="edge"><title>outline0&#45;&gt;outline0</title>
+<path fill="none" stroke="black" d="M85.1063,-120.398C137.504,-131.908 208,-127.775 208,-108 208,-89.4606 146.04,-84.6696 95.1213,-93.627"/>
+<polygon fill="black" stroke="black" points="94.2402,-90.2332 85.1063,-95.6018 95.5945,-97.101 94.2402,-90.2332"/>
+<text text-anchor="middle" x="219.5" y="-103.9" font-family="Times Roman,serif" font-size="14.00">t_6</text>
+</g>
+<!-- outline0&#45;&gt;outline0 -->
+<g id="edge16" class="edge"><title>outline0&#45;&gt;outline0</title>
+<path fill="none" stroke="black" d="M85.2292,-120.34C145.4,-134.051 231,-129.938 231,-108 231,-87.2622 154.506,-82.4524 95.311,-93.5706"/>
+<polygon fill="black" stroke="black" points="94.3108,-90.2035 85.2292,-95.6602 95.7315,-97.0578 94.3108,-90.2035"/>
+<text text-anchor="middle" x="242.5" y="-103.9" font-family="Times Roman,serif" font-size="14.00">t_7</text>
+</g>
+<!-- outline0&#45;&gt;outline0 -->
+<g id="edge18" class="edge"><title>outline0&#45;&gt;outline0</title>
+<path fill="none" stroke="black" d="M85.2348,-120.271C152.942,-136.163 254,-132.072 254,-108 254,-85.1031 162.57,-80.2844 95.3758,-93.5439"/>
+<polygon fill="black" stroke="black" points="94.2733,-90.201 85.2348,-95.7288 95.7477,-97.044 94.2733,-90.201"/>
+<text text-anchor="middle" x="265.5" y="-103.9" font-family="Times Roman,serif" font-size="14.00">t_8</text>
+</g>
+<!-- outline0&#45;&gt;outline0 -->
+<g id="edge20" class="edge"><title>outline0&#45;&gt;outline0</title>
+<path fill="none" stroke="black" d="M85.1679,-120.198C160.214,-138.253 277,-134.187 277,-108 277,-82.9387 170.034,-78.1377 95.0604,-93.597"/>
+<polygon fill="black" stroke="black" points="94.167,-90.2101 85.1679,-95.8018 95.6899,-97.0425 94.167,-90.2101"/>
+<text text-anchor="middle" x="288.5" y="-103.9" font-family="Times Roman,serif" font-size="14.00">t_9</text>
+</g>
+<!-- outline1 -->
+<g id="node2" class="node"><title>outline1</title>
+<ellipse fill="none" stroke="black" cx="49" cy="-18" rx="48.8383" ry="18"/>
+<text text-anchor="middle" x="49" y="-13.9" font-family="Times Roman,serif" font-size="14.00">cover_1</text>
+</g>
+<!-- outline0&#45;&gt;outline1 -->
+<g id="edge28" class="edge"><title>outline0&#45;&gt;outline1</title>
+<path fill="none" stroke="black" d="M27.0599,-91.4905C21.3974,-85.9807 16.0442,-79.3494 13,-72 9.93853,-64.609 9.93853,-61.391 13,-54 14.7599,-49.7511 17.2916,-45.7422 20.2086,-42.0513"/>
+<polygon fill="black" stroke="black" points="22.9264,-44.2648 27.0599,-34.5095 17.7451,-39.5579 22.9264,-44.2648"/>
+<text text-anchor="middle" x="29" y="-58.9" font-family="Times Roman,serif" font-size="14.00">t_13</text>
+</g>
+<!-- outline0&#45;&gt;outline1 -->
+<g id="edge6" class="edge"><title>outline0&#45;&gt;outline1</title>
+<path fill="none" stroke="black" d="M49,-89.7872C49,-77.3443 49,-60.6053 49,-46.4211"/>
+<polygon fill="black" stroke="black" points="52.5001,-46.1857 49,-36.1858 45.5001,-46.1858 52.5001,-46.1857"/>
+<text text-anchor="middle" x="60.5" y="-58.9" font-family="Times Roman,serif" font-size="14.00">t_2</text>
+</g>
+<!-- outline0&#45;&gt;outline1 -->
+<g id="edge12" class="edge"><title>outline0&#45;&gt;outline1</title>
+<path fill="none" stroke="black" d="M63.4634,-90.7498C67.3346,-85.1238 70.9974,-78.6141 73,-72 75.3183,-64.3433 75.3183,-61.6567 73,-54 71.9674,-50.5896 70.4934,-47.207 68.7771,-43.9589"/>
+<polygon fill="black" stroke="black" points="71.6598,-41.9637 63.4634,-35.2502 65.6842,-45.6097 71.6598,-41.9637"/>
+<text text-anchor="middle" x="85.5" y="-58.9" font-family="Times Roman,serif" font-size="14.00">t_5</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_3_1"> <h3>Cover</h3> </a>
+<ul>
+<li>
+<a name="Ref_3_1_0"> <h4>cover_0</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: cover_0 Pages: 1 -->
+<svg width="318pt" height="256pt"
+ viewBox="0.00 0.00 318.00 256.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 252)">
+<title>cover_0</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-252 315,-252 315,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_cover_0_5</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="8,-8 8,-240 126,-240 126,-8 8,-8"/>
+<text text-anchor="middle" x="67" y="-223.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_cover_0_1</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="32,-114 32,-207 102,-207 102,-114 32,-114"/>
+<text text-anchor="middle" x="67" y="-190.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<g id="graph4" class="cluster"><title>cluster_cover_0_4</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="134,-8 134,-240 224,-240 224,-8 134,-8"/>
+<text text-anchor="middle" x="179" y="-223.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<g id="graph5" class="cluster"><title>cluster_cover_0_2</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="144,-114 144,-207 214,-207 214,-114 144,-114"/>
+<text text-anchor="middle" x="179" y="-190.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<g id="graph6" class="cluster"><title>cluster_cover_0_3</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="232,-8 232,-207 302,-207 302,-8 232,-8"/>
+<text text-anchor="middle" x="267" y="-190.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<!-- cover_02 -->
+<g id="node2" class="node"><title>cover_02</title>
+<polygon fill="none" stroke="black" points="15.5,-17 15.5,-67 118.5,-67 118.5,-17 15.5,-17"/>
+<text text-anchor="middle" x="67" y="-50.4" font-family="Times Roman,serif" font-size="14.00">L</text>
+<polyline fill="none" stroke="black" points="15.5,-42 118.5,-42 "/>
+<text text-anchor="middle" x="67" y="-25.4" font-family="Times Roman,serif" font-size="14.00">not disposed</text>
+</g>
+<!-- cover_03 -->
+<g id="node3" class="node"><title>cover_03</title>
+<polygon fill="none" stroke="black" points="40,-123 40,-173 94,-173 94,-123 40,-123"/>
+<text text-anchor="middle" x="67" y="-156.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="40,-148 94,-148 "/>
+<text text-anchor="middle" x="67" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cover_03&#45;&gt;cover_02 -->
+<g id="edge3" class="edge"><title>cover_03&#45;&gt;cover_02</title>
+<path fill="none" stroke="black" d="M67,-122.879C67,-109.381 67,-92.5096 67,-77.6735"/>
+<polygon fill="black" stroke="black" points="70.5001,-77.3075 67,-67.3075 63.5001,-77.3076 70.5001,-77.3075"/>
+<text text-anchor="middle" x="69.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cover_00 -->
+<g id="node7" class="node"><title>cover_00</title>
+<polygon fill="none" stroke="black" points="141.5,-17 141.5,-67 216.5,-67 216.5,-17 141.5,-17"/>
+<text text-anchor="middle" x="179" y="-50.4" font-family="Times Roman,serif" font-size="14.00">L</text>
+<polyline fill="none" stroke="black" points="141.5,-42 216.5,-42 "/>
+<text text-anchor="middle" x="179" y="-25.4" font-family="Times Roman,serif" font-size="14.00">disposed</text>
+</g>
+<!-- cover_05 -->
+<g id="node8" class="node"><title>cover_05</title>
+<polygon fill="none" stroke="black" points="152,-123 152,-173 206,-173 206,-123 152,-123"/>
+<text text-anchor="middle" x="179" y="-156.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="152,-148 206,-148 "/>
+<text text-anchor="middle" x="179" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cover_05&#45;&gt;cover_00 -->
+<g id="edge7" class="edge"><title>cover_05&#45;&gt;cover_00</title>
+<path fill="none" stroke="black" d="M179,-122.879C179,-109.381 179,-92.5096 179,-77.6735"/>
+<polygon fill="black" stroke="black" points="182.5,-77.3075 179,-67.3075 175.5,-77.3076 182.5,-77.3075"/>
+<text text-anchor="middle" x="181.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cover_01 -->
+<g id="node12" class="node"><title>cover_01</title>
+<polygon fill="none" stroke="black" points="240,-17 240,-67 294,-67 294,-17 240,-17"/>
+<text text-anchor="middle" x="267" y="-50.4" font-family="Times Roman,serif" font-size="14.00">Null</text>
+<polyline fill="none" stroke="black" points="240,-42 294,-42 "/>
+<text text-anchor="middle" x="267" y="-25.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cover_04 -->
+<g id="node13" class="node"><title>cover_04</title>
+<polygon fill="none" stroke="black" points="240,-123 240,-173 294,-173 294,-123 240,-123"/>
+<text text-anchor="middle" x="267" y="-156.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="240,-148 294,-148 "/>
+<text text-anchor="middle" x="267" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cover_04&#45;&gt;cover_01 -->
+<g id="edge11" class="edge"><title>cover_04&#45;&gt;cover_01</title>
+<path fill="none" stroke="black" d="M267,-122.879C267,-109.381 267,-92.5096 267,-77.6735"/>
+<polygon fill="black" stroke="black" points="270.5,-77.3075 267,-67.3075 263.5,-77.3076 270.5,-77.3075"/>
+<text text-anchor="middle" x="269.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_3_1_1"> <h4>cover_1</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: cover_1 Pages: 1 -->
+<svg width="400pt" height="256pt"
+ viewBox="0.00 0.00 400.00 256.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 252)">
+<title>cover_1</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-252 397,-252 397,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_cover_1_5</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="8,-114 8,-207 78,-207 78,-114 8,-114"/>
+<text text-anchor="middle" x="43" y="-190.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_cover_1_6</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="90,-8 90,-207 160,-207 160,-8 90,-8"/>
+<text text-anchor="middle" x="125" y="-190.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<g id="graph4" class="cluster"><title>cluster_cover_1_4</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="168,-8 168,-240 286,-240 286,-8 168,-8"/>
+<text text-anchor="middle" x="227" y="-223.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<g id="graph5" class="cluster"><title>cluster_cover_1_1</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="192,-114 192,-207 262,-207 262,-114 192,-114"/>
+<text text-anchor="middle" x="227" y="-190.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<g id="graph6" class="cluster"><title>cluster_cover_1_3</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="294,-8 294,-240 384,-240 384,-8 294,-8"/>
+<text text-anchor="middle" x="339" y="-223.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<g id="graph7" class="cluster"><title>cluster_cover_1_2</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="304,-114 304,-207 374,-207 374,-114 304,-114"/>
+<text text-anchor="middle" x="339" y="-190.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<!-- cover_15 -->
+<g id="node1" class="node"><title>cover_15</title>
+<polygon fill="none" stroke="black" points="5.5,-17 5.5,-67 80.5,-67 80.5,-17 5.5,-17"/>
+<text text-anchor="middle" x="43" y="-50.4" font-family="Times Roman,serif" font-size="14.00">LError</text>
+<polyline fill="none" stroke="black" points="5.5,-42 80.5,-42 "/>
+<text text-anchor="middle" x="43" y="-25.4" font-family="Times Roman,serif" font-size="14.00">disposed</text>
+</g>
+<!-- cover_16 -->
+<g id="node2" class="node"><title>cover_16</title>
+<polygon fill="none" stroke="black" points="16,-123 16,-173 70,-173 70,-123 16,-123"/>
+<text text-anchor="middle" x="43" y="-156.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="16,-148 70,-148 "/>
+<text text-anchor="middle" x="43" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cover_16&#45;&gt;cover_15 -->
+<g id="edge2" class="edge"><title>cover_16&#45;&gt;cover_15</title>
+<path fill="none" stroke="black" d="M43,-122.879C43,-109.381 43,-92.5096 43,-77.6735"/>
+<polygon fill="black" stroke="black" points="46.5001,-77.3075 43,-67.3075 39.5001,-77.3076 46.5001,-77.3075"/>
+<text text-anchor="middle" x="45.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cover_13 -->
+<g id="node6" class="node"><title>cover_13</title>
+<polygon fill="none" stroke="black" points="98,-123 98,-173 152,-173 152,-123 98,-123"/>
+<text text-anchor="middle" x="125" y="-156.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="98,-148 152,-148 "/>
+<text text-anchor="middle" x="125" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cover_17 -->
+<g id="node7" class="node"><title>cover_17</title>
+<polygon fill="none" stroke="black" points="98,-17 98,-67 152,-67 152,-17 98,-17"/>
+<text text-anchor="middle" x="125" y="-50.4" font-family="Times Roman,serif" font-size="14.00">Null</text>
+<polyline fill="none" stroke="black" points="98,-42 152,-42 "/>
+<text text-anchor="middle" x="125" y="-25.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cover_13&#45;&gt;cover_17 -->
+<g id="edge6" class="edge"><title>cover_13&#45;&gt;cover_17</title>
+<path fill="none" stroke="black" d="M125,-122.879C125,-109.381 125,-92.5096 125,-77.6735"/>
+<polygon fill="black" stroke="black" points="128.5,-77.3075 125,-67.3075 121.5,-77.3076 128.5,-77.3075"/>
+<text text-anchor="middle" x="127.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cover_11 -->
+<g id="node10" class="node"><title>cover_11</title>
+<polygon fill="none" stroke="black" points="175.5,-17 175.5,-67 278.5,-67 278.5,-17 175.5,-17"/>
+<text text-anchor="middle" x="227" y="-50.4" font-family="Times Roman,serif" font-size="14.00">L</text>
+<polyline fill="none" stroke="black" points="175.5,-42 278.5,-42 "/>
+<text text-anchor="middle" x="227" y="-25.4" font-family="Times Roman,serif" font-size="14.00">not disposed</text>
+</g>
+<!-- cover_10 -->
+<g id="node11" class="node"><title>cover_10</title>
+<polygon fill="none" stroke="black" points="200,-123 200,-173 254,-173 254,-123 200,-123"/>
+<text text-anchor="middle" x="227" y="-156.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="200,-148 254,-148 "/>
+<text text-anchor="middle" x="227" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cover_10&#45;&gt;cover_11 -->
+<g id="edge9" class="edge"><title>cover_10&#45;&gt;cover_11</title>
+<path fill="none" stroke="black" d="M227,-122.879C227,-109.381 227,-92.5096 227,-77.6735"/>
+<polygon fill="black" stroke="black" points="230.5,-77.3075 227,-67.3075 223.5,-77.3076 230.5,-77.3075"/>
+<text text-anchor="middle" x="229.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cover_14 -->
+<g id="node15" class="node"><title>cover_14</title>
+<polygon fill="none" stroke="black" points="301.5,-17 301.5,-67 376.5,-67 376.5,-17 301.5,-17"/>
+<text text-anchor="middle" x="339" y="-50.4" font-family="Times Roman,serif" font-size="14.00">L</text>
+<polyline fill="none" stroke="black" points="301.5,-42 376.5,-42 "/>
+<text text-anchor="middle" x="339" y="-25.4" font-family="Times Roman,serif" font-size="14.00">disposed</text>
+</g>
+<!-- cover_12 -->
+<g id="node16" class="node"><title>cover_12</title>
+<polygon fill="none" stroke="black" points="312,-123 312,-173 366,-173 366,-123 312,-123"/>
+<text text-anchor="middle" x="339" y="-156.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="312,-148 366,-148 "/>
+<text text-anchor="middle" x="339" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cover_12&#45;&gt;cover_14 -->
+<g id="edge13" class="edge"><title>cover_12&#45;&gt;cover_14</title>
+<path fill="none" stroke="black" d="M339,-122.879C339,-109.381 339,-92.5096 339,-77.6735"/>
+<polygon fill="black" stroke="black" points="342.5,-77.3075 339,-67.3075 335.5,-77.3076 342.5,-77.3075"/>
+<text text-anchor="middle" x="341.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+</ul>
+</li>
+<li>
+<a name="Ref_3_2"> <h3>Transitions</h3> </a>
+<ul>
+<li>
+<a name="Ref_3_2_0"> <h4>t_0: V(f -&gt; Set(L))[]{}.set(L()[disposed -&gt; false]{})</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: t_0 Pages: 1 -->
+<svg width="532pt" height="418pt"
+ viewBox="0.00 0.00 532.00 418.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 414)">
+<title>t_0</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-414 529,-414 529,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_t_0_src</title>
+<polygon fill="none" stroke="black" points="8,-114 8,-402 298,-402 298,-114 8,-114"/>
+<text text-anchor="middle" x="153" y="-385.4" font-family="Times Roman,serif" font-size="14.00">LHS(cover_0)</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_cluster_t_0_src_1</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="220,-276 220,-369 290,-369 290,-276 220,-276"/>
+<text text-anchor="middle" x="255" y="-352.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<g id="graph4" class="cluster"><title>cluster_t_0_to</title>
+<polygon fill="none" stroke="black" points="306,-8 306,-240 516,-240 516,-8 306,-8"/>
+<text text-anchor="middle" x="411" y="-223.4" font-family="Times Roman,serif" font-size="14.00">RHS(cover_0)</text>
+</g>
+<g id="graph5" class="cluster"><title>cluster_cluster_t_0_to_1</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="424,-114 424,-207 494,-207 494,-114 424,-114"/>
+<text text-anchor="middle" x="459" y="-190.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<!-- cluster_t_0_src1 -->
+<g id="node2" class="node"><title>cluster_t_0_src1</title>
+<polygon fill="none" stroke="black" points="136,-285 136,-335 210,-335 210,-285 136,-285"/>
+<text text-anchor="middle" x="173" y="-318.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="136,-310 210,-310 "/>
+<text text-anchor="middle" x="173" y="-293.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_0_src2 -->
+<g id="node3" class="node"><title>cluster_t_0_src2</title>
+<polygon fill="none" stroke="black" points="168.5,-123 168.5,-173 271.5,-173 271.5,-123 168.5,-123"/>
+<text text-anchor="middle" x="220" y="-156.4" font-family="Times Roman,serif" font-size="14.00">s0: L</text>
+<polyline fill="none" stroke="black" points="168.5,-148 271.5,-148 "/>
+<text text-anchor="middle" x="220" y="-131.4" font-family="Times Roman,serif" font-size="14.00">not disposed</text>
+</g>
+<!-- cluster_t_0_src1&#45;&gt;cluster_t_0_src2 -->
+<g id="edge5" class="edge"><title>cluster_t_0_src1&#45;&gt;cluster_t_0_src2</title>
+<path fill="none" stroke="black" d="M180.344,-284.688C188.277,-257.344 200.97,-213.591 209.854,-182.972"/>
+<polygon fill="black" stroke="black" points="213.283,-183.714 212.708,-173.135 206.56,-181.763 213.283,-183.714"/>
+<text text-anchor="middle" x="193.5" y="-252.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_0_src3 -->
+<g id="node4" class="node"><title>cluster_t_0_src3</title>
+<polygon fill="none" stroke="black" points="15.5,-285 15.5,-335 118.5,-335 118.5,-285 15.5,-285"/>
+<text text-anchor="middle" x="67" y="-318.4" font-family="Times Roman,serif" font-size="14.00">arg0: L</text>
+<polyline fill="none" stroke="black" points="15.5,-310 118.5,-310 "/>
+<text text-anchor="middle" x="67" y="-293.4" font-family="Times Roman,serif" font-size="14.00">not disposed</text>
+</g>
+<!-- cluster_t_0_src0 -->
+<g id="node5" class="node"><title>cluster_t_0_src0</title>
+<polygon fill="none" stroke="black" points="228,-285 228,-335 282,-335 282,-285 228,-285"/>
+<text text-anchor="middle" x="255" y="-318.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="228,-310 282,-310 "/>
+<text text-anchor="middle" x="255" y="-293.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_0_src0&#45;&gt;cluster_t_0_src2 -->
+<g id="edge3" class="edge"><title>cluster_t_0_src0&#45;&gt;cluster_t_0_src2</title>
+<path fill="none" stroke="black" d="M249.531,-284.688C243.624,-257.344 234.171,-213.591 227.556,-182.972"/>
+<polygon fill="black" stroke="black" points="230.963,-182.17 225.43,-173.135 224.121,-183.648 230.963,-182.17"/>
+<text text-anchor="middle" x="247.5" y="-252.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_0_to0 -->
+<g id="node13" class="node"><title>cluster_t_0_to0</title>
+<polygon fill="none" stroke="black" points="432,-123 432,-173 486,-173 486,-123 432,-123"/>
+<text text-anchor="middle" x="459" y="-156.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="432,-148 486,-148 "/>
+<text text-anchor="middle" x="459" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_0_src0&#45;&gt;cluster_t_0_to0 -->
+<g id="edge14" class="edge"><title>cluster_t_0_src0&#45;&gt;cluster_t_0_to0</title>
+<path fill="none" stroke="#0000ff" d="M282.061,-306.211C319.877,-299.519 388.339,-282.093 428,-240 442.531,-224.578 450.266,-202.116 454.376,-183.247"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="457.856,-183.683 456.306,-173.202 450.982,-182.362 457.856,-183.683"/>
+</g>
+<!-- cluster_t_0_to1 -->
+<g id="node10" class="node"><title>cluster_t_0_to1</title>
+<polygon fill="none" stroke="black" points="433.5,-17 433.5,-67 508.5,-67 508.5,-17 433.5,-17"/>
+<text text-anchor="middle" x="471" y="-50.4" font-family="Times Roman,serif" font-size="14.00">s0: L</text>
+<polyline fill="none" stroke="black" points="433.5,-42 508.5,-42 "/>
+<text text-anchor="middle" x="471" y="-25.4" font-family="Times Roman,serif" font-size="14.00">disposed</text>
+</g>
+<!-- cluster_t_0_to2 -->
+<g id="node11" class="node"><title>cluster_t_0_to2</title>
+<polygon fill="none" stroke="black" points="328,-123 328,-173 402,-173 402,-123 328,-123"/>
+<text text-anchor="middle" x="365" y="-156.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="328,-148 402,-148 "/>
+<text text-anchor="middle" x="365" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_0_to3 -->
+<g id="node12" class="node"><title>cluster_t_0_to3</title>
+<polygon fill="none" stroke="black" points="313.5,-17 313.5,-67 416.5,-67 416.5,-17 313.5,-17"/>
+<text text-anchor="middle" x="365" y="-50.4" font-family="Times Roman,serif" font-size="14.00">arg0: L</text>
+<polyline fill="none" stroke="black" points="313.5,-42 416.5,-42 "/>
+<text text-anchor="middle" x="365" y="-25.4" font-family="Times Roman,serif" font-size="14.00">not disposed</text>
+</g>
+<!-- cluster_t_0_to2&#45;&gt;cluster_t_0_to3 -->
+<g id="edge11" class="edge"><title>cluster_t_0_to2&#45;&gt;cluster_t_0_to3</title>
+<path fill="none" stroke="black" d="M365,-122.879C365,-109.381 365,-92.5096 365,-77.6735"/>
+<polygon fill="black" stroke="black" points="368.5,-77.3075 365,-67.3075 361.5,-77.3076 368.5,-77.3075"/>
+<text text-anchor="middle" x="367.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_0_to0&#45;&gt;cluster_t_0_to1 -->
+<g id="edge9" class="edge"><title>cluster_t_0_to0&#45;&gt;cluster_t_0_to1</title>
+<path fill="none" stroke="black" d="M461.844,-122.879C463.372,-109.381 465.282,-92.5096 466.961,-77.6735"/>
+<polygon fill="black" stroke="black" points="470.488,-77.6378 468.135,-67.3075 463.532,-76.8503 470.488,-77.6378"/>
+<text text-anchor="middle" x="467.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_3_2_1"> <h4>t_1: V(f -&gt; Set(L))[]{}.done()</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: t_1 Pages: 1 -->
+<svg width="372pt" height="418pt"
+ viewBox="0.00 0.00 372.00 418.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 414)">
+<title>t_1</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-414 369,-414 369,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_t_1_src</title>
+<polygon fill="none" stroke="black" points="8,-114 8,-402 178,-402 178,-114 8,-114"/>
+<text text-anchor="middle" x="93" y="-385.4" font-family="Times Roman,serif" font-size="14.00">LHS(cover_0)</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_cluster_t_1_src_1</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="100,-276 100,-369 170,-369 170,-276 100,-276"/>
+<text text-anchor="middle" x="135" y="-352.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<g id="graph4" class="cluster"><title>cluster_t_1_to</title>
+<polygon fill="none" stroke="black" points="186,-8 186,-240 356,-240 356,-8 186,-8"/>
+<text text-anchor="middle" x="271" y="-223.4" font-family="Times Roman,serif" font-size="14.00">RHS(cover_0)</text>
+</g>
+<g id="graph5" class="cluster"><title>cluster_cluster_t_1_to_1</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="278,-114 278,-207 348,-207 348,-114 278,-114"/>
+<text text-anchor="middle" x="313" y="-190.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<!-- cluster_t_1_src0 -->
+<g id="node2" class="node"><title>cluster_t_1_src0</title>
+<polygon fill="none" stroke="black" points="39.5,-123 39.5,-173 142.5,-173 142.5,-123 39.5,-123"/>
+<text text-anchor="middle" x="91" y="-156.4" font-family="Times Roman,serif" font-size="14.00">s0: L</text>
+<polyline fill="none" stroke="black" points="39.5,-148 142.5,-148 "/>
+<text text-anchor="middle" x="91" y="-131.4" font-family="Times Roman,serif" font-size="14.00">not disposed</text>
+</g>
+<!-- cluster_t_1_src2 -->
+<g id="node3" class="node"><title>cluster_t_1_src2</title>
+<polygon fill="none" stroke="black" points="16,-285 16,-335 90,-335 90,-285 16,-285"/>
+<text text-anchor="middle" x="53" y="-318.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="16,-310 90,-310 "/>
+<text text-anchor="middle" x="53" y="-293.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_1_src2&#45;&gt;cluster_t_1_src0 -->
+<g id="edge5" class="edge"><title>cluster_t_1_src2&#45;&gt;cluster_t_1_src0</title>
+<path fill="none" stroke="black" d="M58.9375,-284.688C65.3514,-257.344 75.6144,-213.591 82.7966,-182.972"/>
+<polygon fill="black" stroke="black" points="86.2279,-183.67 85.1042,-173.135 79.4129,-182.071 86.2279,-183.67"/>
+<text text-anchor="middle" x="70.5" y="-252.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_1_src1 -->
+<g id="node4" class="node"><title>cluster_t_1_src1</title>
+<polygon fill="none" stroke="black" points="108,-285 108,-335 162,-335 162,-285 108,-285"/>
+<text text-anchor="middle" x="135" y="-318.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="108,-310 162,-310 "/>
+<text text-anchor="middle" x="135" y="-293.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_1_src1&#45;&gt;cluster_t_1_src0 -->
+<g id="edge3" class="edge"><title>cluster_t_1_src1&#45;&gt;cluster_t_1_src0</title>
+<path fill="none" stroke="black" d="M128.125,-284.688C120.698,-257.344 108.815,-213.591 100.499,-182.972"/>
+<polygon fill="black" stroke="black" points="103.826,-181.868 97.8267,-173.135 97.0703,-183.703 103.826,-181.868"/>
+<text text-anchor="middle" x="124.5" y="-252.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_1_to1 -->
+<g id="node12" class="node"><title>cluster_t_1_to1</title>
+<polygon fill="none" stroke="black" points="286,-123 286,-173 340,-173 340,-123 286,-123"/>
+<text text-anchor="middle" x="313" y="-156.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="286,-148 340,-148 "/>
+<text text-anchor="middle" x="313" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_1_src1&#45;&gt;cluster_t_1_to1 -->
+<g id="edge14" class="edge"><title>cluster_t_1_src1&#45;&gt;cluster_t_1_to1</title>
+<path fill="none" stroke="#0000ff" d="M162.247,-303.932C195.109,-295.243 249.922,-276.157 282,-240 295.968,-224.256 303.685,-201.981 307.926,-183.293"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="311.387,-183.839 309.942,-173.343 304.526,-182.449 311.387,-183.839"/>
+</g>
+<!-- cluster_t_1_to0 -->
+<g id="node9" class="node"><title>cluster_t_1_to0</title>
+<polygon fill="none" stroke="black" points="194,-123 194,-173 268,-173 268,-123 194,-123"/>
+<text text-anchor="middle" x="231" y="-156.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="194,-148 268,-148 "/>
+<text text-anchor="middle" x="231" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_1_to2 -->
+<g id="node10" class="node"><title>cluster_t_1_to2</title>
+<polygon fill="none" stroke="black" points="220.5,-17 220.5,-67 295.5,-67 295.5,-17 220.5,-17"/>
+<text text-anchor="middle" x="258" y="-50.4" font-family="Times Roman,serif" font-size="14.00">s0: L</text>
+<polyline fill="none" stroke="black" points="220.5,-42 295.5,-42 "/>
+<text text-anchor="middle" x="258" y="-25.4" font-family="Times Roman,serif" font-size="14.00">disposed</text>
+</g>
+<!-- cluster_t_1_to0&#45;&gt;cluster_t_1_to2 -->
+<g id="edge9" class="edge"><title>cluster_t_1_to0&#45;&gt;cluster_t_1_to2</title>
+<path fill="none" stroke="black" d="M237.399,-122.879C240.87,-109.25 245.218,-92.1817 249.023,-77.242"/>
+<polygon fill="black" stroke="black" points="252.477,-77.8621 251.554,-67.3075 245.694,-76.1342 252.477,-77.8621"/>
+<text text-anchor="middle" x="248.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_1_to1&#45;&gt;cluster_t_1_to2 -->
+<g id="edge11" class="edge"><title>cluster_t_1_to1&#45;&gt;cluster_t_1_to2</title>
+<path fill="none" stroke="black" d="M299.966,-122.879C292.758,-108.988 283.696,-91.5239 275.84,-76.3824"/>
+<polygon fill="black" stroke="black" points="278.844,-74.5719 271.131,-67.3075 272.63,-77.7958 278.844,-74.5719"/>
+<text text-anchor="middle" x="290.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_3_2_2"> <h4>t_2: V(f -&gt; Set(L))[]{}.set()</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: t_2 Pages: 1 -->
+<svg width="372pt" height="418pt"
+ viewBox="0.00 0.00 372.00 418.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 414)">
+<title>t_2</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-414 369,-414 369,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_t_2_src</title>
+<polygon fill="none" stroke="black" points="8,-114 8,-402 178,-402 178,-114 8,-114"/>
+<text text-anchor="middle" x="93" y="-385.4" font-family="Times Roman,serif" font-size="14.00">LHS(cover_0)</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_cluster_t_2_src_1</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="100,-276 100,-369 170,-369 170,-276 100,-276"/>
+<text text-anchor="middle" x="135" y="-352.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<g id="graph4" class="cluster"><title>cluster_t_2_to</title>
+<polygon fill="none" stroke="black" points="186,-8 186,-240 356,-240 356,-8 186,-8"/>
+<text text-anchor="middle" x="271" y="-223.4" font-family="Times Roman,serif" font-size="14.00">RHS(cover_1)</text>
+</g>
+<g id="graph5" class="cluster"><title>cluster_cluster_t_2_to_1</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="278,-114 278,-207 348,-207 348,-114 278,-114"/>
+<text text-anchor="middle" x="313" y="-190.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<!-- cluster_t_2_src1 -->
+<g id="node2" class="node"><title>cluster_t_2_src1</title>
+<polygon fill="none" stroke="black" points="62.5,-123 62.5,-173 137.5,-173 137.5,-123 62.5,-123"/>
+<text text-anchor="middle" x="100" y="-156.4" font-family="Times Roman,serif" font-size="14.00">s0: L</text>
+<polyline fill="none" stroke="black" points="62.5,-148 137.5,-148 "/>
+<text text-anchor="middle" x="100" y="-131.4" font-family="Times Roman,serif" font-size="14.00">disposed</text>
+</g>
+<!-- cluster_t_2_src2 -->
+<g id="node3" class="node"><title>cluster_t_2_src2</title>
+<polygon fill="none" stroke="black" points="16,-285 16,-335 90,-335 90,-285 16,-285"/>
+<text text-anchor="middle" x="53" y="-318.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="16,-310 90,-310 "/>
+<text text-anchor="middle" x="53" y="-293.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_2_src2&#45;&gt;cluster_t_2_src1 -->
+<g id="edge5" class="edge"><title>cluster_t_2_src2&#45;&gt;cluster_t_2_src1</title>
+<path fill="none" stroke="black" d="M60.3438,-284.688C68.2767,-257.344 80.9704,-213.591 89.8537,-182.972"/>
+<polygon fill="black" stroke="black" points="93.2828,-183.714 92.7078,-173.135 86.56,-181.763 93.2828,-183.714"/>
+<text text-anchor="middle" x="73.5" y="-252.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_2_src0 -->
+<g id="node4" class="node"><title>cluster_t_2_src0</title>
+<polygon fill="none" stroke="black" points="108,-285 108,-335 162,-335 162,-285 108,-285"/>
+<text text-anchor="middle" x="135" y="-318.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="108,-310 162,-310 "/>
+<text text-anchor="middle" x="135" y="-293.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_2_src0&#45;&gt;cluster_t_2_src1 -->
+<g id="edge3" class="edge"><title>cluster_t_2_src0&#45;&gt;cluster_t_2_src1</title>
+<path fill="none" stroke="black" d="M129.531,-284.688C123.624,-257.344 114.171,-213.591 107.556,-182.972"/>
+<polygon fill="black" stroke="black" points="110.963,-182.17 105.43,-173.135 104.121,-183.648 110.963,-182.17"/>
+<text text-anchor="middle" x="127.5" y="-252.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_2_to0 -->
+<g id="node11" class="node"><title>cluster_t_2_to0</title>
+<polygon fill="none" stroke="black" points="286,-123 286,-173 340,-173 340,-123 286,-123"/>
+<text text-anchor="middle" x="313" y="-156.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="286,-148 340,-148 "/>
+<text text-anchor="middle" x="313" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_2_src0&#45;&gt;cluster_t_2_to0 -->
+<g id="edge14" class="edge"><title>cluster_t_2_src0&#45;&gt;cluster_t_2_to0</title>
+<path fill="none" stroke="#0000ff" d="M162.247,-303.932C195.109,-295.243 249.922,-276.157 282,-240 295.968,-224.256 303.685,-201.981 307.926,-183.293"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="311.387,-183.839 309.942,-173.343 304.526,-182.449 311.387,-183.839"/>
+</g>
+<!-- cluster_t_2_to1 -->
+<g id="node9" class="node"><title>cluster_t_2_to1</title>
+<polygon fill="none" stroke="black" points="194,-123 194,-173 268,-173 268,-123 194,-123"/>
+<text text-anchor="middle" x="231" y="-156.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="194,-148 268,-148 "/>
+<text text-anchor="middle" x="231" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_2_to2 -->
+<g id="node10" class="node"><title>cluster_t_2_to2</title>
+<polygon fill="none" stroke="black" points="219.5,-17 219.5,-67 304.5,-67 304.5,-17 219.5,-17"/>
+<text text-anchor="middle" x="262" y="-50.4" font-family="Times Roman,serif" font-size="14.00">s0: LError</text>
+<polyline fill="none" stroke="black" points="219.5,-42 304.5,-42 "/>
+<text text-anchor="middle" x="262" y="-25.4" font-family="Times Roman,serif" font-size="14.00">disposed</text>
+</g>
+<!-- cluster_t_2_to1&#45;&gt;cluster_t_2_to2 -->
+<g id="edge11" class="edge"><title>cluster_t_2_to1&#45;&gt;cluster_t_2_to2</title>
+<path fill="none" stroke="black" d="M238.347,-122.879C242.333,-109.25 247.324,-92.1817 251.693,-77.242"/>
+<polygon fill="black" stroke="black" points="255.151,-77.888 254.599,-67.3075 248.432,-75.9231 255.151,-77.888"/>
+<text text-anchor="middle" x="250.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_2_to0&#45;&gt;cluster_t_2_to2 -->
+<g id="edge9" class="edge"><title>cluster_t_2_to0&#45;&gt;cluster_t_2_to2</title>
+<path fill="none" stroke="black" d="M300.914,-122.879C294.23,-108.988 285.828,-91.5239 278.542,-76.3824"/>
+<polygon fill="black" stroke="black" points="281.666,-74.8013 274.176,-67.3075 275.358,-77.8363 281.666,-74.8013"/>
+<text text-anchor="middle" x="292.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_3_2_3"> <h4>t_3: V(f -&gt; Set(L))[]{}.set(L()[disposed -&gt; false]{})</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: t_3 Pages: 1 -->
+<svg width="372pt" height="418pt"
+ viewBox="0.00 0.00 372.00 418.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 414)">
+<title>t_3</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-414 369,-414 369,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_t_3_src</title>
+<polygon fill="none" stroke="black" points="8,-114 8,-402 178,-402 178,-114 8,-114"/>
+<text text-anchor="middle" x="93" y="-385.4" font-family="Times Roman,serif" font-size="14.00">LHS(cover_0)</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_cluster_t_3_src_1</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="100,-276 100,-369 170,-369 170,-276 100,-276"/>
+<text text-anchor="middle" x="135" y="-352.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<g id="graph4" class="cluster"><title>cluster_t_3_to</title>
+<polygon fill="none" stroke="black" points="186,-8 186,-240 356,-240 356,-8 186,-8"/>
+<text text-anchor="middle" x="271" y="-223.4" font-family="Times Roman,serif" font-size="14.00">RHS(cover_0)</text>
+</g>
+<g id="graph5" class="cluster"><title>cluster_cluster_t_3_to_1</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="278,-114 278,-207 348,-207 348,-114 278,-114"/>
+<text text-anchor="middle" x="313" y="-190.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<!-- cluster_t_3_src0 -->
+<g id="node2" class="node"><title>cluster_t_3_src0</title>
+<polygon fill="none" stroke="black" points="16,-285 16,-335 90,-335 90,-285 16,-285"/>
+<text text-anchor="middle" x="53" y="-318.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="16,-310 90,-310 "/>
+<text text-anchor="middle" x="53" y="-293.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_3_src1 -->
+<g id="node3" class="node"><title>cluster_t_3_src1</title>
+<polygon fill="none" stroke="black" points="39.5,-123 39.5,-173 142.5,-173 142.5,-123 39.5,-123"/>
+<text text-anchor="middle" x="91" y="-156.4" font-family="Times Roman,serif" font-size="14.00">arg0: L</text>
+<polyline fill="none" stroke="black" points="39.5,-148 142.5,-148 "/>
+<text text-anchor="middle" x="91" y="-131.4" font-family="Times Roman,serif" font-size="14.00">not disposed</text>
+</g>
+<!-- cluster_t_3_src0&#45;&gt;cluster_t_3_src1 -->
+<g id="edge3" class="edge"><title>cluster_t_3_src0&#45;&gt;cluster_t_3_src1</title>
+<path fill="none" stroke="black" d="M58.9375,-284.688C65.3514,-257.344 75.6144,-213.591 82.7966,-182.972"/>
+<polygon fill="black" stroke="black" points="86.2279,-183.67 85.1042,-173.135 79.4129,-182.071 86.2279,-183.67"/>
+<text text-anchor="middle" x="70.5" y="-252.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_3_src2 -->
+<g id="node5" class="node"><title>cluster_t_3_src2</title>
+<polygon fill="none" stroke="black" points="108,-285 108,-335 162,-335 162,-285 108,-285"/>
+<text text-anchor="middle" x="135" y="-318.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="108,-310 162,-310 "/>
+<text text-anchor="middle" x="135" y="-293.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_3_src2&#45;&gt;cluster_t_3_src1 -->
+<g id="edge5" class="edge"><title>cluster_t_3_src2&#45;&gt;cluster_t_3_src1</title>
+<path fill="none" stroke="black" d="M128.125,-284.688C120.698,-257.344 108.815,-213.591 100.499,-182.972"/>
+<polygon fill="black" stroke="black" points="103.826,-181.868 97.8267,-173.135 97.0703,-183.703 103.826,-181.868"/>
+<text text-anchor="middle" x="124.5" y="-252.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_3_to0 -->
+<g id="node11" class="node"><title>cluster_t_3_to0</title>
+<polygon fill="none" stroke="black" points="286,-123 286,-173 340,-173 340,-123 286,-123"/>
+<text text-anchor="middle" x="313" y="-156.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="286,-148 340,-148 "/>
+<text text-anchor="middle" x="313" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_3_src2&#45;&gt;cluster_t_3_to0 -->
+<g id="edge14" class="edge"><title>cluster_t_3_src2&#45;&gt;cluster_t_3_to0</title>
+<path fill="none" stroke="#0000ff" d="M162.247,-303.932C195.109,-295.243 249.922,-276.157 282,-240 295.968,-224.256 303.685,-201.981 307.926,-183.293"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="311.387,-183.839 309.942,-173.343 304.526,-182.449 311.387,-183.839"/>
+</g>
+<!-- cluster_t_3_to1 -->
+<g id="node9" class="node"><title>cluster_t_3_to1</title>
+<polygon fill="none" stroke="black" points="220.5,-17 220.5,-67 295.5,-67 295.5,-17 220.5,-17"/>
+<text text-anchor="middle" x="258" y="-50.4" font-family="Times Roman,serif" font-size="14.00">arg0: L</text>
+<polyline fill="none" stroke="black" points="220.5,-42 295.5,-42 "/>
+<text text-anchor="middle" x="258" y="-25.4" font-family="Times Roman,serif" font-size="14.00">disposed</text>
+</g>
+<!-- cluster_t_3_to2 -->
+<g id="node10" class="node"><title>cluster_t_3_to2</title>
+<polygon fill="none" stroke="black" points="194,-123 194,-173 268,-173 268,-123 194,-123"/>
+<text text-anchor="middle" x="231" y="-156.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="194,-148 268,-148 "/>
+<text text-anchor="middle" x="231" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_3_to2&#45;&gt;cluster_t_3_to1 -->
+<g id="edge11" class="edge"><title>cluster_t_3_to2&#45;&gt;cluster_t_3_to1</title>
+<path fill="none" stroke="black" d="M237.399,-122.879C240.87,-109.25 245.218,-92.1817 249.023,-77.242"/>
+<polygon fill="black" stroke="black" points="252.477,-77.8621 251.554,-67.3075 245.694,-76.1342 252.477,-77.8621"/>
+<text text-anchor="middle" x="248.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_3_to0&#45;&gt;cluster_t_3_to1 -->
+<g id="edge9" class="edge"><title>cluster_t_3_to0&#45;&gt;cluster_t_3_to1</title>
+<path fill="none" stroke="black" d="M299.966,-122.879C292.758,-108.988 283.696,-91.5239 275.84,-76.3824"/>
+<polygon fill="black" stroke="black" points="278.844,-74.5719 271.131,-67.3075 272.63,-77.7958 278.844,-74.5719"/>
+<text text-anchor="middle" x="290.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_3_2_4"> <h4>t_4: V(f -&gt; Set(Null))[]{}.run()</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: t_4 Pages: 1 -->
+<svg width="251pt" height="223pt"
+ viewBox="0.00 0.00 251.00 223.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 219)">
+<title>t_4</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-219 248,-219 248,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_t_4_src</title>
+<polygon fill="none" stroke="black" points="8,-8 8,-207 117,-207 117,-8 8,-8"/>
+<text text-anchor="middle" x="62.5" y="-190.4" font-family="Times Roman,serif" font-size="14.00">LHS(cover_0)</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_t_4_to</title>
+<polygon fill="none" stroke="black" points="125,-8 125,-207 235,-207 235,-8 125,-8"/>
+<text text-anchor="middle" x="180" y="-190.4" font-family="Times Roman,serif" font-size="14.00">RHS(cover_0)</text>
+</g>
+<!-- cluster_t_4_src0 -->
+<g id="node2" class="node"><title>cluster_t_4_src0</title>
+<polygon fill="none" stroke="black" points="25,-123 25,-173 99,-173 99,-123 25,-123"/>
+<text text-anchor="middle" x="62" y="-156.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="25,-148 99,-148 "/>
+<text text-anchor="middle" x="62" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_4_src1 -->
+<g id="node3" class="node"><title>cluster_t_4_src1</title>
+<polygon fill="none" stroke="black" points="28,-17 28,-67 96,-67 96,-17 28,-17"/>
+<text text-anchor="middle" x="62" y="-50.4" font-family="Times Roman,serif" font-size="14.00">s0: Null</text>
+<polyline fill="none" stroke="black" points="28,-42 96,-42 "/>
+<text text-anchor="middle" x="62" y="-25.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_4_src0&#45;&gt;cluster_t_4_src1 -->
+<g id="edge3" class="edge"><title>cluster_t_4_src0&#45;&gt;cluster_t_4_src1</title>
+<path fill="none" stroke="black" d="M62,-122.879C62,-109.381 62,-92.5096 62,-77.6735"/>
+<polygon fill="black" stroke="black" points="65.5001,-77.3075 62,-67.3075 58.5001,-77.3076 65.5001,-77.3075"/>
+<text text-anchor="middle" x="64.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_4_to0 -->
+<g id="node6" class="node"><title>cluster_t_4_to0</title>
+<polygon fill="none" stroke="black" points="146,-17 146,-67 214,-67 214,-17 146,-17"/>
+<text text-anchor="middle" x="180" y="-50.4" font-family="Times Roman,serif" font-size="14.00">s0: Null</text>
+<polyline fill="none" stroke="black" points="146,-42 214,-42 "/>
+<text text-anchor="middle" x="180" y="-25.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_4_to1 -->
+<g id="node7" class="node"><title>cluster_t_4_to1</title>
+<polygon fill="none" stroke="black" points="143,-123 143,-173 217,-173 217,-123 143,-123"/>
+<text text-anchor="middle" x="180" y="-156.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="143,-148 217,-148 "/>
+<text text-anchor="middle" x="180" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_4_to1&#45;&gt;cluster_t_4_to0 -->
+<g id="edge6" class="edge"><title>cluster_t_4_to1&#45;&gt;cluster_t_4_to0</title>
+<path fill="none" stroke="black" d="M180,-122.879C180,-109.381 180,-92.5096 180,-77.6735"/>
+<polygon fill="black" stroke="black" points="183.5,-77.3075 180,-67.3075 176.5,-77.3076 183.5,-77.3075"/>
+<text text-anchor="middle" x="182.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_3_2_5"> <h4>t_5: V(f -&gt; Set(L))[]{}.done()</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: t_5 Pages: 1 -->
+<svg width="372pt" height="418pt"
+ viewBox="0.00 0.00 372.00 418.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 414)">
+<title>t_5</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-414 369,-414 369,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_t_5_src</title>
+<polygon fill="none" stroke="black" points="8,-114 8,-402 178,-402 178,-114 8,-114"/>
+<text text-anchor="middle" x="93" y="-385.4" font-family="Times Roman,serif" font-size="14.00">LHS(cover_0)</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_cluster_t_5_src_1</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="100,-276 100,-369 170,-369 170,-276 100,-276"/>
+<text text-anchor="middle" x="135" y="-352.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<g id="graph4" class="cluster"><title>cluster_t_5_to</title>
+<polygon fill="none" stroke="black" points="186,-8 186,-240 356,-240 356,-8 186,-8"/>
+<text text-anchor="middle" x="271" y="-223.4" font-family="Times Roman,serif" font-size="14.00">RHS(cover_1)</text>
+</g>
+<g id="graph5" class="cluster"><title>cluster_cluster_t_5_to_1</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="278,-114 278,-207 348,-207 348,-114 278,-114"/>
+<text text-anchor="middle" x="313" y="-190.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<!-- cluster_t_5_src0 -->
+<g id="node2" class="node"><title>cluster_t_5_src0</title>
+<polygon fill="none" stroke="black" points="16,-285 16,-335 90,-335 90,-285 16,-285"/>
+<text text-anchor="middle" x="53" y="-318.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="16,-310 90,-310 "/>
+<text text-anchor="middle" x="53" y="-293.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_5_src2 -->
+<g id="node3" class="node"><title>cluster_t_5_src2</title>
+<polygon fill="none" stroke="black" points="62.5,-123 62.5,-173 137.5,-173 137.5,-123 62.5,-123"/>
+<text text-anchor="middle" x="100" y="-156.4" font-family="Times Roman,serif" font-size="14.00">s0: L</text>
+<polyline fill="none" stroke="black" points="62.5,-148 137.5,-148 "/>
+<text text-anchor="middle" x="100" y="-131.4" font-family="Times Roman,serif" font-size="14.00">disposed</text>
+</g>
+<!-- cluster_t_5_src0&#45;&gt;cluster_t_5_src2 -->
+<g id="edge3" class="edge"><title>cluster_t_5_src0&#45;&gt;cluster_t_5_src2</title>
+<path fill="none" stroke="black" d="M60.3438,-284.688C68.2767,-257.344 80.9704,-213.591 89.8537,-182.972"/>
+<polygon fill="black" stroke="black" points="93.2828,-183.714 92.7078,-173.135 86.56,-181.763 93.2828,-183.714"/>
+<text text-anchor="middle" x="73.5" y="-252.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_5_src1 -->
+<g id="node5" class="node"><title>cluster_t_5_src1</title>
+<polygon fill="none" stroke="black" points="108,-285 108,-335 162,-335 162,-285 108,-285"/>
+<text text-anchor="middle" x="135" y="-318.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="108,-310 162,-310 "/>
+<text text-anchor="middle" x="135" y="-293.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_5_src1&#45;&gt;cluster_t_5_src2 -->
+<g id="edge5" class="edge"><title>cluster_t_5_src1&#45;&gt;cluster_t_5_src2</title>
+<path fill="none" stroke="black" d="M129.531,-284.688C123.624,-257.344 114.171,-213.591 107.556,-182.972"/>
+<polygon fill="black" stroke="black" points="110.963,-182.17 105.43,-173.135 104.121,-183.648 110.963,-182.17"/>
+<text text-anchor="middle" x="127.5" y="-252.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_5_to2 -->
+<g id="node12" class="node"><title>cluster_t_5_to2</title>
+<polygon fill="none" stroke="black" points="286,-123 286,-173 340,-173 340,-123 286,-123"/>
+<text text-anchor="middle" x="313" y="-156.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="286,-148 340,-148 "/>
+<text text-anchor="middle" x="313" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_5_src1&#45;&gt;cluster_t_5_to2 -->
+<g id="edge14" class="edge"><title>cluster_t_5_src1&#45;&gt;cluster_t_5_to2</title>
+<path fill="none" stroke="#0000ff" d="M162.247,-303.932C195.109,-295.243 249.922,-276.157 282,-240 295.968,-224.256 303.685,-201.981 307.926,-183.293"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="311.387,-183.839 309.942,-173.343 304.526,-182.449 311.387,-183.839"/>
+</g>
+<!-- cluster_t_5_to0 -->
+<g id="node9" class="node"><title>cluster_t_5_to0</title>
+<polygon fill="none" stroke="black" points="219.5,-17 219.5,-67 304.5,-67 304.5,-17 219.5,-17"/>
+<text text-anchor="middle" x="262" y="-50.4" font-family="Times Roman,serif" font-size="14.00">s0: LError</text>
+<polyline fill="none" stroke="black" points="219.5,-42 304.5,-42 "/>
+<text text-anchor="middle" x="262" y="-25.4" font-family="Times Roman,serif" font-size="14.00">disposed</text>
+</g>
+<!-- cluster_t_5_to1 -->
+<g id="node10" class="node"><title>cluster_t_5_to1</title>
+<polygon fill="none" stroke="black" points="194,-123 194,-173 268,-173 268,-123 194,-123"/>
+<text text-anchor="middle" x="231" y="-156.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="194,-148 268,-148 "/>
+<text text-anchor="middle" x="231" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_5_to1&#45;&gt;cluster_t_5_to0 -->
+<g id="edge9" class="edge"><title>cluster_t_5_to1&#45;&gt;cluster_t_5_to0</title>
+<path fill="none" stroke="black" d="M238.347,-122.879C242.333,-109.25 247.324,-92.1817 251.693,-77.242"/>
+<polygon fill="black" stroke="black" points="255.151,-77.888 254.599,-67.3075 248.432,-75.9231 255.151,-77.888"/>
+<text text-anchor="middle" x="250.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_5_to2&#45;&gt;cluster_t_5_to0 -->
+<g id="edge11" class="edge"><title>cluster_t_5_to2&#45;&gt;cluster_t_5_to0</title>
+<path fill="none" stroke="black" d="M300.914,-122.879C294.23,-108.988 285.828,-91.5239 278.542,-76.3824"/>
+<polygon fill="black" stroke="black" points="281.666,-74.8013 274.176,-67.3075 275.358,-77.8363 281.666,-74.8013"/>
+<text text-anchor="middle" x="292.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_3_2_6"> <h4>t_6: V(f -&gt; Set(L))[]{}.run()</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: t_6 Pages: 1 -->
+<svg width="268pt" height="223pt"
+ viewBox="0.00 0.00 268.00 223.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 219)">
+<title>t_6</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-219 265,-219 265,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_t_6_src</title>
+<polygon fill="none" stroke="black" points="8,-8 8,-207 126,-207 126,-8 8,-8"/>
+<text text-anchor="middle" x="67" y="-190.4" font-family="Times Roman,serif" font-size="14.00">LHS(cover_0)</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_t_6_to</title>
+<polygon fill="none" stroke="black" points="134,-8 134,-207 252,-207 252,-8 134,-8"/>
+<text text-anchor="middle" x="193" y="-190.4" font-family="Times Roman,serif" font-size="14.00">RHS(cover_0)</text>
+</g>
+<!-- cluster_t_6_src0 -->
+<g id="node2" class="node"><title>cluster_t_6_src0</title>
+<polygon fill="none" stroke="black" points="30,-123 30,-173 104,-173 104,-123 30,-123"/>
+<text text-anchor="middle" x="67" y="-156.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="30,-148 104,-148 "/>
+<text text-anchor="middle" x="67" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_6_src1 -->
+<g id="node3" class="node"><title>cluster_t_6_src1</title>
+<polygon fill="none" stroke="black" points="15.5,-17 15.5,-67 118.5,-67 118.5,-17 15.5,-17"/>
+<text text-anchor="middle" x="67" y="-50.4" font-family="Times Roman,serif" font-size="14.00">s0: L</text>
+<polyline fill="none" stroke="black" points="15.5,-42 118.5,-42 "/>
+<text text-anchor="middle" x="67" y="-25.4" font-family="Times Roman,serif" font-size="14.00">not disposed</text>
+</g>
+<!-- cluster_t_6_src0&#45;&gt;cluster_t_6_src1 -->
+<g id="edge3" class="edge"><title>cluster_t_6_src0&#45;&gt;cluster_t_6_src1</title>
+<path fill="none" stroke="black" d="M67,-122.879C67,-109.381 67,-92.5096 67,-77.6735"/>
+<polygon fill="black" stroke="black" points="70.5001,-77.3075 67,-67.3075 63.5001,-77.3076 70.5001,-77.3075"/>
+<text text-anchor="middle" x="69.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_6_to0 -->
+<g id="node6" class="node"><title>cluster_t_6_to0</title>
+<polygon fill="none" stroke="black" points="141.5,-17 141.5,-67 244.5,-67 244.5,-17 141.5,-17"/>
+<text text-anchor="middle" x="193" y="-50.4" font-family="Times Roman,serif" font-size="14.00">s0: L</text>
+<polyline fill="none" stroke="black" points="141.5,-42 244.5,-42 "/>
+<text text-anchor="middle" x="193" y="-25.4" font-family="Times Roman,serif" font-size="14.00">not disposed</text>
+</g>
+<!-- cluster_t_6_to1 -->
+<g id="node7" class="node"><title>cluster_t_6_to1</title>
+<polygon fill="none" stroke="black" points="156,-123 156,-173 230,-173 230,-123 156,-123"/>
+<text text-anchor="middle" x="193" y="-156.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="156,-148 230,-148 "/>
+<text text-anchor="middle" x="193" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_6_to1&#45;&gt;cluster_t_6_to0 -->
+<g id="edge6" class="edge"><title>cluster_t_6_to1&#45;&gt;cluster_t_6_to0</title>
+<path fill="none" stroke="black" d="M193,-122.879C193,-109.381 193,-92.5096 193,-77.6735"/>
+<polygon fill="black" stroke="black" points="196.5,-77.3075 193,-67.3075 189.5,-77.3076 196.5,-77.3075"/>
+<text text-anchor="middle" x="195.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_3_2_7"> <h4>t_7: ???.newL()</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: t_7 Pages: 1 -->
+<svg width="142pt" height="117pt"
+ viewBox="0.00 0.00 142.00 117.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 113)">
+<title>t_7</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-113 139,-113 139,5 -4,5"/>
+<g id="graph3" class="cluster"><title>cluster_t_7_to</title>
+<polygon fill="none" stroke="black" points="8,-8 8,-101 126,-101 126,-8 8,-8"/>
+<text text-anchor="middle" x="67" y="-84.4" font-family="Times Roman,serif" font-size="14.00">RHS(cover_0)</text>
+</g>
+<!-- cluster_t_7_to0 -->
+<g id="node3" class="node"><title>cluster_t_7_to0</title>
+<polygon fill="none" stroke="black" points="15.5,-17 15.5,-67 118.5,-67 118.5,-17 15.5,-17"/>
+<text text-anchor="middle" x="67" y="-50.4" font-family="Times Roman,serif" font-size="14.00">new0: L</text>
+<polyline fill="none" stroke="black" points="15.5,-42 118.5,-42 "/>
+<text text-anchor="middle" x="67" y="-25.4" font-family="Times Roman,serif" font-size="14.00">not disposed</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_3_2_8"> <h4>t_8: V(f -&gt; Set(L))[]{}.set(L()[disposed -&gt; true]{})</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: t_8 Pages: 1 -->
+<svg width="476pt" height="418pt"
+ viewBox="0.00 0.00 476.00 418.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 414)">
+<title>t_8</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-414 473,-414 473,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_t_8_src</title>
+<polygon fill="none" stroke="black" points="8,-114 8,-402 270,-402 270,-114 8,-114"/>
+<text text-anchor="middle" x="139" y="-385.4" font-family="Times Roman,serif" font-size="14.00">LHS(cover_0)</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_cluster_t_8_src_1</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="192,-276 192,-369 262,-369 262,-276 192,-276"/>
+<text text-anchor="middle" x="227" y="-352.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<g id="graph4" class="cluster"><title>cluster_t_8_to</title>
+<polygon fill="none" stroke="black" points="278,-8 278,-240 460,-240 460,-8 278,-8"/>
+<text text-anchor="middle" x="369" y="-223.4" font-family="Times Roman,serif" font-size="14.00">RHS(cover_0)</text>
+</g>
+<g id="graph5" class="cluster"><title>cluster_cluster_t_8_to_1</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="375,-114 375,-207 445,-207 445,-114 375,-114"/>
+<text text-anchor="middle" x="410" y="-190.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<!-- cluster_t_8_src0 -->
+<g id="node2" class="node"><title>cluster_t_8_src0</title>
+<polygon fill="none" stroke="black" points="140.5,-123 140.5,-173 243.5,-173 243.5,-123 140.5,-123"/>
+<text text-anchor="middle" x="192" y="-156.4" font-family="Times Roman,serif" font-size="14.00">s0: L</text>
+<polyline fill="none" stroke="black" points="140.5,-148 243.5,-148 "/>
+<text text-anchor="middle" x="192" y="-131.4" font-family="Times Roman,serif" font-size="14.00">not disposed</text>
+</g>
+<!-- cluster_t_8_src1 -->
+<g id="node3" class="node"><title>cluster_t_8_src1</title>
+<polygon fill="none" stroke="black" points="108,-285 108,-335 182,-335 182,-285 108,-285"/>
+<text text-anchor="middle" x="145" y="-318.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="108,-310 182,-310 "/>
+<text text-anchor="middle" x="145" y="-293.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_8_src1&#45;&gt;cluster_t_8_src0 -->
+<g id="edge3" class="edge"><title>cluster_t_8_src1&#45;&gt;cluster_t_8_src0</title>
+<path fill="none" stroke="black" d="M152.344,-284.688C160.277,-257.344 172.97,-213.591 181.854,-182.972"/>
+<polygon fill="black" stroke="black" points="185.283,-183.714 184.708,-173.135 178.56,-181.763 185.283,-183.714"/>
+<text text-anchor="middle" x="165.5" y="-252.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_8_src3 -->
+<g id="node4" class="node"><title>cluster_t_8_src3</title>
+<polygon fill="none" stroke="black" points="15.5,-285 15.5,-335 90.5,-335 90.5,-285 15.5,-285"/>
+<text text-anchor="middle" x="53" y="-318.4" font-family="Times Roman,serif" font-size="14.00">arg0: L</text>
+<polyline fill="none" stroke="black" points="15.5,-310 90.5,-310 "/>
+<text text-anchor="middle" x="53" y="-293.4" font-family="Times Roman,serif" font-size="14.00">disposed</text>
+</g>
+<!-- cluster_t_8_src2 -->
+<g id="node6" class="node"><title>cluster_t_8_src2</title>
+<polygon fill="none" stroke="black" points="200,-285 200,-335 254,-335 254,-285 200,-285"/>
+<text text-anchor="middle" x="227" y="-318.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="200,-310 254,-310 "/>
+<text text-anchor="middle" x="227" y="-293.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_8_src2&#45;&gt;cluster_t_8_src0 -->
+<g id="edge5" class="edge"><title>cluster_t_8_src2&#45;&gt;cluster_t_8_src0</title>
+<path fill="none" stroke="black" d="M221.531,-284.688C215.624,-257.344 206.171,-213.591 199.556,-182.972"/>
+<polygon fill="black" stroke="black" points="202.963,-182.17 197.43,-173.135 196.121,-183.648 202.963,-182.17"/>
+<text text-anchor="middle" x="219.5" y="-252.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_8_to3 -->
+<g id="node14" class="node"><title>cluster_t_8_to3</title>
+<polygon fill="none" stroke="black" points="383,-123 383,-173 437,-173 437,-123 383,-123"/>
+<text text-anchor="middle" x="410" y="-156.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="383,-148 437,-148 "/>
+<text text-anchor="middle" x="410" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_8_src2&#45;&gt;cluster_t_8_to3 -->
+<g id="edge14" class="edge"><title>cluster_t_8_src2&#45;&gt;cluster_t_8_to3</title>
+<path fill="none" stroke="#0000ff" d="M254.272,-304.413C288.132,-296.099 345.5,-277.274 379,-240 393.069,-224.346 400.789,-202.073 405.006,-183.363"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="408.469,-183.894 407.006,-173.4 401.606,-182.516 408.469,-183.894"/>
+</g>
+<!-- cluster_t_8_to0 -->
+<g id="node10" class="node"><title>cluster_t_8_to0</title>
+<polygon fill="none" stroke="black" points="377.5,-17 377.5,-67 452.5,-67 452.5,-17 377.5,-17"/>
+<text text-anchor="middle" x="415" y="-50.4" font-family="Times Roman,serif" font-size="14.00">s0: L</text>
+<polyline fill="none" stroke="black" points="377.5,-42 452.5,-42 "/>
+<text text-anchor="middle" x="415" y="-25.4" font-family="Times Roman,serif" font-size="14.00">disposed</text>
+</g>
+<!-- cluster_t_8_to1 -->
+<g id="node11" class="node"><title>cluster_t_8_to1</title>
+<polygon fill="none" stroke="black" points="285.5,-17 285.5,-67 360.5,-67 360.5,-17 285.5,-17"/>
+<text text-anchor="middle" x="323" y="-50.4" font-family="Times Roman,serif" font-size="14.00">arg0: L</text>
+<polyline fill="none" stroke="black" points="285.5,-42 360.5,-42 "/>
+<text text-anchor="middle" x="323" y="-25.4" font-family="Times Roman,serif" font-size="14.00">disposed</text>
+</g>
+<!-- cluster_t_8_to2 -->
+<g id="node12" class="node"><title>cluster_t_8_to2</title>
+<polygon fill="none" stroke="black" points="286,-123 286,-173 360,-173 360,-123 286,-123"/>
+<text text-anchor="middle" x="323" y="-156.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="286,-148 360,-148 "/>
+<text text-anchor="middle" x="323" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_8_to2&#45;&gt;cluster_t_8_to1 -->
+<g id="edge9" class="edge"><title>cluster_t_8_to2&#45;&gt;cluster_t_8_to1</title>
+<path fill="none" stroke="black" d="M323,-122.879C323,-109.381 323,-92.5096 323,-77.6735"/>
+<polygon fill="black" stroke="black" points="326.5,-77.3075 323,-67.3075 319.5,-77.3076 326.5,-77.3075"/>
+<text text-anchor="middle" x="325.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_8_to3&#45;&gt;cluster_t_8_to0 -->
+<g id="edge11" class="edge"><title>cluster_t_8_to3&#45;&gt;cluster_t_8_to0</title>
+<path fill="none" stroke="black" d="M411.185,-122.879C411.822,-109.381 412.617,-92.5096 413.317,-77.6735"/>
+<polygon fill="black" stroke="black" points="416.831,-77.4614 413.806,-67.3075 409.839,-77.1315 416.831,-77.4614"/>
+<text text-anchor="middle" x="414.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_3_2_9"> <h4>t_9: ???.newV()</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: t_9 Pages: 1 -->
+<svg width="134pt" height="223pt"
+ viewBox="0.00 0.00 134.00 223.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 219)">
+<title>t_9</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-219 131,-219 131,5 -4,5"/>
+<g id="graph3" class="cluster"><title>cluster_t_9_to</title>
+<polygon fill="none" stroke="black" points="8,-8 8,-207 118,-207 118,-8 8,-8"/>
+<text text-anchor="middle" x="63" y="-190.4" font-family="Times Roman,serif" font-size="14.00">RHS(cover_0)</text>
+</g>
+<!-- cluster_t_9_to0 -->
+<g id="node3" class="node"><title>cluster_t_9_to0</title>
+<polygon fill="none" stroke="black" points="17,-17 17,-67 109,-67 109,-17 17,-17"/>
+<text text-anchor="middle" x="63" y="-50.4" font-family="Times Roman,serif" font-size="14.00">new1: Null</text>
+<polyline fill="none" stroke="black" points="17,-42 109,-42 "/>
+<text text-anchor="middle" x="63" y="-25.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_9_to1 -->
+<g id="node4" class="node"><title>cluster_t_9_to1</title>
+<polygon fill="none" stroke="black" points="26,-123 26,-173 100,-173 100,-123 26,-123"/>
+<text text-anchor="middle" x="63" y="-156.4" font-family="Times Roman,serif" font-size="14.00">new0: V</text>
+<polyline fill="none" stroke="black" points="26,-148 100,-148 "/>
+<text text-anchor="middle" x="63" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_9_to1&#45;&gt;cluster_t_9_to0 -->
+<g id="edge4" class="edge"><title>cluster_t_9_to1&#45;&gt;cluster_t_9_to0</title>
+<path fill="none" stroke="black" d="M63,-122.879C63,-109.381 63,-92.5096 63,-77.6735"/>
+<polygon fill="black" stroke="black" points="66.5001,-77.3075 63,-67.3075 59.5001,-77.3076 66.5001,-77.3075"/>
+<text text-anchor="middle" x="65.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_3_2_10"> <h4>t_10: V(f -&gt; Set(Null))[]{}.done()</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: t_10 Pages: 1 -->
+<svg width="251pt" height="223pt"
+ viewBox="0.00 0.00 251.00 223.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 219)">
+<title>t_10</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-219 248,-219 248,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_t_10_src</title>
+<polygon fill="none" stroke="black" points="8,-8 8,-207 117,-207 117,-8 8,-8"/>
+<text text-anchor="middle" x="62.5" y="-190.4" font-family="Times Roman,serif" font-size="14.00">LHS(cover_0)</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_t_10_to</title>
+<polygon fill="none" stroke="black" points="125,-8 125,-207 235,-207 235,-8 125,-8"/>
+<text text-anchor="middle" x="180" y="-190.4" font-family="Times Roman,serif" font-size="14.00">RHS(cover_0)</text>
+</g>
+<!-- cluster_t_10_src0 -->
+<g id="node2" class="node"><title>cluster_t_10_src0</title>
+<polygon fill="none" stroke="black" points="25,-123 25,-173 99,-173 99,-123 25,-123"/>
+<text text-anchor="middle" x="62" y="-156.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="25,-148 99,-148 "/>
+<text text-anchor="middle" x="62" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_10_src1 -->
+<g id="node3" class="node"><title>cluster_t_10_src1</title>
+<polygon fill="none" stroke="black" points="28,-17 28,-67 96,-67 96,-17 28,-17"/>
+<text text-anchor="middle" x="62" y="-50.4" font-family="Times Roman,serif" font-size="14.00">s0: Null</text>
+<polyline fill="none" stroke="black" points="28,-42 96,-42 "/>
+<text text-anchor="middle" x="62" y="-25.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_10_src0&#45;&gt;cluster_t_10_src1 -->
+<g id="edge3" class="edge"><title>cluster_t_10_src0&#45;&gt;cluster_t_10_src1</title>
+<path fill="none" stroke="black" d="M62,-122.879C62,-109.381 62,-92.5096 62,-77.6735"/>
+<polygon fill="black" stroke="black" points="65.5001,-77.3075 62,-67.3075 58.5001,-77.3076 65.5001,-77.3075"/>
+<text text-anchor="middle" x="64.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_10_to0 -->
+<g id="node6" class="node"><title>cluster_t_10_to0</title>
+<polygon fill="none" stroke="black" points="146,-17 146,-67 214,-67 214,-17 146,-17"/>
+<text text-anchor="middle" x="180" y="-50.4" font-family="Times Roman,serif" font-size="14.00">s0: Null</text>
+<polyline fill="none" stroke="black" points="146,-42 214,-42 "/>
+<text text-anchor="middle" x="180" y="-25.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_10_to1 -->
+<g id="node7" class="node"><title>cluster_t_10_to1</title>
+<polygon fill="none" stroke="black" points="143,-123 143,-173 217,-173 217,-123 143,-123"/>
+<text text-anchor="middle" x="180" y="-156.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="143,-148 217,-148 "/>
+<text text-anchor="middle" x="180" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_10_to1&#45;&gt;cluster_t_10_to0 -->
+<g id="edge6" class="edge"><title>cluster_t_10_to1&#45;&gt;cluster_t_10_to0</title>
+<path fill="none" stroke="black" d="M180,-122.879C180,-109.381 180,-92.5096 180,-77.6735"/>
+<polygon fill="black" stroke="black" points="183.5,-77.3075 180,-67.3075 176.5,-77.3076 183.5,-77.3075"/>
+<text text-anchor="middle" x="182.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_3_2_11"> <h4>t_11: V(f -&gt; Set(Null))[]{}.set(L()[disposed -&gt; true]{})</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: t_11 Pages: 1 -->
+<svg width="390pt" height="223pt"
+ viewBox="0.00 0.00 390.00 223.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 219)">
+<title>t_11</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-219 387,-219 387,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_t_11_src</title>
+<polygon fill="none" stroke="black" points="8,-8 8,-207 190,-207 190,-8 8,-8"/>
+<text text-anchor="middle" x="99" y="-190.4" font-family="Times Roman,serif" font-size="14.00">LHS(cover_0)</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_t_11_to</title>
+<polygon fill="none" stroke="black" points="198,-8 198,-207 374,-207 374,-8 198,-8"/>
+<text text-anchor="middle" x="286" y="-190.4" font-family="Times Roman,serif" font-size="14.00">RHS(cover_0)</text>
+</g>
+<!-- cluster_t_11_src1 -->
+<g id="node2" class="node"><title>cluster_t_11_src1</title>
+<polygon fill="none" stroke="black" points="108,-123 108,-173 182,-173 182,-123 108,-123"/>
+<text text-anchor="middle" x="145" y="-156.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="108,-148 182,-148 "/>
+<text text-anchor="middle" x="145" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_11_src2 -->
+<g id="node3" class="node"><title>cluster_t_11_src2</title>
+<polygon fill="none" stroke="black" points="111,-17 111,-67 179,-67 179,-17 111,-17"/>
+<text text-anchor="middle" x="145" y="-50.4" font-family="Times Roman,serif" font-size="14.00">s0: Null</text>
+<polyline fill="none" stroke="black" points="111,-42 179,-42 "/>
+<text text-anchor="middle" x="145" y="-25.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_11_src1&#45;&gt;cluster_t_11_src2 -->
+<g id="edge3" class="edge"><title>cluster_t_11_src1&#45;&gt;cluster_t_11_src2</title>
+<path fill="none" stroke="black" d="M145,-122.879C145,-109.381 145,-92.5096 145,-77.6735"/>
+<polygon fill="black" stroke="black" points="148.5,-77.3075 145,-67.3075 141.5,-77.3076 148.5,-77.3075"/>
+<text text-anchor="middle" x="147.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_11_src0 -->
+<g id="node4" class="node"><title>cluster_t_11_src0</title>
+<polygon fill="none" stroke="black" points="15.5,-123 15.5,-173 90.5,-173 90.5,-123 15.5,-123"/>
+<text text-anchor="middle" x="53" y="-156.4" font-family="Times Roman,serif" font-size="14.00">arg0: L</text>
+<polyline fill="none" stroke="black" points="15.5,-148 90.5,-148 "/>
+<text text-anchor="middle" x="53" y="-131.4" font-family="Times Roman,serif" font-size="14.00">disposed</text>
+</g>
+<!-- cluster_t_11_to2 -->
+<g id="node7" class="node"><title>cluster_t_11_to2</title>
+<polygon fill="none" stroke="black" points="298,-123 298,-173 366,-173 366,-123 298,-123"/>
+<text text-anchor="middle" x="332" y="-156.4" font-family="Times Roman,serif" font-size="14.00">s0: Null</text>
+<polyline fill="none" stroke="black" points="298,-148 366,-148 "/>
+<text text-anchor="middle" x="332" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_11_to0 -->
+<g id="node8" class="node"><title>cluster_t_11_to0</title>
+<polygon fill="none" stroke="black" points="205.5,-17 205.5,-67 280.5,-67 280.5,-17 205.5,-17"/>
+<text text-anchor="middle" x="243" y="-50.4" font-family="Times Roman,serif" font-size="14.00">arg0: L</text>
+<polyline fill="none" stroke="black" points="205.5,-42 280.5,-42 "/>
+<text text-anchor="middle" x="243" y="-25.4" font-family="Times Roman,serif" font-size="14.00">disposed</text>
+</g>
+<!-- cluster_t_11_to1 -->
+<g id="node9" class="node"><title>cluster_t_11_to1</title>
+<polygon fill="none" stroke="black" points="206,-123 206,-173 280,-173 280,-123 206,-123"/>
+<text text-anchor="middle" x="243" y="-156.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="206,-148 280,-148 "/>
+<text text-anchor="middle" x="243" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_11_to1&#45;&gt;cluster_t_11_to0 -->
+<g id="edge6" class="edge"><title>cluster_t_11_to1&#45;&gt;cluster_t_11_to0</title>
+<path fill="none" stroke="black" d="M243,-122.879C243,-109.381 243,-92.5096 243,-77.6735"/>
+<polygon fill="black" stroke="black" points="246.5,-77.3075 243,-67.3075 239.5,-77.3076 246.5,-77.3075"/>
+<text text-anchor="middle" x="245.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_3_2_12"> <h4>t_12: V(f -&gt; Set(Null))[]{}.set(L()[disposed -&gt; false]{})</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: t_12 Pages: 1 -->
+<svg width="418pt" height="223pt"
+ viewBox="0.00 0.00 418.00 223.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 219)">
+<title>t_12</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-219 415,-219 415,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_t_12_src</title>
+<polygon fill="none" stroke="black" points="8,-8 8,-207 218,-207 218,-8 8,-8"/>
+<text text-anchor="middle" x="113" y="-190.4" font-family="Times Roman,serif" font-size="14.00">LHS(cover_0)</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_t_12_to</title>
+<polygon fill="none" stroke="black" points="226,-8 226,-207 402,-207 402,-8 226,-8"/>
+<text text-anchor="middle" x="314" y="-190.4" font-family="Times Roman,serif" font-size="14.00">RHS(cover_0)</text>
+</g>
+<!-- cluster_t_12_src1 -->
+<g id="node2" class="node"><title>cluster_t_12_src1</title>
+<polygon fill="none" stroke="black" points="107.5,-123 107.5,-173 210.5,-173 210.5,-123 107.5,-123"/>
+<text text-anchor="middle" x="159" y="-156.4" font-family="Times Roman,serif" font-size="14.00">arg0: L</text>
+<polyline fill="none" stroke="black" points="107.5,-148 210.5,-148 "/>
+<text text-anchor="middle" x="159" y="-131.4" font-family="Times Roman,serif" font-size="14.00">not disposed</text>
+</g>
+<!-- cluster_t_12_src0 -->
+<g id="node3" class="node"><title>cluster_t_12_src0</title>
+<polygon fill="none" stroke="black" points="16,-123 16,-173 90,-173 90,-123 16,-123"/>
+<text text-anchor="middle" x="53" y="-156.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="16,-148 90,-148 "/>
+<text text-anchor="middle" x="53" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_12_src2 -->
+<g id="node4" class="node"><title>cluster_t_12_src2</title>
+<polygon fill="none" stroke="black" points="19,-17 19,-67 87,-67 87,-17 19,-17"/>
+<text text-anchor="middle" x="53" y="-50.4" font-family="Times Roman,serif" font-size="14.00">s0: Null</text>
+<polyline fill="none" stroke="black" points="19,-42 87,-42 "/>
+<text text-anchor="middle" x="53" y="-25.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_12_src0&#45;&gt;cluster_t_12_src2 -->
+<g id="edge3" class="edge"><title>cluster_t_12_src0&#45;&gt;cluster_t_12_src2</title>
+<path fill="none" stroke="black" d="M53,-122.879C53,-109.381 53,-92.5096 53,-77.6735"/>
+<polygon fill="black" stroke="black" points="56.5001,-77.3075 53,-67.3075 49.5001,-77.3076 56.5001,-77.3075"/>
+<text text-anchor="middle" x="55.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_12_to1 -->
+<g id="node7" class="node"><title>cluster_t_12_to1</title>
+<polygon fill="none" stroke="black" points="326,-123 326,-173 394,-173 394,-123 326,-123"/>
+<text text-anchor="middle" x="360" y="-156.4" font-family="Times Roman,serif" font-size="14.00">s0: Null</text>
+<polyline fill="none" stroke="black" points="326,-148 394,-148 "/>
+<text text-anchor="middle" x="360" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_12_to0 -->
+<g id="node8" class="node"><title>cluster_t_12_to0</title>
+<polygon fill="none" stroke="black" points="233.5,-17 233.5,-67 336.5,-67 336.5,-17 233.5,-17"/>
+<text text-anchor="middle" x="285" y="-50.4" font-family="Times Roman,serif" font-size="14.00">arg0: L</text>
+<polyline fill="none" stroke="black" points="233.5,-42 336.5,-42 "/>
+<text text-anchor="middle" x="285" y="-25.4" font-family="Times Roman,serif" font-size="14.00">not disposed</text>
+</g>
+<!-- cluster_t_12_to2 -->
+<g id="node9" class="node"><title>cluster_t_12_to2</title>
+<polygon fill="none" stroke="black" points="234,-123 234,-173 308,-173 308,-123 234,-123"/>
+<text text-anchor="middle" x="271" y="-156.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="234,-148 308,-148 "/>
+<text text-anchor="middle" x="271" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_12_to2&#45;&gt;cluster_t_12_to0 -->
+<g id="edge6" class="edge"><title>cluster_t_12_to2&#45;&gt;cluster_t_12_to0</title>
+<path fill="none" stroke="black" d="M274.318,-122.879C276.118,-109.25 278.372,-92.1817 280.345,-77.242"/>
+<polygon fill="black" stroke="black" points="283.818,-77.6798 281.657,-67.3075 276.878,-76.7631 283.818,-77.6798"/>
+<text text-anchor="middle" x="280.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+<li>
+<a name="Ref_3_2_13"> <h4>t_13: V(f -&gt; Set(L))[]{}.run()</h4> </a>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.26.3 (20100126.1600)
+ -->
+<!-- Title: t_13 Pages: 1 -->
+<svg width="372pt" height="418pt"
+ viewBox="0.00 0.00 372.00 418.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph1" class="graph" transform="scale(1 1) rotate(0) translate(4 414)">
+<title>t_13</title>
+<polygon fill="white" stroke="white" points="-4,5 -4,-414 369,-414 369,5 -4,5"/>
+<g id="graph2" class="cluster"><title>cluster_t_13_src</title>
+<polygon fill="none" stroke="black" points="8,-114 8,-402 178,-402 178,-114 8,-114"/>
+<text text-anchor="middle" x="93" y="-385.4" font-family="Times Roman,serif" font-size="14.00">LHS(cover_0)</text>
+</g>
+<g id="graph3" class="cluster"><title>cluster_cluster_t_13_src_1</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="100,-276 100,-369 170,-369 170,-276 100,-276"/>
+<text text-anchor="middle" x="135" y="-352.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<g id="graph4" class="cluster"><title>cluster_t_13_to</title>
+<polygon fill="none" stroke="black" points="186,-8 186,-240 356,-240 356,-8 186,-8"/>
+<text text-anchor="middle" x="271" y="-223.4" font-family="Times Roman,serif" font-size="14.00">RHS(cover_1)</text>
+</g>
+<g id="graph5" class="cluster"><title>cluster_cluster_t_13_to_1</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="278,-114 278,-207 348,-207 348,-114 278,-114"/>
+<text text-anchor="middle" x="313" y="-190.4" font-family="Times Roman,serif" font-size="14.00">*</text>
+</g>
+<!-- cluster_t_13_src0 -->
+<g id="node2" class="node"><title>cluster_t_13_src0</title>
+<polygon fill="none" stroke="black" points="16,-285 16,-335 90,-335 90,-285 16,-285"/>
+<text text-anchor="middle" x="53" y="-318.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="16,-310 90,-310 "/>
+<text text-anchor="middle" x="53" y="-293.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_13_src1 -->
+<g id="node3" class="node"><title>cluster_t_13_src1</title>
+<polygon fill="none" stroke="black" points="62.5,-123 62.5,-173 137.5,-173 137.5,-123 62.5,-123"/>
+<text text-anchor="middle" x="100" y="-156.4" font-family="Times Roman,serif" font-size="14.00">s0: L</text>
+<polyline fill="none" stroke="black" points="62.5,-148 137.5,-148 "/>
+<text text-anchor="middle" x="100" y="-131.4" font-family="Times Roman,serif" font-size="14.00">disposed</text>
+</g>
+<!-- cluster_t_13_src0&#45;&gt;cluster_t_13_src1 -->
+<g id="edge3" class="edge"><title>cluster_t_13_src0&#45;&gt;cluster_t_13_src1</title>
+<path fill="none" stroke="black" d="M60.3438,-284.688C68.2767,-257.344 80.9704,-213.591 89.8537,-182.972"/>
+<polygon fill="black" stroke="black" points="93.2828,-183.714 92.7078,-173.135 86.56,-181.763 93.2828,-183.714"/>
+<text text-anchor="middle" x="73.5" y="-252.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_13_src2 -->
+<g id="node5" class="node"><title>cluster_t_13_src2</title>
+<polygon fill="none" stroke="black" points="108,-285 108,-335 162,-335 162,-285 108,-285"/>
+<text text-anchor="middle" x="135" y="-318.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="108,-310 162,-310 "/>
+<text text-anchor="middle" x="135" y="-293.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_13_src2&#45;&gt;cluster_t_13_src1 -->
+<g id="edge5" class="edge"><title>cluster_t_13_src2&#45;&gt;cluster_t_13_src1</title>
+<path fill="none" stroke="black" d="M129.531,-284.688C123.624,-257.344 114.171,-213.591 107.556,-182.972"/>
+<polygon fill="black" stroke="black" points="110.963,-182.17 105.43,-173.135 104.121,-183.648 110.963,-182.17"/>
+<text text-anchor="middle" x="127.5" y="-252.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_13_to0 -->
+<g id="node11" class="node"><title>cluster_t_13_to0</title>
+<polygon fill="none" stroke="black" points="286,-123 286,-173 340,-173 340,-123 286,-123"/>
+<text text-anchor="middle" x="313" y="-156.4" font-family="Times Roman,serif" font-size="14.00">V</text>
+<polyline fill="none" stroke="black" points="286,-148 340,-148 "/>
+<text text-anchor="middle" x="313" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_13_src2&#45;&gt;cluster_t_13_to0 -->
+<g id="edge14" class="edge"><title>cluster_t_13_src2&#45;&gt;cluster_t_13_to0</title>
+<path fill="none" stroke="#0000ff" d="M162.247,-303.932C195.109,-295.243 249.922,-276.157 282,-240 295.968,-224.256 303.685,-201.981 307.926,-183.293"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="311.387,-183.839 309.942,-173.343 304.526,-182.449 311.387,-183.839"/>
+</g>
+<!-- cluster_t_13_to1 -->
+<g id="node9" class="node"><title>cluster_t_13_to1</title>
+<polygon fill="none" stroke="black" points="194,-123 194,-173 268,-173 268,-123 194,-123"/>
+<text text-anchor="middle" x="231" y="-156.4" font-family="Times Roman,serif" font-size="14.00">callee: V</text>
+<polyline fill="none" stroke="black" points="194,-148 268,-148 "/>
+<text text-anchor="middle" x="231" y="-131.4" font-family="Times Roman,serif" font-size="14.00"> </text>
+</g>
+<!-- cluster_t_13_to2 -->
+<g id="node10" class="node"><title>cluster_t_13_to2</title>
+<polygon fill="none" stroke="black" points="219.5,-17 219.5,-67 304.5,-67 304.5,-17 219.5,-17"/>
+<text text-anchor="middle" x="262" y="-50.4" font-family="Times Roman,serif" font-size="14.00">s0: LError</text>
+<polyline fill="none" stroke="black" points="219.5,-42 304.5,-42 "/>
+<text text-anchor="middle" x="262" y="-25.4" font-family="Times Roman,serif" font-size="14.00">disposed</text>
+</g>
+<!-- cluster_t_13_to1&#45;&gt;cluster_t_13_to2 -->
+<g id="edge11" class="edge"><title>cluster_t_13_to1&#45;&gt;cluster_t_13_to2</title>
+<path fill="none" stroke="black" d="M238.347,-122.879C242.333,-109.25 247.324,-92.1817 251.693,-77.242"/>
+<polygon fill="black" stroke="black" points="255.151,-77.888 254.599,-67.3075 248.432,-75.9231 255.151,-77.888"/>
+<text text-anchor="middle" x="250.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+<!-- cluster_t_13_to0&#45;&gt;cluster_t_13_to2 -->
+<g id="edge9" class="edge"><title>cluster_t_13_to0&#45;&gt;cluster_t_13_to2</title>
+<path fill="none" stroke="black" d="M300.914,-122.879C294.23,-108.988 285.828,-91.5239 278.542,-76.3824"/>
+<polygon fill="black" stroke="black" points="281.666,-74.8013 274.176,-67.3075 275.358,-77.8363 281.666,-74.8013"/>
+<text text-anchor="middle" x="292.5" y="-90.9" font-family="Times Roman,serif" font-size="14.00">f</text>
+</g>
+</g>
+</svg>
+
+</li>
+</ul>
+</li>
+</ul>
+</body>
+</html>

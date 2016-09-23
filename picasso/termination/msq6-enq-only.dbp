@@ -1,0 +1,249 @@
+//Michael scott queue
+//The ordering of the content of the queue is abstracted in order to keep the system depth-bounded.
+//The queue Q have 4 kind of ougoing pointers:
+//H: the head
+//M: middle (any node that is neither the head nor the tail)
+//T: the tail
+//A: after (node being enqueued)
+//the difficulty is that X.next mith be different thing depending on wheter the queue is empty or not.
+//we need to do some case splitting (or use inhibitors)
+//to avoid A getting replicated we need to give A the NULL value when it is null.
+//to avoid T+H+deq chain, we need to remove the nodes when it gets dequeued.
+
+init
+  (q, queue) -> (x, x) [H]
+  (q, queue) -> (x, x) [T]
+  (q, queue) -> (n, NULL) [A]
+  (e, enq0)* -> (x2, x)* [x]
+
+////what does the enqueue do:
+//enqueue(Q: pointer to queue_t, value: data type)
+//E1:   node = new_node()    // Allocate a new node from the free list
+//E2:   node->value = value   // Copy enqueued value into node
+//E3:   node->next.ptr = NULL  // Set next pointer of node to NULL
+//E4:   loop            // Keep trying until Enqueue is done
+//E5:      tail = Q->Tail    // Read Tail.ptr and Tail.count together
+//E6:      next = tail.ptr->next  // Read next ptr and count fields together
+//E7:      if tail == Q->Tail  // Are tail and next consistent?
+//            // Was Tail pointing to the last node?
+//E8:         if next.ptr == NULL
+//            // Try to link node at the end of the linked list
+//E9:            if CAS(&tail.ptr->next, next, <node, next.count+1>)
+//E10:               break    // Enqueue is done.  Exit loop
+//E11:            endif
+//E12:         else       // Tail was not pointing to the last node
+//                // Try to swing Tail to the next node
+//E13:            CAS(&Q->Tail, tail, <next.ptr, tail.count+1>)
+//E14:         endif
+//E15:      endif
+//E16:   endloop
+//        // Enqueue is done.  Try to swing Tail to the inserted node
+//E17:   CAS(&Q->Tail, tail, <node, tail.count+1>)
+
+//enq0 -> enq1: read the tail of the queue
+//enq1 -> enq2 (success): guard no Q-A->x, add its node as Q-A->x
+//enq2 -> enqDone: try to swing the tail.
+//enq1 -> enq3 (fail): exists Q-A->x, drop the known tail
+//enq3 -> enq3: try to swing the tail
+//swinging the tail: A as T, T as M -> take care of the H (case split on size)
+
+transition "enq0 -> enq1: read"
+pre
+  (q, queue) -> (w, x) [T]
+  (e, enq0) -> (x, x) [x]
+post
+  (q, queue) -> (w, x) [T]
+  (e, enq1) -> (w, x) [T] 
+  (e, enq1) -> (x, x) [x]
+==>
+  q -> q
+  e -> e
+  w -> w
+  x -> x
+<==
+
+transition "enq1 -> enq2 (success): CAS ok"
+pre
+  (q, queue) -> (w, x) [T]
+  (e, enq1) -> (w, x) [T] 
+  (e, enq1) -> (x, x) [x]
+  (q, queue) -> (n, NULL) [A]
+post
+  (q, queue) -> (w, x) [T]
+  (q, queue) -> (x, x) [A]
+  (e, enq2) -> (w, x) [T] 
+==>
+  q -> q
+  e -> e
+  w -> w
+  x -> x
+<==
+
+transition "enq2 -> enqDone: try to swing the tail (size = 0)"
+pre
+  (q, queue) -> (w, x) [H]
+  (q, queue) -> (w, x) [T]
+  (q, queue) -> (x, x) [A]
+  (e, enq2) -> (w, x) [T] 
+post
+  (q, queue) -> (w, x) [H]
+  (q, queue) -> (x, x) [T]
+  (q, queue) -> (n, NULL) [A]
+  //node (e, enqDone)
+==>
+  q -> q
+  //e -> e
+  w -> w
+  x -> x
+<==
+
+transition "enq2 -> enqDone: try to swing the tail (size > 0)"
+pre
+  (q, queue) -> (h, x) [H]
+  (q, queue) -> (w, x) [T]
+  (q, queue) -> (x, x) [A]
+  (e, enq2) -> (w, x) [T] 
+post
+  (q, queue) -> (h, x) [H]
+  (q, queue) -> (w, x) [M]
+  (q, queue) -> (x, x) [T]
+  (q, queue) -> (n, NULL) [A]
+  //node (e, enqDone)
+==>
+  q -> q
+  //e -> e
+  w -> w
+  x -> x
+  h -> h
+<==
+
+transition "enq2 -> enqDone: try to swing the tail (already done)"
+pre
+  (q, queue) -> (w1, x) [T]
+  (e, enq2) -> (w2, x) [T] 
+post
+  (q, queue) -> (w1, x) [T]
+  //node (e, enqDone)
+  node (w2, x)
+==>
+  q -> q
+  //e -> e
+  w1 -> w1
+  w2 -> w2
+<==
+
+transition "enq1 -> enq3 (fail): CAS fails (case 1)"
+pre
+  (q, queue) -> (x1, x) [A]
+  (e, enq1) -> (w, x) [T] 
+  (e, enq1) -> (x2, x) [x]
+post
+  (q, queue) -> (x1, x) [A]
+  (e, enq3) -> (x2, x) [x]
+  node (w, x)
+==>
+  q -> q
+  e -> e
+  w -> w
+  x1 -> x1
+  x2 -> x2
+<==
+
+transition "enq1 -> enq3 (fail): CAS fails (case 2)"
+pre
+  (q, queue) -> (w1, x) [T]
+  (e, enq1) -> (w2, x) [T] 
+  (e, enq1) -> (x, x) [x]
+post
+  (q, queue) -> (w1, x) [T]
+  (e, enq3) -> (x, x) [x]
+  node (w2, x)
+==>
+  q -> q
+  e -> e
+  w1 -> w1
+  w2 -> w2
+<==
+
+transition "enq3 -> enq0: try to swing the tail (size = 0)"
+pre
+  (q, queue) -> (w, x) [H]
+  (q, queue) -> (w, x) [T]
+  (q, queue) -> (x1, x) [A]
+  (e, enq3) -> (x2, x) [x] 
+post
+  (q, queue) -> (w, x) [H]
+  (q, queue) -> (x1, x) [T]
+  (e, enq0) -> (x2, x) [x] 
+  (q, queue) -> (n, NULL) [A]
+==>
+  q -> q
+  e -> e
+  w -> w
+  x1 -> x1
+  x2 -> x2
+<==
+
+transition "enq3 -> enq0: try to swing the tail (size > 0)"
+pre
+  (q, queue) -> (h, x) [H]
+  (q, queue) -> (w, x) [T]
+  (q, queue) -> (x1, x) [A]
+  (e, enq3) -> (x2, x) [x] 
+post
+  (q, queue) -> (h, x) [H]
+  (q, queue) -> (w, x) [M]
+  (q, queue) -> (x1, x) [T]
+  (e, enq0) -> (x2, x) [x] 
+  (q, queue) -> (n, NULL) [A]
+==>
+  q -> q
+  e -> e
+  w -> w
+  x1 -> x1
+  x2 -> x2
+<==
+  
+transition "enq3 -> enq0: try to swing the tail (already done)"
+pre
+  (q, queue) -> (n, NULL) [A]
+  (q, queue) -> (w1, x) [T]
+  (e, enq3) -> (x2, x) [x] 
+post
+  (q, queue) -> (n, NULL) [A]
+  (q, queue) -> (w1, x) [T]
+  (e, enq0) -> (x2, x) [x] 
+==>
+  q -> q
+  e -> e
+  w1 -> w1
+  x2 -> x2
+  n -> n
+<==
+
+transition "Tail removed removed at enq1 (retry)"
+pre
+  node (e, enq1)
+post
+  node (e, enq0)
+==>
+  e -> e
+<==
+no
+  (e, enq1) -> (w, x) [T] 
+==>
+  e -> e
+
+transition "Tail removed removed at enq2 (done)"
+pre
+  node (e, enq2)
+post
+  //node (e, enqDone)
+==>
+  //e -> e
+<==
+no
+  (e, enq2) -> (w, x) [T] 
+==>
+  e -> e
+

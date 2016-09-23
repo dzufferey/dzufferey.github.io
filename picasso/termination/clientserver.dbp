@@ -1,0 +1,56 @@
+// client/server with an input queue
+
+init
+  (c1, client)* -> (j, job)** [job]
+  node (n, in)
+  node (o, out)
+  node (s, server)
+ 
+// *****************************************************************************
+
+transition "enq"
+pre
+  (c, client) -> (j, job) [job]
+  node (n, in)
+post
+  node (c, client)
+  (n, in) -> (j, job) [job]
+==>
+  c -> c
+  n -> n
+  j -> j
+<==
+
+
+transition "accept"
+pre
+  (n, in) -> (j, job) [job]
+  node (s, server)
+post
+  node (n, in)
+  (s, server) -> (j, job)
+==>
+  s -> s
+  n -> n
+  j -> j
+<==
+no
+  (s, server) -> (j, _) [job]
+==>
+  s -> s
+
+
+transition "process"
+pre
+  (s, server) -> (j, job)
+  node (n, out)
+post
+  node (s, server)
+  (n, out) -> (j, job) [job]
+==>
+  s -> s
+  n -> n
+  j -> j
+<==
+
+// *****************************************************************************

@@ -1,0 +1,36 @@
+
+.pub-abstract p {
+    text-align: justify;
+    text-indent: 2em;
+}
+
+.pub-link {
+    padding: 1ex;
+    padding-bottom: 0ex;
+}
+
+.pub-venue {
+    font-size: 120%;
+}
+
+.pub-authors {
+    font-size: 125%;
+    padding-bottom: 0.1ex;
+}
+
+.hidden {
+    visibility: hidden;
+} 
+
+.separation {
+    height: 5ex;
+}
+
+.bigger120 {
+    font-size: 120%;
+}
+
+.my-name {
+    font-size: 150%;
+    padding: 2ex;
+}

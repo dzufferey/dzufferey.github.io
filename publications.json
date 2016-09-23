@@ -1,0 +1,1189 @@
+[
+  {
+    "tag": "recent",
+    "abstract": "We develop algorithms for computing Craig interpolants for first-order formulas over real numbers with a wide range of nonlinear functions, including transcendental functions and differential equations. We transform proof traces from Î´-complete decision procedures into interpolants that consist of Boolean combinations of linear constraints. The algorithms are guaranteed to find the interpolants between two formulas A and B whenever A âˆ§ B is not Î´-satisfiable. At the same time, by exploiting Î´-perturbations one can parameterize the algorithm to find interpolants with different positions between A and B. We show applications of the methods in control and robotic design, and hybrid system verification.",
+    "author": [
+      {
+        "family": "Gao",
+        "given": "Sicun"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "In Proceedings of Tools and Algorithms for the Construction and Analysis of Systems (TACAS)",
+    "editor": [
+      {
+        "family": "Chechik",
+        "given": "Marsha"
+      },
+      {
+        "family": "Raskin",
+        "given": "Jean-Francois"
+      }
+    ],
+    "id": "tacas16",
+    "issued": {
+      "date-parts": [
+        [
+          2016
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "link-paper": "files/2016_Interpolants_in_Nonlinear_Theories_over_the_Reals_v2.pdf",
+    "link-slides": "files/2016_Interpolants_in_Nonlinear_Theories_over_the_Reals.pptx",
+    "publisher": "Springer",
+    "title": "<em>[Updated]</em> Interpolants in Nonlinear Theories over the Reals",
+    "type": "paper-conference"
+  },
+  {
+    "tag": "recent",
+    "abstract": "Fault-tolerant distributed algorithms play an important role in many critical/high-availability applications. These algorithms are notoriously difficult to implement correctly, due to asynchronous communication and the occurrence of faults, such as the network dropping messages or computers crashing.\nWe introduce PSync, a domain specific language based on the Heard-Of model, which views asynchronous faulty systems as synchronous ones with an adversarial environment that simulates asynchrony and faults by dropping messages. We define a runtime system for PSync that efficiently executes on asynchronous networks. We formalise the relation between the runtime system and PSync in terms of observational refinement. The high-level lockstep abstraction introduced by PSync simplifies the design and implementation of fault-tolerant distributed algorithms and enables automated formal verification.\nWe have implemented an embedding of PSync in the Scala programming language with a runtime system for partially synchronous networks. We show the applicability of PSync by implementing several important fault-tolerant distributed algorithms and we compare the implementation of consensus algorithms in PSync against implementations in other languages in terms of code size, runtime efficiency, and verification.",
+    "author": [
+      {
+        "family": "Drăgoi",
+        "given": "Cezara"
+      },
+      {
+        "family": "Henzinger",
+        "given": "Thomas A."
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "In Proceedings of Principles of Programming Languages (POPL)",
+    "editor": [
+      {
+        "family": "Bodík",
+        "given": "Rastislav"
+      },
+      {
+        "family": "Majumdar",
+        "given": "Rupak"
+      }
+    ],
+    "id": "psync",
+    "issued": {
+      "date-parts": [
+        [
+          2016
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "publisher": "ACM",
+    "title": "PSync: A Partially Synchronous Language for Fault-tolerant Distributed Algorithms",
+    "title-short": "PSync",
+    "type": "paper-conference"
+  },
+  {
+    "tag": "recent",
+    "abstract": "Fault-tolerant distributed algorithms play an important role in many critical/high-availability applications. These algorithms are notoriously difficult to implement correctly, due to asynchronous communication and the occurrence of faults, such as the network dropping messages or computers crashing. Nonetheless there is surprisingly little language and verification support to build distributed systems based on fault-tolerant algorithms. In this paper, we present some of the challenges that a designer has to overcome to implement a fault-tolerant distributed system. Then we review different models that have been proposed to reason about distributed algorithms and sketch how such a model can form the basis for a domain-specific programming language. Adopting a high-level programming model can simplify the programmer’s life and make the code amenable to automated verification, while still compiling to efficiently executable code. We conclude by summarizing the current status of an ongoing language design and implementation project that is based on this idea.",
+    "author": [
+      {
+        "family": "Drăgoi",
+        "given": "Cezara"
+      },
+      {
+        "family": "Henzinger",
+        "given": "Thomas A."
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "collection-title": "LIPIcs",
+    "container-title": "In Proceedings of Summit on Advances in Programming Languages (SNAPL)",
+    "editor": [
+      {
+        "family": "Ball",
+        "given": "Thomas"
+      },
+      {
+        "family": "Bodík",
+        "given": "Rastislav"
+      },
+      {
+        "family": "Krishnamurthi",
+        "given": "Shriram"
+      },
+      {
+        "family": "Lerner",
+        "given": "Benjamin S."
+      },
+      {
+        "family": "Morrisett",
+        "given": "Greg"
+      }
+    ],
+    "id": "snapl15",
+    "issued": {
+      "date-parts": [
+        [
+          2015
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "link-paper": "files/2015_the_need_for_language_support_for_fault-tolerant_distributed_systems.pdf",
+    "link-slides": "files/2015_the_need_for_language_support_for_fault-tolerant_distributed_systems.pptx",
+    "publisher": "Schloss Dagstuhl - Leibniz-Zentrum fuer Informatik",
+    "title": "The Need for Language Support for Fault-tolerant Distributed Systems",
+    "type": "paper-conference",
+    "volume": "32"
+  },
+  {
+    "tag": "recent",
+    "abstract": "Separation logic (SL) is a widely used formalism for verifying heap manipulating programs. Existing SL solvers focus on decidable fragments for list-like structures. More complex data structures such as trees are typically unsupported in implementations, or handled by incomplete heuristics. While complete decision procedures for reasoning about trees have been proposed, these procedures suffer from high complexity, or make global assumptions about the heap that contradict the separation logic philosophy of local reasoning. In this paper, we present a fragment of classical first-order logic for local reasoning about tree-like data structures. The logic is decidable in NP and the decision procedure allows for combinations with other decidable first-order theories for reasoning about data. Such extensions are essential for proving functional correctness properties. We have implemented our decision procedure and, building on earlier work on translating SL proof obligations into classical logic, integrated it into an SL-based verification tool. We successfully used the tool to verify functional correctness of tree-based data structure implementations.",
+    "author": [
+      {
+        "family": "Piskac",
+        "given": "Ruzica"
+      },
+      {
+        "family": "Wies",
+        "given": "Thomas"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "collection-title": "LNCS 8559",
+    "container-title": "In Proceedings of Computer Aided Verification (CAV)",
+    "editor": [
+      {
+        "family": "Biere",
+        "given": "Armin"
+      },
+      {
+        "family": "Bloem",
+        "given": "Roderick"
+      }
+    ],
+    "id": "DBLP:conf/cav/PiskacWZ14",
+    "issued": {
+      "date-parts": [
+        [
+          2014
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "link-paper": "files/2014_automating_separation_logic_with_trees_and_data.pdf",
+    "link-slides": "files/2014_automating_separation_logic_with_trees_and_data.pptx",
+    "page": "711-728",
+    "publisher": "Springer",
+    "title": "Automating Separation Logic with Trees and Data",
+    "type": "paper-conference"
+  },
+  {
+    "tag": "recent",
+    "abstract": "We present GRASShopper, a tool for compositional verification of heap-manipulating programs against user-provided specifications. What makes our tool unique is its decidable specification language, which supports mixing of assertions expressed in separation logic and first-order logic. The user of the tool can thus take advantage of the succinctness of separation logic specifications and the discipline of local reasoning. Yet, at the same time, she can revert to classical logic in the cases where decidable separation logic fragments are less suited, such as reasoning about constraints on data and heap structures with complex sharing. We achieve this combination of specification languages through a translation to programs whose specifications are expressed in a decidable fragment of first-order logic called GRASS. This logic is well-suited for automation using satisfiability modulo theory solvers. Unlike other tools that provide similar features, our decidability guarantees enable GRASShopper to produce detailed counterexamples for incorrect or underspecified programs. We have found this feature to be invaluable when debugging specifications. We present the underlying philosophy of the tool, describe the major technical challenges, and discuss implementation details. We conclude with an evaluation that considers challenging benchmarks such as sorting algorithms and a union/find data structure.",
+    "author": [
+      {
+        "family": "Piskac",
+        "given": "Ruzica"
+      },
+      {
+        "family": "Wies",
+        "given": "Thomas"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "In Proceedings of Tools and Algorithms for the Construction and Analysis of Systems (TACAS)",
+    "editor": [
+      {
+        "family": "Ábrahám",
+        "given": "Erika"
+      },
+      {
+        "family": "Havelund",
+        "given": "Klaus"
+      }
+    ],
+    "id": "tacas14",
+    "issued": {
+      "date-parts": [
+        [
+          2014
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "link-paper": "files/2014_grasshopper_complete_heap_verification_with_mixed_specifications.pdf",
+    "publisher": "Springer",
+    "title": "GRASShopper: Complete Heap Verification with Mixed Specifications",
+    "title-short": "GRASShopper",
+    "type": "paper-conference"
+  },
+  {
+    "abstract": "A hallmark of object-oriented programming is the ability to perform computation through a set of interacting objects. A common manifestation of this style is the notion of a package, which groups a set of commonly used classes together. A challenge in using a package is to ensure that a client follows the implicit protocol of the package when calling its methods. Violations of the protocol can cause a runtime error or latent invariant violations. These protocols can extend across different, potentially unboundedly many, objects, and are specified informally in the documentation. As a result, ensuring that a client does not violate the protocol is hard.\nWe introduce dynamic package interfaces (DPI), a formalism to explicitly capture the protocol of a package. The DPI of a package is a finite set of rules that together specify how any set of interacting objects of the package can evolve through method calls and under what conditions an error can happen. We have developed a dynamic tool that automatically computes an approximation of the DPI of a package, given a set of abstraction predicates. A key property of DPI is that the unbounded number of configurations of objects of a package are summarized finitely in an abstract domain. This uses the observation that many packages behave monotonically: the semantics of a method call over a configuration does not essentially change if more objects are added to the configuration. We have exploited monotonicity and have devised heuristics to obtain succinct yet general DPIs. We have used our tool to compute DPIs for several commonly used Java packages with complex protocols, such as JDBC, HashSet, and ArrayList.",
+    "author": [
+      {
+        "family": "Esmaeilsabzali",
+        "given": "Shahram"
+      },
+      {
+        "family": "Majumdar",
+        "given": "Rupak"
+      },
+      {
+        "family": "Wies",
+        "given": "Thomas"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "In Proceedings of Fundamental Approaches to Software Engineering (FASE)",
+    "editor": [
+      {
+        "family": "Gnesi",
+        "given": "Stefania"
+      },
+      {
+        "family": "Rensink",
+        "given": "Arend"
+      }
+    ],
+    "id": "fase14",
+    "issued": {
+      "date-parts": [
+        [
+          2014
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "link-paper": "files/2014_dynamic_package_interfaces.pdf",
+    "publisher": "Springer",
+    "title": "Dynamic Package Interfaces",
+    "type": "paper-conference"
+  },
+  {
+    "tag": "recent",
+    "abstract": "Fault-tolerant distributed algorithms play an important role in ensuring the reliability of many software applications. In this paper we consider distributed algorithms whose computations are organized in rounds. To verify the correctness of such algorithms, we reason about (i) properties (such as invariants) of the state, (ii) the transitions controlled by the algorithm, and (iii) the communication graph. We introduce a logic that addresses these points, and contains set comprehensions with cardinality constraints, function symbols to describe the local states of each process, and a limited form of quantifier alternation to express the verification conditions. We show its use in automating the verification of consensus algorithms. In particular, we give a semi-decision procedure for the unsatisfiability problem of the logic and identify a decidable fragment. We successfully applied our framework to verify the correctness of a variety of consensus algorithms tolerant to both benign faults (message loss, process crashes) and value faults (message corruption).",
+    "author": [
+      {
+        "family": "Drăgoi",
+        "given": "Cezara"
+      },
+      {
+        "family": "Henzinger",
+        "given": "Thomas A."
+      },
+      {
+        "family": "Veith",
+        "given": "Helmut"
+      },
+      {
+        "family": "Widder",
+        "given": "Josef"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "collection-title": "LNCS 8318",
+    "container-title": "In Proceedings of Verification, Model Checking, and Abstract Interpretation (VMCAI)",
+    "editor": [
+      {
+        "family": "McMillan",
+        "given": "Kenneth L."
+      },
+      {
+        "family": "Rival",
+        "given": "Xavier"
+      }
+    ],
+    "id": "vmcai14",
+    "issued": {
+      "date-parts": [
+        [
+          2014
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "link-paper": "files/2014_A_Logic-Based_Framework_for_Verifying_Consensus_Algorithms.pdf",
+    "page": "181-201",
+    "publisher": "Springer",
+    "title": "A Logic-based Framework for Verifying Consensus Algorithms",
+    "type": "paper-conference"
+  },
+  {
+    "abstract": "Motivated by the analysis of highly dynamic message-passing systems, i.e. unbounded thread creation, mobility, etc. We present a framework for the analysis of depth-bounded systems. Depth-bounded systems are one of the most expressive known fragment of the π-calculus for which interesting verification problems are still decidable. Even though they are infinite state systems depth-bounded systems are well-structured, thus can be analyzed algorithmically. We give an interpretation of depth-bounded systems as graph-rewriting systems. This gives more flexibility and ease of use to apply depth-bounded systems to other type of systems like shared memory concurrency.\nFirst, we develop an adequate domain of limits for depth-bounded systems, a prerequisite for the effective representation of downward-closed sets. Downward-closed sets are needed by forward saturation-based algorithms to represent potentially infinite sets of states. Then, we present an abstract interpretation framework to compute the covering set of well-structured transition systems. Because, in general, the covering set is not computable, our abstraction over-approximates the actual covering set. Our abstraction captures the essence of acceleration based-algorithms while giving up enough precision to ensure convergence. We have implemented the analysis in the Picasso tool and show that it is accurate in practice. Finally, we build some further analyses like termination using the covering set as starting point.",
+    "author": [
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "genre": "PhD thesis",
+    "id": "PHD",
+    "issued": {
+      "date-parts": [
+        [
+          2013
+        ]
+      ]
+    },
+    "keyword": "thesis",
+    "link-paper": "files/2013_thesis.pdf",
+    "link-slides": "files/thesis_presentation/presentation.html",
+    "publisher": "Institute of Science and Technology Austria",
+    "title": "Analysis of Dynamic Message Passing Programs (a framework for the analysis of depth-bounded systems)",
+    "type": "thesis"
+  },
+  {
+    "ISBN": "978-3-642-39798-1",
+    "abstract": "Separation logic has gained widespread popularity because of its ability to succinctly express complex invariants of a program’s heap configurations. Several specialized provers have been developed for decidable fragments of separation logic. However, these provers cannot be easily extended or combined with solvers for other theories that are important in program verification, such as linear arithmetic. In this paper, we present reductions of decidable separation logic fragments to decidable first-order theories that fit well into the SMT framework. We show how these reductions can be used to automate satisfiability, entailment, frame inference, and abduction problems for separation logic using SMT solvers. Our approach provides a simple method of integrating separation logic into existing verification tools that provide SMT backends, and an elegant way of combining separation logic fragments with other decidable first-order theories.",
+    "author": [
+      {
+        "family": "Piskac",
+        "given": "Ruzica"
+      },
+      {
+        "family": "Wies",
+        "given": "Thomas"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "collection-title": "LNCS 8044",
+    "container-title": "In Proceedings of Computer Aided Verification (CAV)",
+    "editor": [
+      {
+        "family": "Sharygina",
+        "given": "Natasha"
+      },
+      {
+        "family": "Veith",
+        "given": "Helmut"
+      }
+    ],
+    "id": "DBLP:conf/cav/PiskacWZ13",
+    "issued": {
+      "date-parts": [
+        [
+          2013
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "link-paper": "files/2013_automating_separation_logic_using_SMT.pdf",
+    "link-slides": "files/2013_automating_separation_logic_using_SMT_slides.pdf",
+    "page": "773-789",
+    "publisher": "Springer",
+    "title": "Automating Separation Logic using SMT",
+    "type": "paper-conference"
+  },
+  {
+    "ISBN": "978-1-4503-2014-6",
+    "abstract": "We describe the design and implementation of P, a domain-specific language to write asynchronous event driven code. P allows the programmer to specify the system as a collection of interacting state machines, which communicate with each other using events. P unifies modeling and programming into one activity for the programmer. Not only can a P program be compiled into executable code, but it can also be tested using model checking techniques. P allows the programmer to specify the environment, used to “close” the system during testing, as nondeterministic ghost machines. Ghost machines are erased during compilation to executable code; a type system ensures that the erasure is semantics preserving.\nThe P language is designed so that a P program can be checked for responsiveness—the ability to handle every event in a timely manner. By default, a machine needs to handle every event that arrives in every state. But handling every event in every state is impractical. The language provides a notion of deferred events where the programmer can annotate when she wants to delay processing an event. The default safety checker looks for presence of unhandled events. The language also provides default liveness checks that an event cannot be potentially deferred forever.\nP was used to implement and verify the core of the USB device driver stack that ships with Microsoft Windows 8. The resulting driver is more reliable and performs better than its prior incarnation (which did not use P); we have more confidence in the robustness of its design due to the language abstractions and verification provided by P.",
+    "author": [
+      {
+        "family": "Desai",
+        "given": "Ankush"
+      },
+      {
+        "family": "Gupta",
+        "given": "Vivek"
+      },
+      {
+        "family": "Jackson",
+        "given": "Ethan K."
+      },
+      {
+        "family": "Qadeer",
+        "given": "Shaz"
+      },
+      {
+        "family": "Rajamani",
+        "given": "Sriram K."
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "In Proceedings of Programming Language Sesign and Implementation (PLDI)",
+    "editor": [
+      {
+        "family": "Boehm",
+        "given": "Hans-Juergen"
+      },
+      {
+        "family": "Flanagan",
+        "given": "Cormac"
+      }
+    ],
+    "id": "DBLP:conf/pldi/DesaiGJQRZ13",
+    "issued": {
+      "date-parts": [
+        [
+          2013
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "link-paper": "files/2013_P_safe_asynchronous_event-driven_programming.pdf",
+    "page": "321-332",
+    "publisher": "ACM",
+    "title": "P: Safe Asynchronous Event-driven Programming",
+    "title-short": "P",
+    "type": "paper-conference"
+  },
+  {
+    "abstract": "Depth-Bounded Systems form an expressive class of well-structured transition systems. They can model a wide range of concurrent infinite-state systems including those with dynamic thread creation, dynamically changing communication topology, and complex shared heap structures. We present the first method to automatically prove fair termination of depth-bounded systems. Our method uses a numerical abstraction of the system, which we obtain by systematically augmenting an over-approximation of the system’s reachable states with a finite set of counters. This numerical abstraction can be analyzed with existing termination provers. What makes our approach unique is the way in which it exploits the well-structuredness of the analyzed system. We have implemented our work in a prototype tool and used it to automatically prove liveness properties of complex concurrent systems, including nonblocking algorithms such as Treiber’s stack and several distributed processes. Many of these examples are beyond the scope of termination analyses that are based on traditional counter abstractions.",
+    "author": [
+      {
+        "family": "Bansal",
+        "given": "Kshitij"
+      },
+      {
+        "family": "Koskinen",
+        "given": "Eric"
+      },
+      {
+        "family": "Wies",
+        "given": "Thomas"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "collection-title": "LNCS 7795",
+    "container-title": "In Proceedings of Tools and Algorithms for the Construction and Analysis of Systems (TACAS)",
+    "editor": [
+      {
+        "family": "Piterman",
+        "given": "Nir"
+      },
+      {
+        "family": "Smolka",
+        "given": "Scott A."
+      }
+    ],
+    "id": "DBLP:conf/tacas/BansalKWZ13",
+    "issued": {
+      "date-parts": [
+        [
+          2013
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "link-paper": "files/2013_structural_counter_abstraction.pdf",
+    "link-slides": "files/2013_structural_counter_abstraction_slides.svg",
+    "page": "62-77",
+    "publisher": "Springer",
+    "title": "Structural Counter Abstraction",
+    "type": "paper-conference"
+  },
+  {
+    "DOI": "10.1016/j.jtbi.2012.02.021",
+    "ISSN": "0022-5193",
+    "URL": "http://www.sciencedirect.com/science/article/pii/S002251931200094X",
+    "abstract": "We study evolutionary game theory in a setting where individuals learn from each other. We extend the traditional approach by assuming that a population contains individuals with different learning abilities. In particular, we explore the situation where individuals have different search spaces, when attempting to learn the strategies of others. The search space of an individual specifies the set of strategies learnable by that individual. The search space is genetically given and does not change under social evolutionary dynamics. We introduce a general framework and study a specific example in the context of direct reciprocity. For this example, we obtain the counter intuitive result that cooperation can only evolve for intermediate benefit-to-cost ratios, while small and large benefit-to-cost ratios favor defection. Our paper is a step toward making a connection between computational learning theory and evolutionary game dynamics.",
+    "author": [
+      {
+        "family": "Chatterjee",
+        "given": "Krishnendu"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      },
+      {
+        "family": "Nowak",
+        "given": "Martin A."
+      }
+    ],
+    "container-title": "Journal of Theoretical Biology",
+    "id": "Chatterjee2012161",
+    "issue": "0",
+    "issued": {
+      "date-parts": [
+        [
+          2012
+        ]
+      ]
+    },
+    "keyword": "journal",
+    "link-paper": "http://ped.fas.harvard.edu/files/ped/files/jtb12c_0.pdf",
+    "page": "161 - 173",
+    "title": "Evolutionary game dynamics in populations with different learners",
+    "type": "article-journal",
+    "volume": "301"
+  },
+  {
+    "abstract": "Many infinite state systems can be seen as well-structured transition systems (WSTS), i.e., systems equipped with a well-quasi-ordering on states that is also a simulation relation. WSTS are an attractive target for formal analysis because there exist generic algorithms that decide interesting verification problems for this class. Among the most popular algorithms are acceleration-based forward analyses for computing the covering set. Termination of these algorithms can only be guaranteed for flattable WSTS. Yet, many WSTS of practical interest are not flattable and the question whether any given WSTS is flattable is itself undecidable. We therefore propose an analysis that computes the covering set and captures the essence of acceleration-based algorithms, but sacrifices precision for guaranteed termination. Our analysis is an abstract interpretation whose abstract domain builds on the ideal completion of the well-quasi-ordered state space, and a widening operator that mimics acceleration and controls the loss of precision of the analysis. We present instances of our framework for various classes of WSTS. Our experience with a prototype implementation indicates that, despite the inherent precision loss, our analysis often computes the precise covering set of the analyzed system.",
+    "author": [
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      },
+      {
+        "family": "Wies",
+        "given": "Thomas"
+      },
+      {
+        "family": "Henzinger",
+        "given": "Thomas A."
+      }
+    ],
+    "collection-title": "LNCS 7148",
+    "container-title": "In Proceedings of Verification, Model Checking, and Abstract Interpretation (VMCAI)",
+    "editor": [
+      {
+        "family": "Kuncak",
+        "given": "Viktor"
+      },
+      {
+        "family": "Rybalchenko",
+        "given": "Andrey"
+      }
+    ],
+    "id": "DBLP:conf/vmcai/ZuffereyWH12",
+    "issued": {
+      "date-parts": [
+        [
+          2012
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "link-paper": "files/2012_Ideal_Abstractions_for_WSTS.pdf",
+    "link-slides": "files/2012_Ideal_Abstractions_for_WSTS_slides.pdf",
+    "page": "445-460",
+    "publisher": "Springer",
+    "title": "Ideal Abstractions for Well-structured Transition Systems",
+    "type": "paper-conference"
+  },
+  {
+    "abstract": "Cloud computing aims to give users virtually unlimited pay-per-use computing resources without the burden of managing the underlying infrastructure. We present a new job execution environment Flextic that exploits scalable static scheduling techniques to provide the user with a flexible pricing model, such as a tradeoff between different degrees of execution speed and execution price, and at the same time, reduce scheduling overhead for the cloud provider. We have evaluated a prototype of Flextic on Amazon EC2 and compared it against Hadoop. For various data parallel jobs from machine learning, image processing, and gene sequencing that we considered, Flextic has low scheduling overhead and reduces job duration by up to 15% compared to Hadoop, a dynamic cloud scheduler.",
+    "author": [
+      {
+        "family": "Henzinger",
+        "given": "Thomas A."
+      },
+      {
+        "family": "Singh",
+        "given": "Anmol V."
+      },
+      {
+        "family": "Singh",
+        "given": "Vasu"
+      },
+      {
+        "family": "Wies",
+        "given": "Thomas"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "In Proceedings of the 3rd USENIX workshop on Hot topic in Cloud computing (HotCloud’11)",
+    "id": "HSSWZ11",
+    "issued": {
+      "date-parts": [
+        [
+          2011
+        ]
+      ]
+    },
+    "keyword": "workshop",
+    "link-paper": "files/2011_static_scheduling_in_clouds.pdf",
+    "title": "Static Scheduling in Clouds",
+    "type": "paper-conference"
+  },
+  {
+    "abstract": "The static scheduling problem often arises as a fundamental problem in real-time systems and grid computing. We consider the problem of statically scheduling a large job expressed as a task graph on a large number of computing nodes, such as a data center.\nThis paper solves the large-scale static scheduling problem using abstraction refinement, a technique commonly used in formal verification to efficiently solve computationally hard problems. A scheduler based on abstraction refinement first attempts to solve the scheduling problem with abstract representations of the job and the computing resources. As abstract representations are generally small, the scheduling can be done reasonably fast. If the obtained schedule does not meet specified quality conditions (like data center utilization or schedule makespan) then the scheduler refines the job and data center abstractions and, again solves the scheduling problem. We develop different schedulers based on abstraction refinement. We implemented these schedulers and used them to schedule task graphs from various computing domains on simulated data centers with realistic topologies. We compared the speed of scheduling and the quality of the produced schedules with our abstraction refinement schedulers against a baseline scheduler that does not use any abstraction. We conclude that abstraction refinement techniques give a significant speed-up compared to traditional static scheduling heuristics, at a reasonable cost in the quality of the produced schedules. We further used our static schedulers in an actual system that we deployed on Amazon EC2 and compared it against the Hadoop dynamic scheduler for large MapReduce jobs. Our experiments indicate that there is great potential for static scheduling techniques.",
+    "author": [
+      {
+        "family": "Henzinger",
+        "given": "Thomas A."
+      },
+      {
+        "family": "Singh",
+        "given": "Vasu"
+      },
+      {
+        "family": "Wies",
+        "given": "Thomas"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "In Proceedings of European Conference on Computer Systems (EuroSys)",
+    "editor": [
+      {
+        "family": "Kirsch",
+        "given": "Christoph M."
+      },
+      {
+        "family": "Heiser",
+        "given": "Gernot"
+      }
+    ],
+    "id": "DBLP:conf/eurosys/HenzingerSWZ11",
+    "issued": {
+      "date-parts": [
+        [
+          2011
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "link-paper": "files/2011_Scheduling_Large_Jobs_by_Abstraction_Refinement.pdf",
+    "page": "329-342",
+    "publisher": "ACM",
+    "title": "Scheduling Large Jobs by Abstraction Refinement",
+    "type": "paper-conference"
+  },
+  {
+    "abstract": "Concurrent data structures with fine-grained synchronization are notoriously difficult to implement correctly. The difficulty of reasoning about these implementations does not stem from the number of variables or the program size, but rather from the large number of possible interleavings. These implementations are therefore prime candidates for model checking. We introduce an algorithm for verifying linearizability of singly-linked heap-based concurrent data structures. We consider a model consisting of an unbounded heap where each vertex stores an element from an unbounded data domain, with a restricted set of operations for testing and updating pointers and data elements. Our main result is that linearizability is decidable for programs that invoke a fixed number of methods, possibly in parallel. This decidable fragment covers many of the common implementation techniques — fine-grained locking, lazy synchronization, and lock-free synchronization. We also show how the technique can be used to verify optimistic implementations with the help of programmer annotations. We developed a verification tool CoLT and evaluated it on a representative sample of Java implementations of the concurrent set data structure. The tool verified linearizability of a number of implementations, found a known error in a lock-free implementation and proved that the corrected version is linearizable.",
+    "author": [
+      {
+        "family": "Cerný",
+        "given": "Pavol"
+      },
+      {
+        "family": "Radhakrishna",
+        "given": "Arjun"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      },
+      {
+        "family": "Chaudhuri",
+        "given": "Swarat"
+      },
+      {
+        "family": "Alur",
+        "given": "Rajeev"
+      }
+    ],
+    "collection-title": "LNCS 6174",
+    "container-title": "In Proceedings of Computer Aided Verification (CAV)",
+    "editor": [
+      {
+        "family": "Touili",
+        "given": "Tayssir"
+      },
+      {
+        "family": "Cook",
+        "given": "Byron"
+      },
+      {
+        "family": "Jackson",
+        "given": "Paul"
+      }
+    ],
+    "id": "DBLP:conf/cav/CernyRZCA10",
+    "issued": {
+      "date-parts": [
+        [
+          2010
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "link-paper": "files/2010_Model_Checking_of_Linearizability_of_Concurrent_List_Implementation.pdf",
+    "page": "465-479",
+    "publisher": "Springer",
+    "title": "Model Checking of Linearizability of Concurrent List Implementations",
+    "type": "paper-conference"
+  },
+  {
+    "abstract": "Depth-bounded processes form the most expressive known fragment of the π-calculus for which interesting verification problems are still decidable. In this paper we develop an adequate domain of limits for the well-structured transition systems that are induced by depth-bounded processes. An immediate consequence of our result is that there exists a forward algorithm that decides the covering problem for this class. Unlike backward algorithms, the forward algorithm terminates even if the depth of the process is not known a priori. More importantly, our result suggests a whole spectrum of forward algorithms that enable the effective verification of a large class of mobile systems.",
+    "author": [
+      {
+        "family": "Wies",
+        "given": "Thomas"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      },
+      {
+        "family": "Henzinger",
+        "given": "Thomas A."
+      }
+    ],
+    "collection-title": "LNCS 6014",
+    "container-title": "In Proceedings of Foundations of Software Science and Computation Structures (FoSSaCS)",
+    "editor": [
+      {
+        "family": "Ong",
+        "given": "C.-H. Luke"
+      }
+    ],
+    "id": "DBLP:conf/fossacs/WiesZH10",
+    "issued": {
+      "date-parts": [
+        [
+          2010
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "link-paper": "files/2010_Forward_Analysis_of_Depth-Bounded_Processes.pdf",
+    "link-paper": "files/FoSSaCS10-DepthBounded_processes_slides.pdf",
+    "page": "94-108",
+    "publisher": "Springer",
+    "title": "Forward Analysis of Depth-bounded Processes",
+    "type": "paper-conference"
+  },
+  {
+    "abstract": "Shape analysis is a promising technique to prove program properties about recursive data structures. The challenge is to automatically determine the data-structure type, and to supply the shape analysis with the necessary information about the data structure. We present a stepwise approach to the selection of instrumentation predicates for a TVLA-based shape analysis, which takes us a step closer towards the fully automatic verification of data structures. The approach uses two techniques to guide the refinement of shape abstractions: (1) during program exploration, an explicit heap analysis collects sample instances of the heap structures, which are used to identify the data structures that are manipulated by the program; and (2) during abstraction refinement along an infeasible error path, we consider different possible heap abstractions and choose the coarsest one that eliminates the infeasible path. We have implemented this combined approach for automatic shape refinement as an extension of the software model checker BLAST. Example programs from a data-structure library that manipulate doubly-linked lists and trees were successfully verified by our tool.",
+    "author": [
+      {
+        "family": "Beyer",
+        "given": "Dirk"
+      },
+      {
+        "family": "Henzinger",
+        "given": "Thomas A."
+      },
+      {
+        "family": "Théoduloz",
+        "given": "Grégory"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "collection-title": "LNCS 6013",
+    "container-title": "In Proceedings of Fundamental Approaches to Software Engineering (FASE)",
+    "editor": [
+      {
+        "family": "Rosenblum",
+        "given": "David S."
+      },
+      {
+        "family": "Taentzer",
+        "given": "Gabriele"
+      }
+    ],
+    "id": "FASE10",
+    "issued": {
+      "date-parts": [
+        [
+          2010
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "link-paper": "files/2010_Shape_Refinement_through_Explicit_Heap_Analysis.pdf",
+    "page": "263-277",
+    "publisher": "Springer",
+    "title": "Shape Refinement through Explicit Heap Analysis",
+    "type": "paper-conference"
+  },
+  {
+    "abstract": "Cloud computing aims to give users virtually unlimited pay-per-use computing resources without the burden of managing the underlying infrastructure. We claim that, in order to realize the full potential of cloud computing, the user must be presented with a pricing model that offers flexibility at the requirements level, such as a choice between different degrees of execution speed and the cloud provider must be presented with a programming model that offers flexibility at the execution level, such as a choice between different scheduling policies. In such a flexible framework, with each job, the user purchases a virtual computer with the desired speed and cost characteristics, and the cloud provider can optimize the utilization of resources across a stream of jobs from different users.\nWe designed a flexible framework to test our hypothesis, which is called FlexPRICE (Flexible Provisioning of Resources in a Cloud Environment) and works as follows. A user presents a job to the cloud. The cloud finds different schedules to execute the job and presents a set of quotes to the user in terms of price and duration for the execution. The user then chooses a particular quote and the cloud is obliged to execute the job according to the chosen quote. FlexPRICE thus hides the complexity of the actual scheduling decisions from the user, but still provides enough flexibility to meet the users actual demands. We implemented FlexPRICE in a simulator called PRICES that allows us to experiment with our framework. We observe that FlexPRICE provides a wide range of execution options —from fastand expensive to slow and cheap— for the whole spectrum of data-intensive and computation-intensive jobs. We also observe that the set of quotes computed by FlexPRICE do not vary as the number of simultaneous jobs increases.",
+    "author": [
+      {
+        "family": "Henzinger",
+        "given": "Thomas A."
+      },
+      {
+        "family": "Singh",
+        "given": "Anmol V."
+      },
+      {
+        "family": "Singh",
+        "given": "Vasu"
+      },
+      {
+        "family": "Wies",
+        "given": "Thomas"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "In Proceedings of IEEE International Conference on Cloud Computing (IEEE CLOUD)",
+    "id": "HSSWZ10a",
+    "issued": {
+      "date-parts": [
+        [
+          2010
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "title": "FlexPRICE: Flexible provisioning of resources in a cloud environment",
+    "title-short": "FlexPRICE",
+    "type": "paper-conference"
+  },
+  {
+    "abstract": "Cloud computing is an emerging paradigm aimed to offer users pay-per-use computing resources, while leaving the burden of managing the computing infrastructure to the cloud provider. We present a new programming and pricing model that gives the cloud user the exibility of trading execution speed and price on a per-job basis. We discuss the scheduling and resource management challenges for the cloud provider that arise in the implementation of this model. We argue that techniques from real-time and embedded software can be useful in this context.",
+    "author": [
+      {
+        "family": "Henzinger",
+        "given": "Thomas A."
+      },
+      {
+        "family": "Singh",
+        "given": "Anmol V."
+      },
+      {
+        "family": "Singh",
+        "given": "Vasu"
+      },
+      {
+        "family": "Wies",
+        "given": "Thomas"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "In Proceedings of International Conference on Embedded Systems (EMSOFT)",
+    "editor": [
+      {
+        "family": "Carloni",
+        "given": "Luca P."
+      },
+      {
+        "family": "Tripakis",
+        "given": "Stavros"
+      }
+    ],
+    "id": "DBLP:conf/emsoft/HenzingerSSWZ10",
+    "issued": {
+      "date-parts": [
+        [
+          2010
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "link-paper": "files/2010_A_Marketplace_for_Cloud_Resources.pdf",
+    "page": "1-8",
+    "publisher": "ACM",
+    "title": "A Marketplace for Cloud Resources",
+    "type": "paper-conference"
+  },
+  {
+    "abstract": "Cloud computing aims to give users virtually unlimited pay-per-use computing resources without the burden of managing the underlying infrastructure. We claim that, in  order to realize the full potential of cloud computing, the user must be presented with a pricing model that offers flexibility at the requirements level, such as a choice  between different degrees of execution speed, and the cloud provider must be presented with a programming  model that offers flexibility at the execution level, such as a choice between different scheduling policies.  In this paper, we present a framework called FlexPRICE (Flexible Provisioning of Resources in a Cloud Environment) where for each job, the user purchases a virtual computer with the desired speed and cost characteristics, and the cloud provider optimizes the utilization of resources across a stream of jobs from different users.",
+    "author": [
+      {
+        "family": "Henzinger",
+        "given": "Thomas A."
+      },
+      {
+        "family": "Singh",
+        "given": "Anmol V."
+      },
+      {
+        "family": "Singh",
+        "given": "Vasu"
+      },
+      {
+        "family": "Wies",
+        "given": "Thomas"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "(EC)² Workshop",
+    "id": "HSSWZ10",
+    "issued": {
+      "date-parts": [
+        [
+          2010
+        ]
+      ]
+    },
+    "keyword": "workshop",
+    "link-paper": "files/2010_EC2_in_EC2.pdf",
+    "title": "(EC)² in EC2",
+    "type": "paper-conference"
+  },
+  {
+    "ISBN": "978-3-540-70543-7",
+    "abstract": "We present CSIsat, an interpolating decision procedure for the quantifier-free theory of rational linear arithmetic and equality with uninterpreted function symbols. Our implementation combines the efficiency of linear programming for solving the arithmetic part with the efficiency of a SAT solver to reason about the boolean structure. We evaluate the efficiency of our tool on benchmarks from software verification. Binaries and the source code of CSIsat are publicly available as free software.",
+    "author": [
+      {
+        "family": "Beyer",
+        "given": "Dirk"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      },
+      {
+        "family": "Majumdar",
+        "given": "Rupak"
+      }
+    ],
+    "collection-title": "LNCS 5123",
+    "container-title": "In Proceedings of Computer Aided Verification (CAV)",
+    "editor": [
+      {
+        "family": "Gupta",
+        "given": "A."
+      },
+      {
+        "family": "Malik",
+        "given": "S."
+      }
+    ],
+    "id": "CAV08",
+    "issued": {
+      "date-parts": [
+        [
+          2008
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "link-paper": "files/2008_CSIsat_interpolation_for_LA_EUF.pdf",
+    "link-slides": "files/CAV08-csisat-final-slides.pdf",
+    "page": "304-308",
+    "publisher": "Springer-Verlag, Berlin",
+    "title": "CSIsat: Interpolation for LA+EUF",
+    "title-short": "CSIsat",
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Esmaeilsabzali",
+        "given": "Shahram"
+      },
+      {
+        "family": "Majumdar",
+        "given": "Rupak"
+      },
+      {
+        "family": "Wies",
+        "given": "Thomas"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "CoRR",
+    "id": "DBLP:journals/corr/EsmaeilsabzaliMWZ13",
+    "issued": {
+      "date-parts": [
+        [
+          2013
+        ]
+      ]
+    },
+    "keyword": "techrep",
+    "link-paper": "http://arxiv.org/pdf/1311.4615.pdf",
+    "title": "A Notion of Dynamic Interface for Depth-bounded Object-oriented Packages",
+    "type": "article-journal",
+    "volume": "abs/1311.4615"
+  },
+  {
+    "author": [
+      {
+        "family": "Esmaeilsabzali",
+        "given": "Shahram"
+      },
+      {
+        "family": "Majumdar",
+        "given": "Rupak"
+      },
+      {
+        "family": "Wies",
+        "given": "Thomas"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "CoRR",
+    "id": "DBLP:journals/corr/EsmaeilsabzaliMWZ13a",
+    "issued": {
+      "date-parts": [
+        [
+          2013
+        ]
+      ]
+    },
+    "keyword": "techrep",
+    "link-paper": "http://arxiv.org/pdf/1311.4934v2.pdf",
+    "title": "Dynamic Package Interfaces - extended version",
+    "type": "article-journal",
+    "volume": "abs/1311.4934"
+  },
+  {
+    "author": [
+      {
+        "family": "Piskac",
+        "given": "Ruzica"
+      },
+      {
+        "family": "Wies",
+        "given": "Thomas"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "id": "cav13extended",
+    "issued": {
+      "date-parts": [
+        [
+          2013
+        ]
+      ]
+    },
+    "keyword": "techrep",
+    "link-paper": "files/2013_automating_separation_logic_using_SMT_techreport.pdf",
+    "number": "TR2013-954",
+    "publisher": "New York University",
+    "title": "Automating Separation Logic using SMT",
+    "type": "report"
+  },
+  {
+    "author": [
+      {
+        "family": "Bansal",
+        "given": "Kshitij"
+      },
+      {
+        "family": "Koskinen",
+        "given": "Eric"
+      },
+      {
+        "family": "Wies",
+        "given": "Thomas"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "id": "tacas13extended",
+    "issued": {
+      "date-parts": [
+        [
+          2012
+        ]
+      ]
+    },
+    "keyword": "techrep",
+    "link-paper": "files/2012_structural_counter_abstraction_techreport.pdf",
+    "number": "TR2012-947",
+    "publisher": "New York University",
+    "title": "Structural Counter Abstraction",
+    "type": "report"
+  },
+  {
+    "author": [
+      {
+        "family": "Desai",
+        "given": "Ankush"
+      },
+      {
+        "family": "Gupta",
+        "given": "Vivek"
+      },
+      {
+        "family": "Jackson",
+        "given": "Ethan K."
+      },
+      {
+        "family": "Qadeer",
+        "given": "Shaz"
+      },
+      {
+        "family": "Rajamani",
+        "given": "Sriram K."
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "id": "pldi13extended",
+    "issued": {
+      "date-parts": [
+        [
+          2012
+        ]
+      ]
+    },
+    "keyword": "techrep",
+    "link-paper": "http://research.microsoft.com/pubs/177118/tr.pdf",
+    "number": "MSR-TR-2012-116",
+    "publisher": "Microsoft Research",
+    "title": "P: Safe Asynchronous Event-driven Programming",
+    "title-short": "P",
+    "type": "report"
+  },
+  {
+    "author": [
+      {
+        "family": "Cerný",
+        "given": "Pavol"
+      },
+      {
+        "family": "Radhakrishna",
+        "given": "Arjun"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      },
+      {
+        "family": "Chaudhuri",
+        "given": "Swarat"
+      },
+      {
+        "family": "Alur",
+        "given": "Rajeev"
+      }
+    ],
+    "id": "cav10extended",
+    "issued": {
+      "date-parts": [
+        [
+          2010
+        ]
+      ]
+    },
+    "keyword": "techrep",
+    "link-paper": "http://pub.ist.ac.at/Pubs/TechRpts/2010/IST-2010-0001.pdf",
+    "number": "IST-2010-0001",
+    "publisher": "IST Austria",
+    "title": "Model Checking of Linearizability of Concurrent List Implementations",
+    "type": "report"
+  }
+]

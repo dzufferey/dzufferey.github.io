@@ -4,9 +4,10 @@ title: dzufferey's blog
 description: "Damien Zufferey's blog: description of my projects and some random rambling"
 baseurl: ""
 url: "http://dzufferey.github.io"
-# twitter_username: jekyllrb
+# twitter_username: ???
 github_username:  dzufferey
 
 # Build settings
+# could use madoko ?
 markdown: kramdown
 permalink: pretty

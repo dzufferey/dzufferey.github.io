@@ -75,6 +75,9 @@
       ]
     },
     "keyword": "conf",
+    "link-paper": "files/2016_PSync_A_Partially_Synchronous_Language_for_Fault-Tolerant_Distributed_Algorithms.pdf",
+    "link-slides": "files/2016_PSync_A_Partially_Synchronous_Language_for_Fault-Tolerant_Distributed_Algorithms.pptx",
+    "link-poster": "files/2016_PSync_A_Partially_Synchronous_Language_for_Fault-Tolerant_Distributed_Algorithms-poster.pdf",
     "publisher": "ACM",
     "title": "PSync: A Partially Synchronous Language for Fault-tolerant Distributed Algorithms",
     "title-short": "PSync",

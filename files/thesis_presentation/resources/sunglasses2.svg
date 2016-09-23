@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="279.17352"
+   height="78.25309"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="sunglasses.svg">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1144"
+     id="namedview20"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="1.8122944"
+     inkscape:cx="62.074458"
+     inkscape:cy="9.2618024"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <defs
+     id="defs4">
+    <linearGradient
+       id="imagebot_20">
+      <stop
+         stop-color="#2e3436"
+         id="imagebot_25"
+         offset="0"
+         style="stop-color:#5d696d;stop-opacity:1;" />
+      <stop
+         stop-color="#2e3436"
+         stop-opacity="0"
+         id="imagebot_24"
+         offset="1"
+         style="stop-color:#ffffff;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
+       y2="571.12498"
+       x2="1682.2394"
+       y1="909.62753"
+       x1="1647.7052"
+       id="imagebot_12"
+       xlink:href="#imagebot_20"
+       gradientTransform="scale(1.2669133,0.78932001)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       y2="571.12499"
+       x2="1827.768"
+       y1="909.62754"
+       x1="1862.3022"
+       id="imagebot_10"
+       xlink:href="#imagebot_20"
+       gradientTransform="scale(1.2669133,0.78932001)"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#imagebot_20"
+       id="linearGradient3765"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.59865327,0,0,0.3729766,-911.05193,-264.39097)"
+       x1="1862.3022"
+       y1="909.62754"
+       x2="1788.1343"
+       y2="710.18988" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#imagebot_20"
+       id="linearGradient3768"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.59865327,0,0,0.3729766,-911.05193,-264.39097)"
+       x1="1647.7052"
+       y1="909.62753"
+       x2="1543.9824"
+       y2="702.79285" />
+  </defs>
+  <g
+     id="g3789">
+    <path
+       style="opacity:1;fill:url(#linearGradient3768);stroke-width:4;stroke-linecap:round;stroke-miterlimit:4;stroke-dashoffset:0"
+       inkscape:connector-curvature="0"
+       d="m 111.55413,2.5668308 c 6.57009,1.3625893 9.36878,8.5194802 11.28716,14.2328612 3.30666,11.064399 3.15417,22.851092 2.05554,34.237269 -1.27072,7.998153 -0.78203,17.943386 -9.70428,22.319931 -8.50386,4.171344 -69.422398,7.808929 -101.145065,1.477862 C 7.4774414,73.47217 4.6786994,66.315274 2.7603261,60.601897 -0.54629004,49.537494 -0.39385219,37.750806 0.70473048,26.364624 1.97555,18.366471 1.4399384,9.4348271 10.409059,4.0446983 19.600456,-1.4789956 79.709075,-0.71047445 111.55413,2.5668308 z"
+       id="imagebot_11"
+       stroke-miterlimit="4" />
+    <path
+       style="opacity:1;fill:url(#linearGradient3765);stroke-width:4;stroke-linecap:round;stroke-miterlimit:4;stroke-dashoffset:0"
+       inkscape:connector-curvature="0"
+       id="imagebot_9"
+       d="m 167.61941,2.5668308 c -6.57004,1.3625893 -9.36879,8.5194802 -11.28716,14.2328612 -3.30666,11.064399 -3.15418,22.851092 -2.05555,34.237269 1.27073,7.998153 0.78204,17.943386 9.70428,22.319931 8.50387,4.171344 69.4224,7.808929 101.14507,1.477862 6.57009,-1.362584 9.36879,-8.51948 11.28716,-14.232857 3.30666,-11.064403 3.15418,-22.851091 2.05555,-34.237273 -1.27073,-7.998153 -0.73521,-16.9297969 -9.70428,-22.3199257 -9.19145,-5.5236939 -69.30002,-4.75517275 -101.14507,-1.4778675 z"
+       stroke-miterlimit="4" />
+    <path
+       label="Layer 1"
+       stroke-miterlimit="4"
+       d="m 110.79269,16.78373 c 15.00805,-13.12048 42.57681,-13.52042 57.5895,0"
+       id="imagebot_7"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#555753;stroke-width:4.725;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" />
+  </g>
+  <metadata
+     id="metadata18">image/svg+xmlOpen Clip Art LibraryMr. Sun2007-11-09T17:08:40A smiling cartoon sun.http://openclipart.org/detail/8110/mr.-sun-by-carlitoscarlitoscartooncartoonclip artclipartglassesglassesimagemediapngpublic domainsmilesmilesunsunsvg<rdf:RDF>
+  <cc:Work
+     rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type
+       rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+    <dc:title></dc:title>
+  </cc:Work>
+</rdf:RDF>
+</metadata>
+</svg>

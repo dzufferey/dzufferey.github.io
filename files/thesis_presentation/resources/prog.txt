@@ -1,0 +1,160 @@
+competition: evaluated
+     A₃ - A₃′ = -1,
+     So - So′ = -1,
+     A₄′ = A₄,
+     A₁′ - A₁ = -1,
+     M = M′,
+     A₂ = A₂′,
+     1 =< A₃′,
+     1 =< A₁,
+     1 =< R - R′,
+     1 =< R,
+     1 =< So′,
+     Si′ = 0
+
+competition: better
+     A₃ - A₃′ = 1,
+     So - So′ = 1,
+     A₂′ = A₂,
+     A₄ = A₄′,
+     A₁ = A₁′,
+     M = M′,
+     R = R′,
+     Si′ = 0
+
+competition: evaluating
+     A₃ = A₃′,
+     So = So′,
+     A₄ = A₄′,
+     A₂′ = A₂,
+     A₁ = A₁′,
+     M = M′,
+     R′ - R = -1,
+     2 =< R,
+     1 =< A₁′,
+     Si′ = 0
+
+reviewing
+     A₃ = A₃′,
+     So = So′,
+     A₂′ - A₂ = -1,
+     A₄ = A₄′,
+     A₁ - A₁′ = -1,
+     M - M′ = 1,
+     R =< R′,
+     1 =< A₂,
+     1 =< A₁′,
+     Si′ = 0
+
+competition: over
+     A₄ = A₄′,
+     A₃′ = 0,
+     Si′ = 0,
+     M′ = 0,
+     A₁′ = 0,
+     R′ = 0,
+     A₂′ = 0,
+     So′ = 0
+
+audition
+     A₂′ - A₂ = 1,
+     A₃ = A₃′,
+     M = M′,
+     A₁ = A₁′,
+     A₄ - A₄′ = 1,
+     So - So′ = 1,
+     Si′ - Si = 1,
+     R = R′
+
+reviewing
+     A₂′ = A₂,
+     A₃ - A₃′ = -1,
+     M - M′ = 1,
+     A₁ - A₁′ = 1,
+     A₄ = A₄′,
+     So = So′,
+     Si′ = Si,
+     R =< R′,
+     1 =< A₃′
+
+filming
+     A₂′ - A₂ = -1,
+     A₃ = A₃′,
+     M - M′ = -1,
+     A₁ - A₁′ = -1,
+     A₄ = A₄′,
+     So = So′,
+     Si′ - Si = -1,
+     R = R′,
+     1 =< A₂,
+     1 =< Si,
+     1 =< M′,
+     1 =< A₁′
+
+competition: starting
+     A₃ = A₃′,
+     (A₂ + A₁) - A₁′ = 0,
+     A₂′ = 0,
+     A₄′ = A₄,
+     M′ = M,
+     R = R′,
+     So′ = 0,
+     Si′ = 0
+
+initialize
+     0 =< A₂′,
+     0 =< A₃′,
+     0 =< A₁′,
+     0 =< R′,
+     0 =< So′,
+     0 =< A₄′,
+     0 =< M′,
+     Si′ = 0
+
+competition: first entry
+     So′ - So = -1,
+     A₂ - A₃′ = 1,
+     R = R′,
+     A₁ = A₂′,
+     M = M′,
+     A₁′ = A₃,
+     A₄ = A₄′,
+     1 =< So,
+     Si′ = 0 ],
+
+competition: evaluated
+     A₂ - A₂′ = -1,
+     A₁ = A₁′,
+     A₃′ - A₃ = -1,
+     So - So′ = -1,
+     M = M′,
+     A₄ = A₄′,
+     1 =< R - R′,
+     1 =< R,
+     1 =< So′,
+     1 =< A₃,
+     1 =< A₂′,
+     Si′ = 0,
+
+competition: evaluating
+     A₂ = A₂′,
+     R - R′ = 1,
+     A₁ = A₁′,
+     So = So′,
+     M = M′,
+     A₄′ = A₄,
+     A₃′ = A₃,
+     1 =< A₃,
+     1 =< R′,
+     Si′ = 0,
+
+reviewing
+     A₂ = A₂′,
+     A₁ - A₁′ = 1,
+     So = So′,
+     M - M′ = 1,
+     A₃′ - A₃ = 1,
+     A₄ = A₄′,
+     R =< R′,
+     Si′ = 0,
+

@@ -1,0 +1,616 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Analysis of Dynamic Message Passing Programs</title>
+    <link rel="stylesheet" href="presentation.css" />
+</head>    
+
+<body>
+
+<div id="main">
+
+<div class="centered" style="margin-top:100px">
+<h1>Analysis of Dynamic Message Passing Programs</h1>
+<p>PhD Defense</p>
+<p>Damien Zufferey</p>
+<p>IST Austria</p>
+<p>2013.08.19</p>
+</div>
+
+
+<div class="slide">
+<h2>Outline</h2>
+<ul>
+    <li><em>motivation + running example</em></li>
+    <li>preliminaries</li>
+    <li>part 1: domains of limits</li>
+    <li>part 2: ideal abstraction</li>
+    <li>part 3: analysis on top of the covering set</li>
+    <li>part 4: implementation and experiments</li>
+    <li>conclusion</li>
+</ul>
+</div><!-- slide -->
+
+<div class="slide">
+<h2>Introduction</h2>
+
+<h3>Bird's eye view of verification</h3>
+
+<img class="displayed" width="640px" src="resources/verification.svg" alt="goal of verification">
+</div><!-- slide -->
+
+<div class="slide">
+<h3>Concurrency is unavoidable</h3>
+<div class='blocktext'>
+<table class="centered">
+<tr>
+<td>
+  <p>Scaling up</p>
+  <img src="resources/intel_thousand_core.jpg" alt="many-core">
+  <p class="smaller">Many-core CPU from Intel</p>
+</td>
+<td>
+  <p>Scaling out</p>
+  <img width="415" src="resources/google-datacenter-tech-13.jpg" alt="data-center">
+  <p class="smaller">Data center from Google </p>
+</td>
+</tr>
+</table>
+</div>
+</div><!-- slide -->
+
+<div class="slide">
+<h3>Programming abstractions for concurrent programs</h3>
+<div class='blocktext'>
+<table>
+<tr>
+<td class="m20">
+  <p class="centered">Shared memory</p>
+  <img class="displayed" height="400px" src="resources/shared.svg" alt="shared">
+  <ul class="nobullet">
+    <li>+ fast (single node)</li>
+    <li>- limited scaling</li>
+    <li>- hard to program</li>
+  </ul>
+</td>
+<td class="m20">
+  <p class="centered">Message passing</p>
+  <img class="displayed" height="400px" src="resources/message.svg" alt="message">
+  <ul class="nobullet">
+    <li>+ scales</li>
+    <li>- slower</li>
+    <li>~ hard to program (easier ?)</li>
+  </ul>
+</td>
+</tr>
+</table>
+</div>
+</div><!-- slide -->
+
+<div class="slide">
+<h3>The actor model [<a href="#c01">Hewitt et al. 73</a>]</h3>
+<p>
+Used as an abstraction to scale up and out.<br/>
+Actors react to events (messages) by:
+<ul>
+    <li>performing internal computation</li>
+    <li>sending messages (unbounded mailboxes)</li>
+    <li>creating new actors (unbounded number of actors)</li>
+</ul>
+</p>
+
+<p>
+Gaining traction in the PL community and in industry: <a href="http://www.erlang.org/">Erlang</a>, <a href="http://scala-lang.org/">Scala</a> + <a href="http://akka.io/">Akka</a>
+</p>
+
+<div class="centered">
+<img class="displayed" width="400px" src="resources/Akka_2013-08-10.png" alt="Snippet of the Akka.io webpage on 2013.08.10"/>
+<p class="smallerer">Snippet from Akka.io, retrieved on 2013.08.10</p>
+</div>
+
+</div><!-- slide -->
+
+
+<div class="slide">
+<h2>Example: <i>Hollywood Map-Reduce</i></h2>
+
+<div class="centered">
+<p>Simple flow</p>
+<iframe width="800px" height="600px" src="tests/flow.svg">
+</iframe>
+</div>
+</div><!-- slide -->
+
+<div class="centered slide">
+<p>What about concurrency ?<br/>
+(Hint: there is a reason it is called the movie <em>industry</em>.)
+</p>
+<iframe width="800px" height="600px" src="tests/flow2.svg">
+</iframe>
+<!--
+<p>TODO animation where everything is moving at the same time</p>
+-->
+</div><!-- slide -->
+
+<div class="centered slide">
+<p>To do verification we need a property to check, e.g.,<br/>
+there should not be a winner if there are still people entering the competition.
+</p>
+<iframe width="600px" height="450px" scrolling="no" src="tests/error1.svg">
+</iframe>
+<!--
+<p>This is a safety property.</p>
+<p>We will also see how to check for termination (liveness properties).</p>
+<p>TODO animation where everything moves and then stops.</p>
+-->
+</div><!-- slide -->
+
+
+<div class="slide">
+<ul>
+    <li>motivation + running example</li>
+    <li><em>preliminaries</em></li>
+    <li>part 1: domains of limits</li>
+    <li>part 2: ideal abstraction</li>
+    <li>part 3: analysis on top of the covering set</li>
+    <li>part 4: implementation and experiments</li>
+    <li>conclusion</li>
+</ul>
+</div><!-- slide -->
+
+<div class="slide">
+<h2>Foundation of this work</h2>
+
+<div class="centered">
+<p>State-space exploration 101</p>
+<iframe width="800px" height="600px" src="tests/abstract_mc.svg">
+</iframe>
+</div><!-- slide -->
+
+<div class="slide">
+<h3>Well-structured transition systems (WSTS)</h3>
+
+<p>
+A <em>well-structured transition system</em> is a transition system 〈S, →, ≤〉&nbsp; where
+<ul>
+<li>≤ is a well-quasi-ordering (wqo), i.e. well-founded + no infinite antichain</li>
+<li>compatibility of ≤ w.r.t. → (also called monotonicity)</li>
+</ul>
+</p>
+
+<table class="blocktext">
+<tr>
+<td style="padding-right:50px">
+<p>Compatibility in general</p>
+</td>
+<td>
+<p>Compatibility in our example</p>
+</td>
+</tr>
+<tr>
+<td>
+<img class="displayed" src="resources/compatibility.svg" alt="the classical picture of compatibility."/>
+</td>
+<td>
+<iframe width="400px" height="300px" scrolling="no" src="tests/transition_monotonic.svg">
+</iframe>
+</td>
+</tr>
+</table>
+
+<p>The property we check also needs to respect the ordering (upward-closed).</p>
+
+<p>Some references: [<a href="#c04">Abdulla et al. 96</a>, <a href="#c05">Finkel and Schnoebelen 01</a>]</p>
+</div><!-- slide -->
+
+
+<div class="slide">
+<h3>Depth-bounded systems (DBS)</h3>
+
+<div>
+<p><em>Depth-bounded systems</em> are a fragment of the π-calculus identified by [<a href="#c06">Meyer 08</a>] as an instance of WSTS.
+<!--
+For those who have never seen π-calculus. It looks like that:</p>
+<div class="centered smaller">
+<math title="Clien-Server example in π-calculus.">
+<mstyle><mtable displaystyle="true" columnalign="right center left" columnspacing="0.167em">
+<mtr>
+    <mtd><mstyle mathvariant="italic"><mi>Server</mi></mstyle><mo maxsize="1">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo maxsize="1">)</mo></mtd>
+    <mtd><mo>=</mo></mtd>
+    <mtd><mo maxsize="1">(</mo><mi>x</mi><mo maxsize="1">(</mo><mi>z</mi><mo maxsize="1">)</mo><mo>.</mo><mstyle mathvariant="italic"><mi>Answer</mi></mstyle><mo maxsize="1">(</mo><mi>z</mi><mo maxsize="1">)</mo><mo maxsize="1">∣</mo><mstyle mathvariant="italic"><mi>Server</mi></mstyle><mo maxsize="1">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo maxsize="1">)</mo><mo maxsize="1">)</mo></mtd>
+</mtr>
+<mtr>
+    <mtd></mtd>
+    <mtd><mo>+</mo></mtd>
+    <mtd><mo maxsize="1">(</mo><mi>y</mi><mo maxsize="1">(</mo><mo maxsize="1">)</mo><mo>.</mo><mo maxsize="1">(</mo><mi>ν</mi><mi>u</mi><mo maxsize="1">)</mo><mo maxsize="1">(</mo><mstyle mathvariant="italic"><mi>Client</mi></mstyle><mo maxsize="1">(</mo><mi>u</mi><mo>,</mo><mi>x</mi><mo maxsize="1">)</mo><mo maxsize="1">∣</mo><mstyle mathvariant="italic"><mi>Answer</mi></mstyle><mo maxsize="1">(</mo><mi>u</mi><mo maxsize="1">)</mo><mo maxsize="1">∣</mo><mstyle mathvariant="italic"><mi>New</mi></mstyle><mo maxsize="1">(</mo><mi>y</mi><mo maxsize="1">)</mo><mo maxsize="1">∣</mo><mstyle mathvariant="italic"><mi>Server</mi></mstyle><mo maxsize="1">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo maxsize="1">)</mo><mo maxsize="1">)</mo><mo maxsize="1">)</mo></mtd>
+</mtr>
+<mtr>
+    <mtd><mstyle mathvariant="italic"><mi>Client</mi></mstyle><mo maxsize="1">(</mo><mi>u</mi><mo>,</mo><mi>x</mi><mo maxsize="1">)</mo></mtd>
+    <mtd><mo>=</mo></mtd>
+    <mtd><mi>u</mi><mo maxsize="1">(</mo><mo maxsize="1">)</mo><mo>.</mo><mo maxsize="1">(</mo><mstyle mathvariant="italic"><mi>Client</mi></mstyle><mo maxsize="1">(</mo><mi>u</mi><mo>,</mo><mi>x</mi><mo maxsize="1">)</mo><mo maxsize="1">∣</mo><mstyle mathvariant="italic"><mi>Request</mi></mstyle><mo maxsize="1">(</mo><mi>x</mi><mo>,</mo><mi>u</mi><mo maxsize="1">)</mo><mo maxsize="1">)</mo></mtd>
+</mtr>
+<mtr>
+    <mtd><mstyle mathvariant="italic"><mi>Answer</mi></mstyle><mo maxsize="1">(</mo><mi>u</mi><mo maxsize="1">)</mo></mtd>
+    <mtd><mo>=</mo></mtd>
+    <mtd><mover><mi>u</mi><mo accent="true">¯</mo></mover><mo maxsize="1">(</mo><mo maxsize="1">)</mo><mo>.</mo><mn>0</mn></mtd>
+</mtr>
+<mtr>
+    <mtd><mstyle mathvariant="italic"><mi>New</mi></mstyle><mo maxsize="1">(</mo><mi>y</mi><mo maxsize="1">)</mo></mtd>
+    <mtd><mo>=</mo></mtd>
+    <mtd><mover><mi>y</mi><mo accent="true">¯</mo></mover><mo maxsize="1">(</mo><mo maxsize="1">)</mo><mo>.</mo><mn>0</mn></mtd>
+</mtr>
+<mtr>
+    <mtd><mstyle mathvariant="italic"><mi>Request</mi></mstyle><mo maxsize="1">(</mo><mi>x</mi><mo>,</mo><mi>u</mi><mo maxsize="1">)</mo></mtd>
+    <mtd><mo>=</mo></mtd>
+    <mtd><mover><mi>x</mi><mo accent="true">¯</mo></mover><mo maxsize="1">(</mo><mi>u</mi><mo maxsize="1">)</mo><mo>.</mo><mn>0</mn></mtd>
+</mtr>
+</mtable></mstyle>
+</math>
+</div>
+
+<p>
+-->
+In [<a href="#c10">Bansal, Koskinen, Wies, and Zufferey 13.</a>] we give an alternative formalization as graph rewriting system.
+</p>
+<!--<p>TODO say what DBS are good for</p>-->
+</div>
+
+<div class="slide">
+<img class="fleft" width="80px" src="resources/graph.svg" alt="state">
+<p>
+The states are <em>labelled directed graphs</em> (in families) <em>of bounded tree-depth</em>.
+(the direction of the edges is irrelevant for the depth.)
+More concretely, this corresponds to the family of graph where the longest acyclic path is bounded.
+Here is an example state for our running example:
+</p>
+<img class="displayed" width="800px" src="resources/configuration.svg" alt="sample configuration">
+</div>
+
+<div class="slide">
+<img class="fleft" width="70px" src="resources/code.svg" alt="code">
+<p>
+The transitions are <em>graph rewriting rules</em>:
+</p>
+<img class="displayed" width="600px" src="tests/rewriting_simple.svg" alt="applying a rewrite rule">
+</div>
+
+
+<div class="slide">
+<img class="fleft" width="70px" src="resources/leq.svg" alt="ordering">
+<p>
+The ordering is <em>subgraph isomorphism</em>.
+This is a wqo only on families of graphs where the tree-depth is bounded.
+Also we assume that there is a finite  number of labels.
+</p>
+<img class="displayed" src="resources/ordering.svg" alt="subgraph example"/>
+</div>
+
+<div class="slide">
+<img class="fleft" width="70px" src="resources/information.svg" alt="property">
+<p>
+The <em>covering problem</em>: can the system reach a configuration which is greater (or equal) to the target.
+</p>
+<img class="displayed" src="resources/covering.svg" alt="covering problem">
+</div>
+</div><!-- slide -->
+
+
+
+
+<div class="slide">
+<ul>
+    <li>motivation + running example</li>
+    <li>preliminaries</li>
+    <li><em>part 1: domains of limits</em></li>
+    <li>part 2: ideal abstraction</li>
+    <li>part 3: analysis on top of the covering set</li>
+    <li>part 4: implementation and experiments</li>
+    <li>conclusion</li>
+</ul>
+</div><!-- slide -->
+
+<div class="slide">
+<h2>Toward a forward analysis of DBS:<br/> <em>domain of limits</em></h2>
+
+<p>Approach to the covering problem: saturation-based forward exploration</p>
+<div class="centered">
+<iframe width="530px" height="400px" scrolling="no" src="tests/forward.svg">
+</iframe>
+</div>
+<p>The goal is to compute the <em>covering set</em> <math><mstyle mathvariant="italic"><mi>C</mi></mstyle></math>, i.e. the downward-closure of the reachable states.
+<math><mstyle mathvariant="italic"><mi>C</mi></mstyle></math> is an inductive invariant
+(<math><mstyle mathvariant="italic"><mi>post</mi></mstyle><mo maxsize="1">(</mo><mstyle mathvariant="italic"><mi>C</mi></mstyle><mo maxsize="1">)</mo><mo>⊆</mo><mstyle mathvariant="italic"><mi>C</mi></mstyle></math>
+and <math><mstyle mathvariant="italic"><mi>init</mi></mstyle><mo>⊆</mo><mstyle mathvariant="italic"><mi>C</mi></mstyle></math> ).
+</p>
+
+<p>
+<em>Problem</em>: how do we represent <math><mstyle mathvariant="italic"><mi>C</mi></mstyle></math> ? (it can be infinite)
+</p>
+
+</div><!-- slide -->
+
+<!--
+<div class="centered">
+<math title="\displaystyle{ \mu X. \downarrow \mathit{post}(X) \cup \downarrow\mathit{init} }"><mstyle displaystyle="true"><mrow><mi>μ</mi><mi>X</mi><mo>.</mo><mo>↓</mo><mstyle mathvariant="italic"><mi>post</mi></mstyle><mo maxsize="1">(</mo><mi>X</mi><mo maxsize="1">)</mo><mo>∪</mo><mo>↓</mo><mstyle mathvariant="italic"><mi>init</mi></mstyle></mrow></mstyle></math>
+</div>
+<p>
+<ul>
+    <li>closed under <math><mstyle mathvariant="italic"><mi>post</mi></mstyle></math>, i.e. 
+    </li>
+    <li>contains the set of initial states, i.e.
+    </li>
+</ul>
+</p>
+<p>
+With <math><mstyle mathvariant="italic"><mi>C</mi></mstyle></math> we can solve the covering problem: 
+<math><mstyle mathvariant="italic"><mi>error</mi></mstyle><mo>∈</mo><mstyle mathvariant="italic"><mi>C</mi></mstyle></math>
+</p>
+-->
+
+<div class="slide">
+<h3>Representing the covering set</h3>
+
+<div class="centered">
+<p>An ideal</p>
+<iframe width="800px" height="600px" src="tests/ideal.svg">
+</iframe>
+</div>
+
+</div><!-- slide -->
+<div class="slide">
+<p>
+The covering set has special properties: wqo space, downward-closed.</br>
+It can be represented by a finite union of ideal.
+</p>
+<p>
+Since [<a href="#c11">Karp and Miller 69</a>] these kind of sets have been represented using some notion of limits.
+However, general formalizations of the concept came much later:
+<ul>
+  <li>adequate domain of limits (axiomatisation) [<a href="#c12">Geeraerts et al. 06</a>]</li>
+  <li>noetherian/sober space (topology) [<a href="#c13">Goubault-Larrecq 07</a>]</li>
+  <li>ideal completion (order theory) [<a href="#c14">Finkel and Goubault-Larrecq 09</a>]</li>
+</ul>
+</p>
+
+</div><!-- slide -->
+
+<div class="slide">
+<h3>Limit configurations</h3>
+
+<p>We represent limits by <em>nested graphs</em>.<br/>
+   The subgraphs marked by dashed-blue boxes represent an unbounded number of copies of that subgraph.<br/>
+   We can obtain normal graphs from nested graphs by unfolding.
+</p>
+
+<img class="displayed" src="resources/limit.svg" alt="limit configuration">
+</div><!-- slide -->
+
+<div class="centered slide">
+<p>Transition applied to limit configuration</p>
+<iframe width="800px" height="600px" src="tests/rewriting.svg">
+</iframe>
+</div><!-- slide -->
+
+
+<div class="slide">
+<h3>Results [<a href="#c08">Wies, Zufferey, and Henzinger 10</a>]</h3>
+
+<p>Theorem: <em>Limit configurations are the denotation of the ideals of depth-bounded systems.</em></p>
+
+<p>ingredient of the proof:
+<ul>
+<li>'!' in π-calculus,</li>
+<li>tree closure of graph,</li>
+<li>theorems about tree embeddings,</li>
+<li>hedge automaton for unranked trees,</li>
+<li>etc.</li>
+</ul>
+</p>
+</div><!-- slide -->
+
+
+
+
+<div class="slide">
+<ul>
+    <li>motivation + running example</li>
+    <li>preliminaries</li>
+    <li>part 1: domains of limits</li>
+    <li><em>part 2: ideal abstraction</em></li>
+    <li>part 3: analysis on top of the covering set</li>
+    <li>part 4: implementation and experiments</li>
+    <li>conclusion</li>
+</ul>
+</div><!-- slide -->
+
+<div class="slide">
+<h2>Bridging the gap between theory and practice:<br/> <em>ideal abstraction</em></h2>
+
+<p>
+In [<a href="#c09">Zufferey, Wies, and Henzinger 12</a>], we define an abstract interpretation framework [<a href="#c24">Cousot and Cousot 77</a>] for the analysis of WSTS.<br/>
+Try to capture the essence of acceleration with a set-widening operator.<br/>
+Instantiate the framework for:
+</p>
+<ul>
+    <li>Petri nets + monotonic extensions</li>
+    <li>Lossy channel systems</li>
+    <li>Depth-bounded systems</li>
+</ul>
+</div><!-- slide -->
+
+<div class="slide">
+<div class="centered">
+<p>Acceleration does not terminates.</p>
+<iframe width="800px" height="600px" src="tests/diverging.svg">
+</iframe>
+</div>
+</div><!-- slide -->
+
+<div class="centered slide">
+<iframe width="800px" height="600px" src="tests/widening_sequence.svg">
+</iframe>
+</div><!-- slide -->
+
+<div class="slide">
+<h3>Covering set for our running example</h3>
+<img class="displayed" width="900px" src="resources/cover/cover.svg" alt="cover">
+</div><!-- slide -->
+
+
+<div class="slide">
+<ul>
+    <li>motivation + running example</li>
+    <li>preliminaries</li>
+    <li>part 1: domains of limits</li>
+    <li>part 2: ideal abstraction</li>
+    <li><em>part 3: analysis on top of the covering set</em></li>
+    <li>part 4: implementation and experiments</li>
+    <li>conclusion</li>
+</ul>
+</div><!-- slide -->
+
+<div class="slide">
+<h2>Further analysis on top of the covering set</h2>
+
+<h3>Basic idea: cover + one step</h3>
+<img class="displayed" width="800px" src="resources/cover/tg.svg" alt="cover + post">
+</div><!-- slide -->
+
+<div class="slide">
+<h3>Structural counter abstraction</h3>
+
+<p>The automaton above is a very coarse overapproximation of the original system.
+To recover some precision we add counters that keep track of how many copies of a nested node there are.
+</p>
+<img class="displayed" src="resources/counters.svg" alt="counters">
+</div><!-- slide -->
+
+<div class="slide">
+<div class="centered">
+<p>Extracting constraints from a transition</p>
+<iframe width="800px" height="600px" src="tests/constraints.svg">
+</iframe>
+</div>
+
+<p>Results: In [<a href="#c10">Bansal, Koskinen, Wies, and Zufferey 13</a>] we apply the structural counters abstraction to  prove termination of DBS.</p>
+
+<p>Using the same idea we are working on DPI.</p>
+
+<p></p furhter work on DPI>
+</div><!-- slide -->
+
+<div class="slide">
+<ul>
+    <li>motivation + running example</li>
+    <li>preliminaries</li>
+    <li>part 1: domains of limits</li>
+    <li>part 2: ideal abstraction</li>
+    <li>part 3: analysis on top of the covering set</li>
+    <li><em>part 4: implementation and experiments</em></li>
+    <li>conclusion</li>
+</ul>
+</div><!-- slide -->
+
+<div class="slide">
+<h2>Implementation: <em>Picasso</em></h2>
+
+<a href="http://pub.ist.ac.at/~zufferey/picasso/">http://pub.ist.ac.at/~zufferey/picasso/</a>
+
+<div class="smaller">
+
+<p><strong>input:</strong> a DBS either as a graph rewriting system or written in a simple actor language.</p>
+
+<p><strong>output:</strong> the covering set, optionally a counter abstraction and proof of termination.</p>
+
+<p><strong>evaluation:</strong> examples coming from distributed systems and later shared memory.</p>
+<ul>
+  <li>Actors: map-reduce (<a href="http://www.artima.com/shop/actors_in_scala">Actors in Scala</a>), chatroom (<a href="http://liftweb.net/">Liftweb framework</a>), round-robin load-balancer (<a href="http://akka.io/">Akka</a>), etc.</li>
+  <li>Shared memory: Treiber's stack [<a href="#c16">Treiber 86</a>], Herlihy/Wing queue [<a href="#c17">Herlihy and Wing 90</a>], Michael/Scott queue [<a href="#c18">Michael and Scott 96</a>], etc.</li>
+</ul>
+
+<p>Detailed results in the thesis and on the tool's web page.</p>
+
+<p>Picasso's output on our <a href="hollwood-report.html">running example</a>.</p>
+
+</div>
+
+</div><!-- slide -->
+
+<div class="slide">
+<h2>Related Work</h2>
+
+<ul class="padded">
+  <li>π-calculus [<a href="#c19">Milner et al 92</a>]</li>
+  <li>WSTS/Petri nets to analyse concurrent program (counter abstraction): too many to cite ...</li>
+  <li>Abstract interpretation for WSTS [<a href="#c22">Ganty et al 06</a>]</li>
+  <li>Termination of lock-free algorithms [<a href="#c21">Gotsman et al 09</a>]</li>
+  <li>Other group working on DBS: analysis or Erlang program [<a href="#c23">D'Osualdo et al 12</a>]</li>
+  <li>etc.</li>
+</ul>
+
+</div><!-- slide -->
+
+<div class="slide">
+<h2>Conclusion</h2>
+
+<ul class="padded">
+  <li>Developed a framework for the analysis of DBS:
+    <ul>
+      <li>Limits for DBS</li>
+      <li>Sound and terminating analysis</li>
+      <li>Structural counter abstraction</li>
+    </ul>
+  </li>
+  <li>Applicable to:</li>
+    <ul>
+      <li>distributed systems (client-server)</li>
+      <li>shared memory (flat collection)</li>
+    </ul>
+  <li>Safety (covering) and liveness (termination)</li>
+  <li>Implementation in Picasso</li>
+</ul>
+
+</div><!-- slide -->
+
+<div class="slide">
+<h2>Bibliography</h2>
+
+<ul class="smallerer">
+  <li><a name="c01"> Carl Hewitt, Peter Bishop, and Richard Steiger. A Universal Modular ACTOR Formalism for Artificial Intelligence. In IJCAI, pages 235–245, 1973.</a></li>
+  <li><a name="c02"> William Clinger. Foundations of Actor Semantics. PhD thesis, MIT CSAIL, 1981.</a></li>
+  <li><a name="c03"> Gul Agha. ACTORS: A Model of Concurrent Computation in Distributed Systems. PhD thesis, MIT CSAIL, 1986.</a></li>
+  <li><a name="c04"> Parosh Aziz Abdulla, Karlis Cerans, Bengt Jonsson, and Yih-Kuen Tsay. General Decidability Theorems for Infinite-State Systems. In LICS, pages 313–321. IEEE, 1996.</a></li>
+  <li><a name="c05"> Alain Finkel and Ph. Schnoebelen. Well-structured transition systems everywhere! Theor. Comput. Sci., 256(1-2):63–92, 2001.</a></li>
+  <li><a name="c06"> Roland Meyer. On Boundedness in Depth in the pi-Calculus. In TCS, volume 273 of IFIP 273, pages 477–489. Springer, 2008.</a></li>
+  <li><a name="c07"> Roland Meyer. A theory of structural stationarity in the pi -calculus. Acta Inf., 46(2):87–137, 2009.</a></li>
+  <li><a name="c08"> Thomas Wies, Damien Zufferey, and Thomas A. Henzinger. Forward Analysis of Depth-Bounded Processes. In FoSSaCS 2010, volume 4349 of LNCS, pages 94–108. Springer, 2010.</a></li>
+  <li><a name="c09"> Damien Zufferey, Thomas Wies, and Thomas A. Henzinger. Ideal Abstractions for Well-Structured Transition Systems. In VMCAI, pages 445–460, 2012.</a></li>
+  <li><a name="c10"> Kshitij Bansal, Eric Koskinen, Thomas Wies, and Damien Zufferey. Structural counter abstraction. In Nir Piterman and Scott A. Smolka, editors, TACAS, volume 7795 of Lecture Notes in Computer Science, pages 62–77. Springer, 2013.</a></li>
+  <li><a name="c11"> Richard M. Karp and Raymond E. Miller. Parallel Program Schemata. J. Comput. Syst. Sci., 3(2):147–195, 1969.</a></li>
+  <li><a name="c12"> Gilles Geeraerts, Jean-Francois Raskin, and Laurent Van Begin. Expand, Enlarge and Check: New algorithms for the coverability problem of WSTS. J. Comput. Syst. Sci., 72(1):180–203, 2006.</a></li>
+  <li><a name="c13"> Jean Goubault-Larrecq. On Noetherian Spaces. In LICS, pages 453–462. IEEE Computer Society, 2007.</a></li>
+  <li><a name="c14"> Alain Finkel and Jean Goubault-Larrecq. Forward Analysis for WSTS, Part I: Completions. In STACS, volume 09001 of Dagstuhl Sem. Proc., pages 433–444, 2009.</a></li>
+  <li><a name="c15"> Alain Finkel and Jean Goubault-Larrecq. Forward Analysis for WSTS, Part II: Complete WSTS. In ICALP (2), pages 188–199, 2009.</a></li>
+  <li><a name="c16"> R.K. Treiber. Systems programming: Coping with parallelism. IBM Incorporated, Thomas J. Watson Research Center, 1986. </a></li>
+  <li><a name="c17"> Maurice Herlihy and Jeannette M. Wing. Linearizability: A Correctness Condition for Concurrent Objects. ACM Trans. Program. Lang. Syst., 12(3):463–492, 1990. </a></li>
+  <li><a name="c18"> Maged M. Michael and Michael L. Scott. Simple, Fast, and Practical Non-Blocking and Blocking Concurrent Queue Algorithms. In PODC, 1996. </a></li>
+  <li><a name="c19"> Robin Milner, Joachim Parrow, and David Walker. A Calculus of Mobile Processes, I. Inf. Comput., 100(1):1–40, 1992.</a></li>
+  <li><a name="c20"> Robin Milner, Joachim Parrow, and David Walker. A Calculus of Mobile Processes, II. Inf. Comput., 100(1):41–77, 1992.</a></li>
+  <li><a name="c21"> Alexey Gotsman, Byron Cook, Matthew J. Parkinson, and Viktor Vafeiadis. Proving that non-blocking algorithms don’t block. In POPL. ACM, 2009.</a></li>
+  <li><a name="c22"> Pierre Ganty, Jean-Francois Raskin, and Laurent Van Begin. A Complete Abstract Interpretation Framework for Coverability Properties of WSTS. In VMCAI, pages 49–64, 2006. </a></li>
+  <li><a name="c23"> Emanuele D’Osualdo, Jonathan Kochems, and Luke Ong. Soter: an automatic safety verifier for Erlang. In Proceedings of the 2nd edition on Programming systems, languages and applications based on actors, agents, and decentralized control abstractions, AGERE! ’12, pages 137–140. ACM, 2012.</a></li>
+  <li><a name="c24"> Patrick Cousot and Radhia Cousot. Abstract interpretation: a unified lattice model for static analysis of programs by construction or approximation of fixpoints. In POPL, pages 238–252, 1977.</a></li>
+<!--
+  <li><a name="c25"> </a></li>
+  <li><a name="c26"> </a></li>
+-->
+</ul>
+</div><!-- slide -->
+
+</div><!-- #main -->
+
+</body>
+
+</html>

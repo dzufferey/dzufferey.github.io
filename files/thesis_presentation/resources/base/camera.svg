@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="201.71875" height="389.71875" id="svg2" version="1.1" inkscape:version="0.47pre4 r22446" sodipodi:docname="camera_icon_estilizado.svg">
+  <defs id="defs4">
+    <linearGradient inkscape:collect="always" id="linearGradient3680">
+      <stop style="stop-color:#babdb6;stop-opacity:1" offset="0" id="stop3682"/>
+      <stop id="stop3692" offset="0.20424372" style="stop-color:#dbded8;stop-opacity:1;"/>
+      <stop id="stop3688" offset="0.44099137" style="stop-color:#d3d7cf;stop-opacity:1"/>
+      <stop style="stop-color:#eeeeec;stop-opacity:1" offset="0.69693315" id="stop3690"/>
+      <stop style="stop-color:#babdb6;stop-opacity:1" offset="1" id="stop3684"/>
+    </linearGradient>
+    <linearGradient inkscape:collect="always" id="linearGradient3658">
+      <stop style="stop-color:#888a85;stop-opacity:1;" offset="0" id="stop3660"/>
+      <stop style="stop-color:#eeeeec;stop-opacity:1" offset="1" id="stop3662"/>
+    </linearGradient>
+    <inkscape:perspective sodipodi:type="inkscape:persp3d" inkscape:vp_x="0 : 526.18109 : 1" inkscape:vp_y="0 : 1000 : 0" inkscape:vp_z="744.09448 : 526.18109 : 1" inkscape:persp3d-origin="372.04724 : 350.78739 : 1" id="perspective10"/>
+    <linearGradient inkscape:collect="always" xlink:href="#linearGradient3658" id="linearGradient3664" x1="483.3075" y1="16.779177" x2="483.3075" y2="66.326904" gradientUnits="userSpaceOnUse"/>
+    <linearGradient inkscape:collect="always" xlink:href="#linearGradient3658" id="linearGradient3668" gradientUnits="userSpaceOnUse" x1="483.3075" y1="16.779177" x2="483.3075" y2="66.326904"/>
+    <linearGradient inkscape:collect="always" xlink:href="#linearGradient3680" id="linearGradient3686" x1="487.19656" y1="24.228922" x2="499.59357" y2="87.50882" gradientUnits="userSpaceOnUse" gradientTransform="translate(-88.388348,30.405592)"/>
+  </defs>
+  <sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="1" inkscape:cx="92.071988" inkscape:cy="212.44886" inkscape:document-units="px" inkscape:current-layer="layer1" showgrid="false" inkscape:window-width="1280" inkscape:window-height="950" inkscape:window-x="0" inkscape:window-y="25" inkscape:window-maximized="1" showguides="true" inkscape:guide-bbox="true"/>
+  <g inkscape:label="Capa 1" inkscape:groupmode="layer" id="layer1" transform="translate(-129.375,-151.8125)">
+    <path style="fill:#000000;fill-opacity:1;stroke:none" d="M 127.21875 0 C 106.61926 0 89.5286 14.990747 86.25 34.65625 L 81.15625 35.625 C 75.166703 25.506696 64.145109 18.71875 51.53125 18.71875 C 32.52473 18.71875 17.125 34.11848 17.125 53.125 C 17.125 69.28642 28.26093 82.83393 43.28125 86.53125 L 43.28125 90.375 L 36.3125 90.375 L 36.28125 90.0625 L 28.03125 87 L 22.25 87 L 31.375 106 L 34.75 105.09375 L 36.625 102.03125 L 43.28125 102.03125 L 43.28125 145 L 54.3125 145 L 53.03125 154.5625 L 26.78125 159.5625 L 21.125 156.625 L 0 160.65625 L 1.46875 172.5 L 22.6875 168.46875 L 27.59375 163.53125 L 56.125 157.375 L 58.15625 145 L 162.875 145 L 162.875 73.5625 L 153.6875 73.5625 C 162.9044 65.942 168.78125 54.42461 168.78125 41.53125 C 168.78125 18.58555 150.16445 0 127.21875 0 z M 91.125 62.09375 C 93.621677 66.472667 96.885904 70.367679 100.75 73.5625 L 79.21875 73.5625 C 81.472977 70.513213 83.222252 67.0783 84.375 63.375 L 91.125 62.09375 z M 150.875 130.5625 C 152.94607 130.5625 154.625 132.24143 154.625 134.3125 C 154.625 136.38357 152.94607 138.0625 150.875 138.0625 C 148.80393 138.0625 147.125 136.38357 147.125 134.3125 C 147.125 132.24143 148.80393 130.5625 150.875 130.5625 z " transform="translate(129.375,151.8125)" id="path2829"/>
+    <rect style="fill:#000000;fill-opacity:1;stroke:none" id="rect2842" width="67.7351" height="14.285714" x="204.30278" y="299.36938"/>
+    <path id="path3749" d="m 256,171.375 c -11.59798,0 -21,9.40202 -21,21 0,11.59798 9.40202,21 21,21 11.59798,0 21,-9.40202 21,-21 0,-11.59798 -9.40202,-21 -21,-21 z m -2.00521,6.19792 c 1.8794,0 3.40886,1.51122 3.40886,3.39062 0,1.8794 -1.52946,3.40886 -3.40886,3.40886 -1.8794,0 -3.40885,-1.52946 -3.40885,-3.40886 0,-1.8794 1.52945,-3.39062 3.40885,-3.39062 z m 10.51823,6.3802 c 1.8794,0 3.40885,1.52946 3.40885,3.40886 0,1.87939 -1.52945,3.40885 -3.40885,3.40885 -1.8794,0 -3.40885,-1.52946 -3.40885,-3.40885 0,-1.8794 1.52945,-3.40886 3.40885,-3.40886 z m -18.55729,2.67969 c 1.8794,0 3.39062,1.52946 3.39062,3.40886 0,1.87939 -1.51122,3.40885 -3.39062,3.40885 -1.8794,0 -3.40886,-1.52946 -3.40886,-3.40885 0,-1.8794 1.52946,-3.40886 3.40886,-3.40886 z m 17.31771,9.29688 c 1.8794,0 3.40885,1.51122 3.40885,3.39062 0,1.8794 -1.52945,3.40886 -3.40885,3.40886 -1.8794,0 -3.40886,-1.52946 -3.40886,-3.40886 0,-1.8794 1.52946,-3.39062 3.40886,-3.39062 z m -12.57813,2.05989 c 1.8794,0 3.40886,1.51123 3.40886,3.39063 0,1.87939 -1.52946,3.40885 -3.40886,3.40885 -1.8794,0 -3.40885,-1.52946 -3.40885,-3.40885 0,-1.8794 1.52945,-3.39063 3.40885,-3.39063 z" style="fill:#ffffff;fill-opacity:1;stroke:none"/>
+    <path style="fill:#ffffff;fill-opacity:1;stroke:none" d="m 181,186.375 c -9.38884,0 -17,7.61116 -17,17 0,9.38884 7.61116,17 17,17 9.38884,0 17,-7.61116 17,-17 0,-9.38884 -7.61116,-17 -17,-17 z m -1.62327,5.01736 c 1.52142,0 2.75956,1.22337 2.75956,2.74479 0,1.52142 -1.23814,2.75955 -2.75956,2.75955 -1.52141,0 -2.75954,-1.23813 -2.75954,-2.75955 0,-1.52142 1.23813,-2.74479 2.75954,-2.74479 z m 8.51476,5.16493 c 1.52142,0 2.75955,1.23813 2.75955,2.75955 0,1.52141 -1.23813,2.75955 -2.75955,2.75955 -1.52142,0 -2.75954,-1.23814 -2.75954,-2.75955 0,-1.52142 1.23812,-2.75955 2.75954,-2.75955 z m -15.02257,2.16927 c 1.52142,0 2.74479,1.23813 2.74479,2.75955 0,1.52141 -1.22337,2.75955 -2.74479,2.75955 -1.52141,0 -2.75955,-1.23814 -2.75955,-2.75955 0,-1.52142 1.23814,-2.75955 2.75955,-2.75955 z m 14.0191,7.52605 c 1.52142,0 2.75955,1.22336 2.75955,2.74478 0,1.52142 -1.23813,2.75956 -2.75955,2.75956 -1.52142,0 -2.75955,-1.23814 -2.75955,-2.75956 0,-1.52142 1.23813,-2.74478 2.75955,-2.74478 z m -10.18229,1.66753 c 1.52142,0 2.75955,1.22337 2.75955,2.74479 0,1.52141 -1.23813,2.75955 -2.75955,2.75955 -1.52142,0 -2.75955,-1.23814 -2.75955,-2.75955 0,-1.52142 1.23813,-2.74479 2.75955,-2.74479 z" id="path3751"/>
+    <path style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:6.36032486;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans" d="m 220.90625,313.65625 14.15625,227.875 6.34375,-0.0312 11.78125,-227.84375 -6.40625,0 -8.84375,171.625 -10.625,-171.625 -6.40625,0 z" id="path3772"/>
+    <path style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:5.35809183;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans" d="M 248.21875,313.65625 307,530.09375 l 0.0312,0.15625 0.0625,0.1875 5.1875,-1.25 -0.0312,-0.15625 -43.4375,-215.375 -5.4375,0 27.65625,137.3125 -37.28125,-137.3125 -5.53125,0 z" id="path3774"/>
+    <path style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:5.35809183;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans" d="m 207.96875,313.65625 -42.875,212.6875 -0.0312,0.15625 5.1875,1.25 0.0625,-0.1875 0.0312,-0.15625 58.09375,-213.75 -5.5625,0 -36.5625,134.625 27.125,-134.625 -5.46875,0 z" id="path3776"/>
+    <rect style="fill:#000000;fill-opacity:1;stroke:none" id="rect3778" width="19.488859" height="8.9948578" x="229.20436" y="397.00275"/>
+    <rect y="396.2532" x="187.97794" height="8.9948578" width="19.488859" id="rect3780" style="fill:#000000;fill-opacity:1;stroke:none"/>
+    <rect style="fill:#000000;fill-opacity:1;stroke:none" id="rect3782" width="19.488859" height="8.9948578" x="270.66217" y="396.2532"/>
+    <path style="fill:#000000;fill-opacity:1;stroke:none" d="M 331.09375,220.96875 310,233.75 l -16.5,0 0,31.84375 16.5,0 21.09375,12.78125 0,-57.40625 z" id="rect3789"/>
+  </g>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Open Clip Art Library</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>camera</dc:title>
+        <dc:date>2010-02-28T20:58:53</dc:date>
+        <dc:description>iconic representation of a old camera.</dc:description>
+        <dc:source>http://openclipart.org/detail/29659/camera-by-rg1024</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>rg1024</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>camera</rdf:li>
+            <rdf:li>cinema</rdf:li>
+            <rdf:li>clip art</rdf:li>
+            <rdf:li>clipart</rdf:li>
+            <rdf:li>film</rdf:li>
+            <rdf:li>icon</rdf:li>
+            <rdf:li>movie</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

@@ -91,8 +91,31 @@
       </p>
       <p>
       <strong>E-Mail</strong><br>
-      zufferey<em> funny_at </em>mpi-sws.org<br>
-      <!--rilaak<em> funny_at </em>gmail.com<br> -->
+      <script type="text/javascript" language="javascript">
+      <!--
+      // Email obfuscator script 2.1 by Tim Williams, University of Arizona
+      // Random encryption key feature coded by Andrew Moulden
+      // This code is freeware provided these four comment lines remain intact
+      // A wizard to generate this code is at http://www.jottings.com/obfuscator/
+      { c = "RtzzU1UM@urm-AdA.b1V"
+        k = "yuBRsUlXwNGvhTr7cD45MtIiAfkEdoPaLF1n6CWQg0YmZz2e8bjHJK3Opqx9VS"
+        s=c.length
+        l=""
+        for (i=0; i<c.length; i++) {
+            if (k.indexOf(c.charAt(i))==-1) {
+                t = c.charAt(i)
+                l += (t)
+            } else {
+                t = (k.indexOf(c.charAt(i))-s+k.length) % k.length
+                l += (k.charAt(t))
+            }
+        }
+        document.write("<a href='mailto:"+l+"'>"+l+"</a>")
+      }
+      //-->
+      </script><noscript>
+      <img src="files/email.svg" alt="email" width="50%" class="img-responsive">
+      </noscript>
       </p>
     </div>
   </div>
@@ -174,6 +197,9 @@
     <div id="prof-pc" class="tab-pane fade in active">
       <p></p>
       <ul>
+        <li><a href="http://cavconference.org/2017/">CAV 2017</a>, 29th International Conference on Computer-Aided Verification.</li>
+        <li><a href="http://memocode.irisa.fr/2017">MEMOCODE 2017</a>, 15th International Conference on Formal Methods and Models for System Design.</li>
+        <li><a href="https://www.react.uni-saarland.de/synt2017/">SYNT 2017</a>, 6th Workshop on Synthesis.</li>
         <li><a href="http://smt-workshop.cs.uiowa.edu/2016/">SMT 2016</a>, 14th International Workshop on Satisfiability Modulo Theories.</li>
         <li><a href="http://gandalf2016.dmi.unict.it/">GANDALF 2016</a>, 7th International Symposium on Games, Automata, Logics and Formal Verification.</li>
         <li><a href="http://formal.epfl.ch/synt/2016/">SYNT 2016</a>, 5th Workshop on Synthesis.</li>
@@ -185,6 +211,7 @@
     <div id="prof-rev" class="tab-pane fade">
       <p></p>
       <ul>
+        <!--li><a href="#">LMCS</a></li-->
         <li><a href="http://conf.researchr.org/home/POPL-2017">POPL 2017</a>, member of the External Research Committee</li>
         <li><a href="http://www.uc.pt/en/congressos/ijcar2016">IJCAR 2016</a></li>
         <li><a href="http://www.etaps.org/index.php/2016/fossacs">FoSSaCS 2016</a></li>

@@ -1,7 +1,58 @@
 [
   {
+    "abstract": "In event-driven programming frameworks, such as Android, the client and the framework interact using callins (framework methods that the client invokes) and callbacks (client methods that the framework invokes). The protocols for interacting with these frameworks can often be described by finite-state machines we dub <em>asynchronous typestates</em>. Asynchronous typestates are akin to classical typestates, with the key difference that their outputs (callbacks) are produced asynchronously.\nWe present an algorithm to infer asynchronous typestates for Android framework classes. It is based on the L* algorithm that uses membership and equivalence queries. We show how to implement these queries for Android classes. Membership queries are implemented using testing. Under realistic assumptions, equivalence queries can be implemented using membership queries. We provide an improved algorithm for equivalence queries that is better suited for our application than the algorithms from literature. Instead of using a bound on the size of the typestate to be learned, our algorithm uses a <em>distinguisher bound</em>. The distinguisher bound quantifies how two states in the typestate are locally different.\nWe implement our approach and evaluate it empirically. We use our tool, Starling, to learn asynchronous typestates for Android classes both for cases where one is already provided by the documentation, and for cases where the documentation is unclear. The results show that Starling learns asynchronous typestates accurately and efficiently. Additionally, in several cases, the synthesized asynchronous typestates uncovered surprising and undocumented behaviors.",
+    "author": [
+      {
+        "family": "Radhakrishna",
+        "given": "Arjun"
+      },
+      {
+        "family": "Lewchenko",
+        "given": "Nicholas"
+      },
+      {
+        "family": "Meier",
+        "given": "Shawn"
+      },
+      {
+        "family": "Mover",
+        "given": "Sergio"
+      },
+      {
+        "family": "Sripada",
+        "given": "Krishna Chaitanya"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      },
+      {
+        "family": "Chang",
+        "given": "Bor-Yuh Evan"
+      },
+      {
+        "family": "Černý",
+        "given": "Pavol"
+      }
+    ],
+    "id": "android_learning_techrep",
+    "issued": {
+      "date-parts": [
+        [
+          2017
+        ]
+      ]
+    },
+    "keyword": "techrep",
+    "link-paper": "https://arxiv.org/pdf/1701.07842",
+    "number": "1701.07842",
+    "publisher": "arXiv",
+    "title": "Learning Asynchronous Typestates for Android Classes",
+    "type": "report"
+  },
+  {
     "tag": "recent",
-    "abstract": "We develop algorithms for computing Craig interpolants for first-order formulas over real numbers with a wide range of nonlinear functions, including transcendental functions and differential equations. We transform proof traces from Î´-complete decision procedures into interpolants that consist of Boolean combinations of linear constraints. The algorithms are guaranteed to find the interpolants between two formulas A and B whenever A âˆ§ B is not Î´-satisfiable. At the same time, by exploiting Î´-perturbations one can parameterize the algorithm to find interpolants with different positions between A and B. We show applications of the methods in control and robotic design, and hybrid system verification.",
+    "abstract": "We develop algorithms for computing Craig interpolants for first-order formulas over real numbers with a wide range of nonlinear functions, including transcendental functions and differential equations. We transform proof traces from δ-complete decision procedures into interpolants that consist of Boolean combinations of linear constraints. The algorithms are guaranteed to find the interpolants between two formulas A and B whenever A ∧ B is not δ-satisfiable. At the same time, by exploiting δ-perturbations one can parameterize the algorithm to find interpolants with different positions between A and B. We show applications of the methods in control and robotic design, and hybrid system verification.",
     "author": [
       {
         "family": "Gao",

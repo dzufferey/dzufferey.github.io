@@ -799,7 +799,7 @@
     },
     "keyword": "conf",
     "link-paper": "files/2010_Forward_Analysis_of_Depth-Bounded_Processes.pdf",
-    "link-paper": "files/FoSSaCS10-DepthBounded_processes_slides.pdf",
+    "link-slides": "files/FoSSaCS10-DepthBounded_processes_slides.pdf",
     "page": "94-108",
     "publisher": "Springer",
     "title": "Forward Analysis of Depth-bounded Processes",

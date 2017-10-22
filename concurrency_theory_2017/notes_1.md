@@ -7,11 +7,18 @@
 
 Words finishing with 1 over the alphabet {0,1}.
 
+```
 → (a)
 (a)   −0→ (a)
 (a)   −1→ ((b))
 ((b)) −1→ ((b))
 ((b)) −0→ (a)
+```
+
+_Notation._
+* `(a)` is the state `a`.
+* `((.))` is an accepting state.
+* `−0→` is a transition with label `0`.
 
 #### DFA
 
@@ -34,6 +41,7 @@ The automaton `M` accepts `w` if there is a sequence of states, `r₀ r₁ … r
 
 Word with 1 as the 3rd symbol before the end
 
+```
 → (a)
 (a) −0→ (a)
 (a) −1→ (b)
@@ -41,6 +49,7 @@ Word with 1 as the 3rd symbol before the end
 (b) −1→ (c)
 (c) −0→ ((d))
 (c) −1→ ((d))
+```
 
 #### NFA
 
@@ -91,9 +100,9 @@ Emptiness and universality are solved by minimizing the automaton.
 
 Given automaton `M₁` and `M₂`, the synchronized product `M₁ ⊗ M₂` is the automaton `M` where:
 
-* `Q = Q₁ × Q₂` 
+* `Q = Q₁ × Q₂`
 * `Σ = Σ₁ ∪ Σ₂`
-* `δ` is the transition function 
+* `δ` is the transition function
   - `δ((q₁,q₂), a) = (δ₁(q₁, a), δ₂(q₂, a))` if `a ∈ Σ₁` and `a ∈ Σ₂`
   - `δ((q₁,q₂), a) = (q₁, δ₂(q₂, a))` if `a ∉ Σ₁` and `a ∈ Σ₂`
   - `δ((q₁,q₂), a) = (δ₁(q₁, a), q₂))` if `a ∈ Σ₁` and `a ∉ Σ₂`
@@ -107,9 +116,11 @@ Here the accepting states describe executions allowed by the program/lock.
 
 **NFA representing a lock**
 
+```
 → ((u))
 ((u)) −lock→ ((l))
 ((l)) −unlock→ ((u))
+```
 
 **Program using a lock**
 ```
@@ -124,24 +135,23 @@ void increase(int x) {
 
 **Control-flow automaton (CFA)**
 
+```
 → ((0))
 ((0)) −lock→ ((1))
 ((1)) −balance += x→ ((2))
 ((2)) −unlock→ ((3))
-
+```
 
 **Synchronized Product**
 
+```
 → ((0,u))
 ((0,u)) −lock→ ((1,l))
 ((1,l)) −balance += x→ ((2,l))
 ((2,l)) −unlock→ ((3,u))
+```
 
-extra unneeded states
-((0,l)) 
-((1,u)) 
-((2,u)) 
-((3,l)) 
+extra unneeded states: `((0,l))`, `((1,u))`, `((2,u))`, `((3,l))`
 
 
 
@@ -151,10 +161,10 @@ _Assuming no ε-transitions_
 
 Given a NFA `N` we construct a DFA `D` with:
 
-* `Q_D = 2^{Q_N}` 
+* `Q_D = 2^{Q_N}`
 * `Σ_D = Σ_N`
 * `δ_D(q_D, a) = { q′ | ∃ q ∈ q_D. δ_N(q, a) = q′ }`
-* `q₀_D = { q₀_N }` 
+* `q₀_D = { q₀_N }`
 * `F_D = { q | q ∩ F_N ≠ ∅ }`
 
 __Theorem.__ `L(N) = L(D)`
@@ -174,7 +184,7 @@ In two steps:
     + by induction hypothesis: `r_i ∈ r_i_D`
     + by definition of `t_N` and `δ_D`: `r_{i+1} ∈ δ_N(r_i, a_i)` and, therefore, `r_{i+1} ∈ r_{i+1}_D`.
 * By hypothesis, the last state of `t_N`: `q_n ∈ F_N`.
-  By the above, we have `q_n ∈ q_n_D`. 
+  By the above, we have `q_n ∈ q_n_D`.
   Therefore, `q_n_D ∩ F_N ≠ ∅`.
   Thus, `t_D` is accepting.
 
@@ -216,7 +226,7 @@ As automata construction:
 Using the lock+program above, we can check that the program uses the lock correctly.
 
 First, we complement the lock:
-
+```
 → (u)
 (u) −lock→ (l)
 (l) −unlock→ (u)
@@ -224,14 +234,14 @@ First, we complement the lock:
 (l) −lock→ ((err))
 ((err)) −lock→ ((err))
 ((err)) −unlock→ ((err))
-
+```
 Then take the product (only reachable states shown):
-
+```
 → (0,u)
 (0,u) −lock→ (1,l)
 (1,l) −balance += x→ (2,l)
 (2,l) −unlock→ (3,u)
-
+```
 The automaton is empty.
 No accepting state is reachable and, therefore, the program is safe.
 
@@ -266,16 +276,21 @@ Variations:
 _Remark._
 We can encode datatypes as automaton:
 * boolean value `b`
+    ```
     → (f)
     (f) −b = true→ (t)
     (f) −b = false→ (f)
     (t) −b = true→ (t)
     (t) −b = false→ (f)
+    ```
 * integer `i`
+    ```
     → (0)
     (0) −i += 1→ (1)
     (0) −i -= 1→ (-1)
     …
+    ```
+
 However, this is very expensive.
 Programs are exponentially more succinct than automaton.
 

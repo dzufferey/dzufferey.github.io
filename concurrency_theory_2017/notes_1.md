@@ -44,6 +44,7 @@ Word with 1 as the 3rd symbol before the end
 ```
 → (a)
 (a) −0→ (a)
+(a) −1→ (a)
 (a) −1→ (b)
 (b) −0→ (c)
 (b) −1→ (c)

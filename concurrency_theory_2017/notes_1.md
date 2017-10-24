@@ -152,7 +152,8 @@ void increase(int x) {
 ((2,l)) −unlock→ ((3,u))
 ```
 
-extra unneeded states: `((0,l))`, `((1,u))`, `((2,u))`, `((3,l))`
+This is the _lazy_ construction that only constructs state if needed.
+The full construction would generate extra states: `((0,l))`, `((1,u))`, `((2,u))`, `((3,l))`.
 
 
 
@@ -191,6 +192,47 @@ In two steps:
 
 (2) As homework …
 
+##### Example of Determinization
+
+Let the following NFA:
+```
+→ (1)
+ (1)  −s→ (2),(4)
+ (1)  −d→ (5)
+ (2)  −s→ (4),((6))
+ (2)  −d→ (1),(3),(5)
+ (3)  −s→ (2),((6))
+ (3)  −d→ (5)
+ (4)  −s→ (2)
+ (4)  −d→ (1),(5)
+ (5)  −s→ (2),(4),((6))
+ (5)  −d→ (1),(3)
+((6)) −s→ (3),(5)
+((6)) −d→ (2)
+```
+It represents the grid:
+```
+1 2 3
+4 5 6
+```
+where it is possible to more `s`traight or `d`iagonally.
+
+Determinizing it gives:
+```
+→ ({1})
+ ({1})     −s→ ({2,4})
+ ({1})     −d→ ({5})
+ ({2,4})   −s→ ({1,3,5})
+ ({2,4})   −d→ (({2,4,6}))
+ ({5})     −s→ (({2,4,6}))
+ ({5})     −d→ ({1,3})
+ ({1,3})   −s→ (({2,4,6}))
+ ({1,3})   −d→ ({5})
+ ({1,3,5}) −s→ (({2,4,6}))
+ ({1,3,5}) −d→ ({1,3,5})
+(({2,4,6}) −s→ ({1,3,5})
+(({2,4,6}))−d→ (({2,4,6}))
+```
 
 ## Verifying Properties
 
@@ -274,8 +316,9 @@ Variations:
 * using a stack for F makes a DFS
 * this is a forward search, it can also do a backward search
 
-_Remark._
-We can encode datatypes as automaton:
+#### Encoding data as automaton
+
+We can encode _bounded_ datatypes as finite automaton:
 * boolean value `b`
     ```
     → (f)
@@ -298,26 +341,207 @@ Programs are exponentially more succinct than automaton.
 
 ### The Spin Model-Checker
 
-http://spinroot.com/spin/whatispin.html
+You can download spin at: http://spinroot.com/
+
+To run spin, I recommend using the following script: https://github.com/tcruys/runspin
 
 #### Promela
 
-http://spinroot.com/spin/Man/Manual.html
+You can find more explanation in the [manual](http://spinroot.com/spin/Man/Manual.html) or even [Wikipedia](https://en.wikipedia.org/wiki/Promela).
 
-#### Running Spin
+The input language for Spin is _Promela_ (Process/Protocol Meta Language).
 
-https://github.com/tcruys/runspin
+_Primitive Types:_
+* `bool`
+* `byte` (unsigned: 0 to 255)
+* `short` (16-bits signed integer)
+* `int` (32-bits signed integer)
+
+It is possible to have arrays.
+`bool ready[2] = false;` is an array of size 2 containing boolean values that are initialized to false.
+
+_Statements:_
+* assignments: `x = 1;`
+* test: `x == 1;` (also `!=`, `<`, `>`, `<=`, `>=`)
+* `(condition -> valueTrue : valueFalse)`
+* if-blocks
+    ```
+    if
+    :: condition_1 -> body_1
+    :: condition_2 -> body_2
+    ...
+    :: condition_n -> body_n
+    :: else -> ...
+    fi;
+    ```
+    If multiple alternatives are enabled, spin will explore all of them.
+    `else` is optional.
+    `else` is enabled only if no other condition is enabled.
+* do-loops
+    ```
+    do
+    :: condition_1 -> body_1
+    :: condition_2 -> body_2
+    ...
+    :: condition_n -> body_n
+    :: else -> ...
+    od;
+    ```
+    Like `if` in a `while(true)`.
+    The `break` statement is the only way to exit a loop.
+* assertions: `assert(condition);`
+* atomic blocs:
+    ```
+    atomic {
+        ...
+    }
+    ```
+    executes all the statement in the block as a single step (no interleaving).
+* `printf` as in C.
+* `skip` doesn't do anything.
+
+`;` and `->` are separators.
+In particular, `;` is not needed after the last statement.
+
+Tests are normal statement that executes only when they are true and block otherwise.
+`x != 0` simulates `while (x == 0) {}`.
+
+Each statement executes atomically;
+
+_Processes:_
+* processes
+  ```
+  proctype name(args){
+      ...
+  }
+  ```
+  Processes are started with `run name(values)`.
+
+  Alternatively it is possible to mark processes as active:
+  ```
+  active [2] proctype client(){
+      ...
+  }
+  ```
+  `[2]` is an optional parameter that starts 2 processes.
+
+  The `_pid` variable is a special integer variable which as unique for each process.
+* `init { ... }` block is like the `main` in C but without arguments.
+  If there are active processes, `init` is not needed.
+
+##### Examples
+
+```
+byte b = 0;
+init{
+    do
+    :: b < 128 -> b = b + 1
+    :: else -> break
+    od
+}
+```
+
+```
+byte b = 0;
+init{
+    do
+    :: b < 128 -> b = b + 1
+    od
+}
+```
+
+```
+byte b = 0;
+init{
+    do
+    :: b < 128 ->
+       b = b + 1;
+       printf("%d\n", b)
+    od
+}
+```
+
+```
+byte b = 0;
+init{
+    do
+    :: b = b + 1
+    od
+}
+```
+
+```
+init{
+    if
+    :: true -> skip
+    :: else -> assert(false)
+    fi
+}
+```
+
+```
+init{
+    if
+    :: true -> skip
+    :: true -> assert(false)
+    fi
+}
+```
+
+_Peterson's algorithm_
 
 
-### Symmetry Reduction
+```
+bool flag0;
+bool flag1;
+bool turn;
+byte mutex;
 
-We will see if enough time during the 2nd lecture…
+active proctype P0() {
+    do
+    ::  flag0=true;
+        turn=0;
+        !flag1 || (turn == 1);
+        mutex++;
+        /* critical section */
+        assert(mutex == 1);
+        mutex--;
+        flag0=false;
+    od;
+}
 
 
-# Homework
+active proctype P1() {
+    do
+    ::  flag1=true;
+        turn=1;
+        !flag0 || (turn == 0);
+        mutex++;
+        /* critical section */
+        assert(mutex == 1);
+        mutex--;
+        flag1=false;
+    od;
+}
+```
 
-1. Determinize the "1 as the 3rd symbol before the end" NFA
-2. 2nd step of the proof of correctness of the determinization
-3. Generalize the "lock + program" example to more programs
-4. Encode the dining philosopher in Spin (4 philosophers). Show it has a deadlock. What happens to the running time when you increase the number of philosophers?
-5. Encode <a href="https://en.wikipedia.org/wiki/Lamport%27s_bakery_algorithm">Lamport's backery algorithm</a> in Spin. Can you prove it safe? (be sure the search depth is enough.)
+```
+bool flag[2];
+bool turn;
+byte mutex;
+
+active [2] proctype P()
+{
+    do
+    ::  flag[_pid] = true;
+        turn = _pid;
+        !flag[1-_pid] || turn == 1-_pid;
+        mutex++;
+        /* critical section */
+        assert(mutex == 1);
+        mutex--;
+        flag[_pid] = false
+    od;
+}
+```
+

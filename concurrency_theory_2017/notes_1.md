@@ -304,7 +304,7 @@ while F ≠ ∅  do
     F ← F ∖ {s}
     if s ∉ V then
         V ← V ∪ {s}
-        if ¬safe(d)
+        if ¬safe(s)
             return UNSAFE
         else
             F ← F ∪ δ(s,_)

@@ -8,17 +8,16 @@
 Words finishing with 1 over the alphabet {0,1}.
 
 ```
-→ (a)
-(a)   −0→ (a)
-(a)   −1→ ((b))
-((b)) −1→ ((b))
-((b)) −0→ (a)
+      1
+→ (a) ⇄ ((b))
+   ↺  0   ↺
+   0      1
 ```
 
 _Notation._
 * `(a)` is the state `a`.
 * `((.))` is an accepting state.
-* `−0→` is a transition with label `0`.
+* when the automaton is harder to draw in characters we give it by its edges: `(a) −0→ (b)` is a transition with label from state `a` to state `b` with label `0`.
 
 #### DFA
 
@@ -42,14 +41,10 @@ The automaton `M` accepts `w` if there is a sequence of states, `r₀ r₁ … r
 Word with 1 as the 3rd symbol before the end
 
 ```
-→ (a)
-(a) −0→ (a)
-(a) −1→ (a)
-(a) −1→ (b)
-(b) −0→ (c)
-(b) −1→ (c)
-(c) −0→ ((d))
-(c) −1→ ((d))
+      1     0,1    0,1
+→ (a) → (b)  →  (c) →  ((d))
+   ↺
+   0,1
 ```
 
 #### NFA
@@ -118,9 +113,9 @@ Here the accepting states describe executions allowed by the program/lock.
 **NFA representing a lock**
 
 ```
-→ ((u))
-((u)) −lock→ ((l))
-((l)) −unlock→ ((u))
+       lock
+→ ((u))  ⇄  ((l))
+       unlock
 ```
 
 **Program using a lock**
@@ -138,18 +133,24 @@ void increase(int x) {
 
 ```
 → ((0))
-((0)) −lock→ ((1))
-((1)) −balance += x→ ((2))
-((2)) −unlock→ ((3))
+    ↓ lock
+  ((1))
+    ↓ balance += x
+  ((2))
+    ↓ unlock
+  ((3))
 ```
 
 **Synchronized Product**
 
 ```
 → ((0,u))
-((0,u)) −lock→ ((1,l))
-((1,l)) −balance += x→ ((2,l))
-((2,l)) −unlock→ ((3,u))
+     ↓  lock
+  ((1,l))
+     ↓  balance += x
+  ((2,l))
+     ↓  unlock
+  ((3,u))
 ```
 
 This is the _lazy_ construction that only constructs state if needed.
@@ -197,17 +198,17 @@ In two steps:
 Let the following NFA:
 ```
 → (1)
- (1)  −s→ (2),(4)
+ (1)  −s→ (2), (4)
  (1)  −d→ (5)
- (2)  −s→ (4),((6))
- (2)  −d→ (1),(3),(5)
- (3)  −s→ (2),((6))
+ (2)  −s→ (4), ((6))
+ (2)  −d→ (1), (3), (5)
+ (3)  −s→ (2), ((6))
  (3)  −d→ (5)
  (4)  −s→ (2)
- (4)  −d→ (1),(5)
- (5)  −s→ (2),(4),((6))
- (5)  −d→ (1),(3)
-((6)) −s→ (3),(5)
+ (4)  −d→ (1), (5)
+ (5)  −s→ (2), (4), ((6))
+ (5)  −d→ (1), (3)
+((6)) −s→ (3), (5)
 ((6)) −d→ (2)
 ```
 It represents the grid:
@@ -220,17 +221,17 @@ where it is possible to more `s`traight or `d`iagonally.
 Determinizing it gives:
 ```
 → ({1})
- ({1})     −s→ ({2,4})
- ({1})     −d→ ({5})
- ({2,4})   −s→ ({1,3,5})
+ ({1})     −s→  ({2,4})
+ ({1})     −d→  ({5})
+ ({2,4})   −s→  ({1,3,5})
  ({2,4})   −d→ (({2,4,6}))
  ({5})     −s→ (({2,4,6}))
- ({5})     −d→ ({1,3})
+ ({5})     −d→  ({1,3})
  ({1,3})   −s→ (({2,4,6}))
- ({1,3})   −d→ ({5})
+ ({1,3})   −d→  ({5})
  ({1,3,5}) −s→ (({2,4,6}))
- ({1,3,5}) −d→ ({1,3,5})
-(({2,4,6}) −s→ ({1,3,5})
+ ({1,3,5}) −d→  ({1,3,5})
+(({2,4,6}) −s→  ({1,3,5})
 (({2,4,6}))−d→ (({2,4,6}))
 ```
 
@@ -431,117 +432,24 @@ _Processes:_
 
 ##### Examples
 
-```
-byte b = 0;
-init{
-    do
-    :: b < 128 -> b = b + 1
-    :: else -> break
-    od
-}
-```
+You can find examples of spin programs [here](https://github.com/dzufferey/dzufferey.github.io/tree/master/concurrency_theory_2017/spin_examples).
 
-```
-byte b = 0;
-init{
-    do
-    :: b < 128 -> b = b + 1
-    od
-}
-```
-
-```
-byte b = 0;
-init{
-    do
-    :: b < 128 ->
-       b = b + 1;
-       printf("%d\n", b)
-    od
-}
-```
-
-```
-byte b = 0;
-init{
-    do
-    :: b = b + 1
-    od
-}
-```
-
-```
-init{
-    if
-    :: true -> skip
-    :: else -> assert(false)
-    fi
-}
-```
-
-```
-init{
-    if
-    :: true -> skip
-    :: true -> assert(false)
-    fi
-}
-```
-
-_Peterson's algorithm_
+Here are the particularity of the examples
+* `ex01.pml`: simple while loop. Notice that the number of states explored by Spin is propotional to the sizes of the data.
+* `ex02.pml`: same as 1 but without a way of exiting the loop. Spin report a deadlock as the program get stuck.
+* `ex03.pml`: same as 2 but with printing. It is possible to replay the error trace with `spin -t ex03.pml`.
+* `ex04.pml`: infinite loop. Even though the loop is infinite, the analysis terminates because it has a finite number of states.
+* `ex05.pml`: if statement
+* `ex06.pml`: unsafe if statement. All the enabled branches are explored, not only the first one.
+* `ex07.pml`: more data, more states
+* `ex08.pml`: even more data and even more states. To explore all the state, we need to increase the depth of the search (`-mN` option).
+* `peterson.pml`: an encoding of [Peterson's mutual exclusion protocol](https://en.wikipedia.org/wiki/Peterson%27s_algorithm) in Spin
+* `peterson2.pml`: also Peterson's protocol but a more compact version which uses more advanced features
 
 
-```
-bool flag0;
-bool flag1;
-bool turn;
-byte mutex;
+## Additional References
 
-active proctype P0() {
-    do
-    ::  flag0=true;
-        turn=0;
-        !flag1 || (turn == 1);
-        mutex++;
-        /* critical section */
-        assert(mutex == 1);
-        mutex--;
-        flag0=false;
-    od;
-}
-
-
-active proctype P1() {
-    do
-    ::  flag1=true;
-        turn=1;
-        !flag0 || (turn == 0);
-        mutex++;
-        /* critical section */
-        assert(mutex == 1);
-        mutex--;
-        flag1=false;
-    od;
-}
-```
-
-```
-bool flag[2];
-bool turn;
-byte mutex;
-
-active [2] proctype P()
-{
-    do
-    ::  flag[_pid] = true;
-        turn = _pid;
-        !flag[1-_pid] || turn == 1-_pid;
-        mutex++;
-        /* critical section */
-        assert(mutex == 1);
-        mutex--;
-        flag[_pid] = false
-    od;
-}
-```
-
+If you need a deeper refresher or want to learn more about automata theory.
+I recommend the following two books:
+* Introduction to the Theory of Computation by Michael Sipser
+* Introduction to Automata Theory, Languages, and Computation by John Hopcroft and Jeffrey Ullman

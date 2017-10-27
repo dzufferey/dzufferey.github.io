@@ -63,7 +63,7 @@ and the corresponding CFA:
 ```
 
 Generalize this example with two (or more) increment program while keeping a single lock.
-Make sure your solution preserves the mutual exclusion property of the lock.
+Make sure your solution preserves the mutual exclusion property of the lock (the correct executions are accepted, while the incorrect one are rejected).
 You are allowed to change the automata (states, alphabet, transition, etc.)
 
 

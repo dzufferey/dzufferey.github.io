@@ -429,6 +429,8 @@ _Processes:_
   The `_pid` variable is a special integer variable which as unique for each process.
 * `init { ... }` block is like the `main` in C but without arguments.
   If there are active processes, `init` is not needed.
+  
+* if there are multiple active processes, Spin builds a product automaton and traverses it using a specified strategy (BFS or DFS)
 
 ##### Examples
 

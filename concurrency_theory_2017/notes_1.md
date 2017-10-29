@@ -248,11 +248,11 @@ General classes of temporal properties (LTL, CTL, μ-calculus, weak/strong fairn
 
 #### Example
 
-* Assertion
-* Termination
-* Termination within 15 steps
-* Deadlock-freedom
-* Livelock-freedom
+* Assertion is a safety property.
+* Termination is a liveness property.
+* Termination within 15 steps is a safety property.
+* Deadlock-freedom is a safety property.
+* Livelock-freedom is a liveness property.
 
 
 ## Verification

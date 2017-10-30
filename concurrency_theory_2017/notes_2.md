@@ -1,7 +1,5 @@
 # Petri Nets
 
-Note to self: Start by asking feedback on the homework
-
 You can find more detailed definitions and complete explanations in the [lecture notes by Roland Meyer](https://www.tcs.cs.tu-bs.de/documents/ConcurrencyTheory_WS_20112012/lecture_notes.pdf).
 We cover the following parts:
 * 1.1 Syntax and Semantics
@@ -68,9 +66,7 @@ The example (A) corresponds to:
   - `W(q,t) = 0`
   - `W(t,p) = 0`
   - `W(t,q) = 1`
-* `M₀` is
-  - `M₀(p) = 1`
-  - `M₀(q) = 0`
+* `M₀` is `[p →  1, q → 0]`.
 
 
 ### Petri Net Semantics
@@ -95,9 +91,7 @@ The _reachability graph_ `RG(N)` is the graph where
 
 #### Example
 
-In the example (A), after firing the transition we obtain the new marking `M′`:
-- `M′(p) = 0`
-- `M′(q) = 1`
+In the example (A), after firing the transition we obtain the new marking `M′ = [p → 0, q → 1]`.
 `M′` is a deadlock.
 The reachability graph of (A) has two nodes.
 
@@ -114,7 +108,7 @@ Let look back at the "lock and increment" example from [the first week](notes_1.
     - `W(u, lock) = 1`, `W(0, lock) = 1`, `W(lock, l) = 1`, `W(lock, 1) = 1`,
     - `W(1, balance += x) = 1`, `W(balance += x, 2) = 1`
     - `W(l, unlock) = 1`, `W(2, unlock) = 1`, `W(unlock, u) = 1`, `W(unlock, 3) = 1`,
-    - otherwise 0
+    - otherwise `0`
   * `M₀ = [u → 1, l → 0, 0 → 1, 1 → 0, 2 → 0, 3 → 0]`
 2. We can add more "increment" programs by adding more places and transitions.
   * `S = {u, l, A0, A1, A2, A3, B0, B1, B2, B3}`
@@ -123,7 +117,7 @@ Let look back at the "lock and increment" example from [the first week](notes_1.
     - `W(u, X:lock) = 1`, `W(X0, X:lock) = 1`, `W(X:lock, l) = 1`, `W(X:lock, 1) = 1` for `X ∈ {A,B}`
     - `W(X1, X:balance += x) = 1`, `W(X:balance += x, X2) = 1` for `X ∈ {A,B}`
     - `W(l, X:unlock) = 1`, `W(X2, X:unlock) = 1`, `W(X:unlock, u) = 1`, `W(X:unlock, X:3) = 1` for `X ∈ {A,B}`
-    - otherwise 0
+    - otherwise `0`
   * `M₀ = [u → 1, A0 → 1, B0 → 1, _ → 0]`
 3. Or we can add more "increment" programs by adding more tokens: `M₀(0) = 2` for 2 threads.
 4. We can even add many more threads by adding a transition `spawn` with: `M(spawn, 0) = 1`.
@@ -258,8 +252,6 @@ We can create the following LP program:
                     A∙M ≥ B
 ```
 
-For `M` and `X`, we can use rational which makes the check simpler (polynomial time) but less precise or integer which is more precise and also more expensive (NP).
-
 __Theorem.__
 If the LP system above is infeasible then `N` is safe.
 
@@ -275,3 +267,53 @@ For instance, the Parikh image of `t₁ t₂ t₁` over `{t₁, t₂, t₃}` ret
 By definition of `C`, we have that `M = M₀ + C∙X`.
 The other conditions of the LP are trivial satisfied and, therefore, it is feasible.
 This contradicts our hypothesis.
+
+#### Incompleteness 1: ℕ vs ℚ
+
+For `M` and `X`, we can use rational which makes the check simpler (polynomial time) but less precise or integer which is more precise and also more expensive (NP).
+
+Consider the following Petri Net:
+```
+    2   2
+(:) → | → ( )
+```
+and the property: `M(q) = 1`.
+The LP problem can return `X = [ 0.5 ]` if solving over ℚ.
+
+#### Incompleteness 2: merging forward and backward edges
+
+Consider the following net:
+```
+    1
+( ) ⇄ |
+    2
+```
+It is deadlocked.
+
+However, because the connectivity matrix merges the forward and backward edges, the LP for this net is that same as for the following net:
+```
+( ) ← |
+```
+This net is not in a deadlock.
+
+#### Incompleteness 3: reconstructing the transition sequence
+
+The last source of inaccuracy is the fact that the LP find the Parikh image of a trace.
+To find a real counterexample, we need to turn the transition counts in a sequence of transition.
+This is not always possible.
+In some sense, the LP is not checking if transitions are enabled.
+
+Consider:
+```
+    1   2
+( ) → | → ( )
+    ↖ | ↙
+```
+which gives the matrix:
+```
+⌈ -1  1 ⌉
+⌊  2 -1 ⌋
+```
+Given the objective `M = [0 1]^T`, the LP gives `X = [1 1]^T`.
+However, it is not possible to turn `X` into a trace.
+No transition is enabled.

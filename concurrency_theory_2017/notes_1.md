@@ -166,7 +166,7 @@ Given a NFA `N` we construct a DFA `D` with:
 
 * `Q_D = 2^{Q_N}`
 * `Σ_D = Σ_N`
-* `δ_D(q_D, a) = { q′ | ∃ q ∈ q_D. δ_N(q, a) = q′ }`
+* `δ_D(q_D, a) = { q′ | ∃ q ∈ q_D. q′ ∈ δ_N(q, a) }`
 * `q₀_D = { q₀_N }`
 * `F_D = { q | q ∩ F_N ≠ ∅ }`
 

@@ -40,11 +40,11 @@ If `A` is an NFA then if it has more than one state, all the states are acceptin
 (same for `B`).
 
 * From prefix-closed automaton to safe Petri net:
-  - Give a reduction from `A` to a safe Petri net `(N,T,W,M₀)`.
+  - Give a reduction from `A` to a safe Petri net `(S,T,W,M₀)`.
     The reduction must also give a mapping `m` from the automaton's transitions to the Petri net's transitions such that a word `w ∈ L(A)` iff `∃ M. M₀[m(w)〉M`.
   - Does you construction work in the case of DFA or NFA?
     Does it make a difference?
-  - Given both `A` and `B` extends your construction to return a safe Petri net that corresponds to the synchronized product of `A` and `B`.
+  - Given both `A` and `B` extend your construction to return a safe Petri net that corresponds to the synchronized product of `A` and `B`.
     What is the worst case size of the automaton for the synchronized product of `A` and `B`?
     What is the worst case size of the Petri net corresponding to the synchronized product of `A` and `B`?
 * From safe Petri net to prefix-closed automaton:

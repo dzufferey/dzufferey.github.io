@@ -85,7 +85,7 @@ The firing relation is usually written `M₁ [t〉 M₂`.
 The set of _reachable markings_ is `R(M₁) = { M₂ | ∃ π ∈ T*. M₁ [π〉 M₂ }`.
 We use `R(N)` for `R(M₀)`.
 
-The _reachability graph_ `RG(N)` is the graph where
+The _reachability graph_ `R(N)` is the graph where
 - there is a node for every marking in `R(N)` and
 - the edges is the firing relation restricted to `R(N)`.
 

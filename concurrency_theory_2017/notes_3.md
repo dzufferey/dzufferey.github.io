@@ -22,9 +22,9 @@ An invariant must be preserved by all the transitions in the net.
 
 ### Structural invariants
 
-An invariant is _structural_ iff it is can be be expressed as vector in `I ∈ ℚ^m` and `I^T ∙ C = 0`.
+An invariant is _structural_ iff it is can be be expressed as vector in `I ∈ ℚ^n` and `I^T ∙ C = 0`.
 
-`I` is a vector of coefficients for each place such that the transition `M [〉M′` preserves the number of tokens with `I` as weights: `I^T∙M = I^T∙M′`.
+`I` is a vector of coefficients for each place such that the transition `M [〉 M′` preserves the number of tokens with `I` as weights: `I^T∙M = I^T∙M′`.
 
 #### Example
 
@@ -36,6 +36,11 @@ Let us consider the lock example:
  u  ↖ | ↙  l
    unlock()
 ```
+With
+```
+C = ⌈ -1  1 ⌉
+    ⌊  1 -1 ⌋
+```
 
 `I^T = [1 1]` is a structural invariants.
 For any reachable `M`, we have `M(u) + M(l) = I^T∙M₀ = 1`.
@@ -45,16 +50,12 @@ Let `I` be a structural invariants of `N`.
 For any reachable marking `M ∈ R(M₀)`, `I^T∙M = I^T∙M₀`.
 
 _Proof._
-
-Let `π` be the trace from `M₀` to `M`, i.e., `M₀ [π〉M`.
-We have that `M = M₀ + C∙Parikh(π)`.
-
-Multiplying both sides by `I^T` gives `I^T∙M = I^T∙(M₀ + C∙Parikh(π))`.
-
-Distributing `∙` over `+` gives `I^T∙M = I^T∙M₀ + I^T∙C∙Parikh(π)`.
-
-By definition of `I`, we have `I^T∙C = 0` and, thus, `I^T∙C∙Parikh(π) = 0`.
-This simplifies the equation to `I^T∙M = I^T∙M₀`.
+* Let `π` be the trace from `M₀` to `M`, i.e., `M₀ [π〉M`.
+* We have that `M = M₀ + C∙Parikh(π)`.
+* Multiplying both sides by `I^T` gives `I^T∙M = I^T∙(M₀ + C∙Parikh(π))`.
+* Distributing `∙` over `+` gives `I^T∙M = I^T∙M₀ + I^T∙C∙Parikh(π)`.
+* By definition of `I`, we have `I^T∙C = 0` and, thus, `I^T∙C∙Parikh(π) = 0`.
+* This simplifies the equation to `I^T∙M = I^T∙M₀`.
 
 __Corollary.__
 If `I` is a structural invariant of `N`, `M` a marking of `N`, and `I^T∙M ≠ I^T∙M₀`, then `M` is not reachable.
@@ -104,7 +105,9 @@ __Auxiliary definitions:__
 * The _postset_ of a transition `t` is `postset(t) = { s | W(t,s) ≥ 1 }`.
 * The _preset_ of a place `s` is `preset(s) = { t | W(t,s) ≥ 1 }`.
 * The _postset_ of a place `s` is `postset(s) = { t | W(s,t) ≥ 1 }`.
+
 The `preset` and `postset` generalize to sets of places/transitions by taking the union.
+
 
 #### Siphons
 
@@ -119,13 +122,12 @@ We say that a siphon is
 * _empty_ iff `∀ s ∈ D. M(s) = 0`.
 
 __Theorem.__
-If a siphon `D` is empty under `M` then for any `M [〉M′` `D` is empty under `M′`.
+If a siphon `D` is empty under `M` then for any `M [〉 M′` `D` is empty under `M′`.
 
 __Proof.__
-By contradiction, assume there is a `t` such that `M [t〉M′` and `D` is marked under `M′`.
-
-By definition of siphon, `t` must consume a token from `D` in `M`.
-However, by hypothesis `D` is empty under `M` and, thus, `t` is not enabled which gives a contradiction.
+* By contradiction, assume there is a `t` such that `M [t〉 M′` and `D` is marked under `M′`.
+* By definition of siphon, `t` must consume a token from `D` in `M`.
+* However, by hypothesis `D` is empty under `M` and, thus, `t` is not enabled which gives a contradiction.
 
 __Corollary.__
 If `D` is empty under `M` then `D` is empty under any marking in `R(M)`.
@@ -140,10 +142,10 @@ A _trap_ is a set of places `Q ⊆ S` such that `postset(Q) ⊆ preset(Q)`.
 More concretely, every transition that take a token from a trap must also put a token in the trap.
 
 __Theorem.__
-If a trap `Q` is marked under `M` then for any `M [〉M′` `Q` is marked under `M′`.
+If a trap `Q` is marked under `M` then for any `M [〉 M′` `Q` is marked under `M′`.
 
 __Proof.__
-By contradiction, assume there is a `t` such that `M [t〉M′` and `Q` is empty under `M′`.
+By contradiction, assume there is a `t` such that `M [t〉 M′` and `Q` is empty under `M′`.
 Therefore, `t` must have consumed all the token in `Q`.
 
 However, by definition of trap, `t` must also put at least one token in `Q` and, thus, `Q` cannot be empty (contradiction).
@@ -169,8 +171,11 @@ lock −   − unlock
 Siphons can offer a quick check for some reachability question.
 For instance, it is not possible to cover a siphon empty under `M₀`.
 
+__0-1 Petri net.__
+The following two results are only valid to Petri net where the weights on the edges are either `0` or `1`.
+
 __Proposition.__
-If `M` is a deadlock (no transition is enabled) then `{ s | M(s) = 0 }` is an empty proper siphon. 
+If `M` is a deadlock (no transition is enabled) then `{ s | M(s) = 0 }` is an empty proper siphon.
 
 __Proposition.__
 If every proper siphon of `M` includes an initially marked trap then `M` is deadlock-free.
@@ -179,16 +184,47 @@ __Examples.__
 Find an empty/marked proper siphon/traps in:
 
 ```
-(∙) ( )    │    (∙) ( )    │        (∙) ( )           │    (∙) ( )    
- ↓ ⤱ ↓     │     ↓ ⤱ ↓     │         ↓ ⤱ ↓            │     ↓ ⤱ ↓
- −   −     │     −   −     │         −   −            │     −   −
- ↑ ⤩ ↑     │     ↑ ⤩ ↑     │         ↑ ↘ ↑ ↘          │     ↑ ↘ ↑ ↘
-( ) ( )    │    (∙) ( )    │    |→  ( ) ( ) ( ) → |   │    (:) ( ) ( ) → |
+a (∙) ( ) b
+   ↓ ⤱ ↓ 
+   −   − 
+   ↑ ⤩ ↑ 
+c ( ) ( ) d
 ```
+* traps & siphons: `{a,b}`, `{c,d}`, `{a,d}`, `{b, c}`, `{a,b,c}`, `{a,b,d}`, `{a,c,d}`, `{b,c,d}`, `{a,b,c,d}`
+* marked: `{a,b}`, `{a,d}`, `{a,b,c}`, `{a,b,d}`, `{a,c,d}`,`{a,b,c,d}`
+* empty: `{c,d}`, `{b, c}`, `{b,c,d}`
+
+```
+  a (∙) ( ) b
+     ↓ ⤱ ↓ 
+     −   − 
+     ↑ ↘ ↑ ↘
+| → ( ) ( ) ( ) → |
+     c   d   e
+```
+* marked traps & siphons: `{a,b}`
+
+```
+a ( ) ( ) b
+   ↓ ⤱ ↓
+   −   −
+   ↑ ↘ ↑ ↘
+  (:) ( ) ( ) → |
+   c   d   e
+```
+* siphons: `{a,b}`, `{c,d,e}`, `{a,b,c,d,e}`
+* traps: `{a,b}`
+* marked: `{c,d,e}`, `{a,b,c,d,e}`
+* empty: `{a,b}`
 
 
 The converse of the propositions above are not true.
 Can you find an examples?
+
+__Free-choice nets.__
+A Petri net is _free-choice_ iff `∀ s. postset(s) ≤ 1 ∨ preset(postset(s)) = {s}`.
+
+If `N` is a free-choice net, we have the following (Commoner's Theorem): `N` is deadlock-free iff every proper siphon of `N` includes an initially marked trap.
 
 
 ## Monotonicity
@@ -202,8 +238,8 @@ We will now introduce some complete procedure for termination, boundedness, and 
 - `N > M` iff `∀ s. N(s) ≥ M(s) ∧ ∃ s. N(s) > M(s)`
 
 _Observation._
-Consider `M [t〉M′` and `N ≥ M`.
-`t` is also enabled at `N` and, if we fire `t`, we get `N [t〉N′` with `N′ ≥ M′`.
+Consider `M [t〉 M′` and `N ≥ M`.
+`t` is also enabled at `N` and, if we fire `t`, we get `N [t〉 N′` with `N′ ≥ M′`.
 
 This is usually represented using the following illustration:
 ```
@@ -215,7 +251,7 @@ This is usually represented using the following illustration:
 In the Petri Net case, monotonicity can be stated as:
 
 __Theorem.__
-`M [π〉M′  ⇒  (M+N) [π〉(M′+N)`
+`M [π〉M′  ⇒  (M+N) [π〉 (M′+N)`
 
 
 ### Finite reachability tree
@@ -233,7 +269,7 @@ TerminationCheck(S,T,W,M₀)
         if ∃ A ∈ ancestors. A ≤ M then
             return NON-TERMINATING
         else
-            for each t ∈ T with t enabled at M and M′ such that M [t〉M′
+            for each t ∈ T with t enabled at M and M′ such that M [t〉 M′
                 E ← E ∪ { (M,t,M′) }
                 F ← F ∪ M′
     return TERMINATING
@@ -241,8 +277,39 @@ TerminationCheck(S,T,W,M₀)
 
 #### Example
 
-TODO ...
+Consider the following net:
+```
+   ↗ | ↘                        ↗ | ↘
+( )     ( ) ← | ← (∙) → | →  ( )     ( )
+   ↖ | ↙                        ↖ | ↙ 
+  2
+```
+We order the state from left to right.
+For conciseness, we write vector horizontally.
+For instance, the initial state is `(0 0 1 0 0)`.
 
+Let us call the transitions:
+* `t₁ = ( 0  1 -1  0  0)`
+* `t₂ = ( 2 -1  0  0  0)`
+* `t₃ = (-1  1  0  0  0)`
+* `t₄ = ( 0  0 -1  1  0)`
+* `t₅ = ( 0  0  0 -1  1)`
+* `t₆ = ( 0  0  0  1 -1)`
+
+Applying the algorithm gives:
+```
+            ↗ (0 0 0 1 0) → (0 0 0 0 1) → (0 0 0 1 0) NON-TERMINATING with t₄ (t₅ t₆)*
+(0 0 1 0 0)
+            ↘ (0 1 0 0 0) → (2 0 0 0 0)
+```
+
+TODO terminating example
+
+#### Claims
+
+* `TerminationCheck` terminates
+* When `TerminationCheck` returns `NON-TERMINATING` we can extract extract a lasso-shaped trace where the stem starts from `M₀` and the loop is a non-decreasing cycle.
+* When `TerminationCheck` returns `TERMINATING` we can extract a finite tree which contains all the reachable states.
 
 ### Boundedness
 
@@ -267,7 +334,7 @@ BoundednessCheck(S,T,W,M₀)
         else if ∃ A ∈ ancestors. A = M then
             skip
         else
-            for each t ∈ T with t enabled at M and M′ such that M [t〉M′
+            for each t ∈ T with t enabled at M and M′ such that M [t〉 M′
                 E ← E ∪ { (M,t,M′) }
                 F ← F ∪ M′
     return BOUNDED
@@ -275,8 +342,17 @@ BoundednessCheck(S,T,W,M₀)
 
 #### Example
 
-TODO ...
+Applying the algorithm gives:
+```
+            ↗ (0 0 0 1 0) → (0 0 0 0 1) → (0 0 0 1 0)
+(0 0 1 0 0)
+            ↘ (0 1 0 0 0) → (2 0 0 0 0) → (1 1 0 0 0) UNBOUNDED with t₁ (t₂ t₃)*
+```
 
+#### Claims
+
+* `BoundednessCheck` terminates
+* When `BoundednessCheck` returns `UNBOUNDED` we can extract extract a lasso-shaped trace where the stem starts from `M₀` and an increasing cycle.
 
 ### Karp-Miller tree
 
@@ -303,7 +379,7 @@ KarpMillerTree(S,T,W,M₀)
     while F ≠ ∅  do
         choose M in F
         F ← F ∖ {M}
-        for each t ∈ T with t enabled at M and M′ such that M [t〉M′
+        for each t ∈ T with t enabled at M and M′ such that M [t〉 M′
             ancestors ← path between M₀ and M′ in E
             M′ ← accelerate(ancestors, M′)
             E ← E ∪ { (M,M′) }
@@ -317,11 +393,18 @@ accelerate(ancestors, M)
     return M
 ```
 
-Claims:
+#### Example
+
+Applying the algorithm gives:
+```
+            ↗ (0 0 0 1 0) → (0 0 0 0 1) → (0 0 0 1 0)
+(0 0 1 0 0)                                                         ↗ (ω ω 0 0 0)
+            ↘ (0 1 0 0 0) → (2 0 0 0 0) → (ω 1 0 0 0) → (ω ω 0 0 0) → (ω ω 0 0 0)
+```
+
+
+#### Claims
+
 * The Karp-Miller tree is finite.
 * The `KarpMillerTree` procedure terminates.
 * For any `M`, if there is `M′` in `KarpMillerTree(N)` with `M ≤ M′` then `N` can cover `M`.
-
-#### Example
-
-TODO ...

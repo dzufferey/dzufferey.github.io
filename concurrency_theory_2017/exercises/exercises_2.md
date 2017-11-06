@@ -41,7 +41,9 @@ If `A` is an NFA then if it has more than one state, all the states are acceptin
 
 * From prefix-closed automaton to safe Petri net:
   - Give a reduction from `A` to a safe Petri net `(S,T,W,M₀)`.
-    The reduction must also give a mapping `m` from the automaton's transitions to the Petri net's transitions such that a word `w ∈ L(A)` iff `∃ M. M₀[m(w)〉M`.
+    Show the correctness of your construction:
+    * Given a word `w ∈ L(A)` show how to construction a trace `π` such that `∃ M. M₀[π〉M`
+    * and the reverse direction from `π` to `w`
   - Does you construction work in the case of DFA or NFA?
     Does it make a difference?
   - Given both `A` and `B` extend your construction to return a safe Petri net that corresponds to the synchronized product of `A` and `B`.
@@ -64,6 +66,7 @@ Give an example of a Petri net which is
 * bounded and non-terminating
 * unbounded and terminating
 * unbounded and non-terminating
+
 or argue why such Petri net does not exist.
 
 A non-decreasing cycle is a sequence of transitions `π` such that if `π` is enabled at `M` then `M[π〉M′` and `M′ ≥ M`.

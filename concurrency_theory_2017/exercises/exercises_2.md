@@ -168,7 +168,7 @@ Here is a Petri net model for the (un)lock operation of a lock object:
   - there is a most one process in the first critical section
   - there is a most one process in the second critical section
   - there can be two processes in the critical sections (1 and 2)
-* Can you find a program, the corresponding Petri net model, and a co-linear property where the LP solver fails to prove the property even though the net is safe?
+* Can you find a program, the corresponding Petri net model, and a co-linear property where the LP solver fails to prove the property even though the net satisfies the property?
 * [Optional] LP and termination
   - Encode the presence of non-decreasing cycles as a LP problem?
   - Is it sufficient to prove non-termination?

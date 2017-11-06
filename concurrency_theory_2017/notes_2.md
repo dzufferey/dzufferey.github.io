@@ -6,6 +6,15 @@ We cover the following parts:
 * 2.1 Marking Equations
 * 2.4 Verification by Linear Programming
 
+__Clarification about "safe".__
+
+Unfortunately, the term safe is overloaded in the contex of Petri Net. It can mean:
+1. safe = 1-bounded
+2. safe as satisfies a safety (reachability) property.
+
+In particular, the part about verification using LP is about the 2nd meaning.
+
+
 #### Example Petri Net
 
 (A) simple Petri Net with 2 places and 1 transition:
@@ -259,7 +268,7 @@ _Proof._
 
 By contradiction, assume the system is infeasible and `N` is unsafe.
 If `N` is unsafe, there is a sequence `π` of firing such that `M₀ [π〉M` and `A∙M ≥ B`.
-We can take the _Parihk image_ of `π` and obtain a vector `X.
+We can take the _Parihk image_ of `π` and obtain a vector `X`.
 
 The Parikh image of `π` counts how many each each transition occurs in the trace.
 For instance, the Parikh image of `t₁ t₂ t₁` over `{t₁, t₂, t₃}` returns is `(2 1 0)`.

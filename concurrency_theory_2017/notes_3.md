@@ -171,8 +171,10 @@ lock −   − unlock
 Siphons can offer a quick check for some reachability question.
 For instance, it is not possible to cover a siphon empty under `M₀`.
 
-__0-1 Petri net.__
-The following two results are only valid to Petri net where the weights on the edges are either `0` or `1`.
+__Assumptions.__
+The following two results are only valid to Petri net where:
+* 0-1 Petri net: the weights on the edges are either `0` or `1`,
+* no transition that does not consume token: `∀ t. preset(t) ≠ ∅`.
 
 __Proposition.__
 If `M` is a deadlock (no transition is enabled) then `{ s | M(s) = 0 }` is an empty proper siphon.
@@ -185,9 +187,9 @@ Find an empty/marked proper siphon/traps in:
 
 ```
 a (∙) ( ) b
-   ↓ ⤱ ↓ 
-   −   − 
-   ↑ ⤩ ↑ 
+   ↓ ⤱ ↓
+   −   −
+   ↑ ⤩ ↑
 c ( ) ( ) d
 ```
 * traps & siphons: `{a,b}`, `{c,d}`, `{a,d}`, `{b, c}`, `{a,b,c}`, `{a,b,d}`, `{a,c,d}`, `{b,c,d}`, `{a,b,c,d}`
@@ -196,8 +198,8 @@ c ( ) ( ) d
 
 ```
   a (∙) ( ) b
-     ↓ ⤱ ↓ 
-     −   − 
+     ↓ ⤱ ↓
+     −   −
      ↑ ↘ ↑ ↘
 | → ( ) ( ) ( ) → |
      c   d   e
@@ -248,8 +250,10 @@ But this is not allowed
 ( ) → |
 ```
 
-If `N` is a free-choice net, we have the following (Commoner's theorem): `N` is deadlock-free iff every proper siphon of `N` includes an initially marked trap.
-The proof can be found in the Chapter 4 of [Free Choice Petri Nets](https://www7.in.tum.de/~esparza/bookfc.html). 
+__Theorem (Commoner's theorem).__
+Given a free-choice net `N`, `N` is deadlock-free iff every proper siphon of `N` includes an initially marked trap.
+
+The proof can be found in the Chapter 4 of the [Free Choice Petri Nets](https://www7.in.tum.de/~esparza/bookfc.html) book.
 
 
 ## Monotonicity
@@ -314,7 +318,7 @@ Consider the following net:
 ```
    ↗ | ↘                        ↗ | ↘
 ( )     ( ) ← | ← (∙) → | →  ( )     ( )
-   ↖ | ↙                        ↖ | ↙ 
+   ↖ | ↙                        ↖ | ↙
   2
 ```
 We order the state from left to right.
@@ -428,8 +432,17 @@ KarpMillerTree(S,T,W,M₀)
     return E
 
 accelerate(ancestors, M)
-    while ∃ A ∈ ancestors. A < M ∧ accelerate(A, M) ≠ M
-        M ← accelerate(A, M)
+    while ∃ A ∈ ancestors. A < M ∧ accelerate1(A, M) ≠ M
+        M ← accelerate1(A, M)
+    return M
+
+accelerate1(M₁, M₂)
+    M ← empty marking
+    for (i ∈ [0, n])
+        if (M₁(s) < M₂(s))
+            M(s) = ω
+        else
+            M(s) = M₂(s)
     return M
 ```
 
@@ -462,8 +475,6 @@ a (∙) ( ) b
 We get the following tree:
 ```
 (1 0 2 0 0) → (0 1 1 1 0) → (1 0 1 0 1) → (0 1 0 1 1) → (1 0 0 0 2) → (1 0 0 0 1) → (1 0 0 0 0)
-                                 |             ↓
-                                 |        (0 1 0 1 0) → (1 0 0 0 1) → (1 0 0 0 0)
-                                 ↓
-                            (1 0 1 0 0) → (0 1 0 1 0) → (1 0 0 0 1) → (1 0 0 0 0)
+                                        |             ↘ (0 1 0 1 0) → (1 0 0 0 1) → (1 0 0 0 0)
+                                        ↳ (1 0 1 0 0) → (0 1 0 1 0) → (1 0 0 0 1) → (1 0 0 0 0)
 ```

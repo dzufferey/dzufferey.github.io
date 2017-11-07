@@ -88,7 +88,7 @@ We can use that to conclude that there is at most 1 token in `c` and, therefore,
 
 ### Siphons and Traps
 
-Consider the folowing net:
+Consider the following net:
 
 ```
    ↗ | ↘              ↗ | ↘
@@ -222,9 +222,34 @@ The converse of the propositions above are not true.
 Can you find an examples?
 
 __Free-choice nets.__
-A Petri net is _free-choice_ iff `∀ s. postset(s) ≤ 1 ∨ preset(postset(s)) = {s}`.
+A Petri net is _free-choice_ iff `∀ s t. W(s, t) = 1 ⇒ W(preset(t), postset(s)) = 1`.
 
-If `N` is a free-choice net, we have the following (Commoner's Theorem): `N` is deadlock-free iff every proper siphon of `N` includes an initially marked trap.
+The following patterns are allowed
+```
+( ) → |
+( ) ↗
+```
+
+```
+( ) → |
+    ↘ |
+```
+
+```
+( ) → |
+    ⤨
+( ) → |
+```
+
+But this is not allowed
+```
+( ) → |
+    ↘
+( ) → |
+```
+
+If `N` is a free-choice net, we have the following (Commoner's theorem): `N` is deadlock-free iff every proper siphon of `N` includes an initially marked trap.
+The proof can be found in the Chapter 4 of [Free Choice Petri Nets](https://www7.in.tum.de/~esparza/bookfc.html). 
 
 
 ## Monotonicity
@@ -232,26 +257,34 @@ If `N` is a free-choice net, we have the following (Commoner's Theorem): `N` is 
 Until now, we only saw sufficient but not necessary conditions to check properties of Petri nets.
 We will now introduce some complete procedure for termination, boundedness, and termination.
 
-#### Ordering on markings
+### Ordering on markings
 
 - `N ≥ M` iff `∀ s. N(s) ≥ M(s)`
 - `N > M` iff `∀ s. N(s) ≥ M(s) ∧ ∃ s. N(s) > M(s)`
+
+`≥` is not a total order.
+For instance, `(0,1)` and `(1,0)` are not comparable.
+
+### Definition of monotonicity
 
 _Observation._
 Consider `M [t〉 M′` and `N ≥ M`.
 `t` is also enabled at `N` and, if we fire `t`, we get `N [t〉 N′` with `N′ ≥ M′`.
 
-This is usually represented using the following illustration:
+__Theorem.__
+`M [t〉M′  ⇒  (M+N) [t〉 (M′+N)`
+
+
+More abstractly, monotonicity is usually represented using the following illustration:
 ```
 ∀ M, M′, N.    M  ≤  N
 ∃ N′.          ↓     ↓
                M′ ≤  N′
 ```
+Put differently, `≤` is a simulation relation.
+Larger states can simulate smaller ones.
+By "simulate", we mean can take the same transitions (and maybe even more).
 
-In the Petri Net case, monotonicity can be stated as:
-
-__Theorem.__
-`M [π〉M′  ⇒  (M+N) [π〉 (M′+N)`
 
 
 ### Finite reachability tree
@@ -303,13 +336,20 @@ Applying the algorithm gives:
             ↘ (0 1 0 0 0) → (2 0 0 0 0)
 ```
 
-TODO terminating example
-
 #### Claims
 
 * `TerminationCheck` terminates
 * When `TerminationCheck` returns `NON-TERMINATING` we can extract extract a lasso-shaped trace where the stem starts from `M₀` and the loop is a non-decreasing cycle.
 * When `TerminationCheck` returns `TERMINATING` we can extract a finite tree which contains all the reachable states.
+
+Let us look in more details at the first one:
+* If the algorithm does not terminate we have an infinite sequence of markings `𝓜` such that `∀ i, j. i ≤ j ⇒ 𝓜[i] > 𝓜[j] ∨ 𝓜[i] incomparable with 𝓜[j]`.
+* This is not possible if
+  1. there is no infinite decreasing chain, and
+  2. there is no infinite antichain (sequence where all the elements are incomparable).
+* In a decreasing chain, at each step at least one of the places must have less token. Since we have a finite number of places and we cannot have negative token, it is not possible to decrease forever.
+* In an antichain, all the states are incomparable... This is part of the homework and the solution will be given next week when we discuss WSTS.
+
 
 ### Boundedness
 
@@ -402,9 +442,28 @@ Applying the algorithm gives:
             ↘ (0 1 0 0 0) → (2 0 0 0 0) → (ω 1 0 0 0) → (ω ω 0 0 0) → (ω ω 0 0 0)
 ```
 
-
 #### Claims
 
 * The Karp-Miller tree is finite.
 * The `KarpMillerTree` procedure terminates.
 * For any `M`, if there is `M′` in `KarpMillerTree(N)` with `M ≤ M′` then `N` can cover `M`.
+
+#### A bounded and terminating example
+
+```
+a (∙) ( ) b
+   ↓ ⤱ ↓
+   −   −
+   ↑ ↘ ↑ ↘
+  (:) ( ) ( ) → |
+   c   d   e
+```
+
+We get the following tree:
+```
+(1 0 2 0 0) → (0 1 1 1 0) → (1 0 1 0 1) → (0 1 0 1 1) → (1 0 0 0 2) → (1 0 0 0 1) → (1 0 0 0 0)
+                                 |             ↓
+                                 |        (0 1 0 1 0) → (1 0 0 0 1) → (1 0 0 0 0)
+                                 ↓
+                            (1 0 1 0 0) → (0 1 0 1 0) → (1 0 0 0 1) → (1 0 0 0 0)
+```

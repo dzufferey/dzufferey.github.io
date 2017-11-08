@@ -174,7 +174,6 @@ For instance, it is not possible to cover a siphon empty under `M₀`.
 __Assumptions.__
 The following two results are only valid to Petri net where:
 * 0-1 Petri net: the weights on the edges are either `0` or `1`,
-* no transition that does not consume token: `∀ t. preset(t) ≠ ∅`.
 
 __Proposition.__
 If `M` is a deadlock (no transition is enabled) then `{ s | M(s) = 0 }` is an empty proper siphon.

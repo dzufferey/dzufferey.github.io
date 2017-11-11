@@ -58,7 +58,7 @@ Furthermore, `R` respects the following:
 
 Let us explain what firing a transition means in the context of extended Petri net.
 
-`t` is enabled at `M` iff `∀ p ∈ S. M(s) ≥ W(s,t)`.
+`t` is enabled at `M` iff `∀ s ∈ S. M(s) ≥ W(s,t)`.
 This is similar to Petri nets.
 
 `M [t〉 M′` is computed as follow:
@@ -67,7 +67,7 @@ This is similar to Petri nets.
 3. assume `R(t) = (s₁,s₂)` create an intermediate marking `M₂` to apply the reset/transfer:
   * if `s ≠ s₁ ∧ s ≠ s₂` then `M₂(s) = M₁(s)`
   * if `s = s₁` then `M₂(s) = 0`
-  * if `s = s₂` then `M₂(s) = M₁(s₁)`
+  * if `s = s₂` then `M₂(s) = M₁(s) + M₁(s₁)`
 4. compute the final marking: `M′(s) = M₂(s) + W(t,s)`.
 
 #### Reset net example

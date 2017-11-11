@@ -80,11 +80,11 @@ The example (A) corresponds to:
 
 ### Petri Net Semantics
 
-A transition `t` in `(S,T,W)` with marking `M` is _enabled_ iff `∀ p ∈ S. M(s) ≥ W(s,t)`.
+A transition `t` in `(S,T,W)` with marking `M` is _enabled_ iff `∀ s ∈ S. M(s) ≥ W(s,t)`.
 
 If no transition is enabled at `M` then it is a _deadlock_.
 
-An enabled transition `t` can _fire_ and produce a new marking `M′`, such that, `∀ p ∈ S. M′(s) = M(s) - W(s,t) + W(t,s)`.
+An enabled transition `t` can _fire_ and produce a new marking `M′`, such that, `∀ s ∈ S. M′(s) = M(s) - W(s,t) + W(t,s)`.
 
 Transitions induce a _firing relation_ which contain triples `(M₁,t,M₂)` iff
 - `t` is enabled in `M₁` and

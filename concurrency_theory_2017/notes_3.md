@@ -301,7 +301,7 @@ TerminationCheck(S,T,W,M₀)
     while F ≠ ∅  do
         choose M in F
         F ← F ∖ {M}
-        ancestors ← { A | a can reach M in E }
+        ancestors ← { A | A can reach M in E }
         if ∃ A ∈ ancestors. A ≤ M then
             return NON-TERMINATING
         else
@@ -371,7 +371,7 @@ BoundednessCheck(S,T,W,M₀)
     while F ≠ ∅  do
         choose M in F
         F ← F ∖ {M}
-        ancestors ← { A | a can reach M in E }
+        ancestors ← { A | A can reach M in E }
         if ∃ A ∈ ancestors. A < M then
             return UNBOUNDED
         else if ∃ A ∈ ancestors. A = M then

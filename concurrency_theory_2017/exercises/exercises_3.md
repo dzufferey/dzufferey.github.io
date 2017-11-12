@@ -107,8 +107,8 @@ After firing the transition we get:
 For reset nets and then transfer nets:
 * Are these nets monotonic?
 * Are these nets strictly monotonic?
-* Does the adapt the `TerminationCheck` algorithm work on such nets?
-* Does the adapt the `BoundednessCheck` algorithm work on such nets?
+* Does the `TerminationCheck` algorithm work on such nets?
+* Does the `BoundednessCheck` algorithm work on such nets?
 
 For each question: if yes give a proof, if no give a counterexample.
 

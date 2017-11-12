@@ -58,7 +58,7 @@ Furthermore, `R` respects the following:
 
 Let us explain what firing a transition means in the context of extended Petri net.
 
-`t` is enabled at `M` iff `∀ p ∈ S. M(s) ≥ W(s,t)`.
+`t` is enabled at `M` iff `∀ s ∈ S. M(s) ≥ W(s,t)`.
 This is similar to Petri nets.
 
 `M [t〉 M′` is computed as follow:

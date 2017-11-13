@@ -41,7 +41,7 @@ A _well-quasi-ordering_ (WQO) `≤` is a binary relation that is a QO such that,
 * `(ℤ,≤)` is a linear order but not a WQO.
 * `(ℚ⁺,≤)` is a linear order but not a WQO.
 * `(ℕ,|)`, where `|` is "divides", is PO but not a WQO.
-* `=` or any other equivalence relation is a PO.
+* `=` is a PO.
 * `(X,=)` with `X` finite is a WQO.
 * Adding a finite number of elements to a WQO preserves the WQO as long as the ordering is extended to still be a QO.
 
@@ -63,7 +63,7 @@ If `≤` is a WQO then any infinite sequence `x₀ x₁ x₂ …` contains an in
 
 _proof._
 * Let `M = { i | ∀ j > i. x_i ≰ x_j }`. `M` is the set of indices of elements which do not have any larger successor in the chain.
-* Because `≤` is a WQO, `M` is finite. (Otherwise there would be an infinite antichain.)
+* Because `≤` is a WQO, `M` is finite.
 * Any `x_i` such that `∀ j ∈ M. j < i` can start an infinite increasing subsequence. (We can always continue the sequence, otherwise the last element's index would be in `M`.)
 
 
@@ -101,7 +101,7 @@ By induction on `k`:
   1. `≤^{k+1}` is a QO: omitted for brevity but easy to prove.
   2. let `x^{k+1}₀ x^{k+1}₁ x^{k+1}₂ …` be an infinite sequence.
     Each element `x^{k+1}` is of the form `(x^k, x)`.
-    We need to find `x^{k+1}_i ≤ x^{k+1}_j`.
+    We need to find `x^{k+1}_i ≤^{k+1} x^{k+1}_j`.
     - By the infinite increasing subsequence lemma we can find a subsequence `y^{k+1}₀ y^{k+1}₁ y^{k+1}₂ …` such that `y^{k}₀ ≤^k y^{k}₁ ≤^k y^{k}₂ …`.
     - Since `≤` is a WQO we kind find `y_i ≤ y_j`.
     - Finally, we get `(y^k_i, y_i) ≤^{k+1} (y^k_j, y_j)`.
@@ -111,7 +111,7 @@ By induction on `k`:
 
 Let `w₁` and `w₂` be two finite sequences.
 `w₁` is a _subsequence_ of `w₂` if it is possible to obtain `w₁` from by deleting some characters of `w₂`.
-More formally, there is an injective mapping `f` from `[0, |w₂|]` to `[0, |w₁|]` such that:
+More formally, there is an injective mapping `f` from `[0, |w₂|)` to `[0, |w₁|)` such that:
 *  `∀ i j. i < j ⇒ f(i) < f(j)`
 *  `∀ i. w₂[i] = w₁[f(i)]`
 
@@ -122,7 +122,7 @@ For instance:
 We can generalize the subsequence relation to _embedding_ by relaxing the second condition to `≤` instead of `=`.
 
 Let `w₁` and `w₂` be two finite sequences.
-`w₁` _embeds_ in `w₂` if is an injective mapping `f` from `[0, |w₂|]` to `[0, |w₁|]` such that:
+`w₁` _embeds_ in `w₂` if is an injective mapping `f` from `[0, |w₂|)` to `[0, |w₁|)` such that:
 *  `∀ i j. i < j ⇒ f(i) < f(j)`
 *  `∀ i. w₂[i] ≤ w₁[f(i)]`
 
@@ -232,6 +232,8 @@ As exercise.
 
 PN is strict, strong, and even has the same transition labelling...
 
+FA is strict, strong, and even has the same transition labelling...
+
 
 ## Covering problem (revisited)
 
@@ -240,10 +242,11 @@ Given a WSTS `𝓢`, initial state `s₀`, and a target state `t`.
 
 The covering problem generalizes from single target state `t` to set of states `T` with `∃ t ∈ T. s′ ≥ t`.
 
-If `T` is upward-closed then it can be rewritten as `s₀ →* s′` and `s′ ∈ T`.
+It can be rewritten as `s₀ →* s′` and `s′ ∈ ↑T`.
 
 Another equivalent formulation is `s₀ ∈ pre*(↑T)`.
 
+If `T=↑T` (upward-closed) then `pre*(T) = pre*(↑T)` and covering is the same as reachability.
 
 ## Set saturation algorithm
 
@@ -253,13 +256,13 @@ __Lemma.__
 Given a WSTS `(S,→,≤)` and `T ⊆ S` if `T` is upward-closed then `pre*(T)` is upward-closed.
 
 _proof._
-* Assume that `s ∈ pre*(T)`, `s→ t`, and `t ∈ T`.
-* By monotonicity, for any `s′ ≥ s` then we can find `t′`, `s′→* t′` and `t′ ≥ t`.
+* Assume that `s ∈ pre*(T)`, `s→*t`, and `t ∈ T`.
+* By monotonicity (and induction if more than one transition), for any `s′ ≥ s` then we can find `t′`, `s′→* t′` and `t′ ≥ t`.
 * Because `T` is upward-closed `t′ ∈ T`.
 * Therefore `s′ ∈  pre*(T)` which means `pre*(T)` is upward-closed.
 
 _Remark._
-The stronger version "if `T` is upward-closed then `pre(T)` is upward-closed" is only true for WSTS with strong compatibility.
+The stronger version "if `T` is upward-closed then `pre(T)` is upward-closed" is only true for WSTS with stuttering compatibility.
 
 Before giving the algorithm we need to make some decidability assumptions.
 

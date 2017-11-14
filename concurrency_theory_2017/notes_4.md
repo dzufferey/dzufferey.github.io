@@ -339,7 +339,30 @@ _proof._
 
 ## Examples
 
-TODO ...
+Let consider the following Petri net:
+```
+     u   l
+    (∙) ( )
+     ↓ ⤱ ↓
+lock −   − unlock
+     ↑ ↘ ↑ ↘
+|→  ( ) ( ) ( ) → |
+     x   c   y
+```
+With the ordering on the places be `(u l x c y)`.
+
+We can violate mutual exclusion if we can cover `(0 0 0 2 0)`.
+
+Running the algorithm gives:
+* `M₀ = ↑(0 0 0 2 0)`
+* `M₁ = ↑(0 0 0 2 0) ∪ ↑(1 0 1 1 0)`
+* `M₂ = ↑(0 0 0 2 0) ∪ ↑(1 0 0 1 0) ∪ ↑(2 0 2 0 0)`
+* `M₃ = ↑(0 0 0 2 0) ∪ ↑(1 0 0 1 0) ∪ ↑(2 0 1 0 0)`
+* `M₄ = ↑(0 0 0 2 0) ∪ ↑(1 0 0 1 0) ∪ ↑(2 0 0 0 0)`
+* `M₅ = M₄`
+
+Since `s₀ = (1 0 0 0 0)` and `s₀ ∉ M₅`, the net respects mutual exclusion.
+
 
 ## Worst case complexity
 
@@ -351,7 +374,41 @@ Let `T₁` and `T₂` by two finite rooted tree and `(X,≤)` be the set of node
 * If the node `m` is a descendent of `n` in `T₁` then `f(m)` is a descendent of `f(n)`.
 * If `m₁` and `m₂` are children of `n` then `F(n)` is the first common ancestor of `f(m₁)` and `f(m₂)`.
 
-For instance, TODO ...
+For instance, Let us look at the following 3 trees:
+
+`T₁`:
+```
+  r
+ /
+b
+ \
+  b
+```
+
+`T₂`:
+```
+  r
+ /
+b   r
+ \ /
+  g-b
+```
+
+`T₃`:
+```
+  r
+ /
+g   g
+ \ /
+  b-b
+```
+
+In the pictures above, the leftmost node is the root and the letter is the color from the WQO `({r,g,b}, =)`.
+
+We have that:
+* `T₁ ≤ T₂`
+* `T₁ ≰ T₃`
+* `T₂ ≰ T₃` and `T₃ ≰ T₂`
 
 __Kruskal's theorem.__
 Over the finite trees with nodes labeled by elements of a WQO, inf-embedding is a WQO.
@@ -360,8 +417,3 @@ Without proof for the moment, maybe in a later lecture.
 
 TREE(3): https://www.youtube.com/watch?v=3P6DWAwwViU, https://www.youtube.com/watch?v=IihcNa9YAPk
 
-#### Other
-
-* TODO Graph minor ...
-
-* TODO BQO ...

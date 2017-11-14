@@ -80,7 +80,7 @@ _proof._
 
 
 __Lemma.__
-Given `≤`, if `<` is well-founded and `≤` does not have infinite antichain then `≤` is a wqo.
+Given a QO `≤`, if `<` is well-founded and `≤` does not have infinite antichain then `≤` is a wqo.
 
 _proof._
 As exercise.
@@ -91,7 +91,7 @@ As exercise.
 #### Finite tuples
 
 __Dickson's lemma.__
-If `(X,≤)` be a WQO then `(X^k,≤^k)`, where `k` is finite and `≤^k` is the component-wise ordering, is a WQO.
+Let `(X,≤)` be a WQO then `(X^k,≤^k)`, where `k` is finite and `≤^k` is the component-wise ordering, is a WQO.
 
 _proof._
 By induction on `k`:
@@ -103,7 +103,7 @@ By induction on `k`:
     Each element `x^{k+1}` is of the form `(x^k, x)`.
     We need to find `x^{k+1}_i ≤^{k+1} x^{k+1}_j`.
     - By the infinite increasing subsequence lemma we can find a subsequence `y^{k+1}₀ y^{k+1}₁ y^{k+1}₂ …` such that `y^{k}₀ ≤^k y^{k}₁ ≤^k y^{k}₂ …`.
-    - Since `≤` is a WQO we kind find `y_i ≤ y_j`.
+    - Since `≤` is a WQO we can find `y_i ≤ y_j`.
     - Finally, we get `(y^k_i, y_i) ≤^{k+1} (y^k_j, y_j)`.
 
 
@@ -122,7 +122,7 @@ For instance:
 We can generalize the subsequence relation to _embedding_ by relaxing the second condition to `≤` instead of `=`.
 
 Let `w₁` and `w₂` be two finite sequences.
-`w₁` _embeds_ in `w₂` if is an injective mapping `f` from `[0, |w₂|)` to `[0, |w₁|)` such that:
+`w₁` _embeds_ in `w₂` if there is an injective mapping `f` from `[0, |w₂|)` to `[0, |w₁|)` such that:
 *  `∀ i j. i < j ⇒ f(i) < f(j)`
 *  `∀ i. w₂[i] ≤ w₁[f(i)]`
 
@@ -174,7 +174,7 @@ _proof._
 ## Transition systems (TS)
 
 A _transition sytem_ `𝓢` is a pair `(S,→)` where
-* `S` is a set of state (can be infinite),
+* `S` is a set of states (can be infinite),
 * `→ ⊆ S × S` is a transition relation.
 
 _Remark._
@@ -272,7 +272,7 @@ A WSTS has an _effective pred-basis_ if there is an algorithm to compute `↑pre
 
 Consider the following Petri net:
 ```
-   ↗ | ↘ 
+   ↗ | ↘
 ( )     (∙)
    ↖ | ↙
   2
@@ -285,7 +285,7 @@ So `↑pre(↑(0 1)) = ↑(1 0) ∪ ↑(0 2)`.
 
 ```
   2
-   ↗ | ↘ 
+   ↗ | ↘
 ( )     (∙)
    ↖ | ↙
 ```
@@ -319,7 +319,7 @@ _proof._
   Let `M_i` by the value of `M` after the `i`th iteration of the `while` loop.
   Assume that the loop executes `m` times.
   `M_m` is the last value computed by the algorithm.
-  We extend the sequence of `M_i` with `M_i = M_m` for `i ≥ m`. 
+  We extend the sequence of `M_i` with `M_i = M_m` for `i ≥ m`.
   - _proposition (1)_: `M_m = ↑M_m = ⋃_{i ∈ ℕ} M_i = ⋃_{i ∈ ℕ} ↑pre^i(↑ T)` by induction on `i`
     * `i = 0`: `M₀ = ↑T` (1st line of the algorithm)
     * `i → i+1`:
@@ -416,4 +416,3 @@ Over the finite trees with nodes labeled by elements of a WQO, inf-embedding is 
 Without proof for the moment, maybe in a later lecture.
 
 TREE(3): https://www.youtube.com/watch?v=3P6DWAwwViU, https://www.youtube.com/watch?v=IihcNa9YAPk
-

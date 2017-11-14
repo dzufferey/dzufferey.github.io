@@ -129,7 +129,7 @@ An _Petri Net with inhibitory edges_ `N` is a 4-tuple `(S, T, W, I)` where
 
 The difference between Petri net with and without inhibitory edges is when transitions are enabled.
 Inhibitory edges block a transition from firing as long as the place with the inhibitory edge contain tokens.
-More formally, a transitions `t` is enabled iff `(I(t) = ⊥ ∨ M(I(t)) = 0) ∧ ∀ p ∈ S. M(s) ≥ W(s,t)`.
+More formally, a transition `t` is enabled iff `(I(t) = ⊥ ∨ M(I(t)) = 0) ∧ ∀ s ∈ S. M(s) ≥ W(s,t)`.
 
 #### Example
 

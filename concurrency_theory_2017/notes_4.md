@@ -379,31 +379,31 @@ For instance, Let us look at the following 3 trees:
 `T₁`:
 ```
   r
- /
+ ↗
 b
- \
+ ↘
   b
 ```
 
 `T₂`:
 ```
   r
- /
+ ↗
 b   r
- \ /
-  g-b
+ ↘ ↗
+  g→b
 ```
 
 `T₃`:
 ```
   r
- /
+ ↗
 g   g
- \ /
-  b-b
+ ↘ ↗
+  b→b
 ```
 
-In the pictures above, the leftmost node is the root and the letter is the color from the WQO `({r,g,b}, =)`.
+In the pictures above, the letter is the color from the WQO `({r,g,b}, =)`.
 
 We have that:
 * `T₁ ≤ T₂`

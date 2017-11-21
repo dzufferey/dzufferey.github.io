@@ -6,7 +6,7 @@ Usually, forward search is more efficient than backward search.
 This explains why people are still searching from generic forward algorithm for WSTS.
 The Karp-Miller tree was introduced in 1969.
 Work on generalizing it is still ongoing.
-
+ 
 
 ## Labelled TS
 
@@ -50,8 +50,8 @@ We have:
 * `(1,0) →_c (0,1) →_a (2,0)`
 From `(1,0)` to `(2,0)`, `ba` and `ca` are the same.
 However, if we want to iterate that sequence they will diverge:
-* `(2,0) →_b (0,2) →_a (2,1)`
-* `(2,0) →_c (1,1) →_a (3,0)`
+* `(2,0) →_b (0,2) →_a (2,1) →_b (0,3) →_a (2,2) →_b (0,4) →_a (2,3) → …`
+* `(2,0) →_c (1,1) →_a (3,0) →_c (2,1) →_a (4,0) →_c (3,1) →_a (5,0) → …`
 
 
 ## Manipulating downward-closed sets
@@ -531,3 +531,91 @@ This algorithm terminates on "flat" systems, i.e., acceleration only on simple c
 However, the analysis of non-flat systems is still a ongoing subject of research.
 Later in this class, we will discuss about lossy channel systems and depth-bounded processes.
 For both types of system, we know what the completion is (simple regular expressions, and nested graphs), but both types of systems are not flat.
+
+#### Example
+
+Let us look at the following transfer net:
+```
+   2
+    ↙ |a ↖
+(∙) ⇒ |b ⇒ ( )
+    ↘ |c ↗
+```
+
+Here is the tree shown at each depth
+
+```
+((1 0), 0, ✗)
+```
+
+```
+((1 0), 0, ✓) ┬b→ ((0 1), 0, ✗)
+              └c→ ((0 1), 0, ✗)
+```
+
+```
+((1 0), 0, ✓) ┬b→ ((0 1), 0, ✓) −a→ ((2 0), 0, ✗)
+              └c→ ((0 1), 0, ✗)
+```
+
+```
+((1 0), 0, ✓) ┬b→ ((0 1), 0, ✓) −a→ ((2 0), 0, ✗)
+              └c→ ((0 1), 0, ✓) −a→ ((2 0), 0, ✗)
+```
+
+```
+((1 0), 0, ✓) ┬b→ ((0 1), 0, ✓) −a→ ((2 ℕ), 1, ✓) ┬a→ ((4 ℕ), 1, ✗)
+              │                                   ├b→ ((0 ℕ), 1, ✗)
+              │                                   └c→ ((1 ℕ), 1, ✗)
+              └c→ ((0 1), 0, ✓) −a→ ((ℕ 0), 1, ✓) ┬b→ ((0 ℕ), 1, ✗)
+                                                  └c→ ((ℕ 1), 1, ✗)
+```
+
+```
+((1 0), 0, ✓) ┬b→ ((0 1), 0, ✓) −a→ ((2 ℕ), 1, ✓) ┬a→ ((ℕ ℕ), 2, ✓) ┬a→ ((ℕ ℕ), 2, ✗)
+              │                                   │                 ├b→ ((0 ℕ), 2, ✗)
+              │                                   │                 └c→ ((ℕ ℕ), 2, ✗)
+              │                                   ├b→ ((0 ℕ), 1, ✓) ┬a→ ((1 ℕ), 1, ✗)
+              │                                   │                 └b→ ((0 ℕ), 1, ✗)
+              │                                   └c→ ((1 ℕ), 1, ✓) ┬a→ ((3 ℕ), 1, ✗)
+              │                                                     ├b→ ((0 ℕ), 1, ✗)
+              │                                                     └c→ ((0 ℕ), 1, ✗)
+              └c→ ((0 1), 0, ✓) −a→ ((ℕ 0), 1, ✓) ┬b→ ((0 ℕ), 1, ✓) ┬a→ ((2 ℕ), 1, ✗)
+                                                  │                 └b→ ((0 ℕ), 1, ✗)
+                                                  └c→ ((ℕ ℕ), 2, ✓) ┬a→ ((ℕ ℕ), 2, ✗)
+                                                                    ├b→ ((0 ℕ), 2, ✗)
+                                                                    └c→ ((ℕ ℕ), 2, ✗)
+```
+...
+
+```
+((1 0), 0, ✓) ┬b→ ((0 1), 0, ✓) −a→ ((2 ℕ), 1, ✓) ┬a→ ((ℕ ℕ), 2, ✓) ┬a→ ((ℕ ℕ), 2, ✓)
+              │                                   │                 ├b→ ((0 ℕ), 2, ✓) ┬a→ ((2 ℕ), 2, ✓)
+              │                                   │                 │                 └b→ ((0 ℕ), 2, ✓)
+              │                                   │                 └c→ ((ℕ ℕ), 2, ✓)
+              │                                   ├b→ ((0 ℕ), 1, ✓) ┬a→ ((ℕ ℕ), 2, ✓) ┬a→ ((ℕ ℕ), 2, ✓)
+              │                                   │                 │                 ├b→ ((0 ℕ), 2, ✓)
+              │                                   │                 │                 └c→ ((ℕ ℕ), 2, ✓)
+              │                                   │                 └b→ ((0 ℕ), 1, ✓)
+              │                                   └c→ ((1 ℕ), 1, ✓) ┬a→ ((ℕ ℕ), 2, ✓) ┬a→ ((ℕ ℕ), 2, ✓)
+              │                                                     │                 ├b→ ((0 ℕ), 2, ✓) ┬a→ ((ℕ ℕ), 3, ✓)
+              │                                                     │                 │                 └b→ ((0 ℕ), 2, ✓)
+              │                                                     │                 └c→ ((ℕ ℕ), 2, ✓)
+              │                                                     │b→ ((0 ℕ), 1, ✓) ┬a→ ((ℕ ℕ), 2, ✓) ┬a→ ((ℕ ℕ), 2, ✓)
+              │                                                     │                 │                 ├b→ ((0 ℕ), 2, ✓)
+              │                                                     │                 │                 └c→ ((ℕ ℕ), 2, ✓)
+              │                                                     │                 └b→ ((0 ℕ), 1, ✓)
+              │                                                     └c→ ((0 ℕ), 1, ✓) ┬a→ ((ℕ ℕ), 2, ✓) ┬a→ ((ℕ ℕ), 2, ✓)
+              │                                                                       │                 ├b→ ((0 ℕ), 2, ✓)
+              │                                                                       │                 └c→ ((ℕ ℕ), 2, ✓)
+              │                                                                       └b→ ((0 ℕ), 1, ✓)
+              └c→ ((0 1), 0, ✓) −a→ ((ℕ 0), 1, ✓) ┬b→ ((0 ℕ), 1, ✓) ┬a→ ((ℕ ℕ), 2, ✓) ┬a→ ((ℕ ℕ), 2, ✓)
+                                                  │                 │                 ├b→ ((0 ℕ), 2, ✓)
+                                                  │                 │                 └c→ ((ℕ ℕ), 2, ✓)
+                                                  │                 └b→ ((0 ℕ), 1, ✓)
+                                                  └c→ ((ℕ ℕ), 2, ✓) ┬a→ ((ℕ ℕ), 2, ✓)
+                                                                    ├b→ ((0 ℕ), 2, ✓) ┬a→ ((ℕ ℕ), 3, ✓)
+                                                                    │                 └b→ ((0 ℕ), 2, ✓)
+                                                                    └c→ ((ℕ ℕ), 2, ✓)
+```
+

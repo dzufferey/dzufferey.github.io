@@ -204,7 +204,7 @@ In this class we are only dealing with finitely branching TS.
 A _well-structured transition system_ `𝓢` is a triple `𝓢 = (S,→,≤)` such that:
 * `(S,→)` is a TS
 * `≤` is a WQO over `S`
-* compatibility: `∀ x₁ x₂ y₁. ∃ y₂. x₁ → x₂ ∧ x₁ ≤ y₁ ∧ y₁ →* y₂ ∧ x₂ ≤ y₂`.
+* compatibility: `∀ x₁ x₂ y₁. ∃ y₂. x₁ → x₂ ∧ x₁ ≤ y₁ ⇒ y₁ →* y₂ ∧ x₂ ≤ y₂`.
 
 #### Different kinds of compatibility/simulation
 

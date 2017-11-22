@@ -412,7 +412,7 @@ We cal also extend markings to _generalized markings_ which are function from `S
 _Acceleration._
 Given `M` and `M′` with `M′ > M`, we return `M″` such that:
 * `M″(s) = M(s)` if `M(s) = M′(s)`
-* `M″(s) = ω` if `M(s) > M′(s)`
+* `M″(s) = ω` if `M′(s) > M(s)`
 
 
 ```
@@ -426,8 +426,8 @@ KarpMillerTree(S,T,W,M₀)
             ancestors ← path between M₀ and M′ in E
             M′ ← accelerate(ancestors, M′)
             E ← E ∪ { (M,M′) }
-            if ∀ A ∈ ancestors. A < M′ then
-                F ← F ∪ M′
+            if ∀ A ∈ ancestors. not(A ≥ M)′ then
+                F ← F ∪ {M′}
     return E
 
 accelerate(ancestors, M)
@@ -437,7 +437,7 @@ accelerate(ancestors, M)
 
 accelerate1(M₁, M₂)
     M ← empty marking
-    for (i ∈ [0, n])
+    for (s ∈ S))
         if (M₁(s) < M₂(s))
             M(s) = ω
         else
@@ -450,7 +450,7 @@ accelerate1(M₁, M₂)
 Applying the algorithm gives:
 ```
             ↗ (0 0 0 1 0) → (0 0 0 0 1) → (0 0 0 1 0)
-(0 0 1 0 0)                                                         ↗ (ω ω 0 0 0)
+(0 0 1 0 0)                                           ↗ (ω ω 0 0 0) → (ω ω 0 0 0)
             ↘ (0 1 0 0 0) → (2 0 0 0 0) → (ω 1 0 0 0) → (ω ω 0 0 0) → (ω ω 0 0 0)
 ```
 
@@ -473,7 +473,7 @@ a (∙) ( ) b
 
 We get the following tree:
 ```
-(1 0 2 0 0) → (0 1 1 1 0) → (1 0 1 0 1) → (0 1 0 1 1) → (1 0 0 0 2) → (1 0 0 0 1) → (1 0 0 0 0)
-                                        |             ↘ (0 1 0 1 0) → (1 0 0 0 1) → (1 0 0 0 0)
-                                        ↳ (1 0 1 0 0) → (0 1 0 1 0) → (1 0 0 0 1) → (1 0 0 0 0)
+(1 0 2 0 0) → (0 1 1 1 0) → (1 0 1 0 1) → (0 1 0 1 1) → (1 0 0 0 2) → (1 0 0 0 1)
+                                        |             ↘ (0 1 0 1 0)
+                                        ↳ (1 0 1 0 0)
 ```

@@ -48,6 +48,7 @@ Consider the following transfer net with labelled transitions:
 We have:
 * `(1,0) →_b (0,1) →_a (2,0)`
 * `(1,0) →_c (0,1) →_a (2,0)`
+
 From `(1,0)` to `(2,0)`, `ba` and `ca` are the same.
 However, if we want to iterate that sequence they will diverge:
 * `(2,0) →_b (0,2) →_a (2,1) →_b (0,3) →_a (2,2) →_b (0,4) →_a (2,3) → …`
@@ -199,7 +200,7 @@ _Proof._
 Let us look at sets of elements.
 In particular, consider the following set `ψ_i = ⋃_{0≤k<i} ↑(k,i)`.
 
-Visually `ψ_2` looks like:
+Visually `ψ₂` looks like:
 ```
 ⋮ ⋮ ⋮   ⋮ ⋮ ⋮ ⋮  
 7 x x · x x x x  
@@ -213,7 +214,7 @@ Visually `ψ_2` looks like:
   0 1 2 3 4 5 6 ⋯
 ```
 
-Visually `ψ_3` looks like:
+Visually `ψ₃` looks like:
 ```
 ⋮ ⋮ ⋮ ⋮   ⋮ ⋮ ⋮  
 7 x x x · x x x  
@@ -236,7 +237,7 @@ _Proof._
 * By definition of `≤_R`, `∀ k<i. ¬( (k=i ∧ i≤j) ∨ i<i )` which is true.
 
 __Proposition.__
-`∀ i j k. k < k ⇒ (i,j) ∉ ψ_k`.
+`∀ i j k. j < k ⇒ (i,j) ∉ ψ_k`.
 
 _Proof._
 * `ψ_k = ⋃_{0≤l<k} ↑(l,k)` so we need to show that `∀ l<k, i<j<k. (l,k) ≰_R (i,j)`
@@ -311,6 +312,11 @@ The completion defines a new WSTS that operates on the ideals of the original sy
 
 ### Properties of the completion
 
+Let us relate the completion to the original transition systems and show that the covering is preserved.
+
+First, we want to show that if a state can be covered in the orignial system then the completion can cover it.
+It will help us prove the soundness of the algorithm.
+This is captured by the following proposition:
 
 __Proposition.__
 Let `𝓢 = (S,Σ,→,≤)` be a WSTS with strong monotonicity and its completion`𝓒 = (Idl(S),Σ,⇝,⊆)`.
@@ -328,8 +334,13 @@ By induction on `w`
   * by definition: `⇝(I, a, I′)`
   * by the induction hypothesis: `∃ J ∈ Idl(S). ⇝(I′, w′, J) ∧ y ∈ J`
 
+
+Second, we show that if the completion can cover a state then the original system can do the same.
+This will help prove the completennes of the algorithm, i.e., no spurious counterexample.
+This is captured by the following proposition:
+
 __Proposition.__
-Let `𝓢 = (S,Σ,→,≤)` be a WSTS with strong monotonicity and its completion`𝓒 = (Idl(S),Σ,⇝,⊆)`.
+Let `𝓢 = (S,Σ,→,≤)` be a WSTS with strong monotonicity and its completion `𝓒 = (Idl(S),Σ,⇝,⊆)`.
 ```
     ∀ I,J ∈ Idl(S), w ∈ Σ*. y ∈ S. ⇝(I, w, J) ∧ y ∈ J  ⇒  ∃ x ∈ I. y′ ∈ S. →(x, w, y′) ∧ y ≤ y′
 ```
@@ -343,8 +354,11 @@ By induction on `w`:
   * by definition of `⇝`: `∃ x z′. x ∈ I ∧ z′ ∈ I′ ∧ →(x, a, z′) ∧ z ≤ z′`
   * by strong monotonicity we get `y″` such that  `→(x, w, y″) ∧ y ≤ y′ ≤ y″`
 
+
+Putting both propositions together, we get the following:
+
 __Theorem.__
-Let `𝓢 = (S,Σ,→,≤)` be a WSTS with strong monotonicity and its completion`𝓒 = (Idl(S),Σ,⇝,⊆)`.
+Let `𝓢 = (S,Σ,→,≤)` be a WSTS with strong monotonicity and its completion `𝓒 = (Idl(S),Σ,⇝,⊆)`.
 ```
     ∀ I ∈ Idl(S), w ∈ Σ*. ↓post_𝓢(I, w) = ⋃_{J ∈ post_𝓒(I, w)} J
 ```
@@ -524,6 +538,7 @@ return ⋃_{(I,n) ∈ T} I
 __Sketch of the correctness of the algorithm.__
 * The algorithm terminates because we assume a finite number of acceleration levels.
 * The properties of the completion implies it is computing the covering set.
+* For any transfinite trace (sequence of transition that contains acceleration) and any state covered by this trace, there is a finite trace that covers the state.
 
 The proof of correctness can be found in [Forward Analysis for WSTS, Part III: Karp-Miller Trees](https://arxiv.org/abs/1710.07258).
 

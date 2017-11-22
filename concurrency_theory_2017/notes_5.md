@@ -129,6 +129,12 @@ For any upward-closed sets `P` and `Q`, `Q ⊑ P  ⇔  P ⊆ Q`.
 
 #### Relation ship between `⊑` and logic
 
+**(Damien) This part seems currently broken:**
+I was working with definitions in [Better is Better than Well: On Efficient Verification of Infinite-State Systems](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.25.7970) Section 2.
+However, some things seems wrong...
+For the moment, you should ignore this digression.
+I'll fix it later.
+
 It is possible to see a logical proposition with a single free variable `P` as a set: `[P] = { x | P(x) }`.
 
 Then the formula `(∀x. P(x) ⇒ Q(x))` is equivalent to `[Q] ⊆ [P]`. (Notice that the `P`/`Q` order is swapped.)

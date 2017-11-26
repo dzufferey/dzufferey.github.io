@@ -105,23 +105,49 @@ Unfortunately, WQO are not "closed" under infinitary operations, e.g., powerset,
 
 When discussing sets of ordered elements, there are multiple ways to lift the ordering of the elements to the sets.
 
+Unfortunately, the subset relation (`⊆`) does not transfer well to sets of elements because it just check for elements rather than comparing them in the ordering.
+
+__Proposition.__
+Let `(X,≤)` be a WQO with `X` an infinite set. `(2^X, ⊆)` is not a WQO.
+
+_Proof._
+* Let `x₀ x₁ …` be an infinite sequence of element from `X` such that `∀ i j. i ≠ i ⇒ x_i ≠ x_j`. Such sequence exists because `X` is infinite.
+* Use that sequence to construct a new sequence of singleton sets `{x₀} {x₁} …`. Every set in that sequence contain an element which is not in any other set. Therefore, this sequence is an infinite antichain w.r.t. `⊆`.
+
+Therefore, we need to look for ways of comparing sets and taking the ordering into account.
+The first possibility is to look at sets closed under `≤`.
+
 __Downward-closed sets.__
 When we deal with downward-closed sets, the subset ordering (`⊆`) is the most common approach.
 
-It is `↓P ⊆ ↓Q  ⇔  ∀ p ∈ P. ∃ q ∈ Q. p ≤ q.`
+When expanding the definitions we get:
+* `↓P ⊆ ↓Q`
+* `∀ p. p ∈ ↓P ⇒ p ∈ ↓Q`                                by definitions of `⊆`
+* `∀ p. p ∈ ↓P ⇒ ∃ q. q ∈ Q ∧ p ≤ q`                    by definition of `↓`
+* `∀ p. (∃ p′. p′ ∈ P ∧ p ≤ p′) ⇒ ∃ q. q ∈ Q ∧ p ≤ q`   by definition of `↓`
+* `∀ p. ∃ q. p ∈ P ⇒ q ∈ Q ∧ p ≤ q`                     by instantiating `p′` with `p`
+Furthermore, if we assume the `Q` is not empty we get:
+* `∀ p ∈ P. ∃ q ∈ Q. p ≤ q`
+
 When we manipulate downward-closed sets as a finite union of ideal, it means that every ideal of `P` is contained in an ideal of `Q`.
+This is good as we can check for inclusion by comparing the basis elements.
 
 __Upward-closed sets.__
 
-In the case of upward-closed sets, we have: `↑P ⊆ ↑Q` iff `∀ p ∈ P. ∃ q ∈ Q. q ≤ p`.
+The case of upward-closed sets is similar:
+* `↑P ⊆ ↑Q`
+* `∀ p. p ∈ ↑P ⇒ p ∈ ↑Q`                                by definition of `⊆`
+* `∀ p. p ∈ ↑P ⇒ ∃ q. q ∈ Q ∧ q ≤ p`                    by definition of `↑`
+* `∀ p. (∃ p′. p′ ∈ P ∧ p′ ≤ p) ⇒ ∃ q. q ∈ Q ∧ q ≤ p`   by definition of `↑`
+* `∀ p. ∀ p′. p′ ∈ P ∧ p′ ≤ p ⇒ ∃ q. q ∈ Q ∧ q ≤ p`
+* `∀ p. p ∈ P ⇒ ∃ q. q ∈ Q ∧ q ≤ p`                     by case split on `p=p′` and simplification
+Furthermore, if we assume the `Q` is not empty we get:
+* `∀ p ∈ P. ∃ q ∈ Q. q ≤ p`
+* `Q ⊑ P`                                               by definition of `⊑`
 
-This lead to the more general operators: `Q ⊑ P` iff `∀ p ∈ P. ∃ q ∈ Q. q ≤ p`.
+This lead to the `⊑` relation is often found in the literature about ordering on sets.
+The `⊑` applies on any kind of sets, not only upward-closed but on upward-closed sets it matches inclusion.
 Notice that the order of `P` and `Q` is swapped.
-
-The `⊑` applies on any kind of sets, not only upward-closed.
-
-__Proposition.__
-For any upward-closed sets `P` and `Q`, `Q ⊑ P  ⇔  P ⊆ Q`.
 
 
 ---
@@ -133,16 +159,16 @@ For any upward-closed sets `P` and `Q`, `Q ⊑ P  ⇔  P ⊆ Q`.
 I was working with definitions in [Better is Better than Well: On Efficient Verification of Infinite-State Systems](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.25.7970) Section 2.
 However, some things seems wrong...
 For the moment, you should ignore this digression.
-I'll fix it later.
+Should be fixed now, I still need to double check…
 
 It is possible to see a logical proposition with a single free variable `P` as a set: `[P] = { x | P(x) }`.
 
-Then the formula `(∀x. P(x) ⇒ Q(x))` is equivalent to `[Q] ⊆ [P]`. (Notice that the `P`/`Q` order is swapped.)
+Then the formula `(∀x. P(x) ⇒ Q(x))` is equivalent to `[P] ⊆ [Q]`.
 
 However, often `P` and `Q` have more than a single free variable.
 For instance `P(x,y)` and `Q(x,z)`.
 
-Then `[Q] ⊆ [P]` becomes
+Then `[P] ⊆ [Q]` becomes
 * `∀ x. (∃ y. P(x,y)) ⇒ (∃ z. Q(x,z))`
 * `∀ x y. ∃ z. P(x,y) ⇒ Q(x,z)`
 
@@ -150,10 +176,10 @@ Then `[Q] ⊆ [P]` becomes
 * `∀ x z. ∃ y. P(x,y) ⇒ Q(x,z)`
 * `∀ x. (∀ y. P(x,y)) ⇒ (∀ z. Q(x,z))`
 
-In particular we have `[P] ⊑ [Q]` implies `[Q] ⊆ [P]` and it is well-behaved w.r.t. `∪` and `∨`: `⋃_i[P_i] ⊑ ⋃_j[Q_j]` implies `[∨_j Q_j] ⊆ [∨_i P_i]`.
+In particular we have `[P] ⊑ [Q]` implies `[P] ⊆ [Q]` and it is well-behaved w.r.t. `∪` and `∨`: `⋃_i[P_i] ⊑ ⋃_j[Q_j]` implies `[∨_j P_j] ⊆ [∨_i Q_i]`.
 
 Some authors have tried to introduce a more uniform notation:
-* `X ≼_∀^∃ Y  ⇔  ∀ x ∈ X. ∃ y ∈ Y. x ≤ y  ≈  Y ⊆ X`
+* `X ≼_∀^∃ Y  ⇔  ∀ x ∈ X. ∃ y ∈ Y. x ≤ y  ≈  X ⊆ Y`
 * `X ≼_∃^∀ Y  ⇔  ∀ y ∈ Y. ∃ x ∈ X. x ≤ y  ⇔  X ⊑ Y`
 
 `⊑` is useful because

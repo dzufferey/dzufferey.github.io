@@ -339,11 +339,15 @@ The send/receive order of the mailbox is also possible in the p2p case.
 Furthermore, the p2p case allow for more possibilities that are not possible in the mailbox case.
 
 
-#### Alternating bit protocol
+#### Alternating bit protocol (ABP)
 
 Let us look at a more complex example that will help us illustrate the difference between FIFO vs bag and reliable vs lossy channels.
 
-TODO explain
+The ABP appends `0` or `1` to messages in alternation and expect matching acknowledgment (`Ack0`, `Ack1`).
+If the sender does not receive an acknowledgment, it resends messages.
+The ABP work with unreliable channels as long as they are FIFO.
+
+In the example below, the _sender_ process tries to transmit the sequence `ABB` to the receiver process.
 
 * sender
   ```
@@ -394,4 +398,142 @@ TODO explain
                 (AAA)
   ```
 
-TODO traces
+Let us first look at a trace with reliable FIFO channels.
+
+__Reliable FIFO trace.__
+* initial state
+  - sender:   state `ε`,    messages: `ε`
+  - receiver: state `ε`,    messages: `ε`
+* sender sending `(A,0)`
+  - sender:   state `A`,    messages: `ε`
+  - receiver: state `ε`,    messages: `(A,0)`
+* receiver receiving `(A,0)`
+  - sender:   state `A`,    messages: `ε`
+  - receiver: state `Aa`,   messages: `ε`
+* receiver sending `Ack0`
+  - sender:   state `A`,    messages: `Ack0`
+  - receiver: state `A`,    messages: `ε`
+* sender receiving `Ack0`
+  - sender:   state `Aa`,   messages: `ε`
+  - receiver: state `A`,    messages: `ε`
+* sender sending `(B,1)`
+  - sender:   state `AB`,   messages: `ε`
+  - receiver: state `A`,    messages: `(B,1)`
+* receiver receiving `(B,1)`
+  - sender:   state `AB`,   messages: `ε`
+  - receiver: state `ABa`,  messages: `ε`
+* receiver sending `Ack1`
+  - sender:   state `AB`,   messages: `Ack1`
+  - receiver: state `AB`,   messages: `ε`
+* sender receiving `Ack1`
+  - sender:   state `ABa`,  messages: `ε`
+  - receiver: state `AB`,   messages: `ε`
+* sender sending `(B,0)`
+  - sender:   state `ABB`,  messages: `ε`
+  - receiver: state `AB`,   messages: `(B,0)`
+* receiver receiving `(B,0)`
+  - sender:   state `ABB`,  messages: `ε`
+  - receiver: state `ABBa`, messages: `ε`
+* receiver sending `Ack0`
+  - sender:   state `ABB`,  messages: `Ack0`
+  - receiver: state `ABB`,  messages: `ε`
+* sender receiving `Ack0`
+  - sender:   state `Done`, messages: `ε`
+  - receiver: state `ABB`,  messages: `ε`
+
+__Lossy FIFO trace.__
+* initial state
+  - sender:   state `ε`,    messages: `ε`
+  - receiver: state `ε`,    messages: `ε`
+* sender sending `(A,0)`
+  - sender:   state `A`,    messages: `ε`
+  - receiver: state `ε`,    messages: `(A,0)`
+* network dropping `(A,0)`
+  - sender:   state `A`,    messages: `ε`
+  - receiver: state `ε`,    messages: `ε`
+* sender sending `(A,0)`
+  - sender:   state `A`,    messages: `ε`
+  - receiver: state `ε`,    messages: `(A,0)`
+* sender sending `(A,0)`
+  - sender:   state `A`,    messages: `ε`
+  - receiver: state `ε`,    messages: `(A,0)·(A,0)`
+* receiver receiving `(A,0)`
+  - sender:   state `A`,    messages: `ε`
+  - receiver: state `Aa`,   messages: `(A,0)`
+* receiver sending `Ack0`
+  - sender:   state `A`,    messages: `Ack0`
+  - receiver: state `A`,    messages: `(A,0)`
+* receiver receiving `(A,0)`
+  - sender:   state `A`,    messages: `Ack0`
+  - receiver: state `Aa`,   messages: `ε`
+* receiver sending `Ack0`
+  - sender:   state `A`,    messages: `Ack0·Ack0`
+  - receiver: state `A`,    messages: `ε`
+* sender receiving `Ack0`
+  - sender:   state `Aa`,   messages: `Ack0`
+  - receiver: state `A`,    messages: `ε`
+* sender sending `(B,1)`
+  - sender:   state `AB`,   messages: `Ack0`
+  - receiver: state `A`,    messages: `(B,1)`
+* sender receiving `Ack0`
+  - sender:   state `AB`,   messages: `ε`
+  - receiver: state `A`,    messages: `(B,1)`
+* …
+
+With retransmission, traces can get quite a bit more complicated but the protocol still works as expected
+
+__Reliable out-of-order (bag) trace.__
+* initial state
+  - sender:   state `ε`,    messages: `∅`
+  - receiver: state `ε`,    messages: `∅`
+* sender sending `(A,0)`
+  - sender:   state `A`,    messages: `∅`
+  - receiver: state `ε`,    messages: `{(A,0)}`
+* sender sending `(A,0)`
+  - sender:   state `A`,    messages: `∅`
+  - receiver: state `ε`,    messages: `{(A,0), (A,0)}`
+* receiver receiving `(A,0)`
+  - sender:   state `A`,    messages: `∅`
+  - receiver: state `Aa`,   messages: `{(A,0)}`
+* receiver sending `Ack0`
+  - sender:   state `A`,    messages: `{Ack0}`
+  - receiver: state `A`,    messages: `{(A,0)}`
+* sender receiving `Ack0`
+  - sender:   state `Aa`,   messages: `∅`
+  - receiver: state `A`,    messages: `{(A,0)}`
+* sender sending `(B,1)`
+  - sender:   state `AB`,   messages: `∅`
+  - receiver: state `A`,    messages: `{(A,0), (B,1)}`
+* receiver receiving `(B,1)`
+  - sender:   state `AB`,   messages: `∅`
+  - receiver: state `ABa`,  messages: `{(A,0)}`
+* receiver sending `Ack1`
+  - sender:   state `AB`,   messages: `{Ack1}`
+  - receiver: state `AB`,   messages: `{(A,0)}`
+* sender receiving `Ack1`
+  - sender:   state `ABa`,  messages: `∅`
+  - receiver: state `AB`,   messages: `{(A,0)}`
+* sender sending `(B,0)`
+  - sender:   state `ABB`,  messages: `∅`
+  - receiver: state `AB`,   messages: `{(A,0), (B,0)}`
+* receiver receiving `(A,0)`
+  - sender:   state `ABB`,  messages: `∅`
+  - receiver: state `ABAa`, messages: `{(B,0)}`
+* receiver sending `Ack0`
+  - sender:   state `ABB`,  messages: `Ack0`
+  - receiver: state `ABA`,  messages: `{(B,0)}`
+* sender receiving `Ack0`
+  - sender:   state `Done`, messages: `∅`
+  - receiver: state `ABA`,  messages: `{(B,0)}`
+* receiver receiving `(B,0)`
+  - sender:   state `Done`, messages: `∅`
+  - receiver: state `ABAa`, messages: `∅`
+* receiver sending `Ack0`
+  - sender:   state `Done`, messages: `Ack0`
+  - receiver: state `ABA`,  messages: `∅`
+* sender receiving `Ack0`
+  - sender:   state `Done`, messages: `∅`
+  - receiver: state `ABA`,  messages: `∅`
+
+In this instance, the receiver process did received `ABA` instead of `ABB`.
+This shows that ABP requires FIFO channel.

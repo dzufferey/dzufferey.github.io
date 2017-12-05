@@ -13,7 +13,7 @@ Let us look in more details at a particular type of WQO that is well behaved wit
 
 Let `X` be a finite set and `≤` a quasi-order on `X`.
 * Show that `(X,≤)` is a WQO
-* Show that `(2^X,⊑)` is a WQO (``P ⊑ Q ⇔ ∀ q ∈ Q. ∃ p ∈ P. p ≤ Q``)
+* Show that `(2^X,⊑)` is a WQO (``P ⊑ Q ⇔ ∀ q ∈ Q. ∃ p ∈ P. p ≤ q``)
 * Show that `(2^X,⊆)` is a WQO
 
 

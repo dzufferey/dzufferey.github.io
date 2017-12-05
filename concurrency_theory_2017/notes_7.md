@@ -1,7 +1,7 @@
 # Communicating State Machines
 
 __Notations.__
-* To send and receive messages, we use the CCS notations (CCS = communicating sequential processes).
+* To send and receive messages, we use the CSP notations (CSP = communicating sequential processes).
   - `p!a`: sending message `a` to `p`. The `p` can be omitted in some models.
   - `?a`: receiving message `a`.
 * For the moment we consider systems with a fixed number of processes. We use `N` for the number of processes.
@@ -61,7 +61,7 @@ Picking different models can be for accuracy of the model or decidability of som
 The state of a system is a pair `(S,C)` where
 * `M` is a map from `id` to states of the corresponding machine
 * `C` represent the channels. Depending on the type of system we want to model there are kinds of channel:
-  - point to point: `C(i,j)` is a FIFO buffer between each pair of processes
+  - point to point: `C(i,j)` is a FIFO buffer between each pair of processes where `i` is the sender and `j` the receiver
   - mailbox: `C(i)` is a FIFO buffer, each process has a single mailbox where all the incoming messages get multiplexed
   - unordered: `C(i)` is a bag (multisets)
   - synchronous: there are no channel
@@ -537,3 +537,185 @@ __Reliable out-of-order (bag) trace.__
 
 In this instance, the receiver process did received `ABA` instead of `ABB`.
 This shows that ABP requires FIFO channel.
+
+
+## CSM with unbounded reliable FIFO channels is a Turing complete model of computation
+
+### Short reminder about Turing machine
+
+A Turing machine is composed of two elements:
+* head: instructions are given by a finite state machine, can: read, write, move forward, move backward
+* tape: infinite tape that start with an initial word
+
+It has an alphabet `Σ` to store words on the tape and a _blank symbol_ (represent empty cells on the tape).
+A transition is the combination of reading the character at the current position, updating the local state, writing a new character, moving forward or backward.
+The state machine for the head has a special _halt_ state which has no transtition
+
+
+### Structure of the encoding
+
+We keep the head from the Turing machine and insert extra parts to simulate the infinite tape using unbounded channels.
+
+When reducing a Turing machine to a CSM, some of the functionality of the Turing machine cannot be mapped to a single transition but to a sequence of transitions.
+The substrucutres implementing these operations are usually called gadget.
+In this case, they are small finite state machine with a single start state and a single end state.
+
+The overall structure is:
+```
+┌───────┐
+│ head  │
+│-------│ ┌────┐
+│buffer │⇆│echo│
+└───────┘ └────┘
+```
+
+We now show how to implement each of these parts.
+
+__Buffer.__
+The buffer is the key part that interact with the channel and the head.
+The tape of the Turing machine is split between the channels which stores most of the tape and small _buffer_ state machine which store the letter for the current position and wherether we have past the last written symbol, i.e., we are "extending" the channel.
+Compared to a tape, the buffer + channel combination can only move forward and, when it reaches the end, it loops back to the beginning of the tape.
+
+The set of messages is between the buffer and echo are:
+* `Σ` (alphabet of the Turing machine)
+* blank symbol (also from Turing machine)
+* end of tape symbol
+* current position marker
+
+The buffer synchronizes with the head on transitions of the form `Σ × Σ × {F/B}` where the 1st element is the read character, the 2nd is the character to write, and whether to move forward or backward.
+
+Reading and writing just depends on the current state which is store in the state of the finite state machine.
+Therefore, it is a normal transition of a NFA.
+On the other hand, moving forward/backward requires interacting with the channel.
+
+_Moving forward._
+* If not past the end of tape:
+  1. send the current character to echo
+  2. receive the next character from the channel
+  3. if the character is "end-of-tape" then remember that the buffer is beyond the last written character and store "blank" as the current character
+* If beyond the last written character:
+  1. send the current character to echo
+  2. use "blank" as the current character 
+
+_Moving backward._
+1. send the "current position" marker to echo
+2. if not yet past the end then move forward until the "end of tape" character (each time sending the read characters back to echo)
+3. send "end of tape to echo"
+4. move forward until the "current position" marker is found, discard the marker and keep the previous character in memory
+
+
+__Echo.__
+Is a simple state machine that receives any messages and sends it back.
+
+For instances, if the set of messages is `{a,b}`, echo looks like:
+```
+  ( )
+?a ⇅ !a
+→ ( )
+!b ⇅ ?b
+  ( ) 
+```
+
+Notice that only one of the two channels need to be unbounded for this reduction to work.
+
+_Example._
+
+Let us look at the tape of a turing machine where the tape contains `abc`, the head points to the 2nd position, and make transition that read `b`, write `d`, and move backward:
+```
+ ↓                   ↓
+abc ─(b,d,backward)⇒ adc
+```
+
+Let us look at the CSM encoding.
+let `.` be the end of tape symbol and `|` by the current position marker.
+The corresponding states are:
+```
+current: b                                current: a
+echo → buffer: c.a  ─(b,d,backward)⇒ … →  echo → buffer: dc.
+buffer → echo: ε                          buffer → echo: ε
+```
+However, this is not a one step process.
+Let us look at the intermediate steps:
+* update the current state:
+  ```
+  status: ready                             status: backward/insert_current
+  current: b                                current: d
+  echo → buffer: c.a  ─(b,d,backward)⇒ … →  echo → buffer: c.a
+  buffer → echo: ε                          buffer → echo: ε
+  ```
+* inserting current position and echo:
+  ```
+  status: backward/insert_current           status: backward/loop               status: backward/loop
+  current: b                                current: d                          current: d
+  echo → buffer: c.a            →           echo → buffer: c.a          →       echo → buffer: c.a|
+  buffer → echo: ε                          buffer → echo: |                    buffer → echo: ε
+  ```
+* finding the end of the tape and echo:
+  ```
+  status: backward/loop                     status: backward/loop               status: backward/loop
+  current: d                                current: c                          current: c
+  echo → buffer: c.a|           →           echo → buffer: .a|          →       echo → buffer: .a|d
+  buffer → echo: ε                          buffer → echo: d                    buffer → echo: ε
+  ```
+  ```
+  status: backward/loop                     status: backward/find_marker        status: backward/find_marker
+  current: c                                current: .                          current: .
+  echo → buffer: .a|d           →           echo → buffer: a|d          →       echo → buffer: a|dc
+  buffer → echo: ε                          buffer → echo: c                    buffer → echo: ε
+  ```
+* finding the marker and echo:
+  ```
+  status: backward/find_marker              status: backward/find_marker        status: backward/find_marker
+  current: .                                current: a                          current: a
+  echo → buffer: a|dc           →           echo → buffer: |dc          →       echo → buffer: |dc.
+  buffer → echo: ε                          buffer → echo: .                    buffer → echo: ε
+  ```
+  ```
+  status: backward/find_marker              status: ready
+  current: a                                current: a
+  echo → buffer: |dc.           →           echo → buffer: dc.
+  buffer → echo: ε                          buffer → echo: ε
+  ```
+
+__Initialization.__
+
+To finish the reduction, we need to initialize the channel with the input word.
+For this we can extend the buffer state machine so that it send to echo the initial word before synchronizing with transitions of the head.
+
+_Remark._
+In this reduction, we use transition which are not related to sending or receiving messages, for example we use some form of synchronous product between the head and the buffer.
+Notice, that these transitions are only between finite state machines and do not change the channels.
+We can remove these extra transitions by:
+1. compute the synchronous product between the head and the buffer to have a single state machine
+2. replace the transition not related to messages by `ε`
+3. use an NFA minimization algorithm to get rid of the `ε` edges.
+
+
+### Limitations of the proofs
+
+The reductions only needs two machines and one unbounded FIFO channel (the other channel may be bounded).
+On the other hand, changing the model of the channel easily breaks the reduction.
+
+Let us look what happens if the channels are:
+* bounded: ??? (homework)
+* bags: ??? (homework)
+* lossy: (next week ...)
+* [half-duplex communication and two machines](https://www.sciencedirect.com/science/article/pii/S0890540105001082)
+
+__Half-duplex communication.__
+Half duplex systems are the communication is only one direction at the same time.
+Let `P` and `Q` be two processes in a half-duplex systems.
+`P` can send a messages to `Q` only if the channel from `Q` to `P` is empty.
+
+The send rules become:
+```
+  → (M(i), j!a, s)       C(j,i) = ε
+─────────────────────────────────────────
+(M, C) → (M[i → s], C[(i,j) →  C(i,j)·a])
+```
+
+With only two machines, the problem becomes decidable.
+Intiutively, the channels need to beome empty before the dirrection of the communication changes and, therefore, it is not possible to store more information than the (finite) local state of the two machines.
+
+The proof uses are normalization lemma.
+Every execution can be transformed into an equivalent execution (w.r.t. the reachable local states) where the channels are 1-bounded.

@@ -6,7 +6,7 @@ Usually, forward search is more efficient than backward search.
 This explains why people are still searching from generic forward algorithm for WSTS.
 The Karp-Miller tree was introduced in 1969.
 Work on generalizing it is still ongoing.
- 
+
 
 ## Labelled TS
 
@@ -17,7 +17,7 @@ A _labeled WSTS_ is a 4 tuple `(S,Σ,→,≤)` with:
 * `Σ` is a finite set of labels,
 * `→ ⊆ S × Σ × S` is a transition relation,
 * `≤` is a WQO over `S`,
-* strong monotonicity: `∀ x₁ a x₂ y₁. ∃ y₂. →(x₁, a, x₂) ∧ x₁ ≤ y₁ ∧ →(y₁, a, y₂) ∧ x₂ ≤ y₂`.
+* strong monotonicity respecting labels: `∀ x₁ a x₂ y₁. ∃ y₂. →(x₁, a, x₂) ∧ x₁ ≤ y₁ ∧ →(y₁, a, y₂) ∧ x₂ ≤ y₂`.
 
 For the transitions, we write `→(x₁, a, x₂)` or `x₁ →_a x₂` for `(x₁, a, x₂) ∈ →`.
 
@@ -90,7 +90,7 @@ To make it possible to use ideals, we need to give a "finite representation of e
 In the case of Petri nets, we can use `(ℕ + ω)^n` to represent ideals.
 For instance, in the Karp-Miller algorithm a generalized marking `(1 2 ω)` represents the ideal `↓1 × ↓2 × ℕ`.
 
-To have an efficient representation of downward-closed set, we want to decomposed them in maximal ideals: `IdealDecomposition(D) = { I | I ∈ Idl(X) ∧ I ⊆ D ∧ (∀ J ∈ Idl(X). I≠J ∧ J ⊆ D ⇒ I ⊈ J)}`.
+To have an efficient representation of downward-closed set, we want to decompose them in maximal ideals: `IdealDecomposition(D) = { I | I ∈ Idl(X) ∧ I ⊆ D ∧ (∀ J ∈ Idl(X). I≠J ∧ J ⊆ D ⇒ I ⊈ J)}`.
 
 By the theorem above, it exists and must be finite.
 
@@ -244,7 +244,7 @@ _Proof._
 * This simplifies to `∀ l<k, i<j<k. ¬ ( (l=i ∧ ⊥) ∨ ⊥ )` which is true.
 
 __Lemma.__
-`ψ₁ ψ₂ …` is an finite antichain according to set inclusion (`⊆`).
+`ψ₁ ψ₂ …` is an infinite antichain according to set inclusion (`⊆`).
 
 _Proof._
 * Consider `ψ_i` and `ψ_j` with `i<j`.
@@ -307,7 +307,7 @@ More details in [A Note on Well Quasi-Orderings for Powersets](http://citeseerx.
 Given a WSTS `(S,Σ,→,≤)` where `≤` is a ω²-WQO, we can define the _completion_ of S as a WSTS `(Idl(S),Σ,⇝,⊆)` such that
 `⇝(I, a, J)  ⇔  J ∈ IdealDecomposition(↓post(I,a))`
 
-The completion defines a new WSTS that operates on the ideals of the original system and lift the transition relation to these ideals.
+The completion defines a new WSTS that operates on the ideals of the original system and lifts the transition relation to these ideals.
 
 ### Properties of the completion
 
@@ -320,7 +320,7 @@ Let `𝓢 = (S,Σ,→,≤)` be a WSTS with strong monotonicity and its completio
 
 _Proof._
 By induction on `w`
-- case `w = ε`: `I=J`
+- case `w = ε`: `J=I`
 - case `w = a w′`:
   * we have `x →_a x′ →_{w′} y`
   * `x′ ∈ post_𝓢(x, a) ⊆ ↓post_𝓢(x, a)`
@@ -417,7 +417,7 @@ For (4) we get
 
 ### Acceleration
 
-An infinite sequence of ideal `I₀ I₁ I₂ …` is an _acceleration candidate_ if `I₀ ⊂ I₁ ⊂ I₂ ⊂ …`.
+An infinite sequence of ideals `I₀ I₁ I₂ …` is an _acceleration candidate_ if `I₀ ⊂ I₁ ⊂ I₂ ⊂ …`.
 
 Let `S = (S,Σ,→,≤)` be a WSTS with completion `C` and `C` has strong-strict monotonicity.
 Let `w ∈ Σ*` and `I ∈ Idl(S)`.
@@ -618,4 +618,3 @@ Here is the tree shown at each depth
                                                                     │                 └b→ ((0 ℕ), 2, ✓)
                                                                     └c→ ((ℕ ℕ), 2, ✓)
 ```
-

@@ -95,22 +95,3 @@ Since all these constants are finite, the overall system is finite.
   For a given `f`, explain how you get `M_i` and `s_i` with your reduction.
 * Express `N`, `m`, `|Σ|`, and `k` as a function of the number of states in the NFA.
 
-
-## CSM with bags (instead of FIFO)
-
-The ordering in the reduction was important because the tape of the TM is an ordered sequence.
-If the CSM's mailboxes are bags (multisets) instead of FIFOs, the reduction does not work.
-
-A multiset of messages is usually modeled as map from message type to natural number.
-Petri nets have a limited ability to "count" and can encode such map.
-
-### CSM → PN
-
-* Give a reduction from CSM with bag mailbox to Petri net that preserves control-state reachability.
-  By preserving control-state reachability, we mean that a machine `M_i` in the CSMs can reach a given state `s_i` iff the PN obtained with the reduction can cover a marking `M`.
-  For a given `M_i` and `s_i` explain what `M` you get with your reduction.
-* How many places and transitions does the PN has as a function of `N`, `m`, `|Σ|`, and `k` ?
-
-### [Optional] PN → CSM
-
-* Give are reduction from Petri net to communicating state machines such that a covering question for the Petri net can be encoded as a control-state reachability question in the CSM.

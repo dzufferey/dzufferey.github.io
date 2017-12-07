@@ -541,6 +541,10 @@ This shows that ABP requires FIFO channel.
 
 ## CSM with unbounded reliable FIFO channels is a Turing complete model of computation
 
+The details of the reduction are intricate.
+However, the overall idea is fairly simple.
+In the following note, we will only look at the overall idea behind the proof.
+
 ### Short reminder about Turing machine
 
 A Turing machine is composed of two elements:
@@ -549,7 +553,7 @@ A Turing machine is composed of two elements:
 
 It has an alphabet `Σ` to store words on the tape and a _blank symbol_ (represent empty cells on the tape).
 A transition is the combination of reading the character at the current position, updating the local state, writing a new character, moving forward or backward.
-The state machine for the head has a special _halt_ state which has no transtition
+The state machine for the head has a special _halt_ state which has no outgoing transition.
 
 
 ### Structure of the encoding

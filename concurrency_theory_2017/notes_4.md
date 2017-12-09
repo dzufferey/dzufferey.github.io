@@ -113,7 +113,7 @@ Let `w₁` and `w₂` be two finite sequences.
 `w₁` is a _subsequence_ of `w₂` if it is possible to obtain `w₁` from by deleting some characters of `w₂`.
 More formally, there is an injective mapping `f` from `[0, |w₂|)` to `[0, |w₁|)` such that:
 *  `∀ i j. i < j ⇒ f(i) < f(j)`
-*  `∀ i. w₂[i] = w₁[f(i)]`
+*  `∀ i. w₁[i] = w₂[f(i)]`
 
 For instance:
 * `0110` is a subsequence of `01010101` with the following mapping: `(0→0), (1→1), (2→3), (3→6)`.
@@ -124,7 +124,7 @@ We can generalize the subsequence relation to _embedding_ by relaxing the second
 Let `w₁` and `w₂` be two finite sequences.
 `w₁` _embeds_ in `w₂` if there is an injective mapping `f` from `[0, |w₂|)` to `[0, |w₁|)` such that:
 *  `∀ i j. i < j ⇒ f(i) < f(j)`
-*  `∀ i. w₂[i] ≤ w₁[f(i)]`
+*  `∀ i. w₁[i] ≤ w₂[f(i)]`
 
 For instance:
 * `0110` embeds in `01234` with the following mapping: `(0→0), (1→1), (2→2), (3→3)`.

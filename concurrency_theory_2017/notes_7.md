@@ -58,7 +58,7 @@ To model channels, we can pick among the following characteristics:
 This choice will influence how we model the state of the system and the transitions.
 Picking different models can be for accuracy of the model or decidability of some problems in a given model.
 
-The state of a system is a pair `(S,C)` where
+The state of a system is a pair `(M,C)` where
 * `M` is a map from `id` to states of the corresponding machine
 * `C` represent the channels. Depending on the type of system we want to model there are kinds of channel:
   - point to point: `C(i,j)` is a FIFO buffer between each pair of processes where `i` is the sender and `j` the receiver

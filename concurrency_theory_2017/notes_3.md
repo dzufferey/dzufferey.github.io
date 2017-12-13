@@ -426,7 +426,7 @@ KarpMillerTree(S,T,W,M₀)
             ancestors ← path between M₀ and M′ in E
             M′ ← accelerate(ancestors, M′)
             E ← E ∪ { (M,M′) }
-            if ∀ A ∈ ancestors. not(A ≥ M)′ then
+            if ∀ A ∈ ancestors. not(A ≥ M′) then
                 F ← F ∪ {M′}
     return E
 

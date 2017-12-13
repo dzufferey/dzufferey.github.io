@@ -13,7 +13,7 @@ Let us look in more details at a particular type of WQO that is well behaved wit
 
 Let `X` be a finite set and `≤` a quasi-order on `X`.
 * Show that `(X,≤)` is a WQO
-* Show that `(2^X,⊑)` is a WQO (``P ⊑ Q ⇔ ∀ q ∈ Q. ∃ p ∈ P. p ≤ Q``)
+* Show that `(2^X,⊑)` is a WQO (``P ⊑ Q ⇔ ∀ q ∈ Q. ∃ p ∈ P. p ≤ q``)
 * Show that `(2^X,⊆)` is a WQO
 
 
@@ -63,7 +63,7 @@ If you think the claim is false then you should try to give a counterexample or 
 Because larger states give rise to more behaviors, we can stop the search early when we see smaller states.
 On line `3` of the algorithm, let us replace `I′ = I` by `I′ ≥ I`.
 Is the algorithm still solving the covering problem? Justify.
-    
+
 [Optional]
 By looking at the paper [Forward Analysis for WSTS, Part III: Karp-Miller Trees](https://arxiv.org/abs/1710.07258).
 Can you suggest are reason why the authors use `=` and not `≥`?
@@ -113,4 +113,3 @@ There are three main changes:
   The acceleration does not mark the nodes.
 
 Is the algorithm still solving the covering problem? Justify.
-

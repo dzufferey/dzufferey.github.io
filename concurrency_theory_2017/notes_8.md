@@ -189,7 +189,7 @@ Products are ideals.
 
 _Proof sketch of the Lemma._
 * A product `p` is downward-closed:
-  - atomic expressions are downward-closed and may correspond to `ε`.
+  - atomic expressions are downward-closed and, thus, contain `ε`.
   - Given two words `w₁ ≤ w₂`, if `w₂` recognized by `p` then `w₁` is also recognized by `p`.
     By definition of embedding, `w₁` can be obtained from `w₂` by earsing a finite number of characters.
     For each character that gets earsed `p` still recognize the words without that character because the atomic expression that matches `a` is either `(a + ε)` or `(… + a + …)*`.
@@ -237,13 +237,22 @@ The lemma above tells us that to compare SRE, we need to check the inclusion of 
 Two products `p₁` and `p₂` can be compared using a greedy algorithm:
 - `(a+ε) p₁ ≤ (a+ε) p₂` if `p₁ ≤ p₂`
 - `e₁ p₁ ≤ e₂ p₂` if `e₁ ≰ e₂ ∧  e₁ p₁ ≤ p₂`
-- `e₁ p₁ ≤ e₂ p₂` if `e₁ ≰ e₂ ∧  e₁ p₁ ≤ p₂`
 - `e₁ p₁ ≤ (a₁ + …)* p₂` if `e₁ ≤ (a₁ + …)* ∧  p₁ ≤ (a₁ + …)* p₂`
 - `ε ≤ p₂`
 - if none of the above apply then `p₁ ≰ p₂`
 
-At each step we remove one atomic expression from either product so the algorithm is linear.
+At each step we remove one atomic expression from either product so the algorithm is linear in the size of the products.
 The inclusion of SRE is quadratic time.
+
+_Example._
+We can check that `(0+ε)(1+2)* ≤ (1+ε)0*(1+2)*` with the following steps
+- `(0+ε)(1+2)* ≤ (1+ε)0*(1+2)*` (initial goal)
+- `(0+ε)(1+2)* ≤ 0*(1+2)*` (because `(0+ε) ≰ (1+ε)`)
+- `(1+2)* ≤ 0*(1+2)*` (because `(0+ε) ≤ 0*`)
+- `(1+2)* ≤ (1+2)*` (because `(1+2)* ≰ 0*`)
+- `ε ≤ (1+2)*` (because `(1+2)* ≤ (1+2)*`)
+- `true`
+
 
 __Post.__
 In order to apply lift the transitions rules of LCS to SRE, we need to work out the effect of send and receive on products.
@@ -262,6 +271,16 @@ Let `p` be a product, we need to case split on the action:
 
 Computing the effect of `!a` or `?a` can be computed in linear time.
 
+_Example._
+Let us look at `(1+ε)0*(1+2)*` and the following operations: `!1`, `!0`, `?1`, and `?0`.
+The results are:
+* after `!0` we get `(1+ε)0*(1+2)*(0+ε)`
+* after `!1` we get `(1+ε)0*(1+2)*(1+ε) = (1+ε)0*(1+2)*`
+* after `?1` we get `0*(1+2)*`
+* after `?0` we get `0*(1+2)*`
+* after `?0;?0` we get `0*(1+2)*`
+
+
 __Acceleration.__
 
 Let `Ops` be a sequence of operations `Ops = op₁ op₂ … op_n` where each `op ∈ {?,!} × Σ`.
@@ -269,20 +288,26 @@ We denote by `Ops?` the subsequence of receive operations in `Ops` and `Ops!` fo
 
 Let `p = e₁ + … + e_m` be a product composed of `m` atomic expressions.
 
-Computing the effect of accelerating `Ops` on `p` checks the following:
+Computing the effect of accelerating `Ops` on `p` checks the following under the assumption that `⇒(p, Ops, p′) ∧ p ≤ p′` (simplified version of the acceleration in [On-the-Fly Analysis of Systems with Unbounded, Lossy Fifo Channels](https://www.irif.fr/~abou/lcs-cav98.ps.gz)):
 * try to apply `m+1` time `Ops?` to `p`
   - if it is possible and result in `p′` then `Ops?` is empty or `p′` starts with a atom of the form `(a+…)*` which contains all the received messages.
     + let `{b₁, b₂, …, b_k}` be the set of messages in `Ops!`
     + return `p′ (b₁ + b₂ + … + b_k)*`
   - otherwise `p` eventually gets fully consumed by `Ops?` and we need only to look at `Ops?` and `Ops!`
-    + try to apply `m+1` time `Ops` to `p`
-    * if the resulting product has stabilized (at latest between iteration `m` and `m+1`) return that result
+    + try to apply `m+1` time `Ops` to `p` to get `p′` and once more to get `p′`
+    * if `p′ = p″` (the resulting product has stabilized) return `p′`
     + otherwise more messages are put in the channel than received, let `{b₁, b₂, …, b_k}` be the set of messages in `Ops!` return `(b₁ + b₂ + … + b_k)*`
+
+_Example._
+- starting from `a*` and accelerating with `?a;!a;!b` we get `a*(a+b)* = (a+b)*` (case where the current content of the channel is sufficient of the receive)
+- starting from `(a+ε)` and accelerating with `!c;?a;!a;!b` we get `(b+ε)(c+ε)(a+ε)(b+ε)` (case where the current content of the channel is fully consumed by the receive but the channel stays bounded)
+- starting from `ε` and accelerating with `!a;?a;!a` we get `a*` (case where the current content of the channel is fully consumed by the receive but the channel keeps growing)
 
 
 ### Applying the ideal KM tree algorithm
 
 SRE have order-type `ω^|Σ|`, i.e., `ω^ω` is the supremum.
+This means the levels of ideals is not finite.
 
 We can construct such sequences with
 - `Σ = {a}` gives the sequence `a^ω` which has length `ω`
@@ -293,3 +318,65 @@ We can construct such sequences with
 Therefore, the ideal KM tree algorithm may not converge for LCS as it needs a finite order-type.
 
 Furthermore, coverability is decidable but computing the covering set is not.
+
+
+# Equivalence of processes: simulation, symmetric simulation, and bisimulation
+
+Until now, we have discuss properties of systems through the lens of reachability properties, e.g., can a system get to a particular state.
+
+Other types of questions we may want to ask  are
+* How does a system interact with his environment? (its input/output behaviors)
+* What it means for two systems to be equivalent? or implement the same interface?
+
+Surely, two different implementations of the same protocol can have different states, so comparing them using state-based properties is not possible.
+Simulation relations for labeled systems try to answer such questions.
+
+## Labeled Transition Systems
+
+A _labeled transition systems_ (LTS) is a triple `(S,Σ,→)` with:
+* `S` is a set of states (can be infinite),
+* `Σ` is a finite set of labels (the alphabet),
+* `→ ⊆ S × Σ × S` is a transition relation.
+
+## Simulation relations
+
+We already saw an instance of simulation with the compatibility of WSTS.
+In this case, it was a particular case of simulation relation within the same process.
+However, this idea is more general and applicable to different processes.
+
+Let `A`, `B` be two LTS with the same alphabet `Σ`.
+A _simulation relation_ `R` a relation between the states of `A` and `B` with the following property:
+`∀ a ∈ Σ, s_A,t_A ∈ S_A, s_B ∈ S_B. R(s_A, s_B) ∧ →_A(s_A, a, t_A) ⇒ ∃ t_B ∈ S_B. →_B(s_B, a, t_B) ∧ R(t_A, t_B)`.
+
+If both `R` and its inverse `R⁻¹` are simulation relations then `R` is a bisimulation.
+
+We say that `A` simulates `B` if there is a simulation relation between `B` and `A` that covers all the reachable states of `B` and relates the initials states of `A` and `B`.
+
+For two systems `A` and `B`, it is possible to have `A` simulating `B`, `B` simulating `A`, and `A`,`B` are not bisimilar.
+
+__Example.__
+Let us look at the following NFAs:
+* `A`:
+  ```
+        a
+  → (a) → (d) ↺ a, b
+     ↓ a
+    (b)
+   a ⇅ b
+    (c)
+  ```
+* `B`:
+  ```
+        a
+  → (0) → (3) ↺ a, b
+     ↓ a
+    (1)
+   b ⇅ a
+    (2)
+  ```
+
+`A` simulates `B` with the following simulation relation: `{(0,a), (1,d), (2,d), (3,d)}`.
+
+`B` simulates `A` with the following simulation relation: `{(a,0), (b,3), (c,3), (d,3)}`.
+
+However, `A` and `B` are not bisimilar.

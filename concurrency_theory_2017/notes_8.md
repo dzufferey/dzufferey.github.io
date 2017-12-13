@@ -110,7 +110,7 @@ _Proof._
 * By definition of `↓D` and `x ∈ ↓D`, there exists `y ∈ D` with `x ≤ y`
 * Because `U` is the complement of `D` and `x ∉ D`, we have that `x ∈ U`
 * Since `U = ↑U` and `x ≤ y`, we have `y ∈ U`.
-* Therefore, `y∈ D`, `x ∈ U`, and `D = X ∖ U`. This is a contradiction.
+* Therefore, `y∈ D`, `y ∈ U`, and `D = X ∖ U`. This is a contradiction.
 
 Since `U` is upward-closed, it can be represented by a finite basis and we can implicitly represent downward-closed sets.
 Unfortunately, this is usually not an efficient representation.
@@ -179,7 +179,6 @@ A _SRE_ is a (possibility empty) sum of products: `p₁ + p₂ + … + p_n`.
 The empty product is written as `∅` (empty language).
 
 __Theorem.__
-A downward-closed
 A language `L` is downward-closed iff it can be described by an SRE.
 
 The [paper](https://www.irif.fr/~abou/lcs-cav98.ps.gz) propose a proof by induction on the structure of regular expressions, at each step giving an SRE for the downward-closure.
@@ -191,7 +190,7 @@ Products are ideals.
 _Proof sketch of the Lemma._
 * A product `p` is downward-closed:
   - atomic expressions are downward-closed and may correspond to `ε`.
-  - Given two words `w₁ ≤ w₂`, if `w₂` recognized by `p` then `w₁` is also recognized by `p`. 
+  - Given two words `w₁ ≤ w₂`, if `w₂` recognized by `p` then `w₁` is also recognized by `p`.
     By definition of embedding, `w₁` can be obtained from `w₂` by earsing a finite number of characters.
     For each character that gets earsed `p` still recognize the words without that character because the atomic expression that matches `a` is either `(a + ε)` or `(… + a + …)*`.
     In the first case, we use `ε` instead of `a`.

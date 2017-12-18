@@ -371,18 +371,63 @@ With the congruence relation we can have an alternative and sightly simpler defi
           P ─π→ Q′
   ```
 
-## TODO
+## Strong ground equivalence
 
 Structural congruence is limited to simple rewriting.
 In particular, it cannot compare `+` and `|`.
-For instance, consider the following two formula: `a.b.0 + b.a.0` and `a.0 | b.0`.
+For instance, consider the following two formula: `!a.!b.0 + !b.!a.0` and `!a.0 | !b.0`.
 
-strong ground equivalence
+To deal with such case we will need a few extra notions.
+
+In a process `P`, `A` is _unguarded_ if there is an occurrence of `A` which is not under a prefix.
+
+We can _observe_ `α` in a process `P` if `α.A` occurs unguarded in `P` for some `A`.
+It is written `P↓_α`.
+`α.A` is called a _commitment_.
+
+The idea is that every process is semantically congruent to a set of commitments.
+
+The commitment relation `≻` is the smallest relation satisfying:
+
+```
+─────────────
+α.P + Q ≻ α.P
+```
+
+```
+P ≻ !a.A  Q ≻ ?a.B 
+──────────────────
+  P|Q ≻ τ.(A | B)
+```
+
+```
+   P ≻ α.A
+───────────────
+P|Q ≻ α.(A | Q)
+```
+
+```
+P ≻ α.A   α ∉ {?x, !x}
+──────────────────────
+(νx)P ≻ α.(νx)A
+```
+  
+```
+P ≡ P′  P′ ≻ α.Q′  Q ≡ Q′
+────────────────────────
+        P ≻ α.Q
+```
+
+TODO ...
+
+SGE
    ≡
    same commitment
    expansion
 
 ## Strong and weak bisimulation
+
+TODO ...
 
 τ.P ≡ P  but not as guard for weak simulation
 
@@ -390,8 +435,57 @@ coin example
 
 vending machine with internal state.
 
+
 ## Counting with CCS
 
-Encoding of counters
+We have seen a way of proving that two processes are bisimilar.
+A next step is to ask if it is complete and can be automated.
+Unfortunately, this is not possible in general and we can show that by encoding Minsky machines.
+CCS is Turing-complete and, therefore, most questions about CCS are undecidable.
+(Bisimulation is a reachability problem.)
 
-halting to bisimulation
+The feature that makes CCS so expressive is the combination of restriction and parallel composition.
+
+To encode counters, we will chain processes in a list where the length of the list is the value.
+We use 4 free names:
+* `zero`: a counter with value `0` will send a `zero` message.
+* `nonzero`: a counter with value `>0` will send a `nonzero` message.
+* `increment`: when receiving an `increment` message, the counter will increment its value.
+* `decrement`: a non-zero counter will decrease its value on receiving `decrement`.
+
+`zero` and `nonzero` implements the test for 0 in counter machines.
+`increment` and `decrement` the `+1` and `-1` operations.
+
+Here is the full definition of the counter:
+```
+Z()       ≝ !zero.Z()         + ?increment.(νguard)(?guard.Z() | N(guard))
+N(guard)  ≝ !nonzero.N(guard) + ?increment.(νguard′)(?guard′.N(guard) | N(guard′)) + ?decrement.!guard.0
+```
+`Z` stands for zero and `N` for non-zero.
+
+For the test for zero, `Z` sends a `zero` message and continues as itself.
+`N` is similar with `nonzero`.
+
+The difficult part is the increment.
+In the increment, we create to `N` processes.
+The first `N` is the value before the increment which is _guarded_ by a fresh name: `?guard′.N(guard)`.
+The second `N` is the value after the increment and if hold the guard of the previous value.
+
+In some sense, the previous value is "hidden" inside the new guard.
+Since, the new guard is restricted it cannot be called from the outside.
+The only way to remove the guard is to call `decrement`.
+
+__Example.__
+Let us look at a sequence of operations:
+* initial configuration: `Z() | !increment.!increment.!decrement.0`
+* after the 1st increment: `(νguard)(?guard.Z() | N(guard)) | !increment.!decrement.0`
+* after the 2nd increment: `(νguard)(?guard.Z() | (νguard′)(?guard′.N(guard) | N(guard′))) | !decrement.0`
+* after some rewriting (`≡`): `(νguard)(νguard′)(N(guard′) | ?guard′.N(guard) | ?guard.Z() | !decrement.0)`
+* after during the decrement: `(νguard′)(νguard)(!guard′.0 | ?guard′.N(guard) | ?guard.Z() | 0)`
+* after after the decrement: `(νguard′)(νguard)(0 | N(guard) | ?guard.Z() | 0)`
+* after some rewriting (`≡`): `(νguard)(N(guard) | ?guard.Z())`
+
+Visually, it "looks" like:
+```
+Z() ←guard─ N(guard) ←guard′─ N(guard′)
+```

@@ -152,19 +152,19 @@ Is it still possible to bind the same name in parallel: `(νx)(!x.0) | (νx)(?x.
   ```
 * Choice 1 & 2
   ```
-   P ─π→ P′        Q ─π→ Q′ 
+   P ─π→ P′        Q ─π→ Q′
   ──────────      ──────────
   P+Q ─π→ P′      P+Q ─π→ Q′
   ```
 * Parallel 1 & 2
   ```
-    P ─π→ P′          Q ─π→ Q′ 
+    P ─π→ P′          Q ─π→ Q′
   ────────────      ────────────
   P|Q ─π→ P′|Q      P|Q ─π→ P|Q′
   ```
 * Communication 1 & 2
   ```
-  P ─!a→ P′  Q ─?a→ Q′        P ─?a→ P′  Q ─!a→ Q′ 
+  P ─!a→ P′  Q ─?a→ Q′        P ─?a→ P′  Q ─!a→ Q′
   ────────────────────        ────────────────────
       P|Q ─τ→ P′|Q′               P|Q ─τ→ P′|Q′
   ```
@@ -178,7 +178,7 @@ Is it still possible to bind the same name in parallel: `(νx)(!x.0) | (νx)(?x.
   ```
   A(x) ≝ P  P[x ↦ y] ─π→  P′
   ───────────────────────────
-        A(x) ─π→  P′
+        A(y) ─π→  P′
   ```
 
 __Example.__
@@ -248,7 +248,7 @@ A process `P` is closed if `fn(P) = ∅`.
 
 Exchanging messages is a synchronous operation.
 However, it is possible to emulate asynchronous communication without changing the calculus.
-In a process by using `!a.0 | Pa instead of `!a.P` we can express asynchronous communication with unbounded and unordered channels.
+In a process by using `!a.0 | P` instead of `!a.P` we can express asynchronous communication with unbounded and unordered channels.
 
 For instance, the asynchronous version of ping-pong is:
 ```
@@ -298,15 +298,15 @@ Then there are rules to manipulate the operators:
 * actions
   - `P ≡ Q  ⇒  π.P ≡ π.Q`
 * `+`
-  - `P+P ≡ P`
   - `P+0 ≡ P`
+  - `P+P ≡ P`
   - `P+Q ≡ Q+P`
   - `(P+Q)+R ≡ P+(Q+R)`
   - `P ≡ Q  ⇒  P+R ≡ Q+R`
 * `|`
-  - P|0 ≡ P
-  - P|Q ≡ Q|P
-  - (P|Q)|R ≡ P|(Q|R)
+  - `P|0 ≡ P`
+  - `P|Q ≡ Q|P`
+  - `(P|Q)|R ≡ P|(Q|R)`
   - `P ≡ Q  ⇒  P|R ≡ Q|R`
 * `(νa)`
   - `(νa)(νb)P ≡ (νb)(νa)P`
@@ -320,15 +320,26 @@ Then there are rules to manipulate the operators:
 * definition
   - `A(x) ≝ P  ⇒  A(y) ≡ P[x ↦ y]`
 
-__Example.__
-TODO ...
 
 __Theorem.__
 `≡` is a bisimulation, i.e., `P ≡ P′ ∧  P ─π→ Q  ⇒  ∃ Q′. Q ≡ Q′ ∧  P′ ─π→ Q′`.
 
 
 _Proof Sketch._
-...
+By case split on the formula and the transition rules.
+We can to a few cases:
+* `P ≡ Q  ⇒  π.P ≡ π.Q`:
+  We can apply the action rule on `π.P` and `π.Q` we get `π.P─π→P` and `π.Q─π→Q`.
+  Then the hypothesis (`P≡Q`) completes that case.
+* `P+P ≡ P`:
+  - If `P─π→P′` we can apply the choice rule on `P+P` and `P─π→P′` to get `P′`. `P′≡P′` by reflexivity of `≡`.
+  - If `P+P─π→P′` take a transition `π` then in must involve choice (no other rule match `+`) and we can deduce `P─π→P′`.
+* `P+Q ≡ Q+P`: by substituting choice 1 and choice 2 rule in when taking transitions.
+* …
+
+
+Structural congruence gives us the possibility to compare processes by rewritting.
+If a process can be rewritten into the other, they are bisimilar.
 
 
 ## Semantics (version 2)
@@ -377,15 +388,15 @@ Structural congruence is limited to simple rewriting.
 In particular, it cannot compare `+` and `|`.
 For instance, consider the following two formula: `!a.!b.0 + !b.!a.0` and `!a.0 | !b.0`.
 
-To deal with such case we will need a few extra notions.
+Strong ground equivalence of two processes (written `SGE ⊢ P = Q`) will allows us to deal with the case above.
+
+Before we can define SGE we need a few extra notions.
 
 In a process `P`, `A` is _unguarded_ if there is an occurrence of `A` which is not under a prefix.
 
 We can _observe_ `α` in a process `P` if `α.A` occurs unguarded in `P` for some `A`.
 It is written `P↓_α`.
 `α.A` is called a _commitment_.
-
-The idea is that every process is semantically congruent to a set of commitments.
 
 The commitment relation `≻` is the smallest relation satisfying:
 
@@ -395,7 +406,7 @@ The commitment relation `≻` is the smallest relation satisfying:
 ```
 
 ```
-P ≻ !a.A  Q ≻ ?a.B 
+P ≻ !a.A  Q ≻ ?a.B
 ──────────────────
   P|Q ≻ τ.(A | B)
 ```
@@ -409,31 +420,81 @@ P|Q ≻ α.(A | Q)
 ```
 P ≻ α.A   α ∉ {?x, !x}
 ──────────────────────
-(νx)P ≻ α.(νx)A
+   (νx)P ≻ α.(νx)A
 ```
-  
+
 ```
 P ≡ P′  P′ ≻ α.Q′  Q ≡ Q′
 ────────────────────────
         P ≻ α.Q
 ```
 
-TODO ...
+The idea is that every process is semantically congruent to a set of commitments.
+We can think as `P` bisimilar to `Q` if they are committed to bisimilar processes.
 
-SGE
-   ≡
-   same commitment
-   expansion
+More importantly, the commitment relation points the way to an expansion theorem that relates choice (`+`) and composition (`|`).
+
+__Theorem.__ (expansion law)
+```
+SGE ⊢ P|Q = ∑ {α.(A | Q) where P ≻ α.A }
+          + ∑ {β.(B | P) where Q ≻ β.B }
+          + ∑ {τ.(A | B) where (P ≻ !a.A ∧ Q ≻ ?a.B) ∨ (P ≻ ?a.A ∧ Q ≻ !a.B) }
+```
+
+__Example.__
+Applying the expansion law to the example above:
+```
+SGE ⊢ !a.0 | !b.0 = !a.(0 | !b.0) + !b.(!a.0 | 0)
+```
+
+_SGE_ is the combination of `≡` and the expansion law:
+* structural congruence: `P≡Q  ⇒  SGE ⊢ P=Q`
+* expansion law:
+    ```
+    SGE ⊢ P|Q = ∑ {α.(A | Q) where P ≻ α.A }
+              + ∑ {β.(B | P) where Q ≻ β.B }
+              + ∑ {τ.(A | B) where (P ≻ !a.A ∧ Q ≻ ?a.B) ∨ (P ≻ ?a.A ∧ Q ≻ !a.B) }
+    ```
+
+__Example.__
+By mixing the expansion law and structural congruence to the example above, we get:
+```
+SGE ⊢ !a.0 | !b.0 = !a.(0 | !b.0) + !b.(!a.0 | 0)
+                  = !a.!b.0 + !b.!a.0
+```
+
+__Theorem.__
+SGE is a bisimulation.
+
+__Theorem.__
+If `P` and `Q` are bisimilar and finite (no recursion) then `SGE ⊢ P = Q`.
+
 
 ## Strong and weak bisimulation
 
-TODO ...
+Until now, we have seen _strong_ (bi)simulation.
+Every transition is matched by a single other transition.
+We can weaken that to allow the insertion of silent transitions.
 
-τ.P ≡ P  but not as guard for weak simulation
+A _weak simulation relation_ `R` a relation between the states of `A` and `B` with the following property:
+`∀ a ∈ Σ, s_A,t_A ∈ S_A, s_B ∈ S_B. R(s_A, s_B) ∧ →_A(s_A, a, t_A) ⇒
+    ∃ x,y,t_B ∈ S_B. →*_B(s_B, τ, x) ∧ →_B(x, a, y) ∧ →*_B(y, τ, t_B) ∧ R(t_A, t_B)`.
 
-coin example
+If both `R` and its inverse `R⁻¹` are weak simulation relations then `R` is a weak bisimulation.
 
-vending machine with internal state.
+Weak bisimulations are often written as `≈`.
+
+We can infere weak bisimulation by reinterpreting SGE with `≈` instead of `=` and adding the following axioms:
+* `α.τ.P ≈ α.P`
+* `P + τ.P ≈ τ.P`
+* `α.(P + τ.Q) + α.Q ≈ α.(P + τ.Q)`
+
+This axiomatization of weak bisimulation has been shown to be sound and it may be complete for finite processes
+(see Section 5.5 of [A Calculus of Mobile Processes Pt.1](http://www.lfcs.inf.ed.ac.uk/reports/89/ECS-LFCS-89-85/)).
+
+_Remarks._
+In the coin flip example.
+The two models of the `coin` are not weakly bisimilar.
 
 
 ## Counting with CCS

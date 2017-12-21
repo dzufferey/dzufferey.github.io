@@ -1,5 +1,66 @@
 [
   {
+    "tag": "recent",
+    "abstract": "...",
+    "author": [
+      {
+        "family": "Radhakrishna",
+        "given": "Arjun"
+      },
+      {
+        "family": "Lewchenko",
+        "given": "Nicholas"
+      },
+      {
+        "family": "Meier",
+        "given": "Shawn"
+      },
+      {
+        "family": "Mover",
+        "given": "Sergio"
+      },
+      {
+        "family": "Sripada",
+        "given": "Krishna Chaitanya"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      },
+      {
+        "family": "Chang",
+        "given": "Bor-Yuh Evan"
+      },
+      {
+        "family": "Černý",
+        "given": "Pavol"
+      }
+    ],
+    "container-title": "To apprear In Proceedings of the 40th International Conference on Software Engineering (ICSE 18)",
+    "editor": [
+      {
+        "family": "Chechik",
+        "given": "Marsha"
+      },
+      {
+        "family": "Harman",
+        "given": "Mark"
+      }
+    ],
+    "id": "icse18",
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "publisher": "ACM",
+    "title": "Starling: Callback Typestates for Android Classes",
+    "type": "paper-conference"
+  },
+  {
     "abstract": "In event-driven programming frameworks, such as Android, the client and the framework interact using callins (framework methods that the client invokes) and callbacks (client methods that the framework invokes). The protocols for interacting with these frameworks can often be described by finite-state machines we dub <em>asynchronous typestates</em>. Asynchronous typestates are akin to classical typestates, with the key difference that their outputs (callbacks) are produced asynchronously.\nWe present an algorithm to infer asynchronous typestates for Android framework classes. It is based on the L* algorithm that uses membership and equivalence queries. We show how to implement these queries for Android classes. Membership queries are implemented using testing. Under realistic assumptions, equivalence queries can be implemented using membership queries. We provide an improved algorithm for equivalence queries that is better suited for our application than the algorithms from literature. Instead of using a bound on the size of the typestate to be learned, our algorithm uses a <em>distinguisher bound</em>. The distinguisher bound quantifies how two states in the typestate are locally different.\nWe implement our approach and evaluate it empirically. We use our tool, Starling, to learn asynchronous typestates for Android classes both for cases where one is already provided by the documentation, and for cases where the documentation is unclear. The results show that Starling learns asynchronous typestates accurately and efficiently. Additionally, in several cases, the synthesized asynchronous typestates uncovered surprising and undocumented behaviors.",
     "author": [
       {

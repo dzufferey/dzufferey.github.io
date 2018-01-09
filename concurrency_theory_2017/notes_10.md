@@ -359,21 +359,29 @@ Add15(prev,curr) ≝ ?curr(get, set, lock, unlock).!unlock().Add17(prev)
 Add17(prev) ≝ ?prev(get, set, lock, unlock).!unlock().0
 ```
 
+## Expressive Power
 
-## Communication topology
+Since CCS can encode Minsky machine and the π-calculus is a superset of CCS, the π-calculus is also a Turing complete model.
+
+
+## π-calculus as a graph
+
+__Normal form.__
+Without loss of generality, we assume a normal form for the definitions and process configurations.
+
+Process definitions are sums of prefixes: `A(a) ≝ ∑_i π_i.(ν a_i) ∏_j A_{ij}(a_{ij})`.
+Furthermore, we assume that there are no free names in the definitions `fn(∑_i π_i.(ν a_i) ∏_j A_{ij}(a_{ij})) = {a}`.
+
+Configurations are the parallel composition of Process definitions: `(ν a₁ a₂ …) P₁(…) | P₂(…) | …`
+
+To convert any term to that form, we can use congruence rules and, possibly, insert new definitions to abstract any prefix.
+For instance, `?a.P()` is replaced by `Q(a)` and a new definitions `Q(a) ≝ ?a.P()` is added.
+
+### Communication topology
 
 We can represent a state of a system with as a bi-partite labeled graph where one kind nodes are process nodes and the other kind are for names.
 
-__Normal form.__
-Without loss of generality, we assume that the process are in the following form:
-```
-(ν a₁ a₂ …) P₁(…) | P₂(…) | …
-```
-To convert any term to that form, we can use concurrence rules and, possibly, insert new definitions to abstract any prefix.
-For instance, `?a.P()` is replaced by `Q(a)` and a new definitions `Q(a) ≝ ?a.P()` is added.
-
 __Communication graph.__
-
 The graph is obtained as follow:
 * Nodes (`V = V_n ⊎ V_p`):
   - For each name `a` in the top-level resolve, add a node in `V_n`.
@@ -392,12 +400,120 @@ The process `(ν a b c)(A(a,b) | A(a,c) | B(b,c))` corresponds to the graph:
         2
 ```
 
+__Dangling names.__
+Because `a ∉ fn(P) ⇒ (νa)P ≡ P` any node in `V_n` that is not connected can be removed.
+
+
 __Equivalence of configurations.__
 We use the graph encoding to compare two processes using only the congruence rules that change the scope of restriction and substitute names.
 In that setting, this equivalence check reduces to checking that the corresponding communication graphs are isomorphic.
-Even though, we are working with bipartite graph, the problem is still GI-complete.
 
 
-## Expressive Power
+### Covering Problem
 
-Since CCS can encode Minsky machine and the π-calculus is a superset of CCS, the π-calculus is also a Turing complete model.
+In the graph view, we can express covering properties as finding a subgraph (error state) in another graph (global configuration).
+This is a subgraph isomorphism check.
+
+The _subgraph isomorphism problem_ for labelled graphs: Given `G = (V, E, L)` and `H = (V′,E′, L′)` find `G₀ = (V₀,E₀,L)` such that:
+* `V₀ ⊆ V`
+* `E₀ = E ∩ (V₀ × V₀)`
+* there exists a bijection `f: V′ → V₀` such that
+  - `(v₁,v₂) ∈ E′ ⇔ (f(v₁),f(v₂)) ∈ E₀`,
+  - `∀ v₁ ∈ V′. L′(v₁) = L(f(v₁))`,
+  - `∀ (v₁,v₂) ∈ E′. L′(v₁,v₂) = L(f(v₁),f(v₂))`.
+
+_Remark._
+In the statement above, `f` is a partial morphism from `H` to `G`, written `f: H ⇀ G`
+
+__Example.__
+Consider a variation of the client-server example where the server has a public address `s` and is connected to a private database.
+If the database address leaks, this would be an error.
+
+Assume the definitions are:
+```
+Server(s, db) ≝ …
+Database(db) ≝ …
+Client(s) ≝ …
+…
+```
+
+We can express the error (to cover) in π-calculus as `(ν s db) Server(s, db) | Database(db) | Client(db)` and it corresponds to the graph:
+```
+           2       1
+  Server───────●───────Client
+  1 │        1 │
+    ●       Database
+```
+
+
+### Transitions as graph rewrite rules
+
+Transitions can also be expressed as graph rewrite rules.
+
+#### Graph rewrite rule (single pushout approach).
+
+__Definition.__
+In this approach, a _rewrite rule_ is a triple `(L, R, m)` where
+* `L` is a graph (left-hand-side, pattern),
+* `R` is a graph (right-hand-side, what replace the pattern),
+* `m` is a partial morphism from `L` to `R`.
+
+Given two partial graph morphism `h: G₀ ⇀ G₁` and `g: G₀ ⇀ G₂`, the _pushout_ of `h` and `g` is:
+* a graph `G₃`
+* a partial graph morphism `g′: G₁ ⇀ G₃`
+* a partial graph morphism `h′: G₂ ⇀ G₃`
+such that:
+* `g′∘h = h′∘g`
+* for every pair of morphisms `g″: G₁ ⇀ G₃′` and `h″: G₂ ⇀ G₃′` there exists a unique morphism `f: G₃ ⇀ G₃′` with `f∘g′ = g″` and `f∘h′ = h″`
+
+Intuitively, `G₃` is the minimal graph such that we get `G₃` when applying `h` and `g` to `G₀` and `h`,`g` "commute".
+
+Visually it looks like:
+```
+       h
+    G₀ → G₁
+  g ↓    ↓ g′
+    G₂ → G₃
+       h′
+```
+
+
+__Semantics.__
+Applying `(L, R, m)` to a graph `G`:
+1. Compute a match `l` (total injective morphism) from `L` to `G` (`L` is a subgraph of `G`).
+2. Replace the part `G` matching `L` by `R` while keeping the connections using `m`. More formally, the result is the pushout of `m` and `l`.
+
+
+__Example.__
+Given
+```
+A(a, b) ≝ !a(b).0
+B(a) ≝ ?a(c).C(a,c)
+…
+```
+A transition from `A(a, b) | B(a)` to `C(b)` corresponds to the graph rewrite rule:
+```
+                 _________
+                /         \
+      1     1  /         1 \
+    A────●────B    →   ●────C
+  2 │     \___________/    2│    
+    ●-----------------------●
+```
+
+Applying the rewrite rule to the graph
+```
+        D
+    1  1│  1  
+   A────●────B
+ 2 │
+   ●
+```
+gives
+```
+        D
+       1│  1  
+        ●────C
+            2│
+   ●─────────┘
+```

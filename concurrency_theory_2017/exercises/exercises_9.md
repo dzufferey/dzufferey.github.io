@@ -23,6 +23,9 @@ But we cannot show that using `≡`.
 Let us discuss how we can combine bisimulations to obtain new bisimulations.
 Then, we can combine `≡` with a lemma about `A` and `B`.
 
+For this exercise, the domain of the bisimulations are CCS processes for both the left-hand-side and right-hand-side of the relations.
+For instance, `≡` is one such bisimulation.
+
 1. Given two bisimulation `R₁` and `R₂` show that the relation `R₁ ∪ R₂` is also a bisimulation.
 2. If `R` is a bisimulation, show that `R⁻¹` (inverse) and `R*` (transitive closure) are also bisimulations.
 3. Give a bisimulation `R` which contains `R(A(x,y), B(x,y))`.

@@ -295,7 +295,7 @@ For instance, consider the following system:
 Server(s) ≝ ?s(c).(Server(s) | Session(c))
 Session(c) ≝ ?c().!c().Session(c)
 NewClient(s) ≝ τ.(NewClient(s) | Client(s))
-ClientConnecting(s) ≝ (νc) !s(c).ClientConnected(c)
+Client(s) ≝ (νc) !s(c).ClientConnected(c)
 ClientConnected(c) ≝ !c().?c().ClientConnected(c)
 ```
 with the initial state `(νs)(Server(s) | NewClient(s))`

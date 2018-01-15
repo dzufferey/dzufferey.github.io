@@ -251,7 +251,15 @@ The idea is to bound the "longest chain of processes" by limiting the nesting de
 
 ### Nesting depth
 
-_Nesting level_ of a configuration is defined as:
+A _configuration_ is the subset of the π-calculus given by:
+```
+C ::= 0         (empty)
+    | C | C     (composition)
+    | (νa) C    (restriction)
+    | A(x)      (named process, a can be a list of agruments)
+```
+
+The _nesting level_ of a configuration is defined as:
 * `nesting(0) = 0`
 * `nesting(A(x)) = 0`
 * `nesting((νa) P) = nesting(P) + |a|`
@@ -382,6 +390,52 @@ This reduction is not defined to be efficient (or implemented) but only to show 
 
 The details of the tree encoding can be found in [the paper](http://dzufferey.github.io/files/2010_Forward_Analysis_of_Depth-Bounded_Processes.pdf).
 
+
 ### Ideal for depth-bounded processes
 
-TODO ...
+In the case of lossy channel system we were able to represent ideal using simple regular expression (finite state automaton).
+Here we will use a similar idea.
+However, we are working with trees instead of sequences and, therefore, we will use tree automaton.
+The idea
+
+
+__Notation.__
+In the notes, we use the CSP notation to send/receive messages (`!a`,`?a`).
+The paper and slides uses the CCS notation (`ā`,`a`).
+Unfortunately, the π-calculus also has a `!` operator for replication.
+Here we will use `*`.
+
+| Operator      | CCS    | This document |
+|---------------|--------|---------------|
+| send/output   | `ā(b)` | `!a(b)`       |
+| receive/input | `a(b)` | `?a(b)`       |
+| replication   | `!P`   | `P*`          |
+
+__Replication.__
+The replication operator `P*` was introduced in π-calculus as an alternative to recursive definitions.
+Here we will repurpose this operator to represent infinite sets of processes.
+The meaning of the replication is given by a single congruence rule:
+```
+P* ≡ P | P*
+```
+
+#### Limit configurations
+
+To represent ideals, we will use limit elements, i.e., similar to the extended markings of Petri nets.
+An ideal is the downward-closure of the limit element.
+
+A _limit configuration_ is the subset of the π-calculus given by:
+```
+C ::= 0         (empty)
+    | C | C     (composition)
+    | (νa) C    (restriction)
+    | A(x)      (named process, a can be a list of agruments)
+    | C*        (replication)
+```
+
+Compared to configurations, we just add the replication operator.
+
+
+TODO as graphs: nested graphs ...
+
+TODO in the tree encoding ...

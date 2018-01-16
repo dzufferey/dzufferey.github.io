@@ -31,7 +31,7 @@ For instance, `≡` is one such bisimulation.
 3. Give a bisimulation `R` which contains `R(A(x,y), B(x,y))`.
    Explain what `R` must contain beyond `R(A(x,y), B(x,y))`.
    (Hint: after taking a step, the result must again be in `R`).
-4. Use what you did about and `≡` to show that the two following processes are bisimilar:
+4. Use what you did above and `≡` to show that the two following processes are bisimilar:
   * `τ.(B(a, b) | (ν x) A(x, a))`
   * `(ν y z) (!y.0 | τ.A(a, b))`
 

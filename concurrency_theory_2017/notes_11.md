@@ -249,6 +249,36 @@ On the other hand, subgraph isomorphism is not a WQO for all graphs.
 The fragment of the π-calculus we look at is called _depth-bounded processes_, or depth-bounded systems.
 The idea is to bound the "longest chain of processes" by limiting the nesting depth of restrictions (`ν`),
 
+### Compatibility/monotonicity
+
+To show compatibility of depth-bounded processes we use the graph interpretation.
+Below is a proof sketch.
+
+In the graph interpretation, we use subgraph isomorphism for both
+* testing whether transitions are applicable: the LHS of the rule is a subgraph of the graph to rewrite
+* ordering of configurations: a configurations is smaller if it is a subgraph of another configuration.
+
+We need to prove:
+```
+∀ M, M′, N.    M  ≤  N
+∃ N′.          ↓     ↓
+               M′ ≤  N′
+```
+
+* Assume we that for `M → M′` we applied the rule `r: L ⇀ R`.
+  Therefore, we know that `L ≤ M`.
+* By assumption `M  ≤  N` and because `≤` is transitive, we have that `L ≤ N`.
+  Therefore, we can also apply the rule to `N`.
+* Because the rule does not change the part that is not matched, we get `M′ ≤  N′`.
+  More precisely,
+  - From `L ≤ M` we have a partial morphism `m₁` from `L` to `M`,
+    from `M ≤ N` we have a partial morphism `m₂` from `M` to `N`,
+    `m₂∘m₁` is a partial morphism from `L` to `N`.
+  - The rewriting from `M` to `M′` is a mapping `m₁∘r′` applied to `L` and extending it to `m₂∘m₁∘r′` give `N′`.
+  - Roughly we have `M′ = m₁∘r′(L)` and `N′ = m₂∘m₁∘r′(L) = m₂(M′)`.
+    Therefore, `M′ ≤ N′`.
+
+
 ### Nesting depth
 
 A _configuration_ is the subset of the π-calculus given by:
@@ -256,7 +286,7 @@ A _configuration_ is the subset of the π-calculus given by:
 C ::= 0         (empty)
     | C | C     (composition)
     | (νa) C    (restriction)
-    | A(x)      (named process, a can be a list of agruments)
+    | A(x)      (named process, a can be a list of arguments)
 ```
 
 The _nesting level_ of a configuration is defined as:
@@ -292,8 +322,8 @@ The difference comes from the arity of the definitions.
 
 For instance, looking at π-calculus processes, we have:
 * `depth( (ν a) P₁(a) ) = 1`
-* `depth( (ν a b) P₂(a, b) = 2`
-* `depth( (ν a b c) P₃(a, b, c) = 3`
+* `depth( (ν a b) P₂(a, b) ) = 2`
+* `depth( (ν a b c) P₃(a, b, c) ) = 3`
 
 But when looking at the corresponding graphs, the bound is always 2:
 ```
@@ -390,13 +420,41 @@ This reduction is not defined to be efficient (or implemented) but only to show 
 
 The details of the tree encoding can be found in [the paper](http://dzufferey.github.io/files/2010_Forward_Analysis_of_Depth-Bounded_Processes.pdf).
 
+__Theorem.__ Depth-bounded processes are an instance of WSTS.
+
+Also, the details can be found in [the paper](http://dzufferey.github.io/files/2010_Forward_Analysis_of_Depth-Bounded_Processes.pdf) or an earlier [paper by Roland Meyer](http://dl.ifip.org/db/conf/ifipTCS/ifipTCS2008/Meyer08.pdf).
+
+### Forward vs backward analysis for depth-bounded processes
+
+Let us discuss some of the downside of the definition of depth-bounded processes and the implications for forward/backward analysis of WSTS.
+
+The depth-boundedness restriction is a semantics restriction, i.e., it depends on the reachable states.
+The main problem is that it is actually undecidable to know a priori if a process is depth-bounded.
+
+__Theorem.__ Determining if a system is depth-bounded is undecidable.
+
+_Proof sketch._
+By reduction of the halting problem of Minsky machine to depth-boundedness.
+Recall the encoding of Minsky machines in CCS of [notes 9](notes_9.md), it also works in the π-calculus.
+If a Minsky machine that halts it the values of the counter are bounded by some `k` and, therefore, the corresponding CCS process is depth-bounded.
+
+
+The second problem is specific to the backward analysis.
+Let us assume we are dealing with a process which is depth-bounded but we don't know the value of the bound.
+(The exact value is not needed as the definition existentially quantify over it.)
+The system is guarantee to be depth-bounded on the (forward) reachable states.
+When going backward, the `pre` operator can generate unreachable state, for instance if the target is not coverable.
+These unreachable state may not respect the bound...
+
+One solution, is to look at `k`-bounded processes, i.e., processes with a known bound.
+another approach is to use a forward analysis on depth-bounded processes.
+
 
 ### Ideal for depth-bounded processes
 
 In the case of lossy channel system we were able to represent ideal using simple regular expression (finite state automaton).
 Here we will use a similar idea.
 However, we are working with trees instead of sequences and, therefore, we will use tree automaton.
-The idea
 
 
 __Notation.__
@@ -419,7 +477,7 @@ The meaning of the replication is given by a single congruence rule:
 P* ≡ P | P*
 ```
 
-#### Limit configurations
+#### Limit configurations in the π-calculus
 
 To represent ideals, we will use limit elements, i.e., similar to the extended markings of Petri nets.
 An ideal is the downward-closure of the limit element.
@@ -429,13 +487,39 @@ A _limit configuration_ is the subset of the π-calculus given by:
 C ::= 0         (empty)
     | C | C     (composition)
     | (νa) C    (restriction)
-    | A(x)      (named process, a can be a list of agruments)
+    | A(x)      (named process, a can be a list of arguments)
     | C*        (replication)
 ```
-
 Compared to configurations, we just add the replication operator.
 
+The nesting depth is extended with `nesting(C*) = nesting(C)`.
 
-TODO as graphs: nested graphs ...
+__Lemma.__
+Ideals are the downward-closure of limit configurations.
 
-TODO in the tree encoding ...
+_Proof sketch._
+The proof uses the same principle to the proofs the product are ideals for SRE ([notes 8](notes_8.md)).
+What makes the construction more complicated is that it works on tree automata instead of normal automaton.
+Given two configuration included in a limit configuration, we can unfold the replicated terms until it covers both configuration (pumping argument).
+
+
+#### Limit configurations as graph
+
+The graphical interpretation is something we used when we tried to implement the analysis described above.
+It corresponds to the visual representation found in the [slides](http://dzufferey.github.io/files/FoSSaCS10-DepthBounded_processes_slides.pdf) (graph with subgraph marked with `*`).
+We call them nested graphs.
+
+You can find a formal definition in Section 5 of [this paper](http://dzufferey.github.io/files/2013_structural_counter_abstraction.pdf).
+Here, we give an high-level view.
+
+A _nested graph_ is a 4-tuple `(V,E,l,n)` where `(V,E,l)` is a labeled graphs and `n: V→ℕ` is the replication depth.
+Intuitively, the replication depth in the number of `*` which enclose a node.
+Normal nodes have replication depth `0`.
+
+The meaning of nested graphs is given in terms of _unfolding_.
+It is possible to unfold (copy) regions of the graph with depth `> 0`.
+The fresh nodes from the copy get their depth reduced by `1`.
+
+Inclusion between nested graph can be tested by generalizing subgraph isomorphism.
+The difference is that the mapping is not necessarily injective for nodes with depth `>0`.
+Also the mapping must respect the inequalities of depth across edges.

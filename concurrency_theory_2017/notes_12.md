@@ -29,8 +29,8 @@ Over the years, many variations of the π-calculus, aimed at simplifying the mod
 Here we list a few and describe one of them in more details.
 
 * The [Spi-calculus](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.63.2305) which add cryptographic primitive like what was presented in [week 6](slides_6.pdf).
-* The [stochastic π-Calculus](https://academic.oup.com/comjnl/article/38/7/578/400773) adds rate to the transition and has been used to model biological systems. It semantics is give an by a continuous time Markov chain.
-* The [ambient Calculus](http://lucacardelli.name/Papers/MobileAmbients.A4.pdf) adds ambient which models the "physical" location where the computation happens.
+* The [stochastic π-calculus](https://academic.oup.com/comjnl/article/38/7/578/400773) adds rate to the transition and has been used to model biological systems. It semantics is give an by a continuous time Markov chain.
+* The [ambient calculus](http://lucacardelli.name/Papers/MobileAmbients.A4.pdf) adds ambient which models the "physical" location where the computation happens.
 
 ### Broadcast π-calculus
 
@@ -197,7 +197,11 @@ Center(t₁: TALK, t₂: TALK, s₁: SWITCH, s₂: SWITCH, g₁: GIVE, g₂: GIV
 A typing environment `Γ` is a map from names to types and definitions to tuples of types.
 
 The initial `Γ` maps the definitions names to the tuple of type which correspond to the arguments.
-Then we can use the folloing rules to check the definitions' bodies.
+Then we can use the following rules to check the definitions' bodies.
+
+__Notation.__
+We use the following notation: `a|_i` is the projection of the `i`th element of the tuple `a`.
+Given a type identifier `N`, we use `ob(N)` to get the object sort of `N`, e.g., `ob(GIVE) = (TALK,SWITCH)`.
 
 ```
 Γ + (a,s) + … ⊢ P
@@ -235,21 +239,21 @@ Then we can use the folloing rules to check the definitions' bodies.
 ```
 
 ```
-Γ + (b,Γ(a)₁) + (c,Γ(a)₂) + … ⊢ P
-─────────────────────────────────
-        Γ ⊢ ?a(b c …).P
+|ob(Γ(a))| = n    Γ + (b₁,ob(Γ(a))|₁) + … + (b_n,ob(Γ(a))|_n) ⊢ P
+─────────────────────────────────────────────────────────────────────
+                        Γ ⊢ ?a(b₁ … b_n).P
 ```
 
 ```
-Γ(a)₁ = Γ(b)  Γ(a)₂ = Γ(c)  …
-─────────────────────────────
-      Γ ⊢ !a(b c …).P
+|ob(Γ(a))| = n    ob(Γ(A))|₁ = Γ(b₁)  …  ob(Γ(A))|_n = Γ(b_n)
+─────────────────────────────────────────────────────────────
+                    Γ ⊢ !a(b₁ … b_n).P
 ```
 
 ```
-Γ(A)₁ = Γ(b)  Γ(A)₂ = Γ(c)  …
-─────────────────────────────
-      Γ ⊢ A(b c …)
+|Γ(A)| = n    Γ(A)|₁ = Γ(b₁)  …  Γ(A)|_n = Γ(b_n)
+─────────────────────────────────────────────────
+                Γ ⊢ A(b₁ … b_n)
 ```
 
 
@@ -259,12 +263,12 @@ For instance, in the example above `ALERT` and `TALK` are used in the same way (
 
 This make is possible to have different granularity when typing names.
 At one extreme, we can just keep track of the arity for instance, we can type CCS processes using only the type `(NAME, ())` and the monadic π-calculus with `(NAME, (NAME))`.
-Or as with the example, give a finer disctinctions by give naming differently what essentially is the same type.
+Or as with the example, give a finer distinctions by give naming differently what essentially is the same type.
 
-#### Limitatons
+#### Limitations
 
-By only looking at names, the typing systems does not meet the typical requirements for a type system: progress and presevation.
-While presevation holds, progress does not.
+By only looking at names, the typing systems does not meet the typical requirements for a type system: progress and preservation.
+While preservation holds, progress does not.
 
 Consider the example below:
 ```
@@ -274,7 +278,7 @@ and the initial state `(ν a: NAME) (A(a) | A(a))`
 where name is the type `(NAME, ())`.
 
 While this process is well typed it is stuck while being not `0`.
-(The usual charaterisation of progress is either can take a step or is `0`.)
+(The usual characterisation of progress is either can take a step or is `0`.)
 
 
 Another limitation is that names needs to be used uniformly.
@@ -286,12 +290,124 @@ It is not possible to type `arg` as it is first used to send an `INT` and then a
 To solve these limitations, another possibility is to type processes instead of names.
 
 
-### Typing processes
+### Typing processes for two party communication
 
-Duality for two party communication
-  send vs receive
-  internal vs external choice
-  subtyping
+Channels carries bits, the type is used to give meaning to this bits.
+At different time point, a channel can carry different types.
 
+Rather than using the π-calculus, we will use a model which is closer to an actual systems.
+In some sense, communicating state machines are what we need but we use a notation inspired from the process calculus as it is more compact.
+Compared to the π-calculus:
+- Processes and messages are different.
+- Each process comes with a unique address/channel (synchronous or asynchronous+FIFO).
+- Only primitive types, no high-order types
+
+First, we look at the case of having only **two** processes.
+In this setting, we can exploit a duality property for two party communication.
+For instance, send is the dual or receive.
+
+__Notation.__
+Since we work with two processes, we implicitly assume that they are called `P` and `Q` and omit the addresses when sending/receiving.
+To avoid confusion between integer and `0` as the "terminated process", we use `end` for termination.
+
+
+#### Send/receive duality
+
+__Example: straight line communication__
+
+By straight line, we mean no control-flow (choice or recursion).
+
+Let us look at this example:
+```
+P ≝ !1.!2.?comparison.end
+Q ≝ ?a.?b.!(a ≥ b).end
+```
+
+Here the type of `P` is `!int;!int;?bool;end` and for `Q` we have `?int;?int;!bool;end`.
+
+For such straight line type, we can define the duality as:
+* `dual(?t) = !t`
+* `dual(!t) = ?t`
+* `dual(t₁;t₂) = dual(t₁); dual(t₂)`
+* `dual(end) = end`
+
+Then `(P: t₁) | (Q: t₂)` is well typed if `t₁ = dual(t₂)`
+
+__Remark.__
+It is easy to see that the `dual` relation is also its inverse: `dual(dual(t)) = t`.
+
+
+#### Internal vs external choice duality
+
+Straight line code is not that common and branching/choice is needed.
+To properly deal with choice, we will need to make the distinction between internal and external choice.
+
+__Example: badly structured choice__
+First, let us look at an example of badly structured communication.
+```
+P ≝ !42.end + ?result.end
+Q ≝ ?result.end + !42.end
+```
+While this could execute correctly in a synchronous system, it could lead to deadlock in an asynchronous system.
+Even in an synchronous system, this example is trick as the choice in `P` and `Q` is coupled.
+
+__Internal and external choice.__
+Ideally, we want that each choice can be tracked to a single process (internal choice) while the other process learn about it (external choice).
+Internal choice is implicitly linked to sending messages and external choice to receiving messages:
+* internal choice is denoted as `l₁.P₁ ⊕ l₂.P₂` where `l₁` and `l₂` are _labels_.
+* external choice is denoted as `l₁.P₁ & l₂.P₂` where `l₁` and `l₂` are labels.
+The labels indicates which branch has been selected and the two processes synchronize on that label.
+Here we present the choice as binary but it is straightforward to generalize to n-ary (`⊕_i l_i.P_i` and `&_i l_i.P_i`).
+
+Our duality relations get extended with:
+* `dual(l₁.P₁ ⊕ l₂.P₂) = l₁.dual(P₁) & l₂.dual(P₂)`
+* `dual(l₁.P₁ & l₂.P₂) = l₁.dual(P₁) ⊕ l₂.dual(P₂)`
+
+__Example.__
+```
+P ≝ add.!1.!2.?res.end ⊕ geq.!1.!2.?comparison.end
+Q ≝ add.?a.?b.!(a + b).end & geq.?a.?b.!(a ≥ b).end
+```
+where
+* `P` has type `add;!int;!int;?int;end ⊕ geq;!int;!int;?bool;end` and
+* `Q` has type `add;?int;?int;!int;end & geq;?int;?int;!bool;end`.
+
+
+#### Recursion
+
+...
+
+#### Types and Processes
+
+Congruence 
+
+#### Typing rules
+
+...
+
+#### Subtyping
+
+Until now, the types directly reflect the processes and there is a direct syntacic match between them
+
+works only on choice:
+- fewer internal choice
+- more external choice
+
+
+#### properties: deadlock free, no message left in the channels
+
+preservation and progress
+
+
+#### What we did not cover
+
+* internal steps
+* higher-order types, scope restriction, and mobility
+* process creation and parallel composition in general
+* ...
+
+
+### Multiparty session types.
 
 Generalization to multiparty types work with a global type which is then projected on the different processes.
+...

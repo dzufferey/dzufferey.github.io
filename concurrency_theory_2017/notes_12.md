@@ -278,7 +278,7 @@ and the initial state `(ν a: NAME) (A(a) | A(a))`
 where name is the type `(NAME, ())`.
 
 While this process is well typed it is stuck while being not `0`.
-(The usual characterisation of progress is either can take a step or is `0`.)
+(The usual characterization of progress is either can take a step or is `0`.)
 
 
 Another limitation is that names needs to be used uniformly.
@@ -331,7 +331,7 @@ For such straight line type, we can define the duality as:
 * `dual(t₁;t₂) = dual(t₁); dual(t₂)`
 * `dual(end) = end`
 
-Then `(P: t₁) | (Q: t₂)` is well typed if `t₁ = dual(t₂)`
+Then `(P: t₁) | (Q: t₂)` is well typed if `t₁ = dual(t₂)`.
 
 __Remark.__
 It is easy to see that the `dual` relation is also its inverse: `dual(dual(t)) = t`.
@@ -358,10 +358,12 @@ Internal choice is implicitly linked to sending messages and external choice to 
 * external choice is denoted as `l₁.P₁ & l₂.P₂` where `l₁` and `l₂` are labels.
 The labels indicates which branch has been selected and the two processes synchronize on that label.
 Here we present the choice as binary but it is straightforward to generalize to n-ary (`⊕_i l_i.P_i` and `&_i l_i.P_i`).
+Futhermore, we assume that all the labels in a choice are different.
+We use internal/external choice both in the processes and as part of the types.
 
 Our duality relations get extended with:
-* `dual(l₁.P₁ ⊕ l₂.P₂) = l₁.dual(P₁) & l₂.dual(P₂)`
-* `dual(l₁.P₁ & l₂.P₂) = l₁.dual(P₁) ⊕ l₂.dual(P₂)`
+* `dual(l₁.t₁ ⊕ l₂.t₂) = l₁.dual(t₁) & l₂.dual(t₂)`
+* `dual(l₁.t₁ & l₂.t₂) = l₁.dual(t₁) ⊕ l₂.dual(t₂)`
 
 __Example.__
 ```
@@ -375,39 +377,167 @@ where
 
 #### Recursion
 
-...
+As with the other constructs, we can add type identifiers with mutually recursive definitions.
 
-#### Types and Processes
+__Example.__
+```
+P: t₁ ≝ !1.!2.?res.P
+Q: t₂ ≝ ?a.?b.!(a + b).Q
+```
+with the types:
+* `t₁ ≝ !int;!int;?int;t₁`
+* `t₂ ≝ ?int;?int;!int;t₂`
 
-Congruence 
+Computing the dual of a type is still easy, but computing it is more tricky.
+* `dual(ID ≝ t) = "dual(ID)" ≝ dual(t)`
+* `dual(ID) = "dual(ID)"`
+For each identifier, we introduce a dual identifier and then proceed to take the dual of the body.
+In the definition above we use `"dual(ID)"` as placeholder for the dual identifier.
 
-#### Typing rules
+__Remark.__
+Most publications uses the least fixed point notation (`μX.P`) which only create simple recursion rather than definition which are more flexible and creates mutually recursive definitions.
 
-...
+
+#### Typing and Processes
+
+The types directly reflect the processes and there is a direct syntactic match between them.
+In the simple version, this is what the typing rules do.
+
+A typing environment `Γ` is a map from names and definitions to types.
+The initial `Γ` maps the definitions names to their type.
+For instance, if there is a definition `A: t ≝ P` then `Γ` contains `(A, t)`.
+
+```
+  Γ ⊢ P: t
+────────────
+Γ ⊢ A: t ≝ P
+```
+
+```
+Γ(id) = t
+─────────
+Γ ⊢ id: t
+```
+
+```
+────────────
+Γ ⊢ end: end
+```
+
+```
+  Γ ⊢ P: t
+────────────
+Γ ⊢ (τ.P): t
+```
+
+```
+    Γ ⊢ P: t₁    Γ ⊢ Q: t₂
+────────────────────────────────
+Γ ⊢ (l₁.P ⊕ l₂.Q): l₁.t₁ ⊕ l₂.t₂
+```
+
+```
+    Γ ⊢ P: t₁    Γ ⊢ Q: t₂
+────────────────────────────────
+Γ ⊢ (l₁.P & l₂.Q): l₁.t₁ & l₂.t₂
+```
+
+```
+Γ + (a,t) ⊢ P: t′
+─────────────────
+ Γ ⊢ ?a.P: ?t;t′
+```
+
+```
+Γ ⊢ a: t   Γ ⊢ P: t′
+────────────────────
+  Γ ⊢ !a.P: ?t;t′
+```
+
+Here we give very simple rules.
+There can be many extensions that will allow to type more programs, e.g., commutativity of choice.
+
+
+Then the composition `P:t₁ | Q:t₂` is well typed iff `t₁=dual(t₂)`.
+Since we work with binary session types, this works **only** for two processes.
+The only tricky part is to deal with recursion and guessing which identifiers are dual.
+The simplest would be to used an [unification algorithm](https://en.wikipedia.org/wiki/Unification_(computer_science)).
+
 
 #### Subtyping
 
-Until now, the types directly reflect the processes and there is a direct syntacic match between them
+Until now, the types and processes precisely mirror each other.
+However, we can extend the typing with a subtype relations.
+We write `t₁` being a subtype of `t₂` as `t₁ <: t₂`.
 
-works only on choice:
-- fewer internal choice
-- more external choice
+We assume that we are given a subtype relation for the primitive (message payload) types.
+For instance, `int <: real`.
+
+Here is how the subtype relation works for send and receive:
+
+```
+ t₁ <: t₂
+──────────
+!t₁ <: !t₂
+```
+
+```
+ t₂ <: t₁
+──────────
+?t₁ <: ?t₂
+```
 
 
-#### properties: deadlock free, no message left in the channels
+For the subtyping of choice it is simpler to work with the n-ary version of the operators:
 
-preservation and progress
+```
+1 ≤ n ≤ m
+∃ f. injective function from [1;n] to [1;m] such that
+∀ i ∈ [1;n]. l_i = l′_{f(i)}  ∧  t_i <: t′_{f(i)}
+─────────────────────────────────────────────────────
+⊕_{i ∈ [1;n]} l_i:t_i  <:  ⊕_{j ∈ [1;m]} l′_j:t′_j
+```
+
+```
+1 ≤ m ≤ n
+∃ f. injective function from [1;m] to [1;n] such that
+∀ i ∈ [1;m]. l′_i = l_{f(i)}  ∧  t_{f(i)} <: t′_i
+─────────────────────────────────────────────────────
+&_{i ∈ [1;n]} l_i:t_i  <:  &_{j ∈ [1;m]} l′_j:t′_j
+```
+
+Intuitively, subtypes can do fewer internal choices and allow more external choices.
+
+
+#### Properties of the type system
+
+The main properties of type system are:
+* preservation: An evaluation step does not change the type
+* progress: either the program has finished or it it possible to take a step
+
+Progress and Preservation is a proof by induction on the syntax of the processes and types.
+Here we give a sketch of how to prove it.
+
+Given well-typed `P: t₁ | Q: t₂` with `t₁ = dual(t₂)` we need to case split on the structure of the processes.
+* Case `P:t₁` is `?a.P′: ?t;t′`:
+  - by assumption `Q` has type `dual(?t;t′) = !t;dual(t′)`
+  - therefore, `Q` is of the for `!b.Q′` with `b:t` and `Q′:dual(t′)`dual(t′)
+  - `?a.P′ | !b.Q′` can make a communication step and we get `P′:t′ | Q[a → b]:dual(t′)`
+  - finally, we apply to induction hypothesis to get that progress also holds for `P′:t′ | Q[a → b]:dual(t′)`
+* Case ...
+
+If we add some extra checks for the absence of loops with only τ steps, then progress also implies deadlock-freedom.
 
 
 #### What we did not cover
 
-* internal steps
 * higher-order types, scope restriction, and mobility
 * process creation and parallel composition in general
 * ...
 
 
-### Multiparty session types.
+#### Generalization to multiparty session types
 
-Generalization to multiparty types work with a global type which is then projected on the different processes.
-...
+What we saw only works for communication between two processes.
+To generalize to multiparty communication, the most common approach is to introduce a global type (description of the protocol) which is then projected on the different processes as local types, and the local types are used to check each process.
+An influential work in that direction is [Multiparty Asynchronous Session Types](https://www.doc.ic.ac.uk/~yoshida/multiparty/multiparty.pdf).

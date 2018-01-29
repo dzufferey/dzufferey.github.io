@@ -145,7 +145,7 @@ What get executed is closer to
 ```
 x := 0;
 y := 0;
-p : i < m;
+p := i < m;
 p ⇒ x := 1;
 ¬p ⇒ y := 1;
 ```
@@ -328,7 +328,7 @@ We write `a :: b` to extract the head of a sequence of statement or extend a seq
   ```
   fresh p₁   ∃ j. T[j].p
   ───────────────────────────────────────────────────────────
-  (T, p⇒ while c b :: s) → (T, p₁ := p ∧ c :: p₁ ⇒ b :: p₁⇒ while c b :: b)
+  (T, p⇒ while c b :: s) → (T, p₁ := p ∧ c :: p₁ ⇒ b :: p₁⇒ while c b :: s)
   ```
   ```
   ∀ j. ¬T[j].p

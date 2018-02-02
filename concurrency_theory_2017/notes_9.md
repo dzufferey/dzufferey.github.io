@@ -7,7 +7,7 @@ A key element of CCS is the distinction between _names_ and _process_.
 _Names_ are channels and they are orthogonal to processes, e.g., a process can send or receive messages from _any_ name in its scope.
 In the world of CSM, only a single process can receive from a channel.
 
-You can find more information in the [notes on CCS by Emanuele D’Osualdo](https://www.tcs.cs.tu─bs.de/documents/ConcurrencyTheory_WS_20162017/ccs.pdf).
+You can find more information in the [notes on CCS by Emanuele D’Osualdo](https://www.tcs.cs.tu-bs.de/documents/ConcurrencyTheory_WS_20162017/ccs.pdf).
 
 __Example.__
 

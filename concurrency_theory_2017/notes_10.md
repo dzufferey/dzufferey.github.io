@@ -15,7 +15,7 @@ The system is composed of:
 
 Intuitively, the system looks like:
 ```
-     ┌───┐ 
+     ┌───┐
      │Car│
      └───┘
  talk₁||switch₁
@@ -92,7 +92,7 @@ after synchronizing on `alert₂` we have:
 
 Visually, the new state is:
 ```
-                    ┌───┐ 
+                    ┌───┐
                     │Car│
                     └───┘
                 talk₂||switch₂
@@ -137,7 +137,7 @@ __Actions.__
 ```
 
 _Remark._
-The difference between CCS and the π-calculus is the number of names in input/output prefix: 
+The difference between CCS and the π-calculus is the number of names in input/output prefix:
 * when no name are involved: CCS
 * with 1 name in the prefix: _monadic_ π-calculus
 * with >1 name in the prefix: _polyadic_ π-calculus
@@ -240,8 +240,8 @@ _Remark._
 Unfortunately, this semantics is not finitely branching.
 Consider the process `?a(b).!b.0`.
 This process can take infinitely many transitions:
-* `?a(b).!b.0 ─?a(c)→ !c.0` 
-* `?a(b).!b.0 ─?a(d)→ !d.0` 
+* `?a(b).!b.0 ─?a(c)→ !c.0`
+* `?a(b).!b.0 ─?a(d)→ !d.0`
 * ...
 
 
@@ -345,7 +345,7 @@ NodeLocked(this, get, set, lock, unlock, next) ≝ !this(get, set, lock, unlock)
                                                  + ?set(n).NodeLocked(this, get, set, lock, unlock, n)
 Add01() ≝ τ.Add02(head)
 Add02(prev) ≝ ?prev(get, set, lock, unlock).!lock().?get(curr).Add04(prev,curr)
-Add04(prev,curr) ≝ τ.Add05(prev,curr) 
+Add04(prev,curr) ≝ τ.Add05(prev,curr)
                    + τ.Add10(prev,curr)
 Add05(prev,curr) ≝ ?curr(get, set, lock, unlock).!lock().Add06(prev,curr)
 Add06(prev,curr) ≝ ?prev(get, set, lock, unlock).!unlock().Add08(curr,curr)
@@ -417,13 +417,11 @@ This is a subgraph isomorphism check.
 The _subgraph isomorphism problem_ for labelled graphs: Given `G = (V, E, L)` and `H = (V′,E′, L′)` find `G₀ = (V₀,E₀,L)` such that:
 * `V₀ ⊆ V`
 * `E₀ = E ∩ (V₀ × V₀)`
-* there exists a bijection `f: V′ → V₀` such that
+* there exists a bijection `f: V′ → V₀` (injective function from `V′` to `V`) such that
   - `(v₁,v₂) ∈ E′ ⇔ (f(v₁),f(v₂)) ∈ E₀`,
   - `∀ v₁ ∈ V′. L′(v₁) = L(f(v₁))`,
   - `∀ (v₁,v₂) ∈ E′. L′(v₁,v₂) = L(f(v₁),f(v₂))`.
 
-_Remark._
-In the statement above, `f` is a partial morphism from `H` to `G`, written `f: H ⇀ G`
 
 __Example.__
 Consider a variation of the client-server example where the server has a public address `s` and is connected to a private database.
@@ -450,38 +448,39 @@ We can express the error (to cover) in π-calculus as `(ν s db) Server(s, db) |
 
 Transitions can also be expressed as graph rewrite rules.
 
-#### Graph rewrite rule (single pushout approach).
+#### Graph rewrite rules
 
 __Definition.__
 In this approach, a _rewrite rule_ is a triple `(L, R, m)` where
 * `L` is a graph (left-hand-side, pattern),
 * `R` is a graph (right-hand-side, what replace the pattern),
-* `m` is a partial morphism from `L` to `R`.
+* `m` is a partial injective mapping from `L` to `R`.
 
-Given two partial graph morphism `h: G₀ ⇀ G₁` and `g: G₀ ⇀ G₂`, the _pushout_ of `h` and `g` is:
-* a graph `G₃`
-* a partial graph morphism `g′: G₁ ⇀ G₃`
-* a partial graph morphism `h′: G₂ ⇀ G₃`
-such that:
-* `g′∘h = h′∘g`
-* for every pair of morphisms `g″: G₁ ⇀ G₃′` and `h″: G₂ ⇀ G₃′` there exists a unique morphism `f: G₃ ⇀ G₃′` with `f∘g′ = g″` and `f∘h′ = h″`
 
-Intuitively, `G₃` is the minimal graph such that we get `G₃` when applying `h` and `g` to `G₀` and `h`,`g` "commute".
-
-Visually it looks like:
-```
-       h
-    G₀ → G₁
-  g ↓    ↓ g′
-    G₂ → G₃
-       h′
-```
-
+__Notation.__
+* For a graph `G`, we use `G.V`, `G.E`, and `G.L`, for the set of vertices, edges, and labelling function in `G`.
+* For a (partial) function `f`, `range(f)` is `{ y | ∃ x. f(x) = y }`.
+* For a partial function `f`, `domain(f)` is the values where `f` is defined, i.e., `{ x | ∃ y. f(x) = y }`.
+* For an injective (partial) function `m`, we write `m⁻¹` for its inverse: `m⁻¹(x) = y ⇔ m(x) = y`.
 
 __Semantics.__
-Applying `(L, R, m)` to a graph `G`:
-1. Compute a match `l` (total injective morphism) from `L` to `G` (`L` is a subgraph of `G`).
-2. Replace the part `G` matching `L` by `R` while keeping the connections using `m`. More formally, the result is the pushout of `m` and `l`.
+Let us apply `(L, R, m)` to a graph `G`.
+Intuitively, we the part `G` matching `L` by `R` while keeping the connections using `m`.
+
+More formally:
+1. Check that `L` is a subgraph of `G` (otherwise abort).
+2. Let `f` the injective function from the vertices of `L` to `G` obtained by the subgraph isomorphism.
+3. Construct a graph `H` with
+  - `H.V = (G.V ∖ range(f)) ∪  R.V`
+  - `H.E = { (v₁,v₂) ∈ G.V×G.V | (v₁,v₂) ∈ G.E  ∨  (v₁,v₂) ∈ R.E  ∨  (v₁,f(m⁻¹(v₂))) ∈ G.E  ∨  (f(m⁻¹(v₁)),v₂) ∈ G.E }`
+  - vertex labels: `H.L(v) = l  ⇔  R.L(v) = l ∨ G.L(v) = l`
+  - edges labels: `H.L((v₁,v₂)) = l  ⇔  R.L((v₁,v₂)) = l ∨ R.L((v₁,v₂)) = l ∨ G.L(v₁,f(m⁻¹(v₂))) = l ∨ G.L(f(m⁻¹(v₁)),v₂) = l`
+
+The edges are the trickiest part.
+The edges that are "completely" within `G.V ∖ range(f)` and `R.V` are kept.
+Then we need to glue the boundaries of `G.V ∖ range(f)` and `R.V`.
+`f(m⁻¹(v))` follows the mapping in reverse:
+`m⁻¹(v)` (if defined) trace a node of `R.V` back to `L.V` and then `f` find the corresponding node in `G.V`.
 
 
 __Example.__
@@ -500,8 +499,12 @@ A transition from `A(a, b) | B(a)` to `C(b)` corresponds to the graph rewrite ru
   2 │     \___________/    2│    
     ●-----------------------●
 ```
+as `(L,R,m)` with
+* `L = ({w,x,y,z}, {(w,y),(w,z),(x,y)}, {w→A,x→B,y→●,z→●,(w,y)→1,(w,z)→2,(x,y)→1})`
+* `R = ({m,n,o}, {(m,n),(m,o)}, {m→C,n→●,o→●,(m,n)→1,(m,o)→2})`
+* `m = {x→m,y→n,z→o}`
 
-Applying the rewrite rule to the graph
+Applying the rewrite rule to the graph `G`
 ```
         D
     1  1│  1  
@@ -509,7 +512,13 @@ Applying the rewrite rule to the graph
  2 │
    ●
 ```
-gives
+with
+- `G.V = {e,f,g,h,i}`
+- `G.E = {(e,h), (e,i), (f,h), (g,h)}`
+- `G.L = {e→A, f→B, g→D, h→●, i→●, (e,h)→1, (e,i)→2, (f,h)→1, (g,h)→1}`
+and the subgraph isomorphism with the mapping `{w→e, x→f, y→h, z→i}`.
+
+gives `H`
 ```
         D
        1│  1  
@@ -517,3 +526,45 @@ gives
             2│
    ●─────────┘
 ```
+with
+- `H.V = {m,n,o,g}`
+- `H.E = {(m,n),(m,o),(g,n)}`
+- `H.L = {m→C, n→●, o→●, (m,n)→1, (m,o)→2, (g,n)→1}`
+
+
+#### Graph rewrite rule: single pushout approach
+
+__Remark.__
+You don't need to understand this part for the exam.
+I'm leaving it here as this is the kind of definitions you are likely to encounter in the literature.
+
+__Definition.__
+In this approach, a _rewrite rule_ is a triple `(L, R, m)` where
+* `L` is a graph (left-hand-side, pattern),
+* `R` is a graph (right-hand-side, what replace the pattern),
+* `m` is a partial homomorphism from `L` to `R`.
+
+Given two partial graph homomorphism `h: G₀ ⇀ G₁` and `g: G₀ ⇀ G₂`, the _pushout_ of `h` and `g` is:
+* a graph `G₃`
+* a partial graph homomorphism `g′: G₁ ⇀ G₃`
+* a partial graph homomorphism `h′: G₂ ⇀ G₃`
+such that:
+* `g′∘h = h′∘g`
+* for every pair of homomorphisms `g″: G₁ ⇀ G₃′` and `h″: G₂ ⇀ G₃′` there exists a unique homomorphism `f: G₃ ⇀ G₃′` with `f∘g′ = g″` and `f∘h′ = h″`
+
+Intuitively, `G₃` is the minimal graph such that we get `G₃` when applying `h` and `g` to `G₀` and `h`,`g` "commute".
+
+Visually it looks like:
+```
+       h
+    G₀ → G₁
+  g ↓    ↓ g′
+    G₂ → G₃
+       h′
+```
+
+
+__Semantics.__
+Applying `(L, R, m)` to a graph `G`:
+1. Compute a match `l` (total injective morphism) from `L` to `G` (`L` is a subgraph of `G`).
+2. Replace the part `G` matching `L` by `R` while keeping the connections using `m`. More formally, the result is the pushout of `m` and `l`.

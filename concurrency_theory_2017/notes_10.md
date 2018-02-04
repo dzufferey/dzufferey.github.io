@@ -459,26 +459,26 @@ In this approach, a _rewrite rule_ is a triple `(L, R, m)` where
 
 __Notation.__
 * For a graph `G`, we use `G.V`, `G.E`, and `G.L`, for the set of vertices, edges, and labelling function in `G`.
-* For a (partial) function `f`, `range(f)` is `{ y | ∃ x. f(x) = y }`.
-* For a partial function `f`, `domain(f)` is the values where `f` is defined, i.e., `{ x | ∃ y. f(x) = y }`.
 * For an injective (partial) function `m`, we write `m⁻¹` for its inverse: `m⁻¹(x) = y ⇔ m(x) = y`.
+* Applying a function defined over elements to a set of elements simply apply the function to ever element in the set.
 
 __Semantics.__
 Let us apply `(L, R, m)` to a graph `G`.
 Intuitively, we the part `G` matching `L` by `R` while keeping the connections using `m`.
 
-More formally:
+Let us assume that `G.V`, `L.V`, and `R.V` are disjoint sets.
+
 1. Check that `L` is a subgraph of `G` (otherwise abort).
 2. Let `f` the injective function from the vertices of `L` to `G` obtained by the subgraph isomorphism.
 3. Construct a graph `H` with
-  - `H.V = (G.V ∖ range(f)) ∪  R.V`
-  - `H.E = { (v₁,v₂) ∈ G.V×G.V | (v₁,v₂) ∈ G.E  ∨  (v₁,v₂) ∈ R.E  ∨  (v₁,f(m⁻¹(v₂))) ∈ G.E  ∨  (f(m⁻¹(v₁)),v₂) ∈ G.E }`
+  - `H.V = (G.V ∖ f(L.V)) ∪  R.V`
+  - `H.E = { (v₁,v₂) ∈ H.V×H.V | (v₁,v₂) ∈ G.E  ∨  (v₁,v₂) ∈ R.E  ∨  (v₁,f(m⁻¹(v₂))) ∈ G.E  ∨  (f(m⁻¹(v₁)),v₂) ∈ G.E }`
   - vertex labels: `H.L(v) = l  ⇔  R.L(v) = l ∨ G.L(v) = l`
   - edges labels: `H.L((v₁,v₂)) = l  ⇔  R.L((v₁,v₂)) = l ∨ R.L((v₁,v₂)) = l ∨ G.L(v₁,f(m⁻¹(v₂))) = l ∨ G.L(f(m⁻¹(v₁)),v₂) = l`
 
 The edges are the trickiest part.
-The edges that are "completely" within `G.V ∖ range(f)` and `R.V` are kept.
-Then we need to glue the boundaries of `G.V ∖ range(f)` and `R.V`.
+The edges that are "completely" within `G.V ∖ f(L.V)` and `R.V` are kept.
+Then we need to glue the boundaries of `G.V ∖ f(L.V)` and `R.V`.
 `f(m⁻¹(v))` follows the mapping in reverse:
 `m⁻¹(v)` (if defined) trace a node of `R.V` back to `L.V` and then `f` find the corresponding node in `G.V`.
 

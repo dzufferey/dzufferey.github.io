@@ -451,7 +451,7 @@ For instance, if there is a definition `A: t ≝ P` then `Γ` contains `(A, t)`.
 ```
 Γ ⊢ a: t   Γ ⊢ P: t′
 ────────────────────
-  Γ ⊢ !a.P: ?t;t′
+  Γ ⊢ !a.P: !t;t′
 ```
 
 Here we give very simple rules.

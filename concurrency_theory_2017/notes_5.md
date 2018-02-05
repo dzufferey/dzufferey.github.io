@@ -151,7 +151,7 @@ Notice that the order of `P` and `Q` is swapped.
 
 
 ---
-(small digression)
+(small digression, this part will not be in the exam.)
 
 #### Relation ship between `⊑` and logic
 
@@ -179,6 +179,8 @@ Some authors have tried to introduce a more uniform notation:
 `⊑` is useful because
 * `⊑` is a closer match to logical implication than `⊆` (think about using `≤` as logical entailment).
 * if `⊑` has nice properties, e.g., WQO, it can be used to prove results about hardness/decidability of some proof systems.
+  Intuitively, `[P] ⊑ [Q]` means that anything that can be proved by `Q` is also provable by `P`.
+  For instance, [this paper](https://people.cs.umass.edu/~immerman/pub/popl16.pdf) uses a WQO over [EPR predicates](https://en.wikipedia.org/wiki/Bernays%E2%80%93Sch%C3%B6nfinkel_class).
 
 ---
 
@@ -316,7 +318,7 @@ The definition is quite technical so we are skipping it, but is can easily be fo
 
 #### ω²-WQO
 
-ω²-WQO are WQO which do not embed Rado structure.
+A WQO is ω²-WQO iff it does not embed Rado structure.
 
 __Theorem.__
 If `(X,≤)` is a ω²-WQO then `(2^X,⊑)` is a WQO.
@@ -327,6 +329,12 @@ If `(X,≤)` is a ω²-WQO then `(Idl(X),⊆)` is a WQO.
 BQO are ω²-WQO.
 
 More details in [A Note on Well Quasi-Orderings for Powersets](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.35.673).
+
+
+#### Relevance in our context
+
+The algorithm we will seen ennumerate elements `Idl(X)` where `X` is the state-space of a WSTS.
+The algorithm relies needs that there is no infinite antichains in `Idl(X)`.
 
 
 ## Completion of WSTS

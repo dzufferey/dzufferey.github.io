@@ -125,7 +125,7 @@ From the equations above, we can extract 5 rules:
                                           ● ──────Request
 ```
 
-`Server` receiving a `Request` with `sِ≠c`:
+`Server` receiving a `Request` with `s≠c`:
 ```
        ________________________________
       /        ________________________\__________
@@ -137,7 +137,7 @@ From the equations above, we can extract 5 rules:
       \________________________________/
 ```
 
-`Server` receiving a `Request` with `sِ=c`:
+`Server` receiving a `Request` with `s=c`:
 ```
        ________________________________
       /        ________________________\__________

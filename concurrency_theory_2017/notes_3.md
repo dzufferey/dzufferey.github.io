@@ -169,7 +169,7 @@ lock −   − unlock
 #### Applications of siphons and traps
 
 Siphons can offer a quick check for some reachability question.
-For instance, it is not possible to cover a siphon empty under `M₀`.
+For instance, if a siphon empty under `M₀` then no reachable marking can cover a marking where the siphon is not empty.
 
 __Assumptions.__
 The following two results are only valid to Petri net where:
@@ -223,7 +223,7 @@ The converse of the propositions above are not true.
 Can you find an examples?
 
 __Free-choice nets.__
-A Petri net is _free-choice_ iff `∀ s t. W(s, t) = 1 ⇒ W(preset(t), postset(s)) = 1`.
+A Petri net is _free-choice_ iff `∀ s t. W(s, t) = 1 ⇒ ∀ s′ ∈ preset(t), t′ ∈ postset(s).  W(s′, t′) = 1`.
 
 The following patterns are allowed
 ```

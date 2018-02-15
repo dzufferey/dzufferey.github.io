@@ -192,7 +192,9 @@ But it should be written as
 ```
 if (i > 0) {
     tmp1 := shared[i-1];
-    barrier;
+}
+barrier;
+if (i > 0) {
     tmp2 := shared[i];
     shared[i] := (tmp1 + tmp2) / 2;
 }
@@ -235,13 +237,13 @@ Local rules have a thread state and predicated `basic_stmt` on the left hand sid
   ```
   t.p    v = e↓t   t′ = (t.l ← t.shared[v]]).R ← t.R ∪ v
   ──────────────────────────────────────────────────────
-  (t, (⊤ ⇒ l := shared[e])) → t′
+  (t, (p ⇒ l := shared[e])) → t′
   ```
 * write
   ```
   t.p    v₁ = e₁↓t    v₂ = e₂↓t   t′ = (t.shared[v₁] ← v₂]).W ← t.W ∪ v₁
   ──────────────────────────────────────────────────────────────────────
-  (t, (⊤ ⇒ shared[e₁] := e₂)) → t′
+  (t, (p ⇒ shared[e₁] := e₂)) → t′
   ```
 
 __Synchronization rules.__
@@ -300,6 +302,7 @@ These rules work on sequences of statements.
 We write `a :: b` to extract the head of a sequence of statement or extend a sequence.
 `::` is not the same as `;`.
 `::` is for predicated statement and `;` for statements.
+`⇒` binds more strongly than `::`, i.e.,  `p ⇒ s :: s` is `(p ⇒ s) :: s`
 
 * basic
   ```
@@ -368,15 +371,15 @@ The intuition is that the properties we look at most often depends on the contro
 The abstraction replace the read and write rules with:
 * read
   ```
-  t.p    v = e↓t   t′ = (t.l ← v′]).R ← t.R ∪ v
+  t.p    v = e↓t   t′ = (t.l ← v′).R ← t.R ∪ v
   ─────────────────────────────────────────────
-  (t, (⊤ ⇒ l := shared[e])) → t′
+  (t, (p ⇒ l := shared[e])) → t′
   ```
 * write
   ```
-  t.p    v = e₁↓t   t′ = (t.shared ← shared′]).W ← t.W ∪ v
+  t.p    v = e₁↓t   t′ = (t.shared ← shared′).W ← t.W ∪ v
   ────────────────────────────────────────────────────────
-  (t, (⊤ ⇒ shared[e₁] := e₂)) → t′
+  (t, (p ⇒ shared[e₁] := e₂)) → t′
   ```
 
 With an adversarial abstraction, the problem become simpler as it is not possible anymore to encode a Turing machine.

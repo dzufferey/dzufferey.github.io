@@ -66,7 +66,7 @@ We denote by `Idl(X)` the set of all ideals in `X`.
 As elements can form basis for upward-closed sets, it is possible to decompose downward-closed sets in a finite number of ideals.
 
 __Theorem.__
-If `(X,≤)` is a WQO and `D = ↓D` then `∃ I₀ … I_n ∈ Idl(X). D = I₀ ∪ … ∪ I_n`.
+If `(X,≤)` is a WQO and `D ⊆ X` with `D = ↓D` then `∃ I₀ … I_n ∈ Idl(X). D = I₀ ∪ … ∪ I_n`.
 
 _Proof._
 By contradiction, assume that there is no such sequence.

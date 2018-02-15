@@ -358,7 +358,7 @@ Internal choice is implicitly linked to sending messages and external choice to 
 * external choice is denoted as `l₁.P₁ & l₂.P₂` where `l₁` and `l₂` are labels.
 The labels indicates which branch has been selected and the two processes synchronize on that label.
 Here we present the choice as binary but it is straightforward to generalize to n-ary (`⊕_i l_i.P_i` and `&_i l_i.P_i`).
-Futhermore, we assume that all the labels in a choice are different.
+Furthermore, we assume that all the labels in a choice are different.
 We use internal/external choice both in the processes and as part of the types.
 
 Our duality relations get extended with:
@@ -403,8 +403,11 @@ Most publications uses the least fixed point notation (`μX.P`) which only creat
 The types directly reflect the processes and there is a direct syntactic match between them.
 In the simple version, this is what the typing rules do.
 
-A typing environment `Γ` is a map from names and definitions to types.
-The initial `Γ` maps the definitions names to their type.
+We omit the typing rules for literals (`1:int`, `"foo":string`, …) and focus on the rule for communication.
+
+A _typing environment_ `Γ` is a map from names and definitions to types.
+The _initial environment_ `Γ` maps the definitions identifiers to their type.
+This is needed to deal with recursion.
 For instance, if there is a definition `A: t ≝ P` then `Γ` contains `(A, t)`.
 
 ```
@@ -418,6 +421,7 @@ For instance, if there is a definition `A: t ≝ P` then `Γ` contains `(A, t)`.
 ─────────
 Γ ⊢ id: t
 ```
+where `id` is the identifier of either a definition or a name bound when receiving a message.
 
 ```
 ────────────
@@ -462,6 +466,16 @@ Then the composition `P:t₁ | Q:t₂` is well typed iff `t₁=dual(t₂)`.
 Since we work with binary session types, this works **only** for two processes.
 The only tricky part is to deal with recursion and guessing which identifiers are dual.
 The simplest would be to used an [unification algorithm](https://en.wikipedia.org/wiki/Unification_(computer_science)).
+
+Here is a rules that ties everything together:
+```
+∀i, j. i≠j ⇒ A_i ِ≠ A_j
+Γ = ⋃_i (A_i, t_i)
+∀ i. Γ ⊢ A_i: t_i ≝ P_i
+Γ(P) = dual(Γ(Q))
+───────────────────────────────
+P | Q  with  ⋃_i A_i: t_i ≝ P_i
+```
 
 
 #### Subtyping

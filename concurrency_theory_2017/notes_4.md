@@ -328,9 +328,9 @@ _proof._
 
       case 1 `i < m`:
       - `M_{i+1} = M_i ∪ ↑pre(↑M_i)` (5th line of the algorithm)
-      - `M_{i+1} = ⋃_{0≤j≤i} ↑pre^j{↑T} ∪ ↑pre(↑⋃_{0≤j≤i} ↑pre^j(↑T))` (induction hypothesis)
-      - `M_{i+1} = ⋃_{0≤j≤i} ↑pre^j{↑T} ∪ ⋃_{1≤j≤i+1} ↑pre^j(↑T)` (distributing `↑pre(↑_)` over `⋃`)
-      - `M_{i+1} = ⋃_{0≤j≤i} ↑pre^j{↑T} ∪ ↑pre^{i+1}(↑T)` (`X ∪ X = X`)
+      - `M_{i+1} = ⋃_{0≤j≤i} ↑pre^j(↑T) ∪ ↑pre(↑⋃_{0≤j≤i} ↑pre^j(↑T))` (induction hypothesis)
+      - `M_{i+1} = ⋃_{0≤j≤i} ↑pre^j(↑T) ∪ ⋃_{1≤j≤i+1} ↑pre^j(↑T)` (distributing `↑pre(↑_)` over `⋃`)
+      - `M_{i+1} = ⋃_{0≤j≤i} ↑pre^j(↑T) ∪ ↑pre^{i+1}(↑T)` (`X ∪ X = X`)
 
       case 2 `i ≥ m`:
       - The sequence has stabilized so `M_{i+1} = M_{i}` and `↑pre^{i+1}(↑ T) ⊆ ⋃_{i ∈ ℕ} ↑pre^i(↑ T)`.

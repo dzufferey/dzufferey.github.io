@@ -248,9 +248,12 @@ But this is not allowed
     ↘
 ( ) → |
 ```
+__Connected net.__
+A Petri net is _connected_ iff the graph defined by `W` has a single connected component.
+
 
 __Theorem (Commoner's theorem).__
-Given a free-choice net `N`, `N` is deadlock-free iff every proper siphon of `N` includes an initially marked trap.
+Given a connected free-choice net `N`, `N` is deadlock-free iff every proper siphon of `N` includes an initially marked trap.
 
 The proof can be found in the Chapter 4 of the [Free Choice Petri Nets](https://www7.in.tum.de/~esparza/bookfc.html) book.
 

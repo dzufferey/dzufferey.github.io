@@ -340,7 +340,7 @@ We write `a :: b` to extract the head of a sequence of statement or extend a seq
   ```
 * error
   ```
-  (T, p⇒ basic_stmt :: s) → error
+  (T, p⇒ basic_stmt) → error
   ───────────────────────────────────
   (T, p⇒ basic_stmt :: s) → error
   ```

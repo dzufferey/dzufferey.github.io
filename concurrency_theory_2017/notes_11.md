@@ -493,14 +493,16 @@ C ::= 0         (empty)
 ```
 Compared to configurations, we just add the replication operator.
 
-The ordering on configuration `C ≤ D` iff `C≡(νa)C′ ∧ D ≡ (νa)(C | D′)`, i.e., it is possible to rewrite `D` using congruence such that it contains `C`.
+The ordering on configuration `C ≤ D` iff `C≡(νa)C′ ∧ D ≡ (νa)(C′ | D′)`, i.e., it is possible to rewrite `D` using congruence such that it contains `C`.
 
 The nesting depth is extended with `nesting(C*) = nesting(C)`.
 
 __Lemma.__
-Ideals are the downward-closure of limit configurations.
+The downward-closure of limit configurations are ideals.
 
 _Proof sketch._
+The downward-closure follows from the definition.
+We need to prove the set are directed.
 The proof uses the same principle to the proofs the product are ideals for SRE ([notes 8](notes_8.md)).
 What makes the construction more complicated is that it works on tree automata instead of normal automaton.
 A limit configurations are like regular expression over syntax trees of configurations and the tree automata generalize regular expressions to trees.

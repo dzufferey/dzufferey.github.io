@@ -315,7 +315,7 @@ To avoid confusion between integer and `0` as the "terminated process", we use `
 __System.__
 A list of definitions of the 
 ```
-A | A with (A ≝ P)*
+System ::= A | A with (A ≝ P)*
 ```
 where
 * `A` are identifier of definitions
@@ -362,8 +362,8 @@ The semantics is a mix between π-calculus (process algebra notation) and commun
   ```
 * Choice
   ```
-  ────────────────    ───────────────    ──────────────────    ───────────────────
-  (P′+P″)|Q → P′|Q    (P′+P″)|Q → P″|    P|(Q′+Q″)  →  P|Q′    P|(Q′+Q″)  →  P|Q″Q
+  ────────────────    ────────────────    ──────────────────    ──────────────────
+  (P′+P″)|Q → P′|Q    (P′+P″)|Q → P″|Q    P|(Q′+Q″)  →  P|Q′    P|(Q′+Q″)  →  P|Q″
   ```
 * Communication
   ```
@@ -374,7 +374,7 @@ The semantics is a mix between π-calculus (process algebra notation) and commun
   ```
   P ≡ P′  Q ≡ Q′  P′|Q′ → P″|Q″  P″ ≡ P‴  Q″ ≡ Q‴
   ───────────────────────────────────────────────
-                P|Q → P″|Q″
+                P|Q → P‴|Q‴
   ```
 
 
@@ -518,13 +518,13 @@ where `id` is the identifier of either a definition or a name bound when receivi
 ```
     Γ ⊢ P: t₁    Γ ⊢ Q: t₂
 ────────────────────────────────
-Γ ⊢ (l₁.P ⊕ l₂.Q): l₁.t₁ ⊕ l₂.t₂
+Γ ⊢ (l₁.P ⊕ l₂.Q): l₁;t₁ ⊕ l₂;t₂
 ```
 
 ```
     Γ ⊢ P: t₁    Γ ⊢ Q: t₂
 ────────────────────────────────
-Γ ⊢ (l₁.P & l₂.Q): l₁.t₁ & l₂.t₂
+Γ ⊢ (l₁.P & l₂.Q): l₁;t₁ & l₂;t₂
 ```
 
 ```
@@ -590,7 +590,7 @@ For the subtyping of choice it is simpler to work with the n-ary version of the 
 ∃ f. injective function from [1;n] to [1;m] such that
 ∀ i ∈ [1;n]. l_i = l′_{f(i)}  ∧  t_i <: t′_{f(i)}
 ─────────────────────────────────────────────────────
-⊕_{i ∈ [1;n]} l_i:t_i  <:  ⊕_{j ∈ [1;m]} l′_j:t′_j
+⊕_{i ∈ [1;n]} l_i;t_i  <:  ⊕_{j ∈ [1;m]} l′_j;t′_j
 ```
 
 ```
@@ -598,7 +598,7 @@ For the subtyping of choice it is simpler to work with the n-ary version of the 
 ∃ f. injective function from [1;m] to [1;n] such that
 ∀ i ∈ [1;m]. l′_i = l_{f(i)}  ∧  t_{f(i)} <: t′_i
 ─────────────────────────────────────────────────────
-&_{i ∈ [1;n]} l_i:t_i  <:  &_{j ∈ [1;m]} l′_j:t′_j
+&_{i ∈ [1;n]} l_i;t_i  <:  &_{j ∈ [1;m]} l′_j;t′_j
 ```
 
 Intuitively, subtypes can do fewer internal choices and allow more external choices.

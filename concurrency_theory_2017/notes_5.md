@@ -126,7 +126,6 @@ When expanding the definitions we get:
 * `∀ p. p ∈ ↓P ⇒ ∃ q. q ∈ Q ∧ p ≤ q`                    by definition of `↓`
 * `∀ p. (∃ p′. p′ ∈ P ∧ p ≤ p′) ⇒ ∃ q. q ∈ Q ∧ p ≤ q`   by definition of `↓`
 * `∀ p. ∃ q. p ∈ P ⇒ q ∈ Q ∧ p ≤ q`                     by instantiating `p′` with `p`
-Furthermore, if we assume the `Q` is not empty we get:
 * `∀ p ∈ P. ∃ q ∈ Q. p ≤ q`
 
 When we manipulate downward-closed sets as a finite union of ideal, it means that every ideal of `P` is contained in an ideal of `Q`.
@@ -141,13 +140,18 @@ The case of upward-closed sets is similar:
 * `∀ p. (∃ p′. p′ ∈ P ∧ p′ ≤ p) ⇒ ∃ q. q ∈ Q ∧ q ≤ p`   by definition of `↑`
 * `∀ p. ∀ p′. p′ ∈ P ∧ p′ ≤ p ⇒ ∃ q. q ∈ Q ∧ q ≤ p`
 * `∀ p. p ∈ P ⇒ ∃ q. q ∈ Q ∧ q ≤ p`                     by case split on `p=p′` and simplification
-Furthermore, if we assume the `Q` is not empty we get:
 * `∀ p ∈ P. ∃ q ∈ Q. q ≤ p`
 * `Q ⊑ P`                                               by definition of `⊑`
 
 This lead to the `⊑` relation is often found in the literature about ordering on sets.
 The `⊑` applies on any kind of sets, not only upward-closed but on upward-closed sets it matches inclusion.
 Notice that the order of `P` and `Q` is swapped.
+
+_Remark._
+Above we rewrite normal qunatifiers into bounded quantifiers.
+Bounded quantifiers are shorthands for
+* `(∀ p ∈ P. φ) ⇔ (∀ p. p ∈ P ⇒ φ)`
+* `(∃ p ∈ P. φ) ⇔ (∃ p. p ∈ P ∧ φ)`
 
 
 ---
@@ -173,8 +177,8 @@ Then `[P] ⊆ [Q]` becomes
 In particular we have `[P] ⊑ [Q]` implies `[P] ⊆ [Q]` and it is well-behaved w.r.t. `∪` and `∨`: `⋃_i[P_i] ⊑ ⋃_j[Q_j]` implies `[∨_j P_j] ⊆ [∨_i Q_i]`.
 
 Some authors have tried to introduce a more uniform notation:
-* `X ≼_∀^∃ Y  ⇔  ∀ x ∈ X. ∃ y ∈ Y. x ≤ y  ≈  X ⊆ Y`
-* `X ≼_∃^∀ Y  ⇔  ∀ y ∈ Y. ∃ x ∈ X. x ≤ y  ⇔  X ⊑ Y`
+* `X ≼_∀^∃ Y  ⇔  ∀ x ∈ X. ∃ y ∈ Y. x ≤ y  ⇔  ↓X ⊆ ↓Y`
+* `X ≼_∃^∀ Y  ⇔  ∀ y ∈ Y. ∃ x ∈ X. x ≤ y  ⇔  X ⊑ Y ⇔ ↑X ⊇ ↑Y`
 
 `⊑` is useful because
 * `⊑` is a closer match to logical implication than `⊆` (think about using `≤` as logical entailment).

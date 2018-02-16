@@ -186,6 +186,13 @@ Some authors have tried to introduce a more uniform notation:
 
 #### Rado structure
 
+_About the exam:_
+The part related to Rado's structure/BQO/ω²-WQO is to there to try to explain what goes wrong with WQO only.
+You don't need to understand the details of the example contruction.
+You only need to understand why we need BQO/ω²-WQO, i.e., we can lift the ordering to ideals and still have a WQO.
+
+Back to the example
+
 Let `X_R = {(m, n) ∈ ℕ² | m < n}`.
 
 Visually this space is the region covered by `·` in the plot:

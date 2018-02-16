@@ -424,6 +424,7 @@ __Theorem.__ Depth-bounded processes are an instance of WSTS.
 
 Also, the details can be found in [the paper](http://dzufferey.github.io/files/2010_Forward_Analysis_of_Depth-Bounded_Processes.pdf) or an earlier [paper by Roland Meyer](http://dl.ifip.org/db/conf/ifipTCS/ifipTCS2008/Meyer08.pdf).
 
+
 ### Forward vs backward analysis for depth-bounded processes
 
 Let us discuss some of the downside of the definition of depth-bounded processes and the implications for forward/backward analysis of WSTS.
@@ -443,8 +444,8 @@ The second problem is specific to the backward analysis.
 Let us assume we are dealing with a process which is depth-bounded but we don't know the value of the bound.
 (The exact value is not needed as the definition existentially quantify over it.)
 The system is guarantee to be depth-bounded on the (forward) reachable states.
-When going backward, the `pre` operator can generate unreachable state, for instance if the target is not coverable.
-These unreachable state may not respect the bound...
+Backward reachable states from the target state might fall outside the forward reachable states, for instance if the target is not coverable.
+When going backward, the `pre` operator can generate unreachable state and the bound is not only guarantee to exist for these stats.
 
 One solution, is to look at `k`-bounded processes, i.e., processes with a known bound.
 another approach is to use a forward analysis on depth-bounded processes.
@@ -492,6 +493,8 @@ C ::= 0         (empty)
 ```
 Compared to configurations, we just add the replication operator.
 
+The ordering on configuration `C ≤ D` iff `C≡(νa)C′ ∧ D ≡ (νa)(C | D′)`, i.e., it is possible to rewrite `D` using congruence such that it contains `C`.
+
 The nesting depth is extended with `nesting(C*) = nesting(C)`.
 
 __Lemma.__
@@ -500,6 +503,7 @@ Ideals are the downward-closure of limit configurations.
 _Proof sketch._
 The proof uses the same principle to the proofs the product are ideals for SRE ([notes 8](notes_8.md)).
 What makes the construction more complicated is that it works on tree automata instead of normal automaton.
+A limit configurations are like regular expression over syntax trees of configurations and the tree automata generalize regular expressions to trees.
 Given two configuration included in a limit configuration, we can unfold the replicated terms until it covers both configuration (pumping argument).
 
 

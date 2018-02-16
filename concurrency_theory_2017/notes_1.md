@@ -141,6 +141,10 @@ void increase(int x) {
   ((3))
 ```
 
+A CFA is an automaton which states are control locations of the program and the edges are statments of the program.
+It is called CFA because it only captures the part of the state related to the control flow and ignores the values of the variables.
+
+
 **Synchronized Product**
 
 ```
@@ -244,6 +248,7 @@ Properties of concurrent systems are broadly divided in two categories:
 * _Liveness_: properties that can only be violated by infinite traces
 
 In this class we focus on _safety_ properties and a few _eventuality_ properties.
+Eventuality properties are simple liveness properties that says something eventually happens, e.g., a program eventually terminates.
 General classes of temporal properties (LTL, CTL, μ-calculus, weak/strong fairness, …) are out of scope.
 
 #### Example
@@ -259,7 +264,7 @@ General classes of temporal properties (LTL, CTL, μ-calculus, weak/strong fairn
 
 As Paths in graphs:
 - Safety is reachability: path from the initial state to an error state.
-- Eventuality is nested reachability: lasso path with the stem starting at the initial state and the loop does not go to any "progress" state.
+- Eventuality is nested reachability: lasso path with the stem starting at the initial state and the loop does not go to any "progress" state where the progress state are the states that should eventually happen.
 
 As automata construction:
 - language inclusion: `A ⊆ B` reduces to `A ∩ ¬B = ∅`, or `A ⊗ ¬B = ∅` if the alphabet are different.
@@ -315,7 +320,7 @@ return SAFE
 Variations:
 * using a queue for F makes a BFS
 * using a stack for F makes a DFS
-* this is a forward search, it can also do a backward search
+* this is a forward search, it is also possible do a backward search (start from the error state and computes the predecessors)
 
 #### Encoding data as automaton
 

@@ -1,13 +1,19 @@
 # Petri Nets Continued...
 
-_Notations._
-For this part, we assume a non-trivial Petri Net `N = (S,T,W,M₀)`,
+_Assumptions._
+For this part, we assume a non-trivial connected Petri Net `N = (S,T,W,M₀)`,
 `C` is the connectivity matrix,
 `n = |S| ≥ 1`, and
 `m = |T| ≥ 1`.
 
-Non-trivial means there is at least one place and one transition.
-Otherwise, some elements like the connectivity matrix are ill-defined and other theorems are only holds for non-trivial nets.
+_Non-trivial net._
+A Petri net means there is at least one place and one transition.
+
+_Connected net._
+A Petri net is _connected_ iff the graph defined by `W` has a single connected component.
+
+These two assumptions are needed otherwise some elements like the connectivity matrix are ill-defined and some result do not hold.
+Trivial nets are easy to analyze on their own and for the case of _not_ connected nets it is possible to analyze the connected component separately.
 
 
 ## Structural properties
@@ -252,12 +258,10 @@ But this is not allowed
     ↘
 ( ) → |
 ```
-__Connected net.__
-A Petri net is _connected_ iff the graph defined by `W` has a single connected component.
 
 
 __Theorem (Commoner's theorem).__
-Given a connected free-choice net `N`, `N` is deadlock-free iff every proper siphon of `N` includes an initially marked trap.
+Given a free-choice net `N`, `N` is deadlock-free iff every proper siphon of `N` includes an initially marked trap.
 
 The proof can be found in the Chapter 4 of the [Free Choice Petri Nets](https://www7.in.tum.de/~esparza/bookfc.html) book.
 

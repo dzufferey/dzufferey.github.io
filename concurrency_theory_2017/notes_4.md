@@ -370,6 +370,10 @@ Since `s₀ = (1 0 0 0 0)` and `s₀ ∉ M₅`, the net respects mutual exclusio
 
 ## Worst case complexity
 
+The worst case complexity for the backward algorithm is given by the longuest descending chain or the longuest antichain in the ordering.
+WSTS gives decidability but no meaningful complexity bound.
+For instance, let us look at ordering on trees which we will use in [notes 11](notes_11.md).
+
 #### Embeddings of finite trees
 
 Let `T₁` and `T₂` by two finite rooted tree and `(X,≤)` be the set of nodes' labels with a WQO.
@@ -419,4 +423,4 @@ Over the finite trees with nodes labeled by elements of a WQO, inf-embedding is 
 
 Without proof for the moment, maybe in a later lecture.
 
-TREE(3): https://www.youtube.com/watch?v=3P6DWAwwViU, https://www.youtube.com/watch?v=IihcNa9YAPk
+The longuest non ascending chain in this ordering is mind-bogglingly long as explain in the following two videos about `TREE(3)`: https://www.youtube.com/watch?v=3P6DWAwwViU, https://www.youtube.com/watch?v=IihcNa9YAPk

@@ -17,7 +17,7 @@ A _labeled WSTS_ is a 4 tuple `(S,Σ,→,≤)` with:
 * `Σ` is a finite set of labels,
 * `→ ⊆ S × Σ × S` is a transition relation,
 * `≤` is a WQO over `S`,
-* strong monotonicity respecting labels: `∀ x₁ a x₂ y₁. ∃ y₂. →(x₁, a, x₂) ∧ x₁ ≤ y₁ ∧ →(y₁, a, y₂) ∧ x₂ ≤ y₂`.
+* strong monotonicity respecting labels: `∀ x₁ a x₂ y₁. ∃ y₂. →(x₁, a, x₂) ∧ x₁ ≤ y₁ ⇒ →(y₁, a, y₂) ∧ x₂ ≤ y₂`.
 
 For the transitions, we write `→(x₁, a, x₂)` or `x₁ →_a x₂` for `(x₁, a, x₂) ∈ →`.
 
@@ -31,7 +31,7 @@ The transition relation generalizes from single labels to words with the followi
 It is possible to relax the definition of strong monotonicity to the simple monotonicity.
 This is not needed unless the system has silent transitions, usually written `τ`.
 
-A labeled WSTS has _strong-strict monotonicity_ is it has strong monotonicity and at the same time: `∀ x₁ a x₂ y₁. ∃ y₂. →(x₁, a, x₂) ∧ x₁ < y₁ ∧ →(y₁, a, y₂) ∧ x₂ < y₂`.
+A labeled WSTS has _strong-strict monotonicity_ is it has strong monotonicity and at the same time: `∀ x₁ a x₂ y₁. ∃ y₂. →(x₁, a, x₂) ∧ x₁ < y₁ ⇒ →(y₁, a, y₂) ∧ x₂ < y₂`.
 
 For simplicity, in this documents we write WSTS for labeled WSTS.
 

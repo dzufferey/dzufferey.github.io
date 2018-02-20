@@ -326,7 +326,7 @@ __Processes.__
 P ::= π.P       (action)
     | P + P     (choice)
     | A         (named process)
-    | 0         (end)
+    | end       (end)
 ```
 
 __Actions.__
@@ -469,11 +469,18 @@ with the types:
 * `t₁ ≝ !int;!int;?int;t₁`
 * `t₂ ≝ ?int;?int;!int;t₂`
 
-Computing the dual of a type is still easy, but computing it is more tricky.
+Computing the dual of a type is still easy:
 * `dual(ID ≝ t) = "dual(ID)" ≝ dual(t)`
 * `dual(ID) = "dual(ID)"`
 For each identifier, we introduce a dual identifier and then proceed to take the dual of the body.
 In the definition above we use `"dual(ID)"` as placeholder for the dual identifier.
+
+But computing type equality it is more tricky as it is required to compute equality up to renaming of definitions.
+Unification is needed.
+
+Also type inference is harder.
+In the scope of this lecture we avoid type inference and relies on type annotations.
+
 
 __Remark.__
 Most publications uses the least fixed point notation (`μX.P`) which only create simple recursion rather than definition which are more flexible and creates mutually recursive definitions.

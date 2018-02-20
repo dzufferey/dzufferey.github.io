@@ -148,7 +148,7 @@ The `⊑` applies on any kind of sets, not only upward-closed but on upward-clos
 Notice that the order of `P` and `Q` is swapped.
 
 _Remark._
-Above we rewrite normal qunatifiers into bounded quantifiers.
+Above we rewrite normal quantifiers into bounded quantifiers.
 Bounded quantifiers are shorthands for
 * `(∀ p ∈ P. φ) ⇔ (∀ p. p ∈ P ⇒ φ)`
 * `(∃ p ∈ P. φ) ⇔ (∃ p. p ∈ P ∧ φ)`

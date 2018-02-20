@@ -1,10 +1,14 @@
 # Petri Nets Continued...
 
 _Notations._
-For this part, we assume a Petri Net `N = (S,T,W,M₀)`,
+For this part, we assume a non-trivial Petri Net `N = (S,T,W,M₀)`,
 `C` is the connectivity matrix,
-`n = |S|`, and
-`m = |T|`.
+`n = |S| ≥ 1`, and
+`m = |T| ≥ 1`.
+
+Non-trivial means there is at least one place and one transition.
+Otherwise, some elements like the connectivity matrix are ill-defined and other theorems are only holds for non-trivial nets.
+
 
 ## Structural properties
 

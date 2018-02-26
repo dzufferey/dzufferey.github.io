@@ -61,7 +61,7 @@ _Proof._
 3. Using the proposition above on each channel, we get stuttering compatibility.
 
 
-Showing that LCS are WSTS is enough to give decidability of the covering problem using the backward algorithm.
+Showing that LCS are WSTS is enough to give decidability of the covering problem using the backward algorithm, assuming an algorithm to compute the predecessor basis.
 
 
 ## Forward analysis of LCS
@@ -251,7 +251,7 @@ Two products `p₁` and `p₂` can be compared using a greedy algorithm:
 - if none of the above apply then `p₁ ≰ p₂`
 
 At each step we remove one atomic expression from either product so the algorithm is linear in the size of the products.
-The inclusion of SRE is quadratic time.
+The inclusion of two SREs is quadratic time in the size of the SREs.
 
 _Example._
 We can check that `(0+ε)(1+2)* ≤ (1+ε)0*(1+2)*` with the following steps

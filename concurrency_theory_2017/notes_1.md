@@ -183,7 +183,7 @@ In two steps:
 2. `w ∈ L(D) ⇒ w ∈ L(N)`
 
 (1)
-* Let `t_N` be an accepting trace of `N` for `w`. `t` exists be definition of `L(N)`.
+* Let `t_N` be an accepting trace of `N` for `w`. `t` exists by definition of `L(N)`.
 * Let `t_D` by the trace of `w` on `D`.
   We show that `t_D` "contains" `t_N` by induction on the traces:
   - 0: `q₀ ∈  { q₀ } = q₀_D`,
@@ -204,12 +204,12 @@ Let the following NFA:
 → (1)
  (1)  −s→ (2), (4)
  (1)  −d→ (5)
- (2)  −s→ (4), ((6))
- (2)  −d→ (1), (3), (5)
+ (2)  −d→ (4), ((6))
+ (2)  −s→ (1), (3), (5)
  (3)  −s→ (2), ((6))
  (3)  −d→ (5)
- (4)  −s→ (2)
- (4)  −d→ (1), (5)
+ (4)  −d→ (2)
+ (4)  −s→ (1), (5)
  (5)  −s→ (2), (4), ((6))
  (5)  −d→ (1), (3)
 ((6)) −s→ (3), (5)

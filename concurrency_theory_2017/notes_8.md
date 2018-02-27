@@ -114,7 +114,7 @@ _Proof._
 * By definition of `↓D` and `x ∈ ↓D`, there exists `y ∈ D` with `x ≤ y`
 * Because `U` is the complement of `D` and `x ∉ D`, we have that `x ∈ U`
 * Since `U = ↑U` and `x ≤ y`, we have `y ∈ U`.
-* Therefore, `y∈ D`, `y ∈ U`, and `D = X ∖ U`. This is a contradiction.
+* Therefore, `y ∈ D`, `y ∈ U`, and `D ≠ X ∖ U`. This is a contradiction.
 
 Since `U` is upward-closed, it can be represented by a finite basis and we can implicitly represent downward-closed sets.
 Unfortunately, this is usually not an efficient representation.

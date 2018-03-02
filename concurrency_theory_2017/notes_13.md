@@ -17,9 +17,9 @@ The first question is what is a simple model for programs in that setting.
 
 ### Parameterized programs
 
-If want to execute programs in parallel and take advantage of parallelism, it important to know how many program there are.
-For instance, if there are `D` piece of data and `N` processes, we chunk the data into block of size `D/N` and each process get one blocks.
-Therefore, we can assume programs knows what is the value of `N` and each program has its own ID as a number in `[0;N)`.
+If we want to execute programs in parallel and take advantage of parallelism, it is important to know how many program there are.
+For instance, if there are `D` pieces of data and `N` processes, we chunk the data into blocks of size `D/N` and each process get one block.
+Therefore, we can assume programs know what is the value of `N` and each program has its own ID as a number in `[0;N)`.
 
 A first, very general model is to represent a parameterize program as a function `P(N,i)` such that `P(N,i)` is a finite-state machine for every `N` and `0≤i<N`.
 We can then represent our parallel programs as `∏_{i ∈ [0,N)} P(N,i)` where `∏` represent the (indexed) parallel composition.
@@ -53,7 +53,7 @@ if M has halted {
 ```
 The final value of the `flag` is `true` iff `M` halts within `N` steps.
 
-This program fits our model as the for each `N` it is finite state, i.e., it needs to simulate at most `N` cells on the Turing machine's tape.
+This program fits our model as for each `N` it is finite state, i.e., it needs to simulate at most `N` cells on the Turing machine's tape.
 Notice that `P(N,i)` does not even use `i`.
 
 As property `φ`, we can ask if `flag` ever becomes `true` which is equivalent to deciding if `M` halts.
@@ -68,14 +68,14 @@ It is possible to have smaller reduction where each `P(N,i)` simulates the `i`th
 Earlier in the class, we saw encodings of concurrent programs into Petri nets.
 In the earlier model, all the programs where the same independently on the number of threads (`N`) and they did not have ID.
 Furthermore, they interacted over a finite memory.
-These restrictions give rise monotonic behaviors and we could encode such programs as Petri nets.
+These restrictions give rise to monotonic behaviors and we could encode such programs as Petri nets.
 
 ### Consequences
 
 Since the simple model of parameterized programs is already Turing complete, we may want to consider:
 - even more restricted models
 - weaker or specialized properties
-- using abstractions (sometime adding more behaviors can make things easier)
+- using abstractions (sometimes adding more behaviors can make things easier)
 - all of the above 😀
 
 
@@ -86,7 +86,7 @@ In this class, we will discuss a simplified model based on the paper [The Design
 
 ### Syntax
 
-We consider a model where all the programs `P(N,i)` executes a single methods composed of the following statements:
+We consider a model where all the programs `P(N,i)` executes a single method composed of the following statements:
 ```
 stmt ::= basic_stmt
        | stmt; stmt
@@ -365,7 +365,7 @@ To simplify the problem, we need to apply some abstraction.
 The paper proposes an adversarial abstraction.
 
 The shared state is ignored.
-Reads operations are replaced nondeterministic assignments.
+Read operations are replaced nondeterministic assignments.
 The intuition is that the properties we look at most often depends on the control-flow and the local variables rather than the data.
 
 The abstraction replace the read and write rules with:
@@ -385,7 +385,7 @@ The abstraction replace the read and write rules with:
 With an adversarial abstraction, the problem become simpler as it is not possible anymore to encode a Turing machine.
 The abstraction still contains the traces of the original program.
 Therefore, if the abstracted program is correct then the original program is also correct.
-However, it is possible that a correct program becomes incorrect wit the adversarial abstraction.
+However, it is possible that a correct program becomes incorrect with the adversarial abstraction.
 
 
 [The paper](https://www.doc.ic.ac.uk/~afd/homepages/papers/pdfs/2015/TOPLAS.pdf) also describe a more advanced "equality abstraction".

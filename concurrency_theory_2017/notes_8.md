@@ -88,9 +88,9 @@ _Example._
 The regular expression `a(ba)*` is equivalent to the DFA:
 
 ```
-         a
-→  (( )) ⇄  ( )
-         b
+        a
+→  ( )  ⇄ (( ))
+        b
 ```
 
 You can find more information about regular expression in books like
@@ -148,7 +148,7 @@ _Proof._
   * `L = r₁ + r₂ + … + r_n`.
 2. downward-closed case:
   * Let `L` be an downward-closed language.
-  * `Σ* ∖ L` is downward-closed by the theorem above.
+  * `Σ* ∖ L` is upward-closed by the theorem above.
   * `Σ* ∖ L` is regular by the upward-closed case of this theorem.
   * Because regular languages are closed under complementation, `L` is also regular.
 
@@ -303,7 +303,7 @@ Computing the effect of accelerating `Ops` on `p` checks the following under the
     + let `{b₁, b₂, …, b_k}` be the set of messages in `Ops!`
     + return `p′ (b₁ + b₂ + … + b_k)*`
   - otherwise `p` eventually gets fully consumed by `Ops?` and we need only to look at `Ops?` and `Ops!`
-    + try to apply `m+1` time `Ops` to `p` to get `p′` and once more to get `p′`
+    + try to apply `m+1` time `Ops` to `p` to get `p′` and once more to get `p″`
     * if `p′ = p″` (the resulting product has stabilized) return `p′`
     + otherwise more messages are put in the channel than received, let `{b₁, b₂, …, b_k}` be the set of messages in `Ops!` return `(b₁ + b₂ + … + b_k)*`
 

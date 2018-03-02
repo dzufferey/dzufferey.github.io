@@ -134,7 +134,7 @@ Substitution never change the bound names.
 `P[x ↦ y]` is the substitution of free instances of `x` by `y` in `P`.
 It is often written as `P[y/x]` in the literature.
 
-For instance, `((νx)(!x.0) | ?x.0)[x ↦ y] = (νx)(!x.0) | ?y.0)`.
+For instance, `((νx)(!x.0) | ?x.0)[x ↦ y] = (νx)(!x.0) | ?y.0`.
 
 __No clash assumption.__
 W.l.o.g. we assume that `fn(P) ∩ nb(P) = ∅`.
@@ -327,7 +327,7 @@ __Theorem.__
 
 _Proof Sketch._
 By case split on the formula and the transition rules.
-We can to a few cases:
+We come to a few cases:
 * `P ≡ Q  ⇒  π.P ≡ π.Q`:
   We can apply the action rule on `π.P` and `π.Q` we get `π.P─π→P` and `π.Q─π→Q`.
   Then the hypothesis (`P≡Q`) completes that case.
@@ -528,7 +528,7 @@ For the test for zero, `Z` sends a `zero` message and continues as itself.
 `N` is similar with `nonzero`.
 
 The difficult part is the increment.
-In the increment, we create to `N` processes.
+In the increment, we create two `N` processes.
 The first `N` is the value before the increment which is _guarded_ by a fresh name: `?guard′.N(guard)`.
 The second `N` is the value after the increment and if hold the guard of the previous value.
 

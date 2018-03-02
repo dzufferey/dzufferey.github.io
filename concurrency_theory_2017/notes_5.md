@@ -191,7 +191,7 @@ Some authors have tried to introduce a more uniform notation:
 #### Rado structure
 
 _About the exam:_
-The part related to Rado's structure/BQO/ω²-WQO is to there to try to explain what goes wrong with WQO only.
+The part related to Rado's structure/BQO/ω²-WQO is there to try to explain what goes wrong with WQO only.
 You don't need to understand the details of the example contruction.
 You only need to understand why we need BQO/ω²-WQO, i.e., we can lift the ordering to ideals and still have a WQO.
 
@@ -344,7 +344,7 @@ More details in [A Note on Well Quasi-Orderings for Powersets](http://citeseerx.
 
 #### Relevance in our context
 
-The algorithm we will seen ennumerate elements `Idl(X)` where `X` is the state-space of a WSTS.
+The algorithm we will see enumerates elements `Idl(X)` where `X` is the state-space of a WSTS.
 The algorithm relies needs that there is no infinite antichains in `Idl(X)`.
 
 
@@ -441,7 +441,7 @@ Two numbers are equal if it is possible to find a mapping between them that pres
 Let us try to understand why (1) `ω = 1 + ω` and (2) `ω ≠ ω + 1`.
 
 Let us try to visualize this.
-We write `o ≈ seq` to means that the ordinal number `o` is the "size" of the sequence `seq`.
+We write `o ≈ seq` to show that the ordinal number `o` is the "size" of the sequence `seq`.
 For (1) the mapping looks like
 ```
 ω     ≈ 1 2 3 4 5 …
@@ -518,7 +518,7 @@ Let us look at the following Petri net:
    Since the sequence is always strictly increasing it is an acceleration candidate.
    By taking the union of that chain we get `⋃_{i∈ℕ} (i,0) = (ℕ,0)`.
    To get `(ℕ,0)` from `(0,0)`, we traverse a chain of length `ω`.
-2. If we continue be firing the bottom transition we get the sequence `(ℕ,0) (ℕ,1) (ℕ,2) …`.
+2. If we continue firing the bottom transition we get the sequence `(ℕ,0) (ℕ,1) (ℕ,2) …`.
    Since the sequence is always strictly increasing it is an acceleration candidate.
    By taking the union of that chain we get `⋃_{i∈ℕ} (ℕ,i) = (ℕ,ℕ)`.
    To get `(ℕ,ℕ)` from `(ℕ,0)`, we traverse a chain of length `ω`.

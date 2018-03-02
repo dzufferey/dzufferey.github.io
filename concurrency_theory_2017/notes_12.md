@@ -97,7 +97,7 @@ __Semantics.__
   ```
   P ─?a(b)→ P′  P↓_α
   ──────────────────
-    P+Q ─!a(b)→ P′
+    P+Q ─?a(b)→ P′
   ```
 * Choice skip
   ```
@@ -142,11 +142,11 @@ Notice that the first message is received by two subscribers while the second me
 
 __Monotonicity of the Broadcast semantics.__
 In this broadcast semantics, sending is non-blocking and only the processes that listen on the channel when a message is sent receive the message.
-Intuitively, this means that is it also possible to define an WSTS for some class of depth-bounded processes.
+Intuitively, this means that it is also possible to define an WSTS for some class of depth-bounded processes.
 
 Compared to what we saw about depth-bounded processes, we can reuse the ordering (subgraph isomorphism) and the "bounded acyclic path" condition.
 However, to compute transitions and acceleration/widening cannot reuse the same approach based on graph rewriting.
-It is not possible a priori how many processes are changed by a single transition.
+It is not possible to know a priori how many processes are changed by a single transition.
 
 
 ## Types for the π-calculus
@@ -159,7 +159,7 @@ Here we will just scratch the surface of this topic.
 ### Typing names
 
 The first tentative to type the π-calculus is to give types to the names.
-The type of name is its the type of the names it carries when exchanging messages.
+The type of name is the type of the names it carries when exchanging messages.
 
 #### Types
 Let `S` by a set of sort identifier.
@@ -192,6 +192,7 @@ IdleBase(talk, switch, give, alert) ≝
 Center(t₁: TALK, t₂: TALK, s₁: SWITCH, s₂: SWITCH, g₁: GIVE, g₂: GIVE, a₁: ALERT, a₂: ALERT) ≝
     !g₁(t₂, s₂).!a₂.Center(t₂, t₁, s₂, s₁, g₂, g₁, a₂, a₁)
 ```
+
 
 #### Typing rules
 A typing environment `Γ` is a map from names to types and definitions to tuples of types.
@@ -245,7 +246,7 @@ Given a type identifier `N`, we use `ob(N)` to get the object sort of `N`, e.g.,
 ```
 
 ```
-|ob(Γ(a))| = n    ob(Γ(A))|₁ = Γ(b₁)  …  ob(Γ(A))|_n = Γ(b_n)
+|ob(Γ(a))| = n    ob(Γ(a))|₁ = Γ(b₁)  …  ob(Γ(a))|_n = Γ(b_n)
 ─────────────────────────────────────────────────────────────
                     Γ ⊢ !a(b₁ … b_n).P
 ```
@@ -419,7 +420,7 @@ P ≝ !42.end + ?result.end
 Q ≝ ?result.end + !42.end
 ```
 While this could execute correctly in a synchronous system, it could lead to deadlock in an asynchronous system.
-Even in an synchronous system, this example is trick as the choice in `P` and `Q` is coupled.
+Even in an synchronous system, this example is tricky as the choice in `P` and `Q` is coupled.
 
 __Internal and external choice.__
 Ideally, we want that each choice can be tracked to a single process (internal choice) while the other process learn about it (external choice).
@@ -617,13 +618,13 @@ The main properties of type system are:
 * preservation: An evaluation step does not change the type
 * progress: either the program has finished or it it possible to take a step
 
-Progress and Preservation is a proof by induction on the syntax of the processes and types.
+Progress and Preservation is proven by induction on the syntax of the processes and types.
 Here we give a sketch of how to prove it.
 
 Given well-typed `P: t₁ | Q: t₂` with `t₁ = dual(t₂)` we need to case split on the structure of the processes.
 * Case `P:t₁` is `?a.P′: ?t;t′`:
   - by assumption `Q` has type `dual(?t;t′) = !t;dual(t′)`
-  - therefore, `Q` is of the for `!b.Q′` with `b:t` and `Q′:dual(t′)`dual(t′)
+  - therefore, `Q` is of the form `!b.Q′` with `b:t` and `Q′:dual(t′)`dual(t′)
   - `?a.P′ | !b.Q′` can make a communication step and we get `P′:t′ | Q[a → b]:dual(t′)`
   - finally, we apply to induction hypothesis to get that progress also holds for `P′:t′ | Q[a → b]:dual(t′)`
 * Case ...
@@ -642,4 +643,4 @@ If we add some extra checks for the absence of loops with only τ steps, then pr
 
 What we saw only works for communication between two processes.
 To generalize to multiparty communication, the most common approach is to introduce a global type (description of the protocol) which is then projected on the different processes as local types, and the local types are used to check each process.
-An influential work in that direction is [Multiparty Asynchronous Session Types](https://www.doc.ic.ac.uk/~yoshida/multiparty/multiparty.pdf).
+An influential work in that direction is [Multiparty Asynchronous Session Types](https://www.doc.ic.ac.uk/~yoshida/multiparty/multiparty.pdf).ZZ

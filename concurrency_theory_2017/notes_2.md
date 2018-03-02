@@ -270,7 +270,7 @@ By contradiction, assume the system is infeasible and `N` is unsafe.
 If `N` is unsafe, there is a sequence `π` of firing such that `M₀ [π〉M` and `A∙M ≥ B`.
 We can take the _Parihk image_ of `π` and obtain a vector `X`.
 
-The Parikh image of `π` counts how many each each transition occurs in the trace.
+The Parikh image of `π` counts how many times each transition occurs in the trace.
 For instance, the Parikh image of `t₁ t₂ t₁` over `{t₁, t₂, t₃}` returns is `(2 1 0)`.
 
 By definition of `C`, we have that `M = M₀ + C∙X`.
@@ -279,7 +279,7 @@ This contradicts our hypothesis.
 
 #### Incompleteness 1: ℕ vs ℚ
 
-For `M` and `X`, we can use rational which makes the check simpler (polynomial time) but less precise or integer which is more precise and also more expensive (NP).
+For `M` and `X`, we can use rationals which makes the check simpler (polynomial time) but less precise or integer which is more precise and also more expensive (NP).
 
 Consider the following Petri Net:
 ```

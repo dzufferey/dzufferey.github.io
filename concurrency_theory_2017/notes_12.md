@@ -193,7 +193,6 @@ Center(t₁: TALK, t₂: TALK, s₁: SWITCH, s₂: SWITCH, g₁: GIVE, g₂: GIV
     !g₁(t₂, s₂).!a₂.Center(t₂, t₁, s₂, s₁, g₂, g₁, a₂, a₁)
 ```
 
-
 #### Typing rules
 A typing environment `Γ` is a map from names to types and definitions to tuples of types.
 
@@ -643,4 +642,4 @@ If we add some extra checks for the absence of loops with only τ steps, then pr
 
 What we saw only works for communication between two processes.
 To generalize to multiparty communication, the most common approach is to introduce a global type (description of the protocol) which is then projected on the different processes as local types, and the local types are used to check each process.
-An influential work in that direction is [Multiparty Asynchronous Session Types](https://www.doc.ic.ac.uk/~yoshida/multiparty/multiparty.pdf).ZZ
+An influential work in that direction is [Multiparty Asynchronous Session Types](https://www.doc.ic.ac.uk/~yoshida/multiparty/multiparty.pdf).

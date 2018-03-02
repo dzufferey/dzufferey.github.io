@@ -1,10 +1,20 @@
 # Petri Nets Continued...
 
-_Notations._
-For this part, we assume a Petri Net `N = (S,T,W,M₀)`,
+_Assumptions._
+For this part, we assume a non-trivial connected Petri Net `N = (S,T,W,M₀)`,
 `C` is the connectivity matrix,
-`n = |S|`, and
-`m = |T|`.
+`n = |S| ≥ 1`, and
+`m = |T| ≥ 1`.
+
+_Non-trivial net._
+A Petri net means there is at least one place and one transition.
+
+_Connected net._
+A Petri net is _connected_ iff the graph defined by `W` has a single connected component.
+
+These two assumptions are needed otherwise some elements like the connectivity matrix are ill-defined and some result do not hold.
+Trivial nets are easy to analyze on their own and for the case of _not_ connected nets it is possible to analyze the connected component separately.
+
 
 ## Structural properties
 
@@ -22,9 +32,9 @@ An invariant must be preserved by all the transitions in the net.
 
 ### Structural invariants
 
-An invariant is _structural_ iff it is can be be expressed as vector in `I ∈ ℚ^n` and `I^T ∙ C = 0`.
+An invariant is _structural_ iff it can be expressed as vector in `I ∈ ℚ^n` and `I^T ∙ C = 0`.
 
-`I` is a vector of coefficients for each place such that the transition `M [〉 M′` preserves the number of tokens with `I` as weights: `I^T∙M = I^T∙M′`.
+`I` is a vector of coefficients for each place such that the transition `M [〉 M′` preserves the number of tokens with `I` as weights: `I^T∙M = I^T∙M′`.
 
 #### Example
 
@@ -50,7 +60,7 @@ Let `I` be a structural invariants of `N`.
 For any reachable marking `M ∈ R(M₀)`, `I^T∙M = I^T∙M₀`.
 
 _Proof._
-* Let `π` be the trace from `M₀` to `M`, i.e., `M₀ [π〉M`.
+* Let `π` be the trace from `M₀` to `M`, i.e., `M₀ [π〉M`.
 * We have that `M = M₀ + C∙Parikh(π)`.
 * Multiplying both sides by `I^T` gives `I^T∙M = I^T∙(M₀ + C∙Parikh(π))`.
 * Distributing `∙` over `+` gives `I^T∙M = I^T∙M₀ + I^T∙C∙Parikh(π)`.
@@ -122,10 +132,10 @@ We say that a siphon is
 * _empty_ iff `∀ s ∈ D. M(s) = 0`.
 
 __Theorem.__
-If a siphon `D` is empty under `M` then for any `M [〉 M′` `D` is empty under `M′`.
+If a siphon `D` is empty under `M` then for any `M [〉 M′` `D` is empty under `M′`.
 
 __Proof.__
-* By contradiction, assume there is a `t` such that `M [t〉 M′` and `D` is marked under `M′`.
+* By contradiction, assume there is a `t` such that `M [t〉 M′` and `D` is marked under `M′`.
 * By definition of siphon, `t` must consume a token from `D` in `M`.
 * However, by hypothesis `D` is empty under `M` and, thus, `t` is not enabled which gives a contradiction.
 
@@ -142,10 +152,10 @@ A _trap_ is a set of places `Q ⊆ S` such that `postset(Q) ⊆ preset(Q)`.
 More concretely, every transition that take a token from a trap must also put a token in the trap.
 
 __Theorem.__
-If a trap `Q` is marked under `M` then for any `M [〉 M′` `Q` is marked under `M′`.
+If a trap `Q` is marked under `M` then for any `M [〉 M′` `Q` is marked under `M′`.
 
 __Proof.__
-By contradiction, assume there is a `t` such that `M [t〉 M′` and `Q` is empty under `M′`.
+By contradiction, assume there is a `t` such that `M [t〉 M′` and `Q` is empty under `M′`.
 Therefore, `t` must have consumed all the token in `Q`.
 
 However, by definition of trap, `t` must also put at least one token in `Q` and, thus, `Q` cannot be empty (contradiction).
@@ -169,7 +179,7 @@ lock −   − unlock
 #### Applications of siphons and traps
 
 Siphons can offer a quick check for some reachability question.
-For instance, it is not possible to cover a siphon empty under `M₀`.
+For instance, if a siphon empty under `M₀` then no reachable marking can cover a marking where the siphon is not empty.
 
 __Assumptions.__
 The following two results are only valid to Petri net where:
@@ -223,7 +233,7 @@ The converse of the propositions above are not true.
 Can you find an examples?
 
 __Free-choice nets.__
-A Petri net is _free-choice_ iff `∀ s t. W(s, t) = 1 ⇒ W(preset(t), postset(s)) = 1`.
+A Petri net is _free-choice_ iff `∀ s t. W(s, t) = 1 ⇒ ∀ s′ ∈ preset(t), t′ ∈ postset(s).  W(s′, t′) = 1`.
 
 The following patterns are allowed
 ```
@@ -249,6 +259,7 @@ But this is not allowed
 ( ) → |
 ```
 
+
 __Theorem (Commoner's theorem).__
 Given a free-choice net `N`, `N` is deadlock-free iff every proper siphon of `N` includes an initially marked trap.
 
@@ -271,11 +282,11 @@ For instance, `(0,1)` and `(1,0)` are not comparable.
 ### Definition of monotonicity
 
 _Observation._
-Consider `M [t〉 M′` and `N ≥ M`.
-`t` is also enabled at `N` and, if we fire `t`, we get `N [t〉 N′` with `N′ ≥ M′`.
+Consider `M [t〉 M′` and `N ≥ M`.
+`t` is also enabled at `N` and, if we fire `t`, we get `N [t〉 N′` with `N′ ≥ M′`.
 
 __Theorem.__
-`M [t〉M′  ⇒  (M+N) [t〉 (M′+N)`
+`M [t〉M′  ⇒  (M+N) [t〉 (M′+N)`
 
 
 More abstractly, monotonicity is usually represented using the following illustration:
@@ -305,7 +316,7 @@ TerminationCheck(S,T,W,M₀)
         if ∃ A ∈ ancestors. A ≤ M then
             return NON-TERMINATING
         else
-            for each t ∈ T with t enabled at M and M′ such that M [t〉 M′
+            for each t ∈ T with t enabled at M and M′ such that M [t〉 M′
                 E ← E ∪ { (M,t,M′) }
                 F ← F ∪ M′
     return TERMINATING
@@ -342,7 +353,7 @@ Applying the algorithm gives:
 #### Claims
 
 * `TerminationCheck` terminates
-* When `TerminationCheck` returns `NON-TERMINATING` we can extract extract a lasso-shaped trace where the stem starts from `M₀` and the loop is a non-decreasing cycle.
+* When `TerminationCheck` returns `NON-TERMINATING` we can extract a lasso-shaped trace where the stem starts from `M₀` and the loop is a non-decreasing cycle.
 * When `TerminationCheck` returns `TERMINATING` we can extract a finite tree which contains all the reachable states.
 
 Let us look in more details at the first one:
@@ -377,7 +388,7 @@ BoundednessCheck(S,T,W,M₀)
         else if ∃ A ∈ ancestors. A = M then
             skip
         else
-            for each t ∈ T with t enabled at M and M′ such that M [t〉 M′
+            for each t ∈ T with t enabled at M and M′ such that M [t〉 M′
                 E ← E ∪ { (M,t,M′) }
                 F ← F ∪ M′
     return BOUNDED
@@ -401,12 +412,12 @@ Applying the algorithm gives:
 
 Let us generalize the algorithms above to decide coverability.
 
-We nee to introduce a _limit element_ `ω` that represent an "unbounded" number of tokens.
+We need to introduce a _limit element_ `ω` that represent an "unbounded" number of tokens.
 `ω` has the following properties:
 * `ω = ω`, `ω = ω+1`, `ω = ω-1`
 * `ω > n` for any finite `n`
 
-We cal also extend markings to _generalized markings_ which are function from `S → ℕ ∪ ω`.
+We can also extend markings to _generalized markings_ which are function from `S → ℕ ∪ ω`.
 
 
 _Acceleration._
@@ -422,7 +433,7 @@ KarpMillerTree(S,T,W,M₀)
     while F ≠ ∅  do
         choose M in F
         F ← F ∖ {M}
-        for each t ∈ T with t enabled at M and M′ such that M [t〉 M′
+        for each t ∈ T with t enabled at M and M′ such that M [t〉 M′
             ancestors ← path between M₀ and M′ in E
             M′ ← accelerate(ancestors, M′)
             E ← E ∪ { (M,M′) }

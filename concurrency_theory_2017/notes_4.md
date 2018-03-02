@@ -75,7 +75,8 @@ _proof._
 * By contradiction, assume `<` is not well-founded.
 * Therefore, there is `S ≠ ∅` such that `∀ m ∈ S. ∃ s ∈ S. s < m`. (Notice that `S` must be an infinite set.)
 * Let pick an element `s₀ ∈ S` and construct an infinite descending chain `s₀ > s₁ > s₂ > …`. We can always find a smaller element because `S` is not well-founded.
-* Therefore, `S ⊆ X` does not contains any `i` and `j` with `i < j` and `s_i ≤ s_j`.
+* Therefore, `s₀ > s₁ > s₂ > …` does not contains any `i` and `j` with `i < j` and `s_i ≤ s_j`.
+* Beacsue `S ⊆ X` and `S` contains `s₀ > s₁ > s₂ > …`, `X` has an infinite descending chain.
 * Therefore, `≤` is not a WQO. (Contradiction.)
 
 
@@ -167,8 +168,9 @@ _proof._
 * By contradiction, assume that we have `X₀ ⊆ X₁ ⊆ X₂ ⊆ …` which does not stabilizes.
 * By removing equal elements, we get an infinite subsequence `Y₀ ⊂ Y₁ ⊂ Y₂ ⊂ …` which does not stabilizes.
 * From this sequence, create an infinite sequence of elements `y₀ …` such that `y_i ∈ Y_{i+1} ∖ Y_i`.
-* Because `Y`s are upward-closed, any `y_i` and `y_j` with `i≠j` are incomparable.
-* Therefore the sequence `y₀ …` is an infinite antichain which contradicts the hypothesis.
+* Because `Y`s are upward-closed, `y₀ …` cannot contain an infinite increasing subsequence.
+* Because `≤` is a WQO, `y₀ …` cannot contain an infinite decreasing sequence.
+* Therefore the sequence `y₀ …` contains an infinite antichain which contradicts the WQO hypothesis.
 
 
 ## Transition systems (TS)
@@ -321,13 +323,15 @@ _proof._
   `M_m` is the last value computed by the algorithm.
   We extend the sequence of `M_i` with `M_i = M_m` for `i ≥ m`.
   - _proposition (1)_: `M_m = ↑M_m = ⋃_{i ∈ ℕ} M_i = ⋃_{i ∈ ℕ} ↑pre^i(↑ T)` by induction on `i`
-    * `i = 0`: `M₀ = ↑T` (1st line of the algorithm)
+    * `i = 0`: `M₀ = ↑T = ↑pre^0(↑ T)` (1st line of the algorithm)
     * `i → i+1`:
+
       case 1 `i < m`:
       - `M_{i+1} = M_i ∪ ↑pre(↑M_i)` (5th line of the algorithm)
-      - `M_{i+1} = ⋃_{i ∈ ℕ} ↑pre^i{↑ T} ∪ ↑pre(↑⋃_{i ∈ ℕ} ↑pre^i(↑ T))` (induction hypothesis)
-      - `M_{i+1} = ⋃_{i ∈ ℕ} ↑pre^i{↑ T} ∪ ↑pre(↑pre^i(↑ T)` (distributing `↑pre(↑_)` over `⋃`)
-      - `M_{i+1} = ⋃_{i ∈ ℕ} ↑pre^i{↑ T} ∪ ↑pre^{i+1}(↑ T)`
+      - `M_{i+1} = ⋃_{0≤j≤i} ↑pre^j(↑T) ∪ ↑pre(↑⋃_{0≤j≤i} ↑pre^j(↑T))` (induction hypothesis)
+      - `M_{i+1} = ⋃_{0≤j≤i} ↑pre^j(↑T) ∪ ⋃_{1≤j≤i+1} ↑pre^j(↑T)` (distributing `↑pre(↑_)` over `⋃`)
+      - `M_{i+1} = ⋃_{0≤j≤i} ↑pre^j(↑T) ∪ ↑pre^{i+1}(↑T)` (`X ∪ X = X`)
+
       case 2 `i ≥ m`:
       - The sequence has stabilized so `M_{i+1} = M_{i}` and `↑pre^{i+1}(↑ T) ⊆ ⋃_{i ∈ ℕ} ↑pre^i(↑ T)`.
       - The rest follows with a bit of algebra and `X ⊆ Y ⇒ X ∪ Y = Y`.
@@ -365,6 +369,10 @@ Since `s₀ = (1 0 0 0 0)` and `s₀ ∉ M₅`, the net respects mutual exclusio
 
 
 ## Worst case complexity
+
+The worst case complexity for the backward algorithm is given by the longuest descending chain or the longuest antichain in the ordering.
+WSTS gives decidability but no meaningful complexity bound.
+For instance, let us look at ordering on trees which we will use in [notes 11](notes_11.md).
 
 #### Embeddings of finite trees
 
@@ -415,4 +423,4 @@ Over the finite trees with nodes labeled by elements of a WQO, inf-embedding is 
 
 Without proof for the moment, maybe in a later lecture.
 
-TREE(3): https://www.youtube.com/watch?v=3P6DWAwwViU, https://www.youtube.com/watch?v=IihcNa9YAPk
+The longuest non ascending chain in this ordering is mind-bogglingly long as explain in the following two videos about `TREE(3)`: https://www.youtube.com/watch?v=3P6DWAwwViU, https://www.youtube.com/watch?v=IihcNa9YAPk

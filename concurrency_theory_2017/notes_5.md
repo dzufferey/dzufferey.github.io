@@ -17,7 +17,7 @@ A _labeled WSTS_ is a 4 tuple `(S,Σ,→,≤)` with:
 * `Σ` is a finite set of labels,
 * `→ ⊆ S × Σ × S` is a transition relation,
 * `≤` is a WQO over `S`,
-* strong monotonicity respecting labels: `∀ x₁ a x₂ y₁. ∃ y₂. →(x₁, a, x₂) ∧ x₁ ≤ y₁ ∧ →(y₁, a, y₂) ∧ x₂ ≤ y₂`.
+* strong monotonicity respecting labels: `∀ x₁ a x₂ y₁. ∃ y₂. →(x₁, a, x₂) ∧ x₁ ≤ y₁ ⇒ →(y₁, a, y₂) ∧ x₂ ≤ y₂`.
 
 For the transitions, we write `→(x₁, a, x₂)` or `x₁ →_a x₂` for `(x₁, a, x₂) ∈ →`.
 
@@ -31,7 +31,7 @@ The transition relation generalizes from single labels to words with the followi
 It is possible to relax the definition of strong monotonicity to the simple monotonicity.
 This is not needed unless the system has silent transitions, usually written `τ`.
 
-A labeled WSTS has _strong-strict monotonicity_ is it has strong monotonicity and at the same time: `∀ x₁ a x₂ y₁. ∃ y₂. →(x₁, a, x₂) ∧ x₁ < y₁ ∧ →(y₁, a, y₂) ∧ x₂ < y₂`.
+A labeled WSTS has _strong-strict monotonicity_ is it has strong monotonicity and at the same time: `∀ x₁ a x₂ y₁. ∃ y₂. →(x₁, a, x₂) ∧ x₁ < y₁ ⇒ →(y₁, a, y₂) ∧ x₂ < y₂`.
 
 For simplicity, in this documents we write WSTS for labeled WSTS.
 
@@ -66,7 +66,7 @@ We denote by `Idl(X)` the set of all ideals in `X`.
 As elements can form basis for upward-closed sets, it is possible to decompose downward-closed sets in a finite number of ideals.
 
 __Theorem.__
-If `(X,≤)` is a WQO and `D = ↓D` then `∃ I₀ … I_n ∈ Idl(X). D = I₀ ∪ … ∪ I_n`.
+If `(X,≤)` is a WQO and `D ⊆ X` with `D = ↓D` then `∃ I₀ … I_n ∈ Idl(X). D = I₀ ∪ … ∪ I_n`.
 
 _Proof._
 By contradiction, assume that there is no such sequence.
@@ -126,7 +126,6 @@ When expanding the definitions we get:
 * `∀ p. p ∈ ↓P ⇒ ∃ q. q ∈ Q ∧ p ≤ q`                    by definition of `↓`
 * `∀ p. (∃ p′. p′ ∈ P ∧ p ≤ p′) ⇒ ∃ q. q ∈ Q ∧ p ≤ q`   by definition of `↓`
 * `∀ p. ∃ q. p ∈ P ⇒ q ∈ Q ∧ p ≤ q`                     by instantiating `p′` with `p`
-Furthermore, if we assume the `Q` is not empty we get:
 * `∀ p ∈ P. ∃ q ∈ Q. p ≤ q`
 
 When we manipulate downward-closed sets as a finite union of ideal, it means that every ideal of `P` is contained in an ideal of `Q`.
@@ -141,7 +140,6 @@ The case of upward-closed sets is similar:
 * `∀ p. (∃ p′. p′ ∈ P ∧ p′ ≤ p) ⇒ ∃ q. q ∈ Q ∧ q ≤ p`   by definition of `↑`
 * `∀ p. ∀ p′. p′ ∈ P ∧ p′ ≤ p ⇒ ∃ q. q ∈ Q ∧ q ≤ p`
 * `∀ p. p ∈ P ⇒ ∃ q. q ∈ Q ∧ q ≤ p`                     by case split on `p=p′` and simplification
-Furthermore, if we assume the `Q` is not empty we get:
 * `∀ p ∈ P. ∃ q ∈ Q. q ≤ p`
 * `Q ⊑ P`                                               by definition of `⊑`
 
@@ -149,9 +147,15 @@ This lead to the `⊑` relation is often found in the literature about ordering 
 The `⊑` applies on any kind of sets, not only upward-closed but on upward-closed sets it matches inclusion.
 Notice that the order of `P` and `Q` is swapped.
 
+_Remark._
+Above we rewrite normal quantifiers into bounded quantifiers.
+Bounded quantifiers are shorthands for
+* `(∀ p ∈ P. φ) ⇔ (∀ p. p ∈ P ⇒ φ)`
+* `(∃ p ∈ P. φ) ⇔ (∃ p. p ∈ P ∧ φ)`
+
 
 ---
-(small digression)
+(small digression, this part will not be in the exam.)
 
 #### Relation ship between `⊑` and logic
 
@@ -173,16 +177,25 @@ Then `[P] ⊆ [Q]` becomes
 In particular we have `[P] ⊑ [Q]` implies `[P] ⊆ [Q]` and it is well-behaved w.r.t. `∪` and `∨`: `⋃_i[P_i] ⊑ ⋃_j[Q_j]` implies `[∨_j P_j] ⊆ [∨_i Q_i]`.
 
 Some authors have tried to introduce a more uniform notation:
-* `X ≼_∀^∃ Y  ⇔  ∀ x ∈ X. ∃ y ∈ Y. x ≤ y  ≈  X ⊆ Y`
-* `X ≼_∃^∀ Y  ⇔  ∀ y ∈ Y. ∃ x ∈ X. x ≤ y  ⇔  X ⊑ Y`
+* `X ≼_∀^∃ Y  ⇔  ∀ x ∈ X. ∃ y ∈ Y. x ≤ y  ⇔  ↓X ⊆ ↓Y`
+* `X ≼_∃^∀ Y  ⇔  ∀ y ∈ Y. ∃ x ∈ X. x ≤ y  ⇔  X ⊑ Y ⇔ ↑X ⊇ ↑Y`
 
 `⊑` is useful because
 * `⊑` is a closer match to logical implication than `⊆` (think about using `≤` as logical entailment).
 * if `⊑` has nice properties, e.g., WQO, it can be used to prove results about hardness/decidability of some proof systems.
+  Intuitively, `[P] ⊑ [Q]` means that anything that can be proved by `Q` is also provable by `P`.
+  For instance, [this paper](https://people.cs.umass.edu/~immerman/pub/popl16.pdf) uses a WQO over [EPR predicates](https://en.wikipedia.org/wiki/Bernays%E2%80%93Sch%C3%B6nfinkel_class).
 
 ---
 
 #### Rado structure
+
+_About the exam:_
+The part related to Rado's structure/BQO/ω²-WQO is to there to try to explain what goes wrong with WQO only.
+You don't need to understand the details of the example contruction.
+You only need to understand why we need BQO/ω²-WQO, i.e., we can lift the ordering to ideals and still have a WQO.
+
+Back to the example
 
 Let `X_R = {(m, n) ∈ ℕ² | m < n}`.
 
@@ -316,7 +329,7 @@ The definition is quite technical so we are skipping it, but is can easily be fo
 
 #### ω²-WQO
 
-ω²-WQO are WQO which do not embed Rado structure.
+A WQO is ω²-WQO iff it does not embed Rado structure.
 
 __Theorem.__
 If `(X,≤)` is a ω²-WQO then `(2^X,⊑)` is a WQO.
@@ -327,6 +340,12 @@ If `(X,≤)` is a ω²-WQO then `(Idl(X),⊆)` is a WQO.
 BQO are ω²-WQO.
 
 More details in [A Note on Well Quasi-Orderings for Powersets](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.35.673).
+
+
+#### Relevance in our context
+
+The algorithm we will seen ennumerate elements `Idl(X)` where `X` is the state-space of a WSTS.
+The algorithm relies needs that there is no infinite antichains in `Idl(X)`.
 
 
 ## Completion of WSTS
@@ -421,36 +440,40 @@ Two numbers are equal if it is possible to find a mapping between them that pres
 
 Let us try to understand why (1) `ω = 1 + ω` and (2) `ω ≠ ω + 1`.
 
-Visually, for (1) the mapping looks like
+Let us try to visualize this.
+We write `o ≈ seq` to means that the ordinal number `o` is the "size" of the sequence `seq`.
+For (1) the mapping looks like
 ```
-ω     = 1 2 3 4 5 …
+ω     ≈ 1 2 3 4 5 …
         | | | | |
-1 + ω = 1 1 2 3 4 …
+1 + ω ≈ 1 1 2 3 4 …
 ```
 
 For (2) we get
 ```
-ω     = 1 2 3 4 5 …
+ω     ≈ 1 2 3 4 5 …
         | | | | |
-ω + 1 = 1 2 3 4 5 … 1
+ω + 1 ≈ 1 2 3 4 5 … 1
 ```
 It is not possible to match the last elements while preserving the order.
+
+The multiplication of ordinal number is defined as the Cartesian product of the sequence they represent and the pairs of elements are ordered by a variation of the lexicographic order where the first element is less significant than the second one.
 
 Let us look at the more complicated examples (3) `ω·2 = ω+ω ≠ ω` and (4) `ω = 2·ω`.
 
 For (3) we have
 ```
-ω   = 1  2  3  4  5  …
+ω   ≈ 1  2  3  4  5  …
       |  |  |  |  |  
-ω·2 =⎛1⎞⎛2⎞⎛3⎞⎛4⎞⎛5⎞ … ⎛1⎞⎛2⎞⎛3⎞⎛4⎞⎛5⎞ …
+ω·2 ≈⎛1⎞⎛2⎞⎛3⎞⎛4⎞⎛5⎞ … ⎛1⎞⎛2⎞⎛3⎞⎛4⎞⎛5⎞ …
      ⎝0⎠⎝0⎠⎝0⎠⎝0⎠⎝0⎠ … ⎝1⎠⎝1⎠⎝1⎠⎝1⎠⎝1⎠ …
 ```
 
 For (4) we get
 ```
-ω   = 1  2  3  4  5  6  …
+ω   ≈ 1  2  3  4  5  6  …
       |  |  |  |  |  |
-2·ω =⎛0⎞⎛1⎞⎛0⎞⎛1⎞⎛0⎞⎛1⎞ …
+2·ω ≈⎛0⎞⎛1⎞⎛0⎞⎛1⎞⎛0⎞⎛1⎞ …
      ⎝1⎠⎝1⎠⎝2⎠⎝2⎠⎝3⎠⎝3⎠ …
 ```
 

@@ -24,9 +24,13 @@ __Higman's lemma.__
 The embedding relation over finite sequences of well-quasi-ordered elements is a WQO.
 
 __Corollary.__
-Given a finite alphabet `Σ`, the subsequence/embedding ordering is a WQO.
+Given a finite alphabet `Σ`, the subsequence ordering is a WQO.
 
-The embedding will form the basis of the WQO for LCS.
+_Proof._
+`(Σ,=)` is a WQO and applying Higman's lemma give the WQO `(Σ*,≤)`.
+
+
+The subsequence will form the basis of the WQO for LCS.
 
 __Proposition.__
 Let `i` be a process in a LCS with the word `w₁` as the content of an incoming channel and let `w₂` be a word such that `w₁ ≤ w₂`.
@@ -35,7 +39,7 @@ Form a state where the content of a channel is `w₂` it is possible to apply th
 _Proof._
 * If `w₁ = w₂` we are done. Let us look at the case `w₁ < w₂`
 * Because of `w₁ ≤ w₂` and they are finite words, `w₂` has a finite number of extra characters. Let us call this number `n`.
-* Using the definition of embedding and `w₁ ≤ w₂`, let `j` be the smallest index such that `∃ i. f(i) < j ∧ j < f(i+1)`, i.e., `j` is the first index of `w₂` that is not in `w₁`.
+* Using the definition of subsequence and `w₁ ≤ w₂`, let `j` be the smallest index such that `∃ i. f(i) < j ∧ j < f(i+1)`, i.e., `j` is the first index of `w₂` that is not in `w₁`.
 * By applying the dropping message rule on the characters at position `j`, we get `w₂′` such that `w₁ ≤ w₂′ < w₂` and `w₁`, `w₂′` differ at `n-1` position.
 * Repeating the two steps above `n-1` more times finishes the proof.
 
@@ -57,7 +61,7 @@ _Proof._
 3. Using the proposition above on each channel, we get stuttering compatibility.
 
 
-Showing that LCS are WSTS is enough to give decidability of the covering problem using the backward algorithm.
+Showing that LCS are WSTS is enough to give decidability of the covering problem using the backward algorithm, assuming an algorithm to compute the predecessor basis.
 
 
 ## Forward analysis of LCS
@@ -110,7 +114,7 @@ _Proof._
 * By definition of `↓D` and `x ∈ ↓D`, there exists `y ∈ D` with `x ≤ y`
 * Because `U` is the complement of `D` and `x ∉ D`, we have that `x ∈ U`
 * Since `U = ↑U` and `x ≤ y`, we have `y ∈ U`.
-* Therefore, `y∈ D`, `y ∈ U`, and `D = X ∖ U`. This is a contradiction.
+* Therefore, `y ∈ D`, `y ∈ U` which is a contradiction since `D = X ∖ U`.
 
 Since `U` is upward-closed, it can be represented by a finite basis and we can implicitly represent downward-closed sets.
 Unfortunately, this is usually not an efficient representation.
@@ -121,7 +125,7 @@ However, it will help us prove some theorems in the next section.
 
 ### The downward/upward closure of any language is regular
 
-Let `(Σ*,≤)` be the set of words over `Σ` ordered by embedding.
+Let `(Σ*,≤)` be the set of words over `Σ` ordered by subsequence.
 A language `L` is a set words (`L ⊆ Σ*`).
 
 The next results are from [On free monoids partially ordered by embedding](https://www.sciencedirect.com/science/article/pii/S0021980069801110) by Leonard H. Haines in Journal of Combinatorial Theory 1969.
@@ -191,7 +195,7 @@ _Proof sketch of the Lemma._
 * A product `p` is downward-closed:
   - atomic expressions are downward-closed and, thus, contain `ε`.
   - Given two words `w₁ ≤ w₂`, if `w₂` recognized by `p` then `w₁` is also recognized by `p`.
-    By definition of embedding, `w₁` can be obtained from `w₂` by earsing a finite number of characters.
+    By definition of subsequence, `w₁` can be obtained from `w₂` by earsing a finite number of characters.
     For each character that gets earsed `p` still recognize the words without that character because the atomic expression that matches `a` is either `(a + ε)` or `(… + a + …)*`.
     In the first case, we use `ε` instead of `a`.
     In the second case, we unfold the `*` one time fewer.
@@ -234,6 +238,11 @@ _Proof._
 __Inclusion.__
 The lemma above tells us that to compare SRE, we need to check the inclusion of products.
 
+Products are the concatenation of atomic expressions, so we first need to compare atomic expressions:
+- `(a + ε) ≤ (b + ε)` if `a = b`
+- `(a + ε) ≤ (b₁ + … + b_n)*` iff `∃ i∈[1;n]. a = b_i`
+- `(a₁ + … + a_n)* ≤ (b₁ + … + b_m)*` with `∀ i∈[1;n]. ∃ j∈[1;m] a_i = b_j`
+
 Two products `p₁` and `p₂` can be compared using a greedy algorithm:
 - `(a+ε) p₁ ≤ (a+ε) p₂` if `p₁ ≤ p₂`
 - `e₁ p₁ ≤ e₂ p₂` if `e₁ ≰ e₂ ∧  e₁ p₁ ≤ p₂`
@@ -242,7 +251,7 @@ Two products `p₁` and `p₂` can be compared using a greedy algorithm:
 - if none of the above apply then `p₁ ≰ p₂`
 
 At each step we remove one atomic expression from either product so the algorithm is linear in the size of the products.
-The inclusion of SRE is quadratic time.
+The inclusion of two SREs is quadratic time in the size of the SREs.
 
 _Example._
 We can check that `(0+ε)(1+2)* ≤ (1+ε)0*(1+2)*` with the following steps

@@ -2,6 +2,7 @@
 
 To finish on the subject of communicating systems and process calculi, we are going to get an overview of a few things related to this topics.
 
+
 ## Building further analysis on top of the covering set for depth-bounded processes
 
 Here is a recipe to build more analysis, e.g., termination, on top of the covering set (reachability analysis):
@@ -13,13 +14,12 @@ Here is a recipe to build more analysis, e.g., termination, on top of the coveri
 
 The idea is to use the cover and the graph structure in the ideal as a first step to "resolve" the mobility and then use other analysis which cannot deal with the mobility.
 
-Here is an example to build termination analysis for the 3rd step:
+Here are some [slides](http://dzufferey.github.io/files/2013_structural_counter_abstraction_slides.svg) (best viewed in a browser as the SVG includes some javascript) that shows visually how to build furhter analysis:
 - Each replicated node in the ideals are associated to a counter variable.
 - For all the transition, keep track of the mappings between nodes to generate update of the variables, i.e., `x′ = x + 1` is one new node of the type corresponding to `x` is created.
   The result is a multi-transfer net, an extension of transfer Petri net where multiple transfer edges are allowed.
 - Use an analysis on the net to show termination.
 
-Here are some [slides](http://dzufferey.github.io/files/2013_structural_counter_abstraction_slides.svg) (best viewed in a browser as the SVG includes some javascript) that shows visually this process.
 Here is the [paper](http://dzufferey.github.io/files/2013_structural_counter_abstraction.pdf) if you are curious.
 
 
@@ -310,6 +310,76 @@ __Notation.__
 Since we work with two processes, we implicitly assume that they are called `P` and `Q` and omit the addresses when sending/receiving.
 To avoid confusion between integer and `0` as the "terminated process", we use `end` for termination.
 
+#### Model (version 1)
+
+__System.__
+A list of definitions of the 
+```
+System ::= A | A with (A ≝ P)*
+```
+where
+* `A` are identifier of definitions
+* `P` is a process
+
+__Processes.__
+```
+P ::= π.P       (action)
+    | P + P     (choice)
+    | A         (named process)
+    | end       (end)
+```
+
+__Actions.__
+```
+π ::= !expr     (send)
+    | ?a        (receive)
+    | τ         (silent)
+```
+
+__Expression.__
+```
+expr ::= a              (variable)
+       | 0 | 1 | …      (integer literal)
+       | true | false   (boolean literal)
+       | "\w*"          (string literal)
+       | …
+```
+
+Compared to the π-calculus the definition do not have parameters, process do not have parallel composition and restriction.
+Messages do not carry name but values: integer, boolean, string, etc.
+
+This model inherits the applicable `≡` rules.
+
+The model will be refined later.
+
+__Semantics.__
+The semantics is a mix between π-calculus (process algebra notation) and communicating state machines (fixed number of participant).
+
+* Silent action
+  ```
+  ───────────────     ───────────────
+  τ.P | Q  →  P|Q     P | τ.Q  →  P|Q
+  ```
+* Choice
+  ```
+  ────────────────    ────────────────    ──────────────────    ──────────────────
+  (P′+P″)|Q → P′|Q    (P′+P″)|Q → P″|Q    P|(Q′+Q″)  →  P|Q′    P|(Q′+Q″)  →  P|Q″
+  ```
+* Communication
+  ```
+  ──────────────────────────    ──────────────────────────
+  !a.P|?b.Q  →  P′|Q′[b ↦ a]    ?b.P|!a.Q  →  P′[b ↦ a]|Q′
+  ```
+* Congruence
+  ```
+  P ≡ P′  Q ≡ Q′  P′|Q′ → P″|Q″  P″ ≡ P‴  Q″ ≡ Q‴
+  ───────────────────────────────────────────────
+                P|Q → P‴|Q‴
+  ```
+
+
+__Remark.__
+Here we present a version with synchronous communication but the principle is more general and also works with asynchronous+reliable+FIFO communication channels as defined for communicating state machines.
 
 #### Send/receive duality
 
@@ -358,8 +428,19 @@ Internal choice is implicitly linked to sending messages and external choice to 
 * external choice is denoted as `l₁.P₁ & l₂.P₂` where `l₁` and `l₂` are labels.
 The labels indicates which branch has been selected and the two processes synchronize on that label.
 Here we present the choice as binary but it is straightforward to generalize to n-ary (`⊕_i l_i.P_i` and `&_i l_i.P_i`).
-Futhermore, we assume that all the labels in a choice are different.
+Furthermore, we assume that all the labels in a choice are different.
 We use internal/external choice both in the processes and as part of the types.
+
+The choice rules are now
+```
+P = l₁.P₁ ⊕ l₂.P₂   Q = l₁.Q₁ & l₂.Q₂     P = l₁.P₁ ⊕ l₂.P₂   Q = l₁.Q₁ & l₂.Q₂
+─────────────────────────────────────     ─────────────────────────────────────
+         P|Q  →  P₁|Q₁                                P|Q  →  P₂|Q₂
+
+P = l₁.P₁ & l₂.P₂   Q = l₁.Q₁ ⊕ l₂.Q₂     P = l₁.P₁ & l₂.P₂   Q = l₁.Q₁ ⊕ l₂.Q₂
+─────────────────────────────────────     ─────────────────────────────────────
+         P|Q  →  P₁|Q₁                                P|Q  →  P₂|Q₂
+```
 
 Our duality relations get extended with:
 * `dual(l₁.t₁ ⊕ l₂.t₂) = l₁.dual(t₁) & l₂.dual(t₂)`
@@ -388,11 +469,18 @@ with the types:
 * `t₁ ≝ !int;!int;?int;t₁`
 * `t₂ ≝ ?int;?int;!int;t₂`
 
-Computing the dual of a type is still easy, but computing it is more tricky.
+Computing the dual of a type is still easy:
 * `dual(ID ≝ t) = "dual(ID)" ≝ dual(t)`
 * `dual(ID) = "dual(ID)"`
 For each identifier, we introduce a dual identifier and then proceed to take the dual of the body.
 In the definition above we use `"dual(ID)"` as placeholder for the dual identifier.
+
+But computing type equality it is more tricky as it is required to compute equality up to renaming of definitions.
+Unification is needed.
+
+Also type inference is harder.
+In the scope of this lecture we avoid type inference and relies on type annotations.
+
 
 __Remark.__
 Most publications uses the least fixed point notation (`μX.P`) which only create simple recursion rather than definition which are more flexible and creates mutually recursive definitions.
@@ -403,8 +491,11 @@ Most publications uses the least fixed point notation (`μX.P`) which only creat
 The types directly reflect the processes and there is a direct syntactic match between them.
 In the simple version, this is what the typing rules do.
 
-A typing environment `Γ` is a map from names and definitions to types.
-The initial `Γ` maps the definitions names to their type.
+We omit the typing rules for literals (`1:int`, `"foo":string`, …) and focus on the rule for communication.
+
+A _typing environment_ `Γ` is a map from names and definitions to types.
+The _initial environment_ `Γ` maps the definitions identifiers to their type.
+This is needed to deal with recursion.
 For instance, if there is a definition `A: t ≝ P` then `Γ` contains `(A, t)`.
 
 ```
@@ -418,6 +509,7 @@ For instance, if there is a definition `A: t ≝ P` then `Γ` contains `(A, t)`.
 ─────────
 Γ ⊢ id: t
 ```
+where `id` is the identifier of either a definition or a name bound when receiving a message.
 
 ```
 ────────────
@@ -433,13 +525,13 @@ For instance, if there is a definition `A: t ≝ P` then `Γ` contains `(A, t)`.
 ```
     Γ ⊢ P: t₁    Γ ⊢ Q: t₂
 ────────────────────────────────
-Γ ⊢ (l₁.P ⊕ l₂.Q): l₁.t₁ ⊕ l₂.t₂
+Γ ⊢ (l₁.P ⊕ l₂.Q): l₁;t₁ ⊕ l₂;t₂
 ```
 
 ```
     Γ ⊢ P: t₁    Γ ⊢ Q: t₂
 ────────────────────────────────
-Γ ⊢ (l₁.P & l₂.Q): l₁.t₁ & l₂.t₂
+Γ ⊢ (l₁.P & l₂.Q): l₁;t₁ & l₂;t₂
 ```
 
 ```
@@ -451,7 +543,7 @@ For instance, if there is a definition `A: t ≝ P` then `Γ` contains `(A, t)`.
 ```
 Γ ⊢ a: t   Γ ⊢ P: t′
 ────────────────────
-  Γ ⊢ !a.P: ?t;t′
+  Γ ⊢ !a.P: !t;t′
 ```
 
 Here we give very simple rules.
@@ -462,6 +554,16 @@ Then the composition `P:t₁ | Q:t₂` is well typed iff `t₁=dual(t₂)`.
 Since we work with binary session types, this works **only** for two processes.
 The only tricky part is to deal with recursion and guessing which identifiers are dual.
 The simplest would be to used an [unification algorithm](https://en.wikipedia.org/wiki/Unification_(computer_science)).
+
+Here is a rules that ties everything together:
+```
+∀i, j. i≠j ⇒ A_i ِ≠ A_j
+Γ = ⋃_i (A_i, t_i)
+∀ i. Γ ⊢ A_i: t_i ≝ P_i
+Γ(P) = dual(Γ(Q))
+───────────────────────────────
+P | Q  with  ⋃_i A_i: t_i ≝ P_i
+```
 
 
 #### Subtyping
@@ -495,7 +597,7 @@ For the subtyping of choice it is simpler to work with the n-ary version of the 
 ∃ f. injective function from [1;n] to [1;m] such that
 ∀ i ∈ [1;n]. l_i = l′_{f(i)}  ∧  t_i <: t′_{f(i)}
 ─────────────────────────────────────────────────────
-⊕_{i ∈ [1;n]} l_i:t_i  <:  ⊕_{j ∈ [1;m]} l′_j:t′_j
+⊕_{i ∈ [1;n]} l_i;t_i  <:  ⊕_{j ∈ [1;m]} l′_j;t′_j
 ```
 
 ```
@@ -503,7 +605,7 @@ For the subtyping of choice it is simpler to work with the n-ary version of the 
 ∃ f. injective function from [1;m] to [1;n] such that
 ∀ i ∈ [1;m]. l′_i = l_{f(i)}  ∧  t_{f(i)} <: t′_i
 ─────────────────────────────────────────────────────
-&_{i ∈ [1;n]} l_i:t_i  <:  &_{j ∈ [1;m]} l′_j:t′_j
+&_{i ∈ [1;n]} l_i;t_i  <:  &_{j ∈ [1;m]} l′_j;t′_j
 ```
 
 Intuitively, subtypes can do fewer internal choices and allow more external choices.

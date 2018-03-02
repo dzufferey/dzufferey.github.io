@@ -142,7 +142,7 @@ C(i) = w·a·w′    C′(i) ← w·w′
 
 Sending a message
 ```
-→ (M(i), j!a, s)    a ∈ C(j)    C′ C[j → C(j) ∪ {a}]    M′ = M[i →  s]
+→ (M(i), j!a, s)    a ∈ C(j)    C′=C[j → C(j) ∪ {a}]    M′ = M[i →  s]
 ────────────────────────────────────────────────────────────────────
                         (M, C) → (M′, C′)
 ```
@@ -719,7 +719,7 @@ The send rules become:
 ```
 
 With only two machines, the problem becomes decidable.
-Intiutively, the channels need to beome empty before the dirrection of the communication changes and, therefore, it is not possible to store more information than the (finite) local state of the two machines.
+Intiutively, the channels need to become empty before the dirrection of the communication changes and, therefore, it is not possible to store more information than the (finite) local state of the two machines.
 
 The proof uses are normalization lemma.
 Every execution can be transformed into an equivalent execution (w.r.t. the reachable local states) where the channels are 1-bounded.

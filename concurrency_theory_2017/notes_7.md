@@ -37,10 +37,10 @@ For brevity, the messages are written as triple `(sender, symbol, receiver)`.
 
 ## Definitions
 
-To have more compact definitions, we will one fist part which is shared among all the variations and then we will have multiple variations.
+To have more compact definitions, we will have one fist part which is shared among all the variations and then we will have multiple variations.
 
 
-A system of communicating state machine is a pair `(Σ, ⋃_{i∈[1;N]} M_i)` where
+A system of communicating state machines is a pair `(Σ, ⋃_{i∈[1;N]} M_i)` where
 * `Σ` finite set of messages shared among all the machines
 * each `M_i` is a DFA/NFA `(id_i, S_i, (ID × ! × Σ) ∪ (? × Σ) , →, s₀_i)` with
   - `id_i` is an unique ID for this particular machine (the ID is used to send messages to that particular machine.)
@@ -60,7 +60,7 @@ Picking different models can be for accuracy of the model or decidability of som
 
 The state of a system is a pair `(M,C)` where
 * `M` is a map from `id` to states of the corresponding machine
-* `C` represent the channels. Depending on the type of system we want to model there are kinds of channel:
+* `C` represent the channels. Depending on the type of system we want to model some kinds of channel:
   - point to point: `C(i,j)` is a FIFO buffer between each pair of processes where `i` is the sender and `j` the receiver
   - mailbox: `C(i)` is a FIFO buffer, each process has a single mailbox where all the incoming messages get multiplexed
   - unordered: `C(i)` is a bag (multisets)
@@ -74,7 +74,7 @@ __Notations.__
 * Maps:
   - `M(i)` returns the value associated to `i` in `M`
   - `M′ = M[i → s]` creating a new map with the same values except for `i` which gets value `s`. This is a shorthand for `∀ j. (j ≠ i ∧ M′(j) = M(j)) ∨ (j = i ∧ M′(i) = s)`.
-* Inferrence rules are written as
+* Inference rules are written as
   ```
   premises
   ──────────
@@ -142,9 +142,9 @@ C(i) = w·a·w′    C′(i) ← w·w′
 
 Sending a message
 ```
-→ (M(i), j!a, s)    a ∈ C(j)    C′=C[j → C(j) ∪ {a}]    M′ = M[i →  s]
-────────────────────────────────────────────────────────────────────
-                        (M, C) → (M′, C′)
+→ (M(i), j!a, s)    C′=C[j → C(j) ∪ {a}]    M′ = M[i →  s]
+──────────────────────────────────────────────────────────
+                    (M, C) → (M′, C′)
 ```
 
 Receiving a message
@@ -180,7 +180,7 @@ Step
 
 ### Bounded
 
-Having bounded channels just add an extra check when sending the messages.
+Having bounded channels just adds an extra check when sending the messages.
 Sending is only possible when the channel is not full.
 
 Let `k` be the bound (`k ≥ 1`).
@@ -577,7 +577,7 @@ We now show how to implement each of these parts.
 
 __Buffer.__
 The buffer is the key part that interact with the channel and the head.
-The tape of the Turing machine is split between the channels which stores most of the tape and small _buffer_ state machine which store the letter for the current position and wherether we have past the last written symbol, i.e., we are "extending" the channel.
+The tape of the Turing machine is split between the channels which stores most of the tape and small _buffer_ state machine which store the letter for the current position and whether we have past the last written symbol, i.e., we are "extending" the channel.
 Compared to a tape, the buffer + channel combination can only move forward and, when it reaches the end, it loops back to the beginning of the tape.
 
 The set of messages is between the buffer and echo are:

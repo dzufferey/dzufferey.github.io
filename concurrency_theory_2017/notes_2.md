@@ -89,9 +89,9 @@ An enabled transition `t` can _fire_ and produce a new marking `M′`, such that
 Transitions induce a _firing relation_ which contain triples `(M₁,t,M₂)` iff
 - `t` is enabled in `M₁` and
 - `M₂` is obtain by firing `t` at `M₁`.
-The firing relation is usually written `M₁ [t〉 M₂`.
+The firing relation is usually written `M₁ [t〉 M₂`.
 
-The set of _reachable markings_ is `R(M₁) = { M₂ | ∃ π ∈ T*. M₁ [π〉 M₂ }`.
+The set of _reachable markings_ is `R(M₁) = { M₂ | ∃ π ∈ T*. M₁ [π〉 M₂ }`.
 We use `R(N)` for `R(M₀)`.
 
 The _reachability graph_ `R(N)` is the graph where
@@ -136,7 +136,7 @@ Let look back at the "lock and increment" example from [the first week](notes_1.
 
 Between this week and next week we will discuss the following questions:
 
-* _Reachability_: Is a marking `M` reachable? Is there a sequence of transitions `t₁ t₂ … t_n` such that `M₀ [t₁〉 M₁ [t₂〉 M₂ … [t_n〉 M`?
+* _Reachability_: Is a marking `M` reachable? Is there a sequence of transitions `t₁ t₂ … t_n` such that `M₀ [t₁〉 M₁ [t₂〉 M₂ … [t_n〉 M`?
 * _Coverability_: Is it possible to cover `M`, i.e., reach a marking `M′` such that `M′ ≥ M`?
 * _Boundedness_: Is there a bound `k` such that for all reachable marking `M` and state `s` the number of tokens is bounded by `k` (`M(s) ≤ k`) ?
 * _Termination_: Is there an infinite firing sequence starting at `M₀`?
@@ -221,8 +221,8 @@ The connectivity matrix of (A) is
 
 The connectivity matrix of (B) is
 ```
-⌈ -1 1 ⌉
-⌊  1 0 ⌋
+⌈  1 -1 ⌉
+⌊  0  1 ⌋
 ```
 
 ### Co-linear Properties
@@ -267,10 +267,10 @@ If the LP system above is infeasible then `N` is safe.
 _Proof._
 
 By contradiction, assume the system is infeasible and `N` is unsafe.
-If `N` is unsafe, there is a sequence `π` of firing such that `M₀ [π〉M` and `A∙M ≥ B`.
+If `N` is unsafe, there is a sequence `π` of firing such that `M₀ [π〉M` and `A∙M ≥ B`.
 We can take the _Parihk image_ of `π` and obtain a vector `X`.
 
-The Parikh image of `π` counts how many each each transition occurs in the trace.
+The Parikh image of `π` counts how many times each transition occurs in the trace.
 For instance, the Parikh image of `t₁ t₂ t₁` over `{t₁, t₂, t₃}` returns is `(2 1 0)`.
 
 By definition of `C`, we have that `M = M₀ + C∙X`.
@@ -279,7 +279,7 @@ This contradicts our hypothesis.
 
 #### Incompleteness 1: ℕ vs ℚ
 
-For `M` and `X`, we can use rational which makes the check simpler (polynomial time) but less precise or integer which is more precise and also more expensive (NP).
+For `M` and `X`, we can use rationals which makes the check simpler (polynomial time) but less precise or integer which is more precise and also more expensive (NP).
 
 Consider the following Petri Net:
 ```

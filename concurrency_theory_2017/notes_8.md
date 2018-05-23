@@ -88,9 +88,9 @@ _Example._
 The regular expression `a(ba)*` is equivalent to the DFA:
 
 ```
-         a
-→  (( )) ⇄  ( )
-         b
+        a
+→  ( )  ⇄ (( ))
+        b
 ```
 
 You can find more information about regular expression in books like
@@ -114,7 +114,7 @@ _Proof._
 * By definition of `↓D` and `x ∈ ↓D`, there exists `y ∈ D` with `x ≤ y`
 * Because `U` is the complement of `D` and `x ∉ D`, we have that `x ∈ U`
 * Since `U = ↑U` and `x ≤ y`, we have `y ∈ U`.
-* Therefore, `y∈ D`, `y ∈ U`, and `D = X ∖ U`. This is a contradiction.
+* Therefore, `y ∈ D`, `y ∈ U` which is a contradiction since `D = X ∖ U`.
 
 Since `U` is upward-closed, it can be represented by a finite basis and we can implicitly represent downward-closed sets.
 Unfortunately, this is usually not an efficient representation.
@@ -148,7 +148,7 @@ _Proof._
   * `L = r₁ + r₂ + … + r_n`.
 2. downward-closed case:
   * Let `L` be an downward-closed language.
-  * `Σ* ∖ L` is downward-closed by the theorem above.
+  * `Σ* ∖ L` is upward-closed by the theorem above.
   * `Σ* ∖ L` is regular by the upward-closed case of this theorem.
   * Because regular languages are closed under complementation, `L` is also regular.
 
@@ -303,7 +303,7 @@ Computing the effect of accelerating `Ops` on `p` checks the following under the
     + let `{b₁, b₂, …, b_k}` be the set of messages in `Ops!`
     + return `p′ (b₁ + b₂ + … + b_k)*`
   - otherwise `p` eventually gets fully consumed by `Ops?` and we need only to look at `Ops?` and `Ops!`
-    + try to apply `m+1` time `Ops` to `p` to get `p′` and once more to get `p′`
+    + try to apply `m+1` time `Ops` to `p` to get `p′` and once more to get `p″`
     * if `p′ = p″` (the resulting product has stabilized) return `p′`
     + otherwise more messages are put in the channel than received, let `{b₁, b₂, …, b_k}` be the set of messages in `Ops!` return `(b₁ + b₂ + … + b_k)*`
 

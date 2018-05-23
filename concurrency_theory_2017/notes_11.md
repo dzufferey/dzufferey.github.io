@@ -397,7 +397,7 @@ In the closure, a node may be connected to more than its parent.
 It can be connected to any ancestor.
 We need to remove these extra edges.
 
-Assume the tree-depth is `k`, there is at most `k-2` ancestor (excluding the parent) to which a node may be connected.
+Assume the tree-depth is `k`, there are at most `k-2` ancestors (excluding the parent) to which a node may be connected.
 Therefore, using `2^{k-2}` new labels it is possible to precisely tell to which ancestors a node is connected.
 The new label is the product of the old label an this new "ancestry" label.
 
@@ -415,7 +415,7 @@ Therefore, the set of labels is a BQO with `=`.
 
 __Remark.__
 The reduction above may yield a finite number of different graphs.
-To show that isomorphism is preserved in the sense that, given two graphs with one being a subgraph of the other, it is possible to encode them as trees such one tree is embedded in the other.
+To show that isomorphism is preserved in the sense that, given two graphs with one being a subgraph of the other, it is possible to encode them as trees such that one tree is embedded in the other.
 This reduction is not defined to be efficient (or implemented) but only to show the order is a BQO.
 
 The details of the tree encoding can be found in [the paper](http://dzufferey.github.io/files/2010_Forward_Analysis_of_Depth-Bounded_Processes.pdf).
@@ -503,7 +503,7 @@ The downward-closure of limit configurations are ideals.
 _Proof sketch._
 The downward-closure follows from the definition.
 We need to prove the set are directed.
-The proof uses the same principle to the proofs the product are ideals for SRE ([notes 8](notes_8.md)).
+The proof uses the same principle than the proofs that products are ideals for SRE ([notes 8](notes_8.md)).
 What makes the construction more complicated is that it works on tree automata instead of normal automaton.
 A limit configurations are like regular expression over syntax trees of configurations and the tree automata generalize regular expressions to trees.
 Given two configuration included in a limit configuration, we can unfold the replicated terms until it covers both configuration (pumping argument).

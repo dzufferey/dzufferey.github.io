@@ -459,12 +459,12 @@ In this approach, a _rewrite rule_ is a triple `(L, R, m)` where
 
 __Notation.__
 * For a graph `G`, we use `G.V`, `G.E`, and `G.L`, for the set of vertices, edges, and labelling function in `G`.
-* For an injective (partial) function `m`, we write `m⁻¹` for its inverse: `m⁻¹(x) = y ⇔ m(x) = y`.
+* For an injective (partial) function `m`, we write `m⁻¹` for its inverse: `m⁻¹(x) = y ⇔ m(y) = x`.
 * Applying a function defined over elements to a set of elements simply apply the function to ever element in the set.
 
 __Semantics.__
 Let us apply `(L, R, m)` to a graph `G`.
-Intuitively, we the part `G` matching `L` by `R` while keeping the connections using `m`.
+Intuitively, we replace the part of `G` matching `L` by `R` while keeping the connections using `m`.
 
 Let us assume that `G.V`, `L.V`, and `R.V` are disjoint sets.
 

@@ -1,7 +1,8 @@
 [
   {
     "tag": "recent",
-    "abstract": "...",
+    "abstract": "Event-driven programming frameworks, such as Android, are based on components with asynchronous interfaces. The protocols for interacting with these components can often be described by finite-
+state machines we dub callback typestates. Callback typestates are akin to classical typestates, with the difference that their outputs (callbacks) are produced asynchronously. While useful, these specifications are not commonly available, because writing them is difficult and error-prone.\nOur goal is to make the task of producing callback typestates significantly easier. We present a callback typestate assistant tool, DroidStar, that requires only limited user interaction to produce a callback typestate. Our approach is based on an active learning algorithm, L*. We improved the scalability of equivalence queries (a key component of L*), thus making active learning tractable on the Android system.\nWe use DroidStar to learn callback typestates for Android classes both for cases where one is already provided by the documentation, and for cases where the documentation is unclear. The results show that DroidStar learns callback typestates accurately and efficiently. Moreover, in several cases, the synthesized callback typestates uncovered surprising and undocumented behaviors.",
     "author": [
       {
         "family": "Radhakrishna",
@@ -36,7 +37,7 @@
         "given": "Pavol"
       }
     ],
-    "container-title": "To apprear In Proceedings of the 40th International Conference on Software Engineering (ICSE 18)",
+    "container-title": "In Proceedings of the 40th International Conference on Software Engineering (ICSE 18)",
     "editor": [
       {
         "family": "Chechik",
@@ -57,7 +58,7 @@
     },
     "keyword": "conf",
     "publisher": "ACM",
-    "title": "Starling: Callback Typestates for Android Classes",
+    "title": "DroidStar: Callback Typestates for Android Classes",
     "type": "paper-conference"
   },
   {

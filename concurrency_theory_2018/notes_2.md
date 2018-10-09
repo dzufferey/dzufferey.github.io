@@ -1,5 +1,8 @@
 # Petri Nets
 
+Petri nets are an important generalization of finite state machines with a restricted form of counting.
+Given multiple instances of the same finite state machine, rather than taking the product, we just "count" how many copies are in a given state.
+
 You can find more detailed definitions and complete explanations in the [lecture notes by Roland Meyer](https://www.tcs.cs.tu-bs.de/documents/ConcurrencyTheory_WS_20112012/lecture_notes.pdf).
 We cover the following parts:
 * 1.1 Syntax and Semantics
@@ -10,7 +13,7 @@ We cover the following parts:
 
 __Clarification about "safe".__
 
-Unfortunately, the term safe is overloaded in the contex of Petri Net. It can mean:
+Unfortunately, the term safe is overloaded in the context of Petri Net. It can mean:
 1. safe = 1-bounded
 2. safe as satisfies a safety (reachability) property.
 
@@ -177,6 +180,33 @@ Let look back at the "lock and increment" example from [the first week](viewer.h
     - $W(L, \texttt{unlock}) = 1$, $W(2, \texttt{unlock}) = 1$, $W(\texttt{unlock}, U) = 1$, $W(\texttt{unlock}, 3) = 1$,
     - otherwise $0$
   * $M₀ = [U → 1, L → 0, 0 → 1, 1 → 0, 2 → 0, 3 → 0]$
+  ```graphviz
+  digraph PN {
+      rankdir=LR;
+      node [shape = circle, fixedsize = true, width = 0.5];
+      p1 [ xlabel="U", label="∙" ];
+      p2 [ xlabel="L", label="" ];
+      p3 [ xlabel="0", label="∙" ];
+      p4 [ xlabel="1", label="" ];
+      p5 [ xlabel="2", label="" ];
+      p6 [ xlabel="3", label="" ];
+      node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15];
+      t1 [xlabel="lock" ];
+      t2 [xlabel="unlock" ];
+      t3 [xlabel="balance += x" ];
+      p1 -> t1 [ constraint = false ];
+      p3 -> t1;
+      t1 -> p2;
+      t1 -> p4;
+      p4 -> t3;
+      t3 -> p5;
+      p2 -> t2;
+      p5 -> t2;
+      t2 -> p1 [ constraint = false ];
+      t2 -> p6;
+      p3 -> p1 [ style = invis];
+  }
+  ```
 2. We can add more "increment" programs by adding more places and transitions.
   * $S = \\{U, L, A0, A1, A2, A3, B0, B1, B2, B3\\}$
   * $T = \\{\text{A:}\texttt{lock}, \text{A:}\texttt{unlock}, \text{B:}\texttt{lock}, \text{B:}\texttt{unlock}, \text{A:}\texttt{balance += x}, \text{B:}\texttt{balance += x}\\}$
@@ -186,8 +216,109 @@ Let look back at the "lock and increment" example from [the first week](viewer.h
     - $W(L, \text{X:}\texttt{unlock}) = 1$, $W(X2, \text{X:}\texttt{unlock}) = 1$, $W(\text{X:}\texttt{unlock}, U) = 1$, $W(\text{X:}\texttt{unlock}, X3) = 1$
     - otherwise $0$
   * $M₀ = [U → 1, A0 → 1, B0 → 1, _ → 0]$
+  ```graphviz
+  digraph PN {
+      rankdir=LR;
+      node [shape = circle, fixedsize = true, width = 0.5];
+      p1 [ xlabel="U", label="∙" ];
+      p2 [ xlabel="L", label="" ];
+      ap3 [ xlabel="A0", label="∙" ];
+      ap4 [ xlabel="A1", label="" ];
+      ap5 [ xlabel="A2", label="" ];
+      ap6 [ xlabel="A3", label="" ];
+      bp3 [ xlabel="B0", label="∙" ];
+      bp4 [ xlabel="B1", label="" ];
+      bp5 [ xlabel="B2", label="" ];
+      bp6 [ xlabel="B3", label="" ];
+      node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15];
+      at1 [xlabel="A:lock" ];
+      at2 [xlabel="A:unlock" ];
+      at3 [xlabel="A:balance += x" ];
+      bt1 [xlabel="B:lock" ];
+      bt2 [xlabel="B:unlock" ];
+      bt3 [xlabel="B:balance += x" ];
+      p1 -> at1 [ constraint = false ];
+      ap3 -> at1;
+      at1 -> p2;
+      at1 -> ap4;
+      ap4 -> at3;
+      at3 -> ap5;
+      p2 -> at2;
+      ap5 -> at2;
+      at2 -> p1 [ constraint = false ];
+      at2 -> ap6;
+      ap3 -> p1 [ style = invis];
+      p1 -> bt1 [ constraint = false ];
+      bp3 -> bt1;
+      bt1 -> p2;
+      bt1 -> bp4;
+      bp4 -> bt3;
+      bt3 -> bp5;
+      p2 -> bt2;
+      bp5 -> bt2;
+      bt2 -> p1 [ constraint = false ];
+      bt2 -> bp6;
+      bp3 -> p1 [ style = invis];
+  }
+  ```
 3. Or we can add more "increment" programs by adding more tokens: $M₀(0) = 2$ for $2$ threads.
+  ```graphviz
+  digraph PN {
+      rankdir=LR;
+      node [shape = circle, fixedsize = true, width = 0.5];
+      p1 [ xlabel="U", label="∙" ];
+      p2 [ xlabel="L", label="" ];
+      p3 [ xlabel="0", label=":" ];
+      p4 [ xlabel="1", label="" ];
+      p5 [ xlabel="2", label="" ];
+      p6 [ xlabel="3", label="" ];
+      node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15];
+      t1 [xlabel="lock" ];
+      t2 [xlabel="unlock" ];
+      t3 [xlabel="balance += x" ];
+      p1 -> t1 [ constraint = false ];
+      p3 -> t1;
+      t1 -> p2;
+      t1 -> p4;
+      p4 -> t3;
+      t3 -> p5;
+      p2 -> t2;
+      p5 -> t2;
+      t2 -> p1 [ constraint = false ];
+      t2 -> p6;
+      p3 -> p1 [ style = invis];
+  }
+  ```
 4. We can even add many more threads by adding a transition $spawn$ with: $M(spawn, 0) = 1$.
+  ```graphviz
+  digraph PN {
+      rankdir=LR;
+      node [shape = circle, fixedsize = true, width = 0.5];
+      p1 [ xlabel="U", label="∙" ];
+      p2 [ xlabel="L", label="" ];
+      p3 [ xlabel="0", label="" ];
+      p4 [ xlabel="1", label="" ];
+      p5 [ xlabel="2", label="" ];
+      p6 [ xlabel="3", label="" ];
+      node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15];
+      t1 [xlabel="lock" ];
+      t2 [xlabel="unlock" ];
+      t3 [xlabel="balance += x" ];
+      t4 [xlabel="spawn" ];
+      t4 -> p3;
+      p1 -> t1 [ constraint = false ];
+      p3 -> t1;
+      t1 -> p2;
+      t1 -> p4;
+      p4 -> t3;
+      t3 -> p5;
+      p2 -> t2;
+      p5 -> t2;
+      t2 -> p1 [ constraint = false ];
+      t2 -> p6;
+      p3 -> p1 [ style = invis];
+  }
+  ```
 
 
 ## Properties

@@ -494,7 +494,7 @@ Numbers are exponentially more succinct than automaton.
 
 You can download spin at: http://spinroot.com/
 
-To run spin, I recommend using the following script: https://github.com/tcruys/runspin
+To run spin, we recommend using the following script: https://github.com/tcruys/runspin
 
 #### Promela
 

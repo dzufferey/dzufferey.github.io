@@ -5,7 +5,7 @@
 
 #### DFA Example
 
-Words finishing with 1 over the alphabet $\{0,1\}$.
+Words finishing with 1 over the alphabet $\\{0,1\\}$.
 
 ```graphviz
 digraph finite_state_machine {

@@ -1,6 +1,56 @@
 [
   {
     "tag": "recent",
+    "abstract": "We present an expressive, concise, and extendable domain specific language for planning of assembly systems, such as industrial human robot cooperation. Increased flexibility requirements in manufacturing processes call for more automation at the description and planning stages of manufacturing. Procedural models are good candidates to meet this demand as programs offer a high degree of flexibility and are easily composed.\nFurthermore, we aim to make our programs close to declarative specification and integrate automatic reasoning tools to help the users. The constraints come both from specific programs and preexisting knowledge base from the target domain. The case of human robot collaboration is interesting as there is a number of constraints and regulations around this domain. Unfortunately, automated reasoners are often too unpredictable and cannot be used directly by non-experts.\nIn this paper, we present our domain specific language “Tool Ontology and Optimization Language” (Tool) and describe how we integrated automated reasoners and planners in a way that makes them accessible to users which have little programming knowledge, but expertise in manufacturing domain and no previous experience with or knowledge about the underlying reasoners. We present encouraging results by applying Tool to a case study from the automotive and aerospace industry.",
+    "author": [
+      {
+        "family": "Gavran",
+        "given": "Ivan"
+      },
+      {
+        "family": "Mailahn",
+        "given": "Ortwin"
+      },
+      {
+        "family": "Müller",
+        "given": "Rainer"
+      },
+      {
+        "family": "Peifer",
+        "given": "Richard"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "In Proceedings of Onward! 2018",
+    "editor": [
+      {
+        "family": "Gabriel",
+        "given": "Richard P."
+      },
+      {
+        "family": "Gonzalez Boix",
+        "given": "Elisa"
+      }
+    ],
+    "id": "onward18",
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "publisher": "ACM",
+    "title": "Tool: Accessible Automated Reasoning for Human Robot Collaboration",
+    "link-paper": "files/2018_tool_preprint.pdf",
+    "type": "paper-conference"
+  },
+  {
+    "tag": "recent",
     "abstract": "Event-driven programming frameworks, such as Android, are based on components with asynchronous interfaces. The protocols for interacting with these components can often be described by finite-state machines we dub callback typestates. Callback typestates are akin to classical typestates, with the difference that their outputs (callbacks) are produced asynchronously. While useful, these specifications are not commonly available, because writing them is difficult and error-prone.\nOur goal is to make the task of producing callback typestates significantly easier. We present a callback typestate assistant tool, DroidStar, that requires only limited user interaction to produce a callback typestate. Our approach is based on an active learning algorithm, L*. We improved the scalability of equivalence queries (a key component of L*), thus making active learning tractable on the Android system.\nWe use DroidStar to learn callback typestates for Android classes both for cases where one is already provided by the documentation, and for cases where the documentation is unclear. The results show that DroidStar learns callback typestates accurately and efficiently. Moreover, in several cases, the synthesized callback typestates uncovered surprising and undocumented behaviors.",
     "author": [
       {
@@ -62,6 +112,91 @@
     "type": "paper-conference"
   },
   {
+    "tag": "recent",
+    "abstract": "When a computational task tolerates a relaxation of its specification or when an algorithm tolerates the effects of noise in its execution, hardware, programming languages, and system software can trade deviations from correct behavior for lower resource usage. We present, for the first time, a synthesis of research results on computing systems that only make as many errors as their users can tolerate, from across the disciplines of computer aided design of circuits, digital system design, computer architecture, programming languages, operating systems, and information theory. Rather than over-provisioning resources at each layer to avoid errors, it can be more efficient to exploit the masking of errors occurring at one layer which can prevent them from propagating to a higher layer. We survey tradeoffs for individual layers of computing systems from the circuit level to the operating system level and illustrate the potential benefits of end-to-end approaches using two illustrative examples. To tie together the survey, we present a consistent formalization of terminology, across the layers, which does not significantly deviate from the terminology traditionally used by research communities in their layer of focus.",
+    "author": [
+      {
+        "family": "Stanley-Marbell",
+        "given": "Phillip"
+      },
+      {
+        "family": "Alaghi",
+        "given": "Armin"
+      },
+      {
+        "family": "Carbin",
+        "given": "Michael"
+      },
+      {
+        "family": "Darulova",
+        "given": "Eva"
+      },
+      {
+        "family": "Dolecek",
+        "given": "Lara"
+      },
+      {
+        "family": "Gerstlauer",
+        "given": "Andreas"
+      },
+      {
+        "family": "Gillani",
+        "given": "Ghayoor"
+      },
+      {
+        "family": "Jevdjic",
+        "given": "Djordje"
+      },
+      {
+        "family": "Moreau",
+        "given": "Thierry"
+      },
+      {
+        "family": "Cacciotti",
+        "given": "Mattia"
+      },
+      {
+        "family": "Daglis",
+        "given": "Alexandros"
+      },
+      {
+        "family": "Enright Jerger",
+        "given": "Natalie D."
+      },
+      {
+        "family": "Falsafi",
+        "given": "Babak"
+      },
+      {
+        "family": "Misailovic",
+        "given": "Sasa"
+      },
+      {
+        "family": "Sampson",
+        "given": "Adrian"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "under submission",
+    "id": "approx_comp_techrep",
+    "issued": {
+      "date-parts": [
+        [
+          2018
+        ]
+      ]
+    },
+    "keyword": "techrep",
+    "link-paper": "https://arxiv.org/pdf/1809.05859.pdf",
+    "number": "1809.05859",
+    "publisher": "arXiv",
+    "title": "Exploiting Errors for Efficiency: A Survey from Circuits to Algorithms",
+    "type": "report"
+  },
+  {
     "abstract": "In event-driven programming frameworks, such as Android, the client and the framework interact using callins (framework methods that the client invokes) and callbacks (client methods that the framework invokes). The protocols for interacting with these frameworks can often be described by finite-state machines we dub <em>asynchronous typestates</em>. Asynchronous typestates are akin to classical typestates, with the key difference that their outputs (callbacks) are produced asynchronously.\nWe present an algorithm to infer asynchronous typestates for Android framework classes. It is based on the L* algorithm that uses membership and equivalence queries. We show how to implement these queries for Android classes. Membership queries are implemented using testing. Under realistic assumptions, equivalence queries can be implemented using membership queries. We provide an improved algorithm for equivalence queries that is better suited for our application than the algorithms from literature. Instead of using a bound on the size of the typestate to be learned, our algorithm uses a <em>distinguisher bound</em>. The distinguisher bound quantifies how two states in the typestate are locally different.\nWe implement our approach and evaluate it empirically. We use our tool, Starling, to learn asynchronous typestates for Android classes both for cases where one is already provided by the documentation, and for cases where the documentation is unclear. The results show that Starling learns asynchronous typestates accurately and efficiently. Additionally, in several cases, the synthesized asynchronous typestates uncovered surprising and undocumented behaviors.",
     "author": [
       {
@@ -113,7 +248,6 @@
     "type": "report"
   },
   {
-    "tag": "recent",
     "abstract": "We develop algorithms for computing Craig interpolants for first-order formulas over real numbers with a wide range of nonlinear functions, including transcendental functions and differential equations. We transform proof traces from δ-complete decision procedures into interpolants that consist of Boolean combinations of linear constraints. The algorithms are guaranteed to find the interpolants between two formulas A and B whenever A ∧ B is not δ-satisfiable. At the same time, by exploiting δ-perturbations one can parameterize the algorithm to find interpolants with different positions between A and B. We show applications of the methods in control and robotic design, and hybrid system verification.",
     "author": [
       {
@@ -152,7 +286,6 @@
     "type": "paper-conference"
   },
   {
-    "tag": "recent",
     "abstract": "Fault-tolerant distributed algorithms play an important role in many critical/high-availability applications. These algorithms are notoriously difficult to implement correctly, due to asynchronous communication and the occurrence of faults, such as the network dropping messages or computers crashing.\nWe introduce PSync, a domain specific language based on the Heard-Of model, which views asynchronous faulty systems as synchronous ones with an adversarial environment that simulates asynchrony and faults by dropping messages. We define a runtime system for PSync that efficiently executes on asynchronous networks. We formalise the relation between the runtime system and PSync in terms of observational refinement. The high-level lockstep abstraction introduced by PSync simplifies the design and implementation of fault-tolerant distributed algorithms and enables automated formal verification.\nWe have implemented an embedding of PSync in the Scala programming language with a runtime system for partially synchronous networks. We show the applicability of PSync by implementing several important fault-tolerant distributed algorithms and we compare the implementation of consensus algorithms in PSync against implementations in other languages in terms of code size, runtime efficiency, and verification.",
     "author": [
       {

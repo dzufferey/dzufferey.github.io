@@ -11,9 +11,9 @@ __Some Administration__
 We need to find a time for the exercise session.
 We will try to find a time which satisfies the most people.
 The options are:
-1. Wednesday from 15:00 to 16:30
-2. Wednesday from 17:00 to 18:30
-3. Friday from 15:00 to 16:30
+1. Wednesday from 15:15 to 16:45
+2. Wednesday from 17:15 to 18:45
+3. Friday from 15:15 to 16:45
 
 Please send to Simin by email you availabilities.
 For the slots when you are available, you can also rank them by preference.

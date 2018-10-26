@@ -8,8 +8,8 @@ byte mutex;
 active proctype P0() {
     do
     ::  flag0=true; 
-        turn=0;
-        !flag1 || (turn == 1);
+        turn=1;
+        !flag1 || (turn == 0);
         mutex++;
         /* critical section */ 
         assert(mutex == 1);
@@ -22,8 +22,8 @@ active proctype P0() {
 active proctype P1() {
     do
     ::  flag1=true; 
-        turn=1;
-        !flag0 || (turn == 0);
+        turn=0;
+        !flag0 || (turn == 1);
         mutex++;
         /* critical section */ 
         assert(mutex == 1);

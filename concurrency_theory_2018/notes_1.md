@@ -196,9 +196,9 @@ _Assuming no ε-transitions_
 Given a NFA $N$ we construct a DFA $D$ with:
 * $Q_D = 2_{Q_N}$
 * $Σ_D = Σ_N$
-* $δ_D(q_D, a) = \\{ q' | ∃ q ∈ q_D. q' ∈ δ_N(q, a) \\}$
+* $δ_D(q_D, a) = \bigcup_{q∈q_D} δ_N(q, a) = \\{ q' ~|~ ∃ q ∈ q_D. q' ∈ δ_N(q, a) \\}$
 * $q_0^D = \\{ q_0^N \\} $
-* $F_D = \\{ q | q ∩ F_N ≠ ∅ \\}$
+* $F_D = \\{ q ~|~ q ∩ F_N ≠ ∅ \\}$
 
 _Notation._
 We use $N$, $D$ as sub- or superscript to identify wether the element belongs to $N$ or $D$.
@@ -216,9 +216,9 @@ __(1)__ $w ∈ L(N) ⇒ w ∈ L(D)$
   $t_N$ exists by definition of $L(N)$.
 * Let $t_D$ be the trace of $w$ on $D$.
   We show that $t_D$ "contains" $t_N$ by induction on the traces:
-  - 0:
+  - $0$:
     + $q_0^N ∈ \\{ q_0^N \\} = q_0^D$ by definition,
-  - i → i+1:
+  - $i$ → $i+1$:
     + by induction hypothesis: $r_i^N ∈ r_i^D$
     + by definition of $t_N$ and $δ_D$: $r_{i+1}^N ∈ δ_N(r_i^N, a_i)$ and, therefore, $r_{i+1}^n ∈ r_{i+1}^D$.
 * By hypothesis, the last state of $t_N$ is $q_n^N$ with $q_n^N ∈ F_N$.
@@ -266,17 +266,22 @@ Determinizing it gives:
 ```graphviz
 digraph finite_state_machine {
 	rankdir=LR;
-	node [shape = circle];
+	node [shape = circle, width=0.75];
     subgraph top {
 	    init [shape = none, label = ""];
         init -> 1;
+        1 [label = "{1}"];
+        24 [label = "{2,4}"];
+        135 [label = "{1,3,5}"];
 	    1 -> 24 [ label = "s" ];
         24 -> 135 [ label = "s" ];
         135 -> 135 [ label = "d" ];
     }
     subgraph bottom {
 	    dummy [shape = none, label = ""];
-        246 [shape = doublecircle];
+        5 [label = "{5}"];
+        13 [label = "{1,3}"];
+        246 [shape = doublecircle, label = "{2,4,6}"];
         dummy -> 5 [ style=invis];
 	    5 -> 13 [ label = "d", dir=both ];
 	    13 -> 246 [ label = "s" ];
@@ -317,9 +322,13 @@ As Paths in graphs:
 - Safety is reachability: path from the initial state to an error state.
 - Eventuality is nested reachability: lasso path with the stem starting at the initial state and the loop does not go to any "progress" state where the progress state are the states that should eventually happen.
 
-As automata construction:
-- language inclusion: $A ⊆ B$ reduces to $A ∩ ¬B = ∅$, or $A ⊗ ¬B = ∅$ if the alphabet are different.
-- (co-)Büchi automaton …
+Verification can be done as automata construction.
+Let us assume we have a program $A$ and a safety property $B$ represented as automata with the same alphabet $Σ$.
+The program satisfy the property is a language inclusion check: $L(A) ⊆ L(B)$ which reduces to $L(A) ∩ (Σ^*∖L(B)) = L(A) ∩ L(¬B) = ∅$.
+
+Instead doing the check $L(A) ∩ L(¬B) = ∅$ on the language (potentially infinite sets), we can to it on the automata as $A ⊗ ¬B = ∅$.
+This formulation also work when $A$ and $B$ have different alphabets.
+
 
 #### Example
 
@@ -442,11 +451,13 @@ while F ≠ ∅  do
             F ← F ∪ δ(s,_)
 return SAFE
 ```
+The algorithm above has a complexity of $O(|Q|⋅|Σ|)$.
 
 Variations:
 * using a queue for F makes a BFS
 * using a stack for F makes a DFS
 * this is a forward search, it is also possible do a backward search (start from the error state and computes the predecessors)
+
 
 #### Encoding data as automaton
 

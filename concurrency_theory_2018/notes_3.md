@@ -42,12 +42,13 @@ Let us consider the lock example:
 ```graphviz
 digraph PN{
   rankdir=LR
+  ranksep=0.75;
   node [shape = circle, fixedsize = true, width = 0.5, fontsize = 15];
   p1 [label="∙", xlabel="u" ];
   p2 [label="", xlabel="l" ];
   node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15, fontsize=15];  
-  t1[xlabel="lock()"];
-  t2[xlabel="unlock()"];
+  t1[xlabel="lock"];
+  t2[xlabel="unlock"];
   p1 -> t1;
   t1 -> p2;
   edge [style = invis];
@@ -125,10 +126,10 @@ Can $\\{a,b\\}$ receive a token?
 Can $\\{c,d\\}$ become empty?
 
 __Auxiliary definitions:__
-* The _preset_ of a transition $t$ is $\mathit{preset}(t) = \\{ s | W(s,t) \geq 1 \\}$.
-* The _postset_ of a transition $t$ is $\mathit{postset}(t) = \\{ s | W(t,s) \geq 1 \\}$.
-* The _preset_ of a place $s$ is $\mathit{preset}(s) = \\{ t | W(t,s) \geq 1 \\}$.
-* The _postset_ of a place `s` is $\mathit{postset}(s) = \\{ t | W(s,t) \geq 1 \\}$.
+* The _preset_ of a transition $t$ is $\mathit{preset}(t) = \\{ s ~|~ W(s,t) \geq 1 \\}$.
+* The _postset_ of a transition $t$ is $\mathit{postset}(t) = \\{ s ~|~ W(t,s) \geq 1 \\}$.
+* The _preset_ of a place $s$ is $\mathit{preset}(s) = \\{ t ~|~ W(t,s) \geq 1 \\}$.
+* The _postset_ of a place $s$ is $\mathit{postset}(s) = \\{ t ~|~ W(s,t) \geq 1 \\}$.
 
 The `preset` and `postset` generalize to sets of places/transitions by taking the union
 
@@ -174,7 +175,7 @@ Therefore, $t$ must have consumed all the token in $Q$.
 However, by definition of trap, $t$ must also put at least one token in $Q$ and, thus, $Q$ cannot be empty (contradiction).
 
 __Corollary.__
-If `Q` is marked under `M` then `Q` is marked under every marking in `R(M)`.
+If $Q$ is marked under $M$ then $Q$ is marked under every marking in $R(M)$.
 
 #### Example
 
@@ -214,9 +215,9 @@ a (∙) ( ) b
    ↑ ⤩ ↑
 c ( ) ( ) d
 ```
-* traps & siphons: `{a,b}`, `{c,d}`, `{a,d}`, `{b, c}`, `{a,b,c}`, `{a,b,d}`, `{a,c,d}`, `{b,c,d}`, `{a,b,c,d}`
-* marked: `{a,b}`, `{a,d}`, `{a,b,c}`, `{a,b,d}`, `{a,c,d}`,`{a,b,c,d}`
-* empty: `{c,d}`, `{b, c}`, `{b,c,d}`
+* traps & siphons: $\\{a,b\\}$, $\\{c,d\\}$, $\\{a,d\\}$, $\\{b, c\\}$, $\\{a,b,c\\}$, $\\{a,b,d\\}$, $\\{a,c,d\\}$, $\\{b,c,d\\}$, $\\{a,b,c,d\\}$
+* marked: $\\{a,b\\}$, $\\{a,d\\}$, $\\{a,b,c\\}$, $\\{a,b,d\\}$, $\\{a,c,d\\}$,$\\{a,b,c,d\\}$
+* empty: $\\{c,d\\}$, $\\{b, c\\}$, $\\{b,c,d\\}$
 
 ```
   a (∙) ( ) b
@@ -226,7 +227,7 @@ c ( ) ( ) d
 | → ( ) ( ) ( ) → |
      c   d   e
 ```
-* marked traps & siphons: `{a,b}`
+* marked traps & siphons: $\\{a,b\\}$
 
 ```
 a ( ) ( ) b
@@ -236,10 +237,10 @@ a ( ) ( ) b
   (:) ( ) ( ) → |
    c   d   e
 ```
-* siphons: `{a,b}`, `{c,d,e}`, `{a,b,c,d,e}`
-* traps: `{a,b}`
-* marked: `{c,d,e}`, `{a,b,c,d,e}`
-* empty: `{a,b}`
+* siphons: $\\{a,b\\}$, $\\{c,d,e\\}$, $\\{a,b,c,d,e\\}$
+* traps: $\\{a,b\\}$
+* marked: $\\{c,d,e\\}$, $\\{a,b,c,d,e\\}$
+* empty: $\\{a,b\\}$
 
 
 The converse of the propositions above are not true.
@@ -370,7 +371,7 @@ Applying the algorithm gives:
 * When `TerminationCheck` returns `TERMINATING` we can extract a finite tree which contains all the reachable states.
 
 Let us look in more details at the first one:
-* If the algorithm does not terminate we have an infinite sequence of markings `𝓜` such that `∀ i, j. i ≤ j ⇒ 𝓜[i] > 𝓜[j] ∨ 𝓜[i] incomparable with 𝓜[j]`.
+* If the algorithm does not terminate we have an infinite sequence of markings $\mathcal{M}$ such that $∀ i, j.\ i ≤ j ⇒ \mathcal{M}[i] > \mathcal{M}[j] ∨ \mathcal{M}[i] ~\text{incomparable with}~ \mathcal{M}[j]$.
 * This is not possible if
   1. there is no infinite decreasing chain, and
   2. there is no infinite antichain (sequence where all the elements are incomparable).
@@ -425,18 +426,18 @@ Applying the algorithm gives:
 
 Let us generalize the algorithms above to decide coverability.
 
-We need to introduce a _limit element_ `ω` that represent an "unbounded" number of tokens.
-`ω` has the following properties:
-* `ω = ω`, `ω = ω+1`, `ω = ω-1`
-* `ω > n` for any finite `n`
+We need to introduce a _limit element_ $ω$ that represent an "unbounded" number of tokens.
+$ω$ has the following properties:
+* $ω = ω$, $ω = ω+1$, $ω = ω-1$
+* $ω > n$ for any finite $n$
 
-We can also extend markings to _generalized markings_ which are function from `S → ℕ ∪ ω`.
+We can also extend markings to _generalized markings_ which are function from $S → ℕ ∪ \\{ω\\}$.
 
 
 _Acceleration._
-Given `M` and `M′` with `M′ > M`, we return `M″` such that:
-* `M″(s) = M(s)` if `M(s) = M′(s)`
-* `M″(s) = ω` if `M′(s) > M(s)`
+Given $M$ and $M′$ with $M′ > M$, we return $M″$ such that:
+* $M″(s) = M(s)$ if $M(s) = M′(s)$
+* $M″(s) = ω$ if $M′(s) > M(s)$
 
 
 ```
@@ -482,7 +483,7 @@ Applying the algorithm gives:
 
 * The Karp-Miller tree is finite.
 * The `KarpMillerTree` procedure terminates.
-* For any `M`, if there is `M′` in `KarpMillerTree(N)` with `M ≤ M′` then `N` can cover `M`.
+* For any $M$, if there is $M'$ in `KarpMillerTree(`$N$`)` with $M ≤ M'$ then $N$ can cover $M$.
 
 #### A bounded and terminating example
 

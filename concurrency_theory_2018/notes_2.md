@@ -335,8 +335,8 @@ Between this week and next week we will discuss the following questions:
 _Reachability._
 Let us look at mutual exclusion in the Petri Net (1-4).
 Mutual exclusion is violated if it is possible to reach a marking in:
-1. $\\{ M | M(2) = 2 \\}$
-2. $\\{ M | M(A2) + M(B2) = 2 \\}$
+1. $\\{ M ~|~ M(2) = 2 \\}$
+2. $\\{ M ~|~ M(A2) + M(B2) = 2 \\}$
 3. same as (1)
 4. same as (1)
 

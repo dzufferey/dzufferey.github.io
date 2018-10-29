@@ -152,7 +152,7 @@ Transitions induce a _firing relation_ which contain triples $(M₁,t,M₂)$ iff
 - $M₂$ is obtain by firing $t$ at $M₁$.
 The firing relation is usually written $M₁ [t〉 M₂$.
 
-The set of _reachable markings_ is $R(M₁) = { M₂ | ∃ π ∈ T^*. M₁ [π〉 M₂ }$.
+The set of _reachable markings_ is $R(M₁) = \\{ M₂ ~|~ ∃ π ∈ T^*. M₁ [π〉 M₂ \\}$.
 We use $R(N)$ for $R(M₀)$.
 
 The _reachability graph_ $R(N)$ is the graph where
@@ -215,7 +215,7 @@ Let look back at the "lock and increment" example from [the first week](viewer.h
     - $W(X1, \text{X:}\texttt{balance += x}) = 1$, $W(\text{X:}\texttt{balance += x}, X2) = 1$
     - $W(L, \text{X:}\texttt{unlock}) = 1$, $W(X2, \text{X:}\texttt{unlock}) = 1$, $W(\text{X:}\texttt{unlock}, U) = 1$, $W(\text{X:}\texttt{unlock}, X3) = 1$
     - otherwise $0$
-  * $M₀ = [U → 1, A0 → 1, B0 → 1, _ → 0]$
+  * $M₀ = [U → 1, A0 → 1, B0 → 1, \\_ → 0]$
   ```graphviz
   digraph PN {
       rankdir=LR;
@@ -341,7 +341,7 @@ Mutual exclusion is violated if it is possible to reach a marking in:
 4. same as (1)
 
 _Coverability._
-We can relax the property above to any number more than $1$: $\\{ M | M(2) > 1 \\}$.
+We can relax the property above to any number more than $1$: $\\{ M ~|~ M(2) > 1 \\}$.
 Coverability is reachability in "upward-closed" sets.
 More on that next week.
 
@@ -413,13 +413,13 @@ The connectivity matrix of (B) is $\begin{bmatrix} 1 & -1 \\\\ 0 & 1 \end{bmatri
 
 We can think about reachability/safety properties as function from $ℕ^n → 𝔹$ that returns true if the properties hold in a given marking.
 
-A property is _co-linear_ if its _violation_ can be expressed by a linear inequality $A \cdot M ≥ B$.
+A property is _co-linear_ if its _violation_ can be expressed by a linear inequality $A⋅M ≥ B$.
 
 #### Example
 
 The reachability and coverability examples above are co-linear.
 
-For instance, we can rewrite $\\{ M | M(2) > 1 \\}$ as:
+For instance, we can rewrite $\\{ M ~|~ M(2) > 1 \\}$ as:
 ```
   U L 0 1 2 3
 [ 0 0 0 0 1 0 ] ∙ M ≥ [ 2 ]
@@ -430,7 +430,7 @@ For instance, we can rewrite $\\{ M | M(2) > 1 \\}$ as:
 
 Given a Petri Net $N = (S,T,W,M₀)$, let
 $C$ be the connectivity matrix,
-$A \cdot M ≥ B$ a co-linear property, and
+$A⋅M ≥ B$ a co-linear property, and
 $X$ is a vector of size $|T|$.
 
 $X$ represents the number of time each transition fires.
@@ -441,12 +441,12 @@ We can create the following LP program:
     Optimize:       ----
     Subject to:     M ≥ 0
                     X ≥ 0
-                    M = M₀ + C∙X
-                    A∙M ≥ B
+                    M = M₀ + C⋅X
+                    A⋅M ≥ B
 ```
 
 __Theorem.__
-If the LP system above is infeasible then $N$ is safe. (It cannot reach a marking $M$ that satisfies $A \cdot ≥ B$.
+If the LP system above is infeasible then $N$ is safe. (It cannot reach a marking $M$ that satisfies $A⋅M ≥ B$.)
 
 _Proof._
 * By contradiction, assume the system is infeasible and $N$ is unsafe.

@@ -25,9 +25,9 @@ Let the simple product $A⋅B = (Q, Σ, δ, q₀, F)$ be
 __Task 1.__
 
 Instead of doing the product and synchronization in one operation, we can divide it into two parts.
-First, the alphabet of both DFAs in matched and then we apply the product.
+First, the alphabet of both DFAs is matched and then we apply the product.
 
-Define a transformation $T(M,Σ)$ that takes as argument and DFA $M$ and alphabet $Σ$ such that $Σ_M ⊆ Σ$ and returns a new DFA that extends $M$ to the alphabet $Σ$.
+Define a transformation $T(M,Σ)$ that takes as an argument, a DFA $M$, and an alphabet $Σ$ such that $Σ_M ⊆ Σ$ and returns a new DFA that extends $M$ to the alphabet $Σ$.
 The goal is that given two DFA $P$ and $Q$ we have $T(P, Σ_P ∪ Σ_Q)⋅ T(Q, Σ_P ∪ Σ_Q) = P ⊗ Q$.
 
 * Define a transformation $T$ that satisfy this goal.
@@ -49,7 +49,7 @@ Consider the exercise from the first week where we (tried to) generalise our `lo
 
 __Task 1.__
 
-Consider the translation of the example in the [lecture notes 2](viewer.html?md=concurrency_theory_2018/notes_2.md).
+Consider the nets of the "Example (revisiting `lock-increment-unlock`)" in the [lecture notes 2](viewer.html?md=concurrency_theory_2018/notes_2.md).
 In particular, the version `4.` which add the creation (spawn) of `increment` processes.
 
 * Modify this Petri net to model a semaphore which allows 2 processes to be in the critical section.
@@ -66,7 +66,7 @@ To encode reentrant locks, we will also run intro troubles like in the case of a
 We need something more.
 
 * Modify the Petri net seen in class to model a reentrant lock.
-  You are allowed to allowed to use inhibitory edges (see definition below).
+  You are allowed to use inhibitory edges (see definition below).
 
 __Petri Nets with Inhibitory Edges.__
 An _Petri Net with inhibitory edges_ $N$ is a 4-tuple $(S, T, W, I)$ where

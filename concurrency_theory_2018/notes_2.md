@@ -101,8 +101,8 @@ or
 digraph PN {
 	rankdir=LR;
     node [shape = circle, fixedsize = true, width = 0.5, fontsize = 30];
-    p1 [ label="" ];
-    p2 [ label=":" ];
+    p1 [ label=":" ];
+    p2 [ label="" ];
     node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15];  t1, t2;
     t2 -> p1;
     p1 -> t1;
@@ -167,7 +167,7 @@ The reachability graph of (A) has two nodes.
 
 In the example (B), the reachability graph is infinite.
 
-#### Example
+#### Example (revisiting `lock-increment-unlock`)
 
 Let look back at the "lock and increment" example from [the first week](viewer.html?md=concurrency_theory_2018/notes_1.md).
 

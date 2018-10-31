@@ -86,17 +86,35 @@ If $I$ is a structural invariant of $N$, $M$ a marking of $N$, and $I^T \cdot M 
 #### Example
 
 Let consider a sightly simplified version of our running example:
-```
-     u   l
-    (∙) ( )
-     ↓ ⤱ ↓
-lock −   − unlock
-     ↑ ↘ ↑ ↘
-|→  ( ) ( ) ( ) → |
-     x   c   y         
+```graphviz
+digraph PN {
+    rankdir=LR;
+    node [shape = circle, fixedsize = true, width = 0.5];
+    p1 [ xlabel="U", label="∙" ];
+    p2 [ xlabel="L", label="" ];
+    p3 [ xlabel="0", label="" ];
+    p4 [ xlabel="1", label="" ];
+    p5 [ xlabel="2", label="" ];
+    node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15];
+    t1 [xlabel="lock" ];
+    t2 [xlabel="unlock" ];
+    t4 [xlabel="spawn" ];
+    t5 [xlabel="exit" ];
+    t4 -> p3;
+    p1 -> t1 [ constraint = false ];
+    p3 -> t1;
+    t1 -> p2;
+    t1 -> p4;
+    p2 -> t2;
+    p4 -> t2;
+    t2 -> p1 [ constraint = false ];
+    t2 -> p5;
+    p5 -> t5;
+    p3 -> p1 [ style = invis];
+}
 ```
 
-With the ordering on the places be $(u, l, x, c, y)$, we have
+With the ordering on the places be $(U, L, 0, 1, 2)$, we have
 
 $C =
 \begin{bmatrix}
@@ -109,16 +127,38 @@ $C =
 
 $I^T = \begin{bmatrix}1 & 0 & 0 & 1 & 0\end{bmatrix}$ is a structural invariant and we have that $I^T\cdot M₀ = 1$.
 
-We can use that to conclude that there is at most 1 token in $c$ and, therefore, mutual exclusion is preserved.
+We can use that to conclude that there is at most 1 token in place $1$ and, therefore, mutual exclusion is preserved.
 
 ### Siphons and Traps
 
 Consider the following net:
-
-```
-   ↗ | ↘              ↗ | ↘
-( )     ( ) → | →  (∙)     ( )
-a  ↖ | ↙  b        c  ↖ | ↙  d
+```graphviz
+digraph PN{
+  rankdir=LR
+  ranksep=0.75;
+  node [shape = circle, fixedsize = true, width = 0.5, fontsize = 15];
+  a [label=" ", xlabel="a" ];
+  b [label=" ", xlabel="b" ];
+  c [label="∙", xlabel="c" ];
+  d [label=" ", xlabel="d" ];
+  node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15, fontsize=15]; 
+  a -> t1;
+  t1 -> b;
+  c -> t3;
+  t3 -> d;
+  b -> t5;
+  t5 -> c;
+  edge [style = invis];
+  a -> t2;
+  t2 -> b;
+  c -> t4;
+  t4 -> d;
+  edge [style = default, constraint = false];
+  b -> t2;
+  t2 -> a;
+  d -> t4;
+  t4 -> c;
+}
 ```
 
 Can $\\{a,b\\}$ receive a token?
@@ -180,14 +220,32 @@ If $Q$ is marked under $M$ then $Q$ is marked under every marking in $R(M)$.
 #### Example
 
 What are the siphons and traps in:
-```
-     u   l
-    (∙) ( )
-     ↓ ⤱ ↓
-lock −   − unlock
-     ↑ ↘ ↑ ↘
-|→  ( ) ( ) ( ) → |
-     x   c   y         
+```graphviz
+digraph PN {
+    rankdir=LR;
+    node [shape = circle, fixedsize = true, width = 0.5];
+    p1 [ xlabel="U", label="∙" ];
+    p2 [ xlabel="L", label="" ];
+    p3 [ xlabel="0", label="" ];
+    p4 [ xlabel="1", label="" ];
+    p5 [ xlabel="2", label="" ];
+    node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15];
+    t1 [xlabel="lock" ];
+    t2 [xlabel="unlock" ];
+    t4 [xlabel="spawn" ];
+    t5 [xlabel="exit" ];
+    t4 -> p3;
+    p1 -> t1 [ constraint = false ];
+    p3 -> t1;
+    t1 -> p2;
+    t1 -> p4;
+    p2 -> t2;
+    p4 -> t2;
+    t2 -> p1 [ constraint = false ];
+    t2 -> p5;
+    p5 -> t5;
+    p3 -> p1 [ style = invis];
+}
 ```
 
 #### Applications of siphons and traps
@@ -249,29 +307,30 @@ Can you find an examples?
 __Free-choice nets.__
 A Petri net is _free-choice_ iff $\forall s, t. W(s, t) = 1 \Rightarrow \forall s^′ \in \mathit{preset}(t), t^′ ∈ \mathit{postset}(s).  W(s^′, t^′) = 1$.
 
-The following patterns are allowed
-```
-( ) → |
-( ) ↗
-```
+The following patterns are allowed:
+* Synchronization:
+  ```
+  ( ) → |
+  ( ) ↗
+  ```
+* Choice:
+  ```
+  ( ) → |
+      ↘ |
+  ```
+* Conflict:
+  ```
+  ( ) → |
+      ⤨
+  ( ) → |
+  ```
 
-```
-( ) → |
-    ↘ |
-```
-
-```
-( ) → |
-    ⤨
-( ) → |
-```
-
-But this is not allowed
-```
-( ) → |
-    ↘
-( ) → |
-```
+But this is not allowed (asymmetric choice/conflict):
+  ```
+  ( ) → |
+      ↘
+  ( ) → |
+  ```
 
 
 __Theorem (Commoner's theorem).__
@@ -344,6 +403,43 @@ Consider the following net:
 ( )     ( ) ← | ← (∙) → | →  ( )     ( )
    ↖ | ↙                        ↖ | ↙
   2
+```
+```graphviz
+digraph PN{
+  rankdir=LR
+  ranksep=0.75;
+  node [shape = circle, fixedsize = true, width = 0.5, fontsize = 15];
+  a [label=" " ];
+  b [label=" " ];
+  c [label=" " ];
+  d [label=" " ];
+  m [label="∙" ];
+  node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15, fontsize=15]; 
+  t1 [xlabel = "t₃"];
+  t2 [xlabel = "t₂"];
+  t3 [xlabel = "t₅"];
+  t4 [xlabel = "t₆"];
+  t5 [xlabel = "t₄"];
+  t6 [xlabel = "t₁"];
+  a -> t1;
+  t1 -> b;
+  c -> t3;
+  t3 -> d;
+  m -> t5;
+  t5 -> c;
+  b -> t6 [dir=both,arrowhead=none,arrowtail=normal];
+  t6 -> m [dir=both,arrowhead=none,arrowtail=normal];
+  edge [style = invis];
+  a -> t2;
+  t2 -> b;
+  c -> t4;
+  t4 -> d;
+  edge [style = default, constraint = false];
+  b -> t2;
+  t2 -> a [xlabel = "2"];
+  d -> t4;
+  t4 -> c;
+}
 ```
 We order the state from left to right.
 For conciseness, we write vector horizontally.

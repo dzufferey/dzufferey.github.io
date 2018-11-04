@@ -398,12 +398,6 @@ TerminationCheck(S,T,W,M₀)
 #### Example
 
 Consider the following net:
-```
-   ↗ | ↘                        ↗ | ↘
-( )     ( ) ← | ← (∙) → | →  ( )     ( )
-   ↖ | ↙                        ↖ | ↙
-  2
-```
 ```graphviz
 digraph PN{
   rankdir=LR
@@ -531,7 +525,7 @@ We can also extend markings to _generalized markings_ which are function from $S
 
 
 _Acceleration._
-Given $M$ and $M′$ with $M′ > M$, we return $M″$ such that:
+Given $M$ and $M'$ with $M' > M$, we return $M″$ such that:
 * $M″(s) = M(s)$ if $M(s) = M′(s)$
 * $M″(s) = ω$ if $M′(s) > M(s)$
 

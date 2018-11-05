@@ -52,7 +52,7 @@ _Task 2._
 
 Vector addition system with states (VASS) are extensions of states machines with counters.
 
-A VASS $V$ is a 5-tuple $(Q, n, δ, i₀)$ where
+A VASS $V$ is a 4-tuple $(Q, n, δ, i₀)$ where
 * $Q$ is a finite set of states
 * $n$ is the dimension of the VASS (number of counters)
 * $δ$ is the transition relation ($Q × ℤ^n × Q$)

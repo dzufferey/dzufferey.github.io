@@ -175,7 +175,7 @@ The `preset` and `postset` generalize to sets of places/transitions by taking th
 
 #### Siphons
 
-A _siphon_ is a set of places $D \subset S$ such that $\mathit{preset}(D) \subset \mathit{postset}(D)$.
+A _siphon_ is a set of places $D ⊆ S$ such that $\mathit{preset}(D) ⊆ \mathit{postset}(D)$.
 
 More concretely, every transition that put a token in a siphon must also take a token from the siphon.
 A siphon that becomes empty stays empty.
@@ -201,7 +201,7 @@ If $D$ is empty under $M$ then $D$ is empty under any marking in $R(M)$.
 Traps are the dual of siphons.
 A marked trap will never become empty.
 
-A _trap_ is a set of places $Q \subset S$ such that $\mathit{postset}(Q) \subset \mathit{preset}(Q)$.
+A _trap_ is a set of places $Q ⊆ S$ such that $\mathit{postset}(Q) ⊆ \mathit{preset}(Q)$.
 
 More concretely, every transition that take a token from a trap must also put a token in the trap.
 

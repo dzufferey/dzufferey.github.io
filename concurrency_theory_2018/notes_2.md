@@ -362,6 +362,7 @@ _Remark._
 Given a verification question of the form: "Is program P correct?"
 * A _sound_ method returns "yes" _only if_ P is correct.
 * A _complete_ method returns "yes" _if_ P is correct.
+
 Sound methods can fail to correctly classify correct programs.
 Complete methods can fail to correctly classify incorrect programs.
 

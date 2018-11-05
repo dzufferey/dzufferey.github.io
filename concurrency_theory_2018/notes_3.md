@@ -10,10 +10,10 @@ _Non-trivial net._
 A Petri net is _non-trivial_ iff there is at least one place and one transition.
 
 _Connected net._
-A Petri net is _connected_ iff the graph defined by `W` has a single connected component.
+A Petri net is _connected_ iff the graph defined by $W$ has a single connected component.
 
-These two assumptions are needed otherwise some elements like the connectivity matrix are ill-defined and some result do not hold.
-Trivial nets are easy to analyze on their own and for the case of _not_ connected nets it is possible to analyze the connected component separately.
+These two assumptions are needed otherwise some elements like the connectivity matrix are ill-defined and some results do not hold.
+Trivial nets are easy to analyze on their own and for the case of _not_ connected nets it is possible to analyze the connected components separately.
 
 
 ## Structural properties
@@ -34,7 +34,7 @@ An invariant must be preserved by all the transitions in the net.
 
 An invariant is _structural_ iff it can be expressed as vector in $I ∈ ℚ^n$ and $I^T \cdot C = 0$ (note that here $0 \in Q^m$).
 
-$I$ is a vector of coefficients for each place such that the transition $M [〉 M^′$ preserves the number of tokens with $I$ as weights: $I^T \cdot M = I^T \cdot M^′ $.
+$I$ is a vector of coefficients for each place such that the transition $M [〉 M'$ preserves the number of tokens with $I$ as weights: $I^T \cdot M = I^T \cdot M' $.
 
 #### Example
 
@@ -186,10 +186,10 @@ We say that a siphon is
 * _empty_ iff $\forall s \in D. M(s) = 0$.
 
 __Theorem.__
-If a siphon $D$ is empty under $M$ then for any $M [〉 M^′$, $D$ is empty under $M^′$.
+If a siphon $D$ is empty under $M$ then for any $M [〉 M'$, $D$ is empty under $M'$.
 
 __Proof.__
-* By contradiction, assume there is a $t$ such that $M [t〉 M^′$ and $D$ is marked under $M^′$.
+* By contradiction, assume there is a $t$ such that $M [t〉 M'$ and $D$ is marked under $M'$.
 * By definition of siphon, $t$ must consume a token from $D$ in $M$.
 * However, by hypothesis $D$ is empty under $M$ and, thus, $t$ is not enabled which gives a contradiction.
 
@@ -206,10 +206,10 @@ A _trap_ is a set of places $Q \subset S$ such that $\mathit{postset}(Q) \subset
 More concretely, every transition that take a token from a trap must also put a token in the trap.
 
 __Theorem.__
-If a trap $Q$ is marked under $M$ then for any $M [〉 M^′$, $Q$ is marked under $M^′$.
+If a trap $Q$ is marked under $M$ then for any $M [〉 M'$, $Q$ is marked under $M'$.
 
 __Proof.__
-By contradiction, assume there is a $t$ such that $M [t〉 M^′$ and $Q$ is empty under $M^′$.
+By contradiction, assume there is a $t$ such that $M [t〉 M'$ and $Q$ is empty under $M'$.
 Therefore, $t$ must have consumed all the token in $Q$.
 
 However, by definition of trap, $t$ must also put at least one token in $Q$ and, thus, $Q$ cannot be empty (contradiction).
@@ -251,7 +251,7 @@ digraph PN {
 #### Applications of siphons and traps
 
 Siphons can offer a quick check for some reachability question.
-For instance, if a siphon empty under $M_0$ then no reachable marking can cover a marking where the siphon is not empty.
+For instance, if a siphon empty under $M₀$ then no reachable marking can cover a marking where the siphon is not empty.
 
 __Assumptions.__
 The following two results are only valid to Petri net where:
@@ -305,7 +305,7 @@ The converse of the propositions above are not true.
 Can you find an examples?
 
 __Free-choice nets.__
-A Petri net is _free-choice_ iff $\forall s, t. W(s, t) = 1 \Rightarrow \forall s^′ \in \mathit{preset}(t), t^′ ∈ \mathit{postset}(s).  W(s^′, t^′) = 1$.
+A Petri net is _free-choice_ iff $\forall s, t. W(s, t) = 1 \Rightarrow \forall s' \in \mathit{preset}(t), t' ∈ \mathit{postset}(s).  W(s', t') = 1$.
 
 The following patterns are allowed:
 * Synchronization:
@@ -355,11 +355,11 @@ For instance, $(0,1)$ and $(1,0)$ are not comparable.
 ### Definition of monotonicity
 
 _Observation._
-Consider $M [t〉 M^′$ and $N \geq M$.
-$t$ is also enabled at $N$ and, if we fire $t$, we get $N [t〉 N^′$ with $N^′ ≥ M^′$.
+Consider $M [t〉 M'$ and $N \geq M$.
+$t$ is also enabled at $N$ and, if we fire $t$, we get $N [t〉 N'$ with $N' ≥ M'$.
 
 __Theorem.__
-$M [t〉M^′  \Rightarrow  (M+N) [t〉 (M^′+N)$
+$M [t〉M'  ⇒  (M+N) [t〉 (M'+N)$
 
 
 More abstractly, monotonicity is usually represented using the following illustration:
@@ -526,8 +526,8 @@ We can also extend markings to _generalized markings_ which are function from $S
 
 _Acceleration._
 Given $M$ and $M'$ with $M' > M$, we return $M″$ such that:
-* $M″(s) = M(s)$ if $M(s) = M′(s)$
-* $M″(s) = ω$ if $M′(s) > M(s)$
+* $M″(s) = M(s)$ if $M(s) = M'(s)$
+* $M″(s) = ω$ if $M'(s) > M(s)$
 
 
 ```

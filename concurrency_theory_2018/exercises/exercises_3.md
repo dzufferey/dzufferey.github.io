@@ -91,7 +91,7 @@ We need to show that a state/marking is reachable in one model iff it is reachab
 Let $N = (S,T,W,M₀)$ be a Petri net and $V = (Q,n,δ,i₀)$ a VASS.
 
 - Assume $V$ is obtained from $N$ by your construction.
-  Give a mapping $m$ from the marking of $N$ to the states of $V$ such that $∀ M'. M₀[〉M' ⇔ m(M) →^* m(M')$ where $[〉$ and $→^*$ are the reflexive and transitive closure of the firing and transition relations.
+  Give a mapping $m$ from the marking of $N$ to the states of $V$ such that $∀ M'. M₀[〉^\*M' ⇔ m(M) →^* m(M')$ where $[〉^\*$ and $→^*$ are the reflexive and transitive closure of the firing and transition relations.
   Prove your $m$ indeed satisfy the condition.
 - Same but for the VASS to Petri net direction.
   As the constructions are different, $m$ can be different.

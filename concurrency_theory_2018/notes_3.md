@@ -346,8 +346,8 @@ We will now introduce some complete procedure for termination, boundedness, and 
 
 ### Ordering on markings
 
-- $N \geq M$ iff $\forall s. N(s) \geq M(s)$
-- $N > M$ iff $\forall s. N(s) \geq M(s) \land \exists s. N(s) > M(s)$
+- $N ≥ M$ iff $∀ s.\ N(s) ≥ M(s)$
+- $N > M$ iff $∀ s.\ N(s) ≥ M(s) ∧ ∃ s.\ N(s) > M(s)$
 
 $\geq$ is not a total order.
 For instance, $(0,1)$ and $(1,0)$ are not comparable.
@@ -466,7 +466,7 @@ Let us look in more details at the first one:
   1. there is no infinite decreasing chain, and
   2. there is no infinite antichain (sequence where all the elements are incomparable).
 * In a decreasing chain, at each step at least one of the places must have less token. Since we have a finite number of places and we cannot have negative token, it is not possible to decrease forever.
-* In an antichain, all the states are incomparable... This is part of the homework and the solution will be given next week when we discuss WSTS.
+* In an antichain, all the states are incomparable... next week when we discuss well-quasi-order this will follow easily.
 
 
 ### Boundedness

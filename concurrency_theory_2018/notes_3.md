@@ -114,7 +114,7 @@ digraph PN {
 }
 ```
 
-With the ordering on the places be $(U, L, 0, 1, 2)$, we have
+With the ordering on the places be $(U, L, 0, 1, 2)$, and the ordering on transitions $(\mathit{lock}, \mathit{unlock}, \mathit{spawn}, \mathit{exit})$, we have
 
 $C =
 \begin{bmatrix}
@@ -141,7 +141,7 @@ digraph PN{
   b [label=" ", xlabel="b" ];
   c [label="∙", xlabel="c" ];
   d [label=" ", xlabel="d" ];
-  node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15, fontsize=15]; 
+  node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15, fontsize=15];
   a -> t1;
   t1 -> b;
   c -> t3;
@@ -177,10 +177,10 @@ The `preset` and `postset` generalize to sets of places/transitions by taking th
 
 A _siphon_ is a set of places $D ⊆ S$ such that $\mathit{preset}(D) ⊆ \mathit{postset}(D)$.
 
-More concretely, every transition that put a token in a siphon must also take a token from the siphon.
+More concretely, every transition that puts a token in a siphon must also take a token from the siphon.
 A siphon that becomes empty stays empty.
 
-We say that a siphon is
+We say that a siphon $D$ is
 * _proper_ iff $D \neq \emptyset$,
 * _marked_ under $M$ iff $\exists s \in D. M(s) > 0$, and
 * _empty_ iff $\forall s \in D. M(s) = 0$.
@@ -408,7 +408,7 @@ digraph PN{
   c [label=" " ];
   d [label=" " ];
   m [label="∙" ];
-  node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15, fontsize=15]; 
+  node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15, fontsize=15];
   t1 [xlabel = "t₃"];
   t2 [xlabel = "t₂"];
   t3 [xlabel = "t₅"];
@@ -538,7 +538,7 @@ KarpMillerTree(S,T,W,M₀)
         choose M in F
         F ← F ∖ {M}
         for each t ∈ T with t enabled at M and M′ such that M [t〉 M′
-            ancestors ← path between M₀ and M′ in E
+            ancestors ←  { A | A can reach M in E } ∪ M
             M′ ← accelerate(ancestors, M′)
             E ← E ∪ { (M,M′) }
             if ∀ A ∈ ancestors. not(A ≥ M′) then

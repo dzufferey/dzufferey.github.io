@@ -5,7 +5,7 @@
 ### Definitions
 
 __Notation.__
-Ordering relations are defined w.r.t. a set of element, e.g., $(X,≤)$ where $X$ is elements ordered by $≤$.
+Ordering relations are defined w.r.t. a set of elements, e.g., $(X,≤)$ where $X$ is a set of elements ordered by $≤$.
 For simplicity, we usually omit $X$.
 
 A _quasiorder_ (QO) $≤$ is binary relation that is
@@ -28,10 +28,8 @@ __Remarks.__
 * Quasiorders are also called preorders.
 * Linear orders are also called total orders.
 
-A binary relation $R$ is _well-founded_ over a set $X$ iff $∀ S ⊆ X.\ S ≠ ∅ ⇒ ∃ m ∈ S.\ ∀ s ∈ S.\ ¬R(s, m)$.
-($m$ is a minimal element of $S$.)
 
-A _well-quasi-ordering_ (WQO) $≤$ is a binary relation that is a QO such that, for any infinite sequence $x₀~x₁~x₂ …$, there exists indices $i$, $j$ with $i < j$ such that $x_i ≤ x_j$.
+A _well-quasi-ordering_ (WQO) $≤$ is a binary relation that is a QO such that, for any infinite sequence $x₀~x₁~x₂ …$, there exist indices $i$, $j$ with $i < j$ such that $x_i ≤ x_j$.
 
 
 #### Examples
@@ -49,13 +47,13 @@ A _well-quasi-ordering_ (WQO) $≤$ is a binary relation that is a QO such that,
 ### Properties of WQO
 
 __Lemma.__
-If $≤$ is a WQO then there is no infinite antichain.
-(An antichain is a set of elements which are all incomparable.)
+If $(X, ≤)$ is a WQO then there is no infinite antichain.
+(An antichain is a set of elements that are all incomparable.)
 
 _proof._
-* By contradiction, assume $X$ is an infinite antichain.
-* Applying the definition of WQO on $X$ gives two elements $x_i$, and $x_j$ with $x_i ≤ x_j$.
-* Therefore, $X$ is not an antichain. (Contradiction.)
+* By contradiction, assume $C \subseteq X$ is an infinite antichain.
+* Applying the definition of WQO on $X$ gives two elements $x_i$, and $x_j$ from $C$ with $x_i ≤ x_j$.
+* Therefore, $C$ is not an antichain. (Contradiction.)
 
 
 __Lemma.__
@@ -66,6 +64,9 @@ _proof._
 * Because $≤$ is a WQO, $M$ is finite.
 * Any $x_i$ such that $∀ j ∈ M.\ j < i$ can start an infinite increasing subsequence. (We can always continue the sequence, otherwise the last element's index would be in $M$.)
 
+__Definition.__
+A binary relation $R$ is _well-founded_ over a set $X$ iff $∀ S ⊆ X.\ S ≠ ∅ ⇒ ∃ m ∈ S.\ ∀ s ∈ S.\ ¬R(s, m)$.
+($m$ is a minimal element of $S$.)
 
 __Lemma.__
 If $≤$ is a WQO over $X$ then $<$ is well-founded over $X$.
@@ -86,7 +87,7 @@ Given a QO $≤$, if $<$ is well-founded and $≤$ does not have infinite antich
 _proof._
 * By contradiction, assume $≤$ is not a wqo.
 * Then there exists an infinite sequence $x₀ x₁ x₂ …$ where $∀ i j. i < j ⇒ x_i ≰ x_j$.
-* Let $M = \\{ i ~|~ ∀ j > i.\ x_i ≱ x_j \\}$. $M$ is the set of indices of elements which do not have any smaller successors in the chain.
+* Let $M = \\{ i ~|~ ∀ j > i.\ x_i ≱ x_j \\}$. $M$ is the set of indices of elements that don't have any smaller successors in the chain.
 * Case split on whether $M$ is finite or infinite:
   - If $M$ is infinite then it forms an infinite antichain which contradicts the assumption.
   - If $M$ is finite then there is $k = max(M)$.

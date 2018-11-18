@@ -73,12 +73,15 @@ If $≤$ is a WQO over $X$ then $<$ is well-founded over $X$.
 ($x < y$ means $x ≤ y ∧ y ≰ x$.)
 
 _proof._
-* By contradiction, assume $<$ is not well-founded.
-* Therefore, there is $S ≠ ∅$ such that $∀ m ∈ S. ∃ s ∈ S. s < m$. (Notice that $S$ must be an infinite set.)
-* Let pick an element $s₀ ∈ S$ and construct an infinite descending chain $s₀ > s₁ > s₂ > …$. We can always find a smaller element because $S$ is not well-founded.
-* Therefore, $s₀ > s₁ > s₂ > …$ does not contains any $i$ and $j$ with $i < j$ and $s_i ≤ s_j$.
-* Beacsue $S ⊆ X$ and $S$ contains $s₀ > s₁ > s₂ > …$, $X$ has an infinite descending chain.
-* Therefore, $≤$ is not a WQO. (Contradiction.)
+- By contradiction, assume $<$ is not well-founded.
+- Therefore, there is $S ≠ ∅$ such that $∀ m ∈ S. ∃ s ∈ S. s < m$.
+  * Case 1: $X$ is a finite set
+    - Notice that $S$ must be an infinite set because for any element there is always a new strictly smaller element. (Contradiction.)
+  * Case 2: $X$ is a finite set
+    - Let pick an element $s₀ ∈ S$ and construct an infinite descending chain $s₀ > s₁ > s₂ > …$. We can always find a smaller element because $S$ is not well-founded.
+    - Therefore, $s₀ > s₁ > s₂ > …$ does not contains any $i$ and $j$ with $i < j$ and $s_i ≤ s_j$.
+    - Because $S ⊆ X$ and $S$ contains $s₀ > s₁ > s₂ > …$, $X$ has an infinite descending chain.
+    - Therefore, $≤$ is not a WQO. (Contradiction.)
 
 
 __Lemma.__

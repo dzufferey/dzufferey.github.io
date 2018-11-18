@@ -178,15 +178,15 @@ Concretely, this means we can represent upward-closed sets by their minimal elem
 
 
 __Lemma.__
-If $≤$ is a WQO then any infinite increasing sequence of upward-closed sets $X₀ ⊆ X₁ ⊆ X₂ ⊆ …$ eventually stabilizes, i.e., there is a $k$ such that $∀ i.\ i > k ⇒ X_i = X_k$.
+If $≤$ is a WQO then any infinite increasing sequence of upward-closed sets $X₀ ⊇ X₁ ⊇ X₂ ⊇ …$ eventually stabilizes, i.e., there is a $k$ such that $∀ i.\ i > k ⇒ X_i = X_k$.
 
 _proof._
-* By contradiction, assume that we have $X₀ ⊆ X₁ ⊆ X₂ ⊆ …$ which does not stabilizes.
-* By removing equal elements, we get an infinite subsequence $Y₀ ⊂ Y₁ ⊂ Y₂ ⊂ …$ which does not stabilizes.
-* From this sequence, create an infinite sequence of elements $y₀ …$ such that $y_i ∈ Y_{i+1} ∖ Y_i$.
-* Because $Y$s are upward-closed, $y₀ …$ cannot contain an infinite increasing subsequence.
-* Because $≤$ is a WQO, $y₀ …$ cannot contain an infinite decreasing sequence.
-* Therefore the sequence $y₀ …$ contains an infinite antichain which contradicts the WQO hypothesis.
+* By contradiction, assume that we have $X₀ ⊇ X₁ ⊇ X₂ ⊇ …$ which does not stabilizes.
+* By removing equal elements, we get an infinite subsequence $Y₀ ⊃ Y₁ ⊃ Y₂ ⊃ …$ which does not stabilizes.
+* From this sequence, create an infinite sequence of elements $y₀ ~ y₁ ~ …$ such that $y_i ∈ Y_{i+1} ∖ Y_i$.
+* Because $Y$s are upward-closed, $∀ i j.~ i < j ⇒ y_i ≰ y_j. Therefore, $y₀ ~ y₁ ~ …$ cannot contain an infinite increasing subsequence.
+* Because $≤$ is a WQO, $y₀ ~ y₁ ~ …$ cannot contain an infinite decreasing sequence.
+* Therefore the sequence $y₀ ~ y₁ ~ …$ contains an infinite antichain which contradicts the WQO hypothesis.
 
 
 ## Transition systems (TS)
@@ -221,7 +221,7 @@ In this class we are only dealing with finitely branching TS.
 
 A _well-structured transition system_ $\mathcal{S}$ is a triple $\mathcal{S} = (S,→,≤)$ such that:
 * $(S,→)$ is a TS
-* $≤$ is a WQO over $S$
+* $(S,≤)$ is a WQO
 * compatibility: $∀ x₁ x₂ y₁.\ ∃ y₂.\ x₁ → x₂ ∧ x₁ ≤ y₁ ⇒ y₁ →^* y₂ ∧ x₂ ≤ y₂$.
 
 #### Different kinds of compatibility/simulation
@@ -231,7 +231,7 @@ We can identify a few variations:
 
 * strict: $∀ x₁ x₂ y₁.\ ∃ y₂.\ \ x₁ → x₂ ∧ x₁ < y₁ ~⇒~ y₁ →^* y₂ ∧ x₂ < y₂$ (caveat: this does not always imply compatibility)
 * strong: $∀ x₁ x₂ y₁.\ ∃ y₂.\ \ x₁ → x₂ ∧ x₁ ≤ y₁ ~⇒~ y₁ → y₂ ∧ x₂ ≤ y₂$
-* stuttering: $∀ x₁ x₂ y₁.\ ∃ \text{ sequence } y₂ … y_n.\ \ x₁ → x₂ ∧ x₁ ≤ y₁  ~⇒~  y₁ → … → y_n  ∧  x₂ ≤ y_n  ∧  ∀ i < n.\ x₁ ≤ y_i$
+* stuttering: $∀ x₁ x₂ y₁.\ ∃ \text{ sequence } y₂ … y_n.\ \ x₁ → x₂ ∧ x₁ ≤ y₁  ~⇒~  y₁ → … → y_n  ∧  x₂ ≤ y_n  ∧  ∀ i.\ i < n ⇒ x₁ ≤ y_i$
 * …
 
 __Lemma.__
@@ -248,9 +248,13 @@ As exercise.
 
 #### Examples
 
-PN is strict, strong, and even has the same transition labelling...
+Petri nets have strict, strong compatibility and the transition even has the same transition labelling.
 
-FA is strict, strong, and even has the same transition labelling...
+Finite automatons have strict, strong compatibility and the transition even has the same transition labelling.
+
+What about Transfer nets?
+
+What about Reset nets?
 
 
 ## Covering problem (revisited)
@@ -260,15 +264,13 @@ $(\mathcal{S},s₀)$ can _cover_ $t$ if there is $s'$ such that $s₀ →^* s'$ 
 
 The covering problem generalizes from single target state $t$ to set of states $T$ with $∃ t ∈ T.\ s' ≥ t$.
 
-It can be rewritten as $s₀ →^* s'$ and $s' ∈ ↑T$.
+It can be rewritten as $s₀ →^* s'$ and $s' ∈ ↑T$ or $s₀ ∈ \mathit{pre}^*(↑T)$.
 
-Another equivalent formulation is $s₀ ∈ \mathit{pre}^*(↑T)$.
-
-If $T=↑T$ (upward-closed) then $\mathit{pre}^*(T) = \mathit{pre}^*(↑T)$ and covering is the same as reachability.
+If $T=↑T$ (upward-closed) then $\mathit{pre}^\*(T) = \mathit{pre}^\*(↑T)$ and covering is the same as reachability.
 
 ## Set saturation algorithm
 
-Let $\mathit{pre}^*(I)$ be the limit of the sequence $I₀ ⊆ I₁ ⊆ I₂ ⊆ …$ where $I₀ = I$ and $I_{n+1} = I_n ∪ \mathit{pre}(I_n)$.
+Let $\mathit{pre}^p*(I)$ be the limit of the sequence $I₀ ⊇ I₁ ⊇ I₂ ⊇ …$ where $I₀ = I$ and $I_{n+1} = I_n ∪ \mathit{pre}(I_n)$.
 
 __Lemma.__
 Given a WSTS $(S,→,≤)$ and $T ⊆ S$ if $T$ is upward-closed then $\mathit{pre}^*(T)$ is upward-closed.
@@ -277,7 +279,7 @@ _proof._
 * Assume that $s ∈ \mathit{pre}^*(T)$, $s→^*t$, and $t ∈ T$.
 * By monotonicity (and induction if more than one transition), for any $s' ≥ s$ then we can find $t'$, $s'→^* t'$ and $t' ≥ t$.
 * Because $T$ is upward-closed $t' ∈ T$.
-* Therefore $s' ∈ \mathit{pre}^*(T)$ which means $\mathit{pre}^*(T)$ is upward-closed.
+* Therefore $s' ∈ \mathit{pre}^\*(T)$ which means $\mathit{pre}^\*(T)$ is upward-closed.
 
 _Remark._
 The stronger version "if $T$ is upward-closed then $\mathit{pre}(T)$ is upward-closed" is only true for WSTS with stuttering compatibility.
@@ -295,11 +297,11 @@ Consider the following Petri net:
    ↖ | ↙
   2
 ```
-Let compute `↑pre(↑(0 1))`:
-* if the top transition did fire then the previous state was in `↑(1 0)`
-* if the bottom transition did fire then the previous state was in `↑(0 2)`
+Let compute $↑pre(↑(0 ~ 1))$:
+* if the top transition did fire then the previous state was in $↑(1 ~ 0)$
+* if the bottom transition did fire then the previous state was in $↑(0 ~ 2)$
 
-So `↑pre(↑(0 1)) = ↑(1 0) ∪ ↑(0 2)`.
+So $↑pre(↑(0 ~ 1)) = ↑(1 ~ 0) ∪ ↑(0 ~ 2)$.
 
 ```
   2
@@ -307,11 +309,11 @@ So `↑pre(↑(0 1)) = ↑(1 0) ∪ ↑(0 2)`.
 ( )     (∙)
    ↖ | ↙
 ```
-Let compute `↑pre(↑(0 1))`:
-* if the top transition did fire then the previous state was in `↑(2 0)`
-* if the bottom transition did fire then the previous state was in `↑(0 2)`
+Let compute $↑pre(↑(0 ~ 1))$:
+* if the top transition did fire then the previous state was in $↑(2 ~ 0)$
+* if the bottom transition did fire then the previous state was in $↑(0 ~ 2)$
 
-So `↑pre(↑(0 1)) = ↑(2 0) ∪ ↑(0 2)`.
+So $↑pre(↑(0 ~ 1)) = ↑(2 ~ 0) ∪ ↑(0 ~ 2)$.
 
 
 ### Algorithm for the covering problem
@@ -338,23 +340,23 @@ _proof._
   Assume that the loop executes $m$ times.
   $M_m$ is the last value computed by the algorithm.
   We extend the sequence of $M_i$ with $M_i = M_m$ for $i ≥ m$.
-  - _proposition (1)_: $M_m = ↑M_m = ⋃_{i ∈ ℕ} M_i = ⋃_{i ∈ ℕ} ↑pre^i(↑ T)$ by induction on $i$
+  - _proposition (1)_: $M_m = ↑M_m = \bigcup_{i ∈ ℕ} M_i = \bigcup_{i ∈ ℕ} ↑pre^i(↑ T)$ by induction on $i$
     * $i = 0$: $M₀ = ↑T = ↑pre^0(↑ T)$ (1st line of the algorithm)
     * $i → i+1$:
 
       case 1: $i < m$:
       - $M_{i+1} = M_i ∪ ↑pre(↑M_i)$ (5th line of the algorithm)
-      - $M_{i+1} = ⋃_{0≤j≤i} ↑pre^j(↑T) ∪ ↑pre(↑⋃_{0≤j≤i} ↑pre^j(↑T))$ (induction hypothesis)
-      - $M_{i+1} = ⋃_{0≤j≤i} ↑pre^j(↑T) ∪ ⋃_{1≤j≤i+1} ↑pre^j(↑T)$ (distributing $↑pre(↑_)$ over $⋃$)
-      - $M_{i+1} = ⋃_{0≤j≤i} ↑pre^j(↑T) ∪ ↑pre^{i+1}(↑T)$ ($X ∪ X = X$)
+      - $M_{i+1} = \bigcup_{0≤j≤i} ↑pre^j(↑T) ∪ ↑pre(↑\bigcup_{0≤j≤i} ↑pre^j(↑T))$ (induction hypothesis)
+      - $M_{i+1} = \bigcup_{0≤j≤i} ↑pre^j(↑T) ∪ \bigcup_{1≤j≤i+1} ↑pre^j(↑T)$ (distributing $↑pre(↑\\_)$ over $\bigcup$)
+      - $M_{i+1} = \bigcup_{0≤j≤i} ↑pre^j(↑T) ∪ ↑pre^{i+1}(↑T)$ ($X ∪ X = X$)
 
       case 2: $i ≥ m$:
-      - The sequence has stabilized so $M_{i+1} = M_{i}$ and $↑pre^{i+1}(↑ T) ⊆ ⋃_{i ∈ ℕ} ↑pre^i(↑ T)$.
+      - The sequence has stabilized so $M_{i+1} = M_{i}$ and $↑pre^{i+1}(↑ T) ⊆ \bigcup_{i ∈ ℕ} ↑pre^i(↑ T)$.
       - The rest follows with a bit of algebra and $X ⊆ Y ⇒ X ∪ Y = Y$.
-  - _proposition (2)_: $M_m = pre*(↑T)$
-    * $M_m = ⋃_{i ∈ ℕ} ↑pre^i(↑ T) = ↑pre^*(↑T)$ by proposition (1).
-    * $pre^*(↑T) = ↑pre^*(↑T)$ by lemma above.
-  - The algorithm returns $s₀ ∈ M_m = pre^*(↑T)$ and, therefore, solves the covering problem.
+  - _proposition (2)_: $M_m = pre^\*(↑T)$
+    * $M_m = \bigcup_{i ∈ ℕ} ↑pre^i(↑ T) = ↑pre^\*(↑T)$ by proposition (1).
+    * $pre^\*(↑T) = ↑pre^\*(↑T)$ by lemma above.
+  - The algorithm returns $s₀ ∈ M_m = pre^\*(↑T)$ and, therefore, solves the covering problem.
 
 
 ## Examples

@@ -92,7 +92,7 @@ We have two cases:
   - Therefore, $x₀ x₁ …$ is an infinite antichain and it contradicts the hypothesis.
 
 While this proof is quite simple it is not constructive, constructive proof are more involved.
-See Theorem 3.3 in [Well Behaved Transition Systems](https://arxiv.org/pdf/1608.02636.pdf) such a proof.
+See Theorem 3.3 in [Well Behaved Transition Systems](https://arxiv.org/pdf/1608.02636.pdf) for a constructive proof.
 
 
 ### Ideals as limits
@@ -100,7 +100,7 @@ See Theorem 3.3 in [Well Behaved Transition Systems](https://arxiv.org/pdf/1608.
 We can decompose downward-closed sets into a finite number of ideal, but each ideal can still be an infinite set.
 To make it possible to use ideals, we need to give a "finite representation of each ideal".
 
-In the case of Petri nets, we can use $(ℕ + ω)^n$ to represent ideals.
+In the case of Petri nets, we can use $(ℕ ∪ \\{ω\\})^n$ to represent ideals.
 For instance, in the Karp-Miller algorithm a generalized marking $(1 ~ 2 ~ ω)$ represents the ideal $↓1 × ↓2 × ℕ$.
 
 To have an efficient representation of downward-closed set, we want to decompose them in maximal ideals:
@@ -108,7 +108,7 @@ $$$
 \mathit{IdealDecomposition}(D) = \\{ I ~|~ I ∈ Idl(X) ∧ I ⊆ D ∧ (∀ J ∈ Idl(X).\ I≠J ∧ J ⊆ D ⇒ I ⊈ J)\\}$
 $$$
 
-By the theorem above, it exists and must be finite.
+By the theorem above, the decomposition exists and must be finite.
 
 
 ## Karp-Miller tree generalization challenge: comparing sets
@@ -178,7 +178,7 @@ The case of upward-closed sets is similar:
 * $∀ p.\ ∀ p'. p' ∈ P ∧ p' ≤ p ⇒ ∃ q. q ∈ Q ∧ q ≤ p$
 * $∀ p.\ p ∈ P ⇒ ∃ q. q ∈ Q ∧ q ≤ p$                     by case split on $p=p'$ and simplification
 * $∀ p ∈ P. ∃ q ∈ Q. q ≤ p$
-* $Q ⊑ P$                                                by definition of $⊑$
+* $Q ⊑ P$                                                __definition of $⊑$__
 
 This lead to the $⊑$ relation is often found in the literature about ordering on sets.
 The $⊑$ applies on any kind of sets, not only upward-closed but on upward-closed sets it matches inclusion.

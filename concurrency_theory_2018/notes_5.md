@@ -16,7 +16,7 @@ A _labeled WSTS_ is a 4 tuple $(S,Σ,→,≤)$ with:
 * $Σ$ is a finite set of labels,
 * $→ ⊆ S × Σ × S$ is a transition relation,
 * $≤$ is a WQO over $S$,
-* strong monotonicity respecting labels: $∀ x₁ a x₂ y₁. ∃ y₂. →(x₁, a, x₂) ∧ x₁ ≤ y₁ ⇒ →(y₁, a, y₂) ∧ x₂ ≤ y₂$.
+* strong monotonicity respecting labels: $∀ x₁ a x₂ y₁. ∃ y₂. x₁ \stackrel{a}{→} x₂ ∧ x₁ ≤ y₁ ⇒ y₁ \stackrel{a}{→} y₂ ∧ x₂ ≤ y₂$.
 
 _Notation._
 For the transitions, we write $→(x₁, a, x₂)$ or $x₁ \stackrel{a}{→} x₂$ for $(x₁, a, x₂) ∈ →$.

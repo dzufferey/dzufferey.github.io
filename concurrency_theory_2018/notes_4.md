@@ -128,7 +128,7 @@ By induction on $k$:
 
 Let $w₁$ and $w₂$ be two finite sequences.
 $w₁$ is a _subsequence_ of $w₂$ if it is possible to obtain $w₁$ from by deleting some characters of $w₂$.
-More formally, there is an injective mapping $f$ from $[0, |w₂|)$ to $[0, |w₁|)$ such that:
+More formally, there is an injective mapping $f$ from $[0, |w₁|)$ to $[0, |w₂|)$ such that:
 *  $∀ i j.\ i < j ⇒ f(i) < f(j)$
 *  $∀ i.\ w₁[i] = w₂[f(i)]$
 

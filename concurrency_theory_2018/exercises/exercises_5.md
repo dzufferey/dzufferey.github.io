@@ -4,6 +4,7 @@ _Instructions_
 * Due *before* November 27 (you can send them until Monday night).
 * Send your solution by email to Simin Oraee.
 * You can work in groups up to 3 people, be sure to include the names of all the participants.
+* For the proofs, please try to be precise. When possible, try to copy the style in the lecture notes: sequences of facts and how you derived them.
 * You can submit your solution in pdf or text format and any other source file.
   If you have more than one file place all your files in a single archive (zip or tar.gz).
 

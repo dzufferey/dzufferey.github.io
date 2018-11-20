@@ -178,13 +178,13 @@ Concretely, this means we can represent upward-closed sets by their minimal elem
 
 
 __Lemma.__
-If $≤$ is a WQO then any infinite increasing sequence of upward-closed sets $X₀ ⊇ X₁ ⊇ X₂ ⊇ …$ eventually stabilizes, i.e., there is a $k$ such that $∀ i.\ i > k ⇒ X_i = X_k$.
+If $≤$ is a WQO then any infinite increasing sequence of upward-closed sets $X₀ ⊆ X₁ ⊆ X₂ ⊆ …$ eventually stabilizes, i.e., there is a $k$ such that $∀ i.\ i > k ⇒ X_i = X_k$.
 
 _proof._
-* By contradiction, assume that we have $X₀ ⊇ X₁ ⊇ X₂ ⊇ …$ which does not stabilizes.
-* By removing equal elements, we get an infinite subsequence $Y₀ ⊃ Y₁ ⊃ Y₂ ⊃ …$ which does not stabilizes.
+* By contradiction, assume that we have $X₀ ⊆ X₁ ⊆ X₂ ⊆ …$ which does not stabilizes.
+* By removing equal elements, we get an infinite subsequence $Y₀ ⊂ Y₁ ⊂ Y₂ ⊂ …$ which does not stabilizes.
 * From this sequence, create an infinite sequence of elements $y₀ ~ y₁ ~ …$ such that $y_i ∈ Y_{i+1} ∖ Y_i$.
-* Because $Y$s are upward-closed, $∀ i j.~ i < j ⇒ y_i ≰ y_j. Therefore, $y₀ ~ y₁ ~ …$ cannot contain an infinite increasing subsequence.
+* Because $Y$s are upward-closed, $∀ i j.~ i < j ⇒ y_i ≰ y_j$. Therefore, $y₀ ~ y₁ ~ …$ cannot contain an infinite increasing subsequence.
 * Because $≤$ is a WQO, $y₀ ~ y₁ ~ …$ cannot contain an infinite decreasing sequence.
 * Therefore the sequence $y₀ ~ y₁ ~ …$ contains an infinite antichain which contradicts the WQO hypothesis.
 
@@ -270,7 +270,7 @@ If $T=↑T$ (upward-closed) then $\mathit{pre}^\*(T) = \mathit{pre}^\*(↑T)$ an
 
 ## Set saturation algorithm
 
-Let $\mathit{pre}^p*(I)$ be the limit of the sequence $I₀ ⊇ I₁ ⊇ I₂ ⊇ …$ where $I₀ = I$ and $I_{n+1} = I_n ∪ \mathit{pre}(I_n)$.
+Let $\mathit{pre}^\*(I)$ be the limit of the sequence $I₀ ⊆ I₁ ⊆ I₂ ⊆ …$ where $I₀ = I$ and $I_{n+1} = I_n ∪ \mathit{pre}(I_n)$.
 
 __Lemma.__
 Given a WSTS $(S,→,≤)$ and $T ⊆ S$ if $T$ is upward-closed then $\mathit{pre}^*(T)$ is upward-closed.
@@ -439,6 +439,6 @@ We have that:
 __Kruskal's theorem.__
 Over the finite trees with nodes labeled by elements of a WQO, inf-embedding is a WQO.
 
-Without proof for the moment, maybe in a later lecture.
+Without proof.
 
 The longuest non ascending chain in this ordering is mind-bogglingly long as explain in the following two videos about `TREE(3)`: https://www.youtube.com/watch?v=3P6DWAwwViU, https://www.youtube.com/watch?v=IihcNa9YAPk

@@ -34,7 +34,10 @@ $
 It is possible to relax the definition of strong monotonicity to the simple monotonicity.
 This is not needed unless the system has silent transitions, usually written $τ$.
 
-A labeled WSTS has _strong-strict monotonicity_ is it has strong monotonicity and at the same time: $∀ x₁ a x₂ y₁.\ ∃ y₂.\ x₁ \stackrel{a}{→}x₂ ∧ x₁ < y₁ ⇒  y₁ \stackrel{a}{→}y₂ ∧ x₂ < y₂$.
+A labeled WSTS has _strong-strict monotonicity_ is it has strong monotonicity and at the same time:
+\\[
+ ∀ x₁ a x₂ y₁.\ ∃ y₂.\ x₁ \stackrel{a}{→}x₂ ∧ x₁ < y₁ ⇒  y₁ \stackrel{a}{→}y₂ ∧ x₂ < y₂
+\\]
 
 For simplicity, in this documents we write WSTS for labeled WSTS.
 
@@ -84,7 +87,7 @@ _Proof._
 By contradiction, assume that there is no such sequence.
 We have two cases:
 * It is not possible to decompose $D$ into ideals.
-  $⋃_{d ∈ D} ↓d$ is a trivial (but potentially infinite) decomposition into ideals, so this case cannot happen.
+  $\bigcup_{d ∈ D} ↓d$ is a trivial (but potentially infinite) decomposition into ideals, so this case cannot happen.
 * It is only possible to decompose $D$ into an infinite number of ideals ($I₀ I₁ …$).
   - Without loss of generality, assumes that $∀ i,j. i≠j ⇒ I_i ⊈ I_j$.
   - From the sequence of ideals, we can create a sequence of elements $x₀ x₁ …$ such that $∀ i,j.\ x_i ∈ I_i ∧ (i≠j ⇒ x_i ∉ I_j)$.
@@ -104,9 +107,9 @@ In the case of Petri nets, we can use $(ℕ ∪ \\{ω\\})^n$ to represent ideals
 For instance, in the Karp-Miller algorithm a generalized marking $(1 ~ 2 ~ ω)$ represents the ideal $↓1 × ↓2 × ℕ$.
 
 To have an efficient representation of downward-closed set, we want to decompose them in maximal ideals:
-$$$
-\mathit{IdealDecomposition}(D) = \\{ I ~|~ I ∈ Idl(X) ∧ I ⊆ D ∧ (∀ J ∈ Idl(X).\ I≠J ∧ J ⊆ D ⇒ I ⊈ J)\\}$
-$$$
+\\[
+\mathit{IdealDecomposition}(D) = \\{ I ~|~ I ∈ Idl(X) ∧ I ⊆ D ∧ (∀ J ∈ Idl(X).\ I≠J ∧ J ⊆ D ⇒ I ⊈ J)\\}
+\\]
 
 By the theorem above, the decomposition exists and must be finite.
 
@@ -193,28 +196,30 @@ Let $X_R = \\{(m, n) ∈ ℕ² ~|~ m < n\\}$.
 
 Visually this space is the region covered by `·` in the plot:
 ```
-⋮ ⋮ ⋮ ⋮ ⋮
-3 · · ·
-2 · ·
-1 ·
-0
-  0 1 2 3 ⋯
+  ⋮ ⋮ ⋮ ⋮ ⋮
+  3 · · ·
+  2 · ·
+  1 ·
+  0
+n   0 1 2 3 ⋯
+/ m
 ```
 
 Let $(m₀,n₀) ≤_R (m₁,n₁)$ iff $(m₀=m₁ ∧ n₀≤n₁) ∨ n₀<m₁$.
 
 For instance, $↑(1,3)$ corresponds to the element marked by `x`:
 ```
-⋮   ⋮     ⋮ ⋮ ⋮  
-7 · x · · x x x  
-6 · x · · x x  
-5 · x · · x  
-4 · x · ·  
-3 · x ·  
-2 · ·
-1 ·
-0
-  0 1 2 3 4 5 6 ⋯
+  ⋮   ⋮     ⋮ ⋮ ⋮  
+  7 · x · · x x x  
+  6 · x · · x x  
+  5 · x · · x  
+  4 · x · ·  
+  3 · x ·  
+  2 · ·
+  1 ·
+  0
+n   0 1 2 3 4 5 6 ⋯
+/ m
 ```
 
 __Proposition.__
@@ -233,30 +238,32 @@ In particular, consider the following set $ψ_i = \bigcup_{0≤k<i} ↑(k,i)$.
 
 Visually $ψ₂$ looks like:
 ```
-⋮ ⋮ ⋮   ⋮ ⋮ ⋮ ⋮  
-7 x x · x x x x  
-6 x x · x x x  
-5 x x · x x  
-4 x x · x  
-3 x x ·  
-2 x x
-1 ·
-0
-  0 1 2 3 4 5 6 ⋯
+  ⋮ ⋮ ⋮   ⋮ ⋮ ⋮ ⋮  
+  7 x x · x x x x  
+  6 x x · x x x  
+  5 x x · x x  
+  4 x x · x  
+  3 x x ·  
+  2 x x
+  1 ·
+  0
+n   0 1 2 3 4 5 6 ⋯
+/ m
 ```
 
 Visually $ψ₃$ looks like:
 ```
-⋮ ⋮ ⋮ ⋮   ⋮ ⋮ ⋮  
-7 x x x · x x x  
-6 x x x · x x  
-5 x x x · x  
-4 x x x ·  
-3 x x x  
-2 · ·
-1 ·
-0
-  0 1 2 3 4 5 6 ⋯
+  ⋮ ⋮ ⋮ ⋮   ⋮ ⋮ ⋮  
+  7 x x x · x x x  
+  6 x x x · x x  
+  5 x x x · x  
+  4 x x x ·  
+  3 x x x  
+  2 · ·
+  1 ·
+  0
+n   0 1 2 3 4 5 6 ⋯
+/ m
 ```
 
 __Proposition.__
@@ -312,8 +319,8 @@ BQO are a subclass of WQO closed under infinitary operations.
 
 __Theorems.__
 * A BQO is a WQO.
-* $(X,≤)$ is a BQO then $(X^k,componentwise ordering)$ is a BQO.
-* $(X,≤)$ is a BQO then $(X^\*,lexicographic ordering)$ is a BQO.
+* $(X,≤)$ is a BQO then $(X^k,\text{componentwise ordering})$ is a BQO.
+* $(X,≤)$ is a BQO then $(X^\*,\text{lexicographic ordering})$ is a BQO.
 * $(X,≤)$ is a BQO then $(2^X,⊑)$ is a BQO (powerset).
 
 The definition is quite technical so we are skipping it, but is can easily be found online.
@@ -356,10 +363,10 @@ It will help us prove the soundness of the algorithm.
 This is captured by the following proposition:
 
 __Proposition.__
-Let $\mathcal{S} = (S,Σ,→,≤)$ be a WSTS with strong monotonicity and its completion$\mathcal{C} = (Idl(S),Σ,⇝,⊆)$.
-$$$
+Let $\mathcal{S} = (S,Σ,→,≤)$ be a WSTS with strong monotonicity and its completion $\mathcal{C} = (Idl(S),Σ,⇝,⊆)$.
+\\[
     ∀ x,y ∈ S, w ∈ Σ*, I ∈ Idl(S). →(x,w,y) ∧ x ∈ I  ⇒  ∃ J ∈ Idl(S). y ∈ J ∧ ⇝(I, w, J)
-$$$
+\\]
 
 _Proof._
 By induction on $w$
@@ -378,9 +385,9 @@ This is captured by the following proposition:
 
 __Proposition.__
 Let $\mathcal{S} = (S,Σ,→,≤)$ be a WSTS with strong monotonicity and its completion $\mathcal{C} = (Idl(S),Σ,⇝,⊆)$.
-$$$
-    ∀ I,J ∈ Idl(S),\ w ∈ Σ*.\ ∃ y ∈ S. ⇝(I, w, J) ∧ y ∈ J  ⇒  ∃ x ∈ I. y' ∈ S. →(x, w, y') ∧ y ≤ y'
-$$$
+\\[
+    ∀ I,J ∈ Idl(S),\ w ∈ Σ^\*.\ ∃ y ∈ S. ⇝(I, w, J) ∧ y ∈ J  ⇒  ∃ x ∈ I. y' ∈ S. →(x, w, y') ∧ y ≤ y'
+\\]
 
 _Proof._
 By induction on $w$:
@@ -396,9 +403,9 @@ Putting both propositions together, we get the following:
 
 __Theorem.__
 Let $\mathcal{S} = (S,Σ,→,≤)$ be a WSTS with strong monotonicity and its completion $ \mathcal{C} = (Idl(S),Σ,⇝,⊆)$.
-$$$
-    ∀ I ∈ Idl(S), w ∈ Σ*. ↓post_\mathcal{S}(I, w) = ⋃_{J ∈ post_\mathcal{C}(I, w)} J
-$$$
+\\[
+    ∀ I ∈ Idl(S), w ∈ Σ^\*. ↓post_\mathcal{S}(I, w) = \bigcup_{J ∈ post_\mathcal{C}(I, w)} J
+\\]
 
 _Proof._
 Two parts ($⊆$, $⊇$):
@@ -485,22 +492,30 @@ An infinite sequence of ideals $I₀ I₁ I₂ …$ is an _acceleration candidat
 Let $S = (S,Σ,→,≤)$ be a WSTS with completion $C$ and $C$ has strong-strict monotonicity.
 Let $w ∈ Σ*$ and $I ∈ Idl(S)$.
 The _acceleration_ of $I$ under $w$ is:
-```
-                ⎧ ⋃_{k∈ℕ} post_C^k(I,w)     if I ⊂ post_C(I,w)
-post_C^∞(I,w) = ⎨
-                ⎩ I                         otherwise
-```
+\\[
+post_C^∞(I,w) = 
+\left\\{
+\begin{array}{ll}
+   \bigcup_{k∈ℕ} post_C^k(I,w)  & \quad  \text{if} ~~ I ⊂ post_C(I,w)  \\\\
+   I                            & \quad \text{otherwise}
+\end{array}
+\right.
+\\]
 
 By definition of $post_C^∞$ and $post_C$ ($⇝$), the acceleration of an ideal is also an ideal.
 
 Notice that acceleration only does something on acceleration candidates.
 We can try to capture what acceleration by ordering ideals in _acceleration levels_ such that acceleration takes an ascending chain from one level and returns an ideal of the next level.
 
-```
-            ⎧ Idl(X)    if n = 0
-lvl(X, n) = ⎨
-            ⎩ { 𝓘 | 𝓘 = ⋃_{k∈ℕ} I_k where I_k ∈ lvl(X, n-1) and I₀ I₁ I₂ … is an acceleration candidate }   if n > 0
-```
+\\[
+lvl(X, n) =
+\left\\{
+\begin{array}{ll}
+   Idl(X)                       & \quad  \text{if} ~~ n = 0  \\\\
+   \\{ \mathcal{I} | \mathcal{I} = \bigcup_{k∈ℕ} I_k ~~ \text{where} ~~ I_k ∈ lvl(X, n-1) ~~ \text{and} ~~ I₀ ~ I₁~ I₂ ~ … ~~ \text{is an acceleration candidate} \\} & \quad \text{if} ~~ n > 0
+\end{array}
+\right.
+\\]
 
 #### Example
 In the case of generalized markings in Petri net, a level of $n$ means that the marking contains at least n $ω$ elements.

@@ -53,7 +53,7 @@ For brevity, the messages are written as triple `(sender, symbol, receiver)`.
 To have more compact definitions, we will have one fist part which is shared among all the variations and then we will have multiple variations.
 
 
-A system of communicating state machines is a pair $(Σ, \bigcup_{i∈[1;N]} M_i)$ where
+A system of communicating state machines is a pair $(Σ, M_1 … M_N)$ where
 * $Σ$ finite set of messages shared among all the machines
 * each $M_i$ is a DFA/NFA $(id_i, S_i, (ID × ! × Σ) ∪ (? × Σ) , →_i, s₀_i)$ with
   - $id_i$ is an unique ID for this particular machine (the ID is used to send messages to that particular machine.)

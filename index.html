@@ -140,41 +140,64 @@
       <a class="hidden" href="publications.json"></a>
     </div>
   </div>
+  <p>
+  <a href="https://scholar.google.de/citations?user=DM1nCKsAAAAJ">Google Scholar</a> has citation metrics for my publications.
+  </p>
 </div>
 
 <div class="container separation"></div>
 
 <div class="container" id="sec-proj">
-  <h2>Projects</h2>
-  <div class="list-group">
-    <a href="https://github.com/dzufferey/psync" class="list-group-item">
-      <h4 class="list-group-item-heading">PSync</h4>
-      <p class="list-group-item-text">
-      Fault-tolerant distributed systems play an important role in many critical applications.
-      However, concurrency, uncertain message delays, and the occurrence of faults make those systems hard to design, implement, and verify.
-      PSync is a framework for writing and verifying high-level implementations of fault-tolerant distributed algorithms.
-      PSync is based on the Heard-Of model and provides communication-closed rounds as primitive, which both simplifies the implementation of the fault-tolerant systems, and makes them more amenable to automated verification.
-      </p>
-    </a>
-    <a href="https://github.com/aleksandarmilicevic/react-lang" class="list-group-item">
-      <h4 class="list-group-item-heading">REACT</h4>
-      <p class="list-group-item-text">
-      REACT is a domain specific language / library to simplify the programming of robots and remove much of the boiler-plate code.
-      The basic building blocks of REACT are finite state machine (for the control structure), periodic controller, and event handlers.
-      Furthermore, REACT includes a model checker to test safety properties of robotic systems.
-      </p>
-    </a>
-    <a href="https://cs.nyu.edu/wies/software/grasshopper/" class="list-group-item">
-      <h4 class="list-group-item-heading">GRASShopper</h4>
-      <p class="list-group-item-text">
-      GRASShopper is an experimental verification tool for programs that
-      manipulate dynamically allocated data structures. GRASShopper programs
-      can be annotated with specifications expressed in a decidable
-      specification logic to check functional correctness properties. The
-      logic supports mixing of separation logic and first-order logic
-      assertions, yielding expressive yet concise specifications.
-      </p>
-    </a>
+  <ul class="nav nav-tabs">
+    <li class="navbar-text"><h2>Research:</h2></li>
+    <li class="active"><a data-toggle="tab" href="#research-project"><h2>Current Projects</h2></a></li>
+    <li>               <a data-toggle="tab" href="#research-group"><h2>Group</h2></a></li>
+    <li>               <a data-toggle="tab" href="#research-tools"><h2>Tools</h2></a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="research-project" class="tab-pane fade in active">
+      <div class="list-group">
+        <a href="https://github.com/dzufferey/psync" class="list-group-item">
+          <h4 class="list-group-item-heading">PSync</h4>
+          <p class="list-group-item-text">
+          Fault-tolerant distributed systems play an important role in many critical applications.
+          However, concurrency, uncertain message delays, and the occurrence of faults make those systems hard to design, implement, and verify.
+          PSync is a framework for writing and verifying high-level implementations of fault-tolerant distributed algorithms.
+          PSync is based on the Heard-Of model and provides communication-closed rounds as primitive, which both simplifies the implementation of the fault-tolerant systems, and makes them more amenable to automated verification.
+          </p>
+        </a>
+        <a href="https://cs.nyu.edu/wies/software/grasshopper/" class="list-group-item">
+          <h4 class="list-group-item-heading">GRASShopper</h4>
+          <p class="list-group-item-text">
+          GRASShopper is an experimental verification tool for programs that
+          manipulate dynamically allocated data structures. GRASShopper programs
+          can be annotated with specifications expressed in a decidable
+          specification logic to check functional correctness properties. The
+          logic supports mixing of separation logic and first-order logic
+          assertions, yielding expressive yet concise specifications.
+          </p>
+        </a>
+      </div>
+    </div>
+    <div id="research-group" class="tab-pane fade">
+      <h3>Students</h3>
+      <ul>
+        <li><a href="https://www.mpi-sws.org/people/mpirron/">Marcus Pirron</a></li>
+        <li><a href="https://people.mpi-sws.org/~mathur/">Aman Shankar Mathur</a> (co-advised with Rupak Majumdar)</li>
+      </ul>
+    </div>
+    <div id="research-tools" class="tab-pane fade">
+      <p></p>
+      <ul>
+        <li><a href="https://github.com/dzufferey/psync">PSync</a>: DSL for fault-tolerant distributed algorithms using partially-synchronous communication-closed rounds.</li>
+        <li><a href="https://cs.nyu.edu/wies/software/grasshopper/">GRASShopper</a>: a verification tool that checks separation logic specifications of heap manipulating programs.</li>
+        <li><a href="./picasso/">Picasso</a>: a PI-CAlculuS-based SOftware analyzer.</li>
+        <li><a href="http://pub.ist.ac.at/automata_tutor/">Automata Tutor</a>: a website for teaching automata theory to undergraduate students. Later the project was taken over by groups at UPenn and UIUC and became <a href="http://www.automatatutor.com/">http://www.automatatutor.com/</a></li>
+        <li><a href="http://pub.ist.ac.at/~cernyp/colt/">CoLT</a>: Concurrency using Lockstep Tool, a tool for model checking of linearizability of concurrent data structure implementations.</li>
+        <li><a href="https://github.com/dzufferey/csisat/">CSIsat</a>: Constraint Solving for Interpolation, a tool to compute Craig interpolant in QF LA+EUF.</li>
+        <li><a href="http://mtc.epfl.ch/software-tools/blast/">Blast</a>: Berkeley Lazy Abstraction Software Verification Tool.</li>
+      </ul>
+    </div>
   </div>
 </div>
 
@@ -246,22 +269,6 @@
       </ul>
     </div>
   </div>
-</div>
-
-<div class="container separation"></div>
-
-<div class="container" id="sec-tools">
-<h2>Tools</h2>
-
-<ul>
-  <li><a href="https://github.com/dzufferey/psync">PSync</a>: DSL for fault-tolerant distributed algorithms using partially-synchronous communication-closed rounds.</li>
-  <li><a href="https://cs.nyu.edu/wies/software/grasshopper/">GRASShopper</a>: a verification tool that checks separation logic specifications of heap manipulating programs.</li>
-  <li><a href="./picasso/">Picasso</a>: a PI-CAlculuS-based SOftware analyzer.</li>
-  <li><a href="http://pub.ist.ac.at/automata_tutor/">Automata Tutor</a>: a website for teaching automata theory to undergraduate students. Later the project was taken over by groups at UPenn and UIUC and became <a href="http://www.automatatutor.com/">http://www.automatatutor.com/</a></li>
-  <li><a href="http://pub.ist.ac.at/~cernyp/colt/">CoLT</a>: Concurrency using Lockstep Tool, a tool for model checking of linearizability of concurrent data structure implementations.</li>
-  <li><a href="https://github.com/dzufferey/csisat/">CSIsat</a>: Constraint Solving for Interpolation, a tool to compute Craig interpolant in QF LA+EUF.</li>
-  <li><a href="http://mtc.epfl.ch/software-tools/blast/">Blast</a>: Berkeley Lazy Abstraction Software Verification Tool.</li>
-</ul>
 </div>
 
 <div class="container separation"></div>

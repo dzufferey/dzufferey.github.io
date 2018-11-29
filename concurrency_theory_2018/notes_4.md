@@ -291,11 +291,23 @@ A WSTS has an _effective pred-basis_ if there is an algorithm to compute $↑\ma
 #### Example for Petri net
 
 Consider the following Petri net:
-```
-   ↗ | ↘
-( )     (∙)
-   ↖ | ↙
-  2
+```graphviz
+digraph PN{
+  rankdir=LR
+  ranksep=0.75;
+  node [shape = circle, fixedsize = true, width = 0.5, fontsize = 15];
+  p1 [label="" ];
+  p2 [label="∙" ];
+  node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15, fontsize=15];  
+  p1 -> t1;
+  t1 -> p2;
+  edge [style = invis];
+  p1 -> t2;
+  t2 -> p2;
+  edge [style = default, constraint = false];
+  p2 -> t2;
+  t2 -> p1 [xlabel = "2"];
+}
 ```
 Let compute $↑pre(↑(0 ~ 1))$:
 * if the top transition did fire then the previous state was in $↑(1 ~ 0)$
@@ -303,11 +315,23 @@ Let compute $↑pre(↑(0 ~ 1))$:
 
 So $↑pre(↑(0 ~ 1)) = ↑(1 ~ 0) ∪ ↑(0 ~ 2)$.
 
-```
-  2
-   ↗ | ↘
-( )     (∙)
-   ↖ | ↙
+```graphviz
+digraph PN{
+  rankdir=LR
+  ranksep=0.75;
+  node [shape = circle, fixedsize = true, width = 0.5, fontsize = 15];
+  p1 [label="" ];
+  p2 [label="∙" ];
+  node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15, fontsize=15];  
+  p1 -> t1 [label = "2"];
+  t1 -> p2;
+  edge [style = invis];
+  p1 -> t2;
+  t2 -> p2;
+  edge [style = default, constraint = false];
+  p2 -> t2;
+  t2 -> p1;
+}
 ```
 Let compute $↑pre(↑(0 ~ 1))$:
 * if the top transition did fire then the previous state was in $↑(2 ~ 0)$
@@ -403,33 +427,51 @@ $T₁$ is inf-embeddable in $T₂$ if there is an injective mapping $f$ from the
 For instance, Let us look at the following 3 trees:
 
 $T₁$:
-```
-  r
- ↗
-b
- ↘
-  b
+```graphviz
+digraph tree{
+  rankdir=LR
+  ranksep=0.75;
+  node [shape = circle, style = filled, label = ""];
+  r [fillcolor = red];
+  b1, b2 [fillcolor = blue];
+  b1 -> r;
+  b1 -> b2;
+}
 ```
 
 $T₂$:
-```
-  r
- ↗
-b   r
- ↘ ↗
-  g→b
+```graphviz
+digraph tree{
+  rankdir=LR
+  ranksep=0.75;
+  node [shape = circle, style = filled, label = ""];
+  b1, b2 [fillcolor = blue];
+  r1, r2 [fillcolor = red];
+  g1 [fillcolor = green];
+  b1 -> r1;
+  b1 -> g1;
+  g1 -> r2;
+  g1 -> b2;
+}
 ```
 
 $T₃$:
-```
-  r
- ↗
-g   g
- ↘ ↗
-  b→b
+```graphviz
+digraph tree{
+  rankdir=LR
+  ranksep=0.75;
+  node [shape = circle, style = filled, label = ""];
+  r1 [fillcolor = red];
+  g1, g2 [fillcolor = green];
+  b1, b2 [fillcolor = blue];
+  g1 -> r1;
+  g1 -> b1;
+  b1 -> g2;
+  b1 -> b2;
+}
 ```
 
-In the pictures above, the letter is the color from the WQO $(\\{r,g,b\\}, =)$.
+In the pictures above, the letter is the color from the WQO $(\\{\textcolor{red}{red},\textcolor{green}{green},\textcolor{blue}{blue}\\}, =)$.
 
 We have that:
 * $T₁ ≤ T₂$

@@ -3,7 +3,7 @@
 LCS are just another name for CSM with unbounded p2p lossy FIFO channels.
 
 
-## Embedding on words and Monotonicity
+## Embedding on Words
 
 Let us recall some results seen in [notes 4](notes_4.md).
 
@@ -21,10 +21,68 @@ We can generalize the subsequence relation to _embedding_ by relaxing the second
 However, since we will apply the embedding on channels with a finite number of different messages, $=$ will be sufficient.
 
 __Higman's lemma.__
-The embedding relation over finite sequences of well-quasi-ordered elements is a WQO.
+The embedding relation over finite sequences of well-quasi-ordered elements $(X,≤)$ is a WQO.
+
+Before we can prove the lemma, we need some extra definitions and lemmas.
+The proof is adapted from [these notes by Ian Hodkinson](http://www.doc.ic.ac.uk/~imh/papers/bar.pdf).
+
+Given a quasiorder $(X,≤)$, a _bad sequence_ is an infinite sequence $x₀ ~ x₁ …$ such that $∀ i j.~ i < j ⇒ x_i ≰ x_j$.
+A WQO is a quasiorder without bad sequence.
+
+A sequence is _minimal bad_ iff it is bad and for any $i$ there is no bad sequence $x₀ ~ x₁ ~ … ~ x_{i-1} ~ y_i ~ y_{i+1} …$ with $y_n < x_n$.
+For all prefix of the sequence, it is not possible to extend the sequence to a bad sequence with a smaller element.
+
+__Proposition.__
+If $(X,≤)$ is a quasiorder with $<$ well-founded but not a WQO then it contains a minimal bad sequence.
 
 _Proof._
-TODO ...
+* Let us construct a minimal bad sequence.
+* base case:
+  - Pick $x₀$ a minimal element which extends to a bad sequence.
+    Such element must exists because because $(X,≤)$ is not a WQO (it contains bad sequences) and since $<$ is well-founded any set has a minimal element.
+    $x₀$ is a minimum in the set of elements starting a bad sequence.
+* inductions step: we have a prefix $x₀…x_{n-1}$
+  - Chose $x_n$ to be a minimal element among the set of elements such that $x₀…x_n$ extends to a bad sequence.
+  Such element exsits by the same reasoning as above.
+
+__Proposition.__
+Let $(X,≤)$ be a quasiorder with $<$ well-founded and $x₀ ~ x₁ …$ be a minimal bad sequence.
+Define the set $Y = \\{ x ∈ X ~|~ ∃ i. x < x_i \\}$.
+$(Y,≤)$ is a WQO.
+
+_Proof._
+* By contradiction: assume $(Y,≤)$ is not a WQO.
+* Let $y₀ ~ y₁ … $ be a bad sequence in $Y$.
+* Let $i$ be the minimal $i$ such that $∃ j.~ y_j < x_i$.
+* The sequence $x₀ … x_{i-1} ~ y_j ~ y_{j+1} … $ is bad:
+  - The $x$ prefix comes from a bad sequence so it cannot contains increasing elements.
+  - The $y$ suffix comes from a bad sequence so it cannot contains increasing elements.
+  - We are left with comparing element from accross $x$ and $y$:
+    * By contradiction to the badness: assume $x_m < y_n$ for some $m < i$ and $n ≥ j$.
+    * This contradicts the minimality of $i$.
+* $x₀ … x_{i-1} ~ y_j ~ y_{j+1} … $ contradicts the minimality of $x₀ ~ x₁ …$
+
+__Proposition.__
+Strict embedding is a well-founded relation over finite words from a WQO letters.
+
+_Proof Sketch._
+To make a infinite descending chain, we must makes (1) some letter in the word smaller or (2) make the word shorter.
+(1) can only be done finitely often because the letter are WQO.
+(2) can only be done finitely often until we get the empty word.
+
+_Proof of Higman's lemma._
+1. Embedding is a quasiorder:
+  * Embedding is reflexive: use identity as $f$ in the definition of embedding.
+  * Embedding is transitive: let $f$ and $f'$ the mapping in $x ≤ y$ and $y ≤ y$, $f'∘f$ define an embedding for $x ≤ z$.
+2. Embedding does not contains bad sequences:
+  * By contradiction: assume $x₀~x₁…$ is a minimal bad sequence.
+    * All the words in the sequence are non-empty because the empty word is smaller than any word and it cannot appear in a bad sequence.
+    * For each word $x_i$, we split the head and tail of the word.
+    * Let $Y = ∪_i tail(x_i)$. Y is a WQO because of $tail(x_i) < x_i$ and the proposition above.
+    * Because $Y$ is WQO, $Y$ contains a infnite increasing sequence $tail(x_{f(0)}) ≤ tail(x_{f(1)}) ≤ …$
+    * Because $(X,≤)$ is a WQO the sequence $head(x_{f(0)}) ~ head(x_{f(1)}) …$ contains $i<j$ with $head(x_{f(i)}) ≤ head(x_{f(j)})$.
+    * Therefore, $x_{f(i)} ≤ x_{f(j)}$ by mapping the mapping the first element of $x_{f(i)}$ to the first of $x_{f(j)}$ and using the mapping from $tail(x_{f(i)}) ≤ tail(x_{f(j)})$ for the rest.
+    * This contradicts the badness of $x₀~x₁…$
 
 __Corollary.__
 Given a finite alphabet $Σ$, the subsequence ordering is a WQO.
@@ -343,73 +401,3 @@ We can construct such sequences with
 
 However, in practice, this type of analysis has been applied to non-trivial protocols like the alternating bit protocol.
 
-# Equivalence of processes: simulation, symmetric simulation, and bisimulation
-
-Until now, we have discuss properties of systems through the lens of reachability properties, e.g., can a system get to a particular state.
-
-Other types of questions we may want to ask  are
-* How does a system interact with his environment? (its input/output behaviors)
-* What it means for two systems to be equivalent? or implement the same interface?
-
-Surely, two different implementations of the same protocol can have different states, so comparing them using state-based properties is not possible.
-Simulation relations for labeled systems try to answer such questions.
-
-## Labeled Transition Systems
-
-A _labeled transition systems_ (LTS) is a triple $(S,Σ,→)$ with:
-* $S$ is a set of states (can be infinite),
-* $Σ$ is a finite set of labels (the alphabet),
-* $→ ⊆ S × Σ × S$ is a transition relation.
-
-## Simulation relations
-
-We already saw an instance of simulation with the compatibility of WSTS.
-In this case, it was a particular case of simulation relation within the same process.
-However, this idea is more general and applicable to different processes.
-
-Let $A$, $B$ be two LTS with the same alphabet $Σ$.
-A _simulation relation_ $R$ a relation between the states of $A$ and $B$ with the following property:
-$∀ a ∈ Σ,~ s_A,t_A ∈ S_A,~ s_B ∈ S_B.~ R(s_A, s_B) ∧ s_A \stackrel{a}{→_A} t_A ⇒ ∃ t_B ∈ S_B.~ s_B \stackrel{a}{→_B} t_B ∧ R(t_A, t_B)$.
-
-If both $R$ and its inverse $R⁻¹$ are simulation relations then $R$ is a bisimulation.
-
-We say that $A$ simulates $B$ if there is a simulation relation between $B$ and $A$ that covers all the reachable states of $B$ and relates the initials states of $A$ and $B$.
-
-For two systems $A$ and $B$, it is possible to have $A$ simulating $B$, $B$ simulating $A$, and $A$,$B$ are not bisimilar.
-
-__Example.__
-Let us look at the following NFAs:
-* $A$:
-  ```graphviz
-  digraph finite_state_machine {
-      rankdir=LR;
-      node [shape = circle];
-      init [shape = none, label = ""];
-      init -> a;
-      a -> b [ label = "a" ];
-      b -> c [ label = "b" ];
-      c -> b [ label = "a" ];
-      a -> d [ label = "a" ];
-      d -> d [ label = "a,b" ];
-  }
-  ```
-* $B$:
-  ```graphviz
-  digraph finite_state_machine {
-      rankdir=LR;
-      node [shape = circle];
-      init [shape = none, label = ""];
-      init -> 0;
-      0 -> 1 [ label = "a" ];
-      1 -> 2 [ label = "b" ];
-      2 -> 1 [ label = "a" ];
-      0 -> 3 [ label = "a" ];
-      3 -> 3 [ label = "a,b" ];
-  }
-  ```
-
-$A$ simulates $B$ with the following simulation relation: ${(0,a), (1,d), (2,d), (3,d)}$.
-
-$B$ simulates $A$ with the following simulation relation: ${(a,0), (b,3), (c,3), (d,3)}$.
-
-However, $A$ and $B$ are not bisimilar.

@@ -440,142 +440,96 @@ In the example below, the _sender_ process tries to transmit the sequence `ABB` 
 Let us first look at a trace with reliable FIFO channels.
 
 __Reliable FIFO trace.__
-* initial state
-  - sender:   state `ε`,    messages: `ε`
-  - receiver: state `ε`,    messages: `ε`
-* sender sending `(A,0)`
-  - sender:   state `A`,    messages: `ε`
-  - receiver: state `ε`,    messages: `(A,0)`
-* receiver receiving `(A,0)`
-  - sender:   state `A`,    messages: `ε`
-  - receiver: state `Aa`,   messages: `ε`
-* receiver sending `Ack0`
-  - sender:   state `A`,    messages: `Ack0`
-  - receiver: state `A`,    messages: `ε`
-* sender receiving `Ack0`
-  - sender:   state `Aa`,   messages: `ε`
-  - receiver: state `A`,    messages: `ε`
-* sender sending `(B,1)`
-  - sender:   state `AB`,   messages: `ε`
-  - receiver: state `A`,    messages: `(B,1)`
-* receiver receiving `(B,1)`
-  - sender:   state `AB`,   messages: `ε`
-  - receiver: state `ABa`,  messages: `ε`
-* receiver sending `Ack1`
-  - sender:   state `AB`,   messages: `Ack1`
-  - receiver: state `AB`,   messages: `ε`
-* sender receiving `Ack1`
-  - sender:   state `ABa`,  messages: `ε`
-  - receiver: state `AB`,   messages: `ε`
-* sender sending `(B,0)`
-  - sender:   state `ABB`,  messages: `ε`
-  - receiver: state `AB`,   messages: `(B,0)`
-* receiver receiving `(B,0)`
-  - sender:   state `ABB`,  messages: `ε`
-  - receiver: state `ABBa`, messages: `ε`
-* receiver sending `Ack0`
-  - sender:   state `ABB`,  messages: `Ack0`
-  - receiver: state `ABB`,  messages: `ε`
-* sender receiving `Ack0`
-  - sender:   state `Done`, messages: `ε`
-  - receiver: state `ABB`,  messages: `ε`
+| Action                        | Sender state  | Sender mailbox    | Receiver state    | Receiver mailbox  |
+| ----------------------------- | ------------- | ----------------- | ----------------- | ----------------  |
+| Initial state                 | `ε`           | `ε`               | `ε`               | `ε`               |
+| Sender sending `(A,0)`        | `A`           | `ε`               | `ε`               | `(A,0)`           |
+| Receiver receiving `(A,0)`    | `A`           | `ε`               | `Aa`              | `ε`               |
+| Receiver sending `Ack0`       | `A`           | `Ack0`            | `A`               | `ε`               |
+| Sender receiving `Ack0`       | `Aa`          | `ε`               | `A`               | `ε`               |
+| Sender sending `(B,1)`        | `AB`          | `ε`               | `A`               | `(B,1)`           |
+| Receiver receiving `(B,1)`    | `AB`          | `ε`               | `ABa`             | `ε`               |
+| Receiver sending `Ack1`       | `AB`          | `Ack1`            | `AB`              | `ε`               |
+| Sender receiving `Ack1`       | `ABa`         | `ε`               | `AB`              | `ε`               |
+| Sender sending `(B,0)`        | `ABB`         | `ε`               | `AB`              | `(B,0)`           |
+| Receiver receiving `(B,0)`    | `ABB`         |  `ε`              | `ABBa`            | `ε`               |
+| Receiver sending `Ack0`       | `ABB`         | `Ack0`            | `ABB`             | `ε`               |
+| Sender receiving `Ack0`       | `Done`        | `ε`               | `ABB`             | `ε`               |
 
 __Lossy FIFO trace.__
-* initial state
-  - sender:   state `ε`,    messages: `ε`
-  - receiver: state `ε`,    messages: `ε`
-* sender sending `(A,0)`
-  - sender:   state `A`,    messages: `ε`
-  - receiver: state `ε`,    messages: `(A,0)`
-* network dropping `(A,0)`
-  - sender:   state `A`,    messages: `ε`
-  - receiver: state `ε`,    messages: `ε`
-* sender sending `(A,0)`
-  - sender:   state `A`,    messages: `ε`
-  - receiver: state `ε`,    messages: `(A,0)`
-* sender sending `(A,0)`
-  - sender:   state `A`,    messages: `ε`
-  - receiver: state `ε`,    messages: `(A,0)·(A,0)`
-* receiver receiving `(A,0)`
-  - sender:   state `A`,    messages: `ε`
-  - receiver: state `Aa`,   messages: `(A,0)`
-* receiver sending `Ack0`
-  - sender:   state `A`,    messages: `Ack0`
-  - receiver: state `A`,    messages: `(A,0)`
-* receiver receiving `(A,0)`
-  - sender:   state `A`,    messages: `Ack0`
-  - receiver: state `Aa`,   messages: `ε`
-* receiver sending `Ack0`
-  - sender:   state `A`,    messages: `Ack0·Ack0`
-  - receiver: state `A`,    messages: `ε`
-* sender receiving `Ack0`
-  - sender:   state `Aa`,   messages: `Ack0`
-  - receiver: state `A`,    messages: `ε`
-* sender sending `(B,1)`
-  - sender:   state `AB`,   messages: `Ack0`
-  - receiver: state `A`,    messages: `(B,1)`
-* sender receiving `Ack0`
-  - sender:   state `AB`,   messages: `ε`
-  - receiver: state `A`,    messages: `(B,1)`
-* …
+| Action                        | Sender state  | Sender mailbox    | Receiver state    | Receiver mailbox  |
+| ----------------------------- | ------------- | ----------------- | ----------------- | ----------------  |
+| Initial state                 | `ε`           | `ε`               | `ε`               | `ε`               |
+| Sender sending `(A,0)`        | `A`           | `ε`               | `ε`               | `(A,0)`           |
+| Network dropping `(A,0)`      | `A`           | `ε`               | `ε`               | `ε`               |
+| Sender sending `(A,0)`        | `A`           | `ε`               | `ε`               | `(A,0)`           |
+| Sender sending `(A,0)`        | `A`           | `ε`               | `ε`               | `(A,0)⋅(A,0)`     |
+| Receiver receiving `(A,0)`    | `A`           | `ε`               | `Aa`              | `(A,0)`           |
+| Receiver sending `Ack0`       | `A`           | `Ack0`            | `A`               | `(A,0)`           |
+| Receiver receiving `(A,0)`    | `A`           | `Ack0`            | `Aa`              | `ε`               |
+| Receiver sending `Ack0`       | `A`           | `Ack0⋅Ack0`       | `A`               | `ε`               |
+| Sender receiving `Ack0`       | `Aa`          | `Ack0`            | `A`               | `ε`               |
+| Sender sending `(B,1)`        | `AB`          | `Ack0`            | `A`               | `(B,1)`           |
+| Sender receiving `Ack0`       | `AB`          | `ε`               | `A`               | `ε`               |
+| …                             | …             | …                 | …                 | …                 |
 
 With retransmission, traces can get quite a bit more complicated but the protocol still works as expected
 
 __Reliable out-of-order (bag) trace.__
-* initial state
-  - sender:   state `ε`,    messages: `∅`
-  - receiver: state `ε`,    messages: `∅`
-* sender sending `(A,0)`
-  - sender:   state `A`,    messages: `∅`
-  - receiver: state `ε`,    messages: `{(A,0)}`
-* sender sending `(A,0)`
-  - sender:   state `A`,    messages: `∅`
-  - receiver: state `ε`,    messages: `{(A,0), (A,0)}`
-* receiver receiving `(A,0)`
-  - sender:   state `A`,    messages: `∅`
-  - receiver: state `Aa`,   messages: `{(A,0)}`
-* receiver sending `Ack0`
-  - sender:   state `A`,    messages: `{Ack0}`
-  - receiver: state `A`,    messages: `{(A,0)}`
-* sender receiving `Ack0`
-  - sender:   state `Aa`,   messages: `∅`
-  - receiver: state `A`,    messages: `{(A,0)}`
-* sender sending `(B,1)`
-  - sender:   state `AB`,   messages: `∅`
-  - receiver: state `A`,    messages: `{(A,0), (B,1)}`
-* receiver receiving `(B,1)`
-  - sender:   state `AB`,   messages: `∅`
-  - receiver: state `ABa`,  messages: `{(A,0)}`
-* receiver sending `Ack1`
-  - sender:   state `AB`,   messages: `{Ack1}`
-  - receiver: state `AB`,   messages: `{(A,0)}`
-* sender receiving `Ack1`
-  - sender:   state `ABa`,  messages: `∅`
-  - receiver: state `AB`,   messages: `{(A,0)}`
-* sender sending `(B,0)`
-  - sender:   state `ABB`,  messages: `∅`
-  - receiver: state `AB`,   messages: `{(A,0), (B,0)}`
-* receiver receiving `(A,0)`
-  - sender:   state `ABB`,  messages: `∅`
-  - receiver: state `ABAa`, messages: `{(B,0)}`
-* receiver sending `Ack0`
-  - sender:   state `ABB`,  messages: `Ack0`
-  - receiver: state `ABA`,  messages: `{(B,0)}`
-* sender receiving `Ack0`
-  - sender:   state `Done`, messages: `∅`
-  - receiver: state `ABA`,  messages: `{(B,0)}`
-* receiver receiving `(B,0)`
-  - sender:   state `Done`, messages: `∅`
-  - receiver: state `ABAa`, messages: `∅`
-* receiver sending `Ack0`
-  - sender:   state `Done`, messages: `Ack0`
-  - receiver: state `ABA`,  messages: `∅`
-* sender receiving `Ack0`
-  - sender:   state `Done`, messages: `∅`
-  - receiver: state `ABA`,  messages: `∅`
+| Action                        | Sender state  | Sender mailbox    | Receiver state    | Receiver mailbox  |
+| ----------------------------- | ------------- | ----------------- | ----------------- | ----------------  |
+| Initial state                 | `ε`           | `∅`               | `ε`               | `∅`               |
+| Sender sending `(A,0)`        | `A`           | `∅`               | `ε`               | `{(A,0)}`         |
+| Sender sending `(A,0)`        | `A`           | `∅`               | `ε`               | `{(A,0),(A,0)}`   |
+| Receiver receiving `(A,0)`    | `A`           | `∅`               | `Aa`              | `{(A,0)}`         |
+| Receiver sending `Ack0`       | `A`           | `{Ack0}`          | `A`               | `{(A,0)}`         |
+| Sender receiving `Ack0`       | `Aa`          | `ε`               | `A`               | `{(A,0)}`         |
+| Sender sending `(B,1)`        | `AB`          | `ε`               | `A`               | `{(A,0),(B,1)}`   |
+| Receiver receiving `(B,1)`    | `AB`          | `ε`               | `ABa`             | `{(A,0)}`         |
+| Receiver sending `Ack1`       | `AB`          | `{Ack1}`          | `AB`              | `{(A,0)}`         |
+| Sender receiving `Ack1`       | `ABa`         | `ε`               | `AB`              | `{(A,0)}`         |
+| Sender sending `(B,0)`        | `ABB`         | `ε`               | `AB`              | `{(A,0),(B,0)}`   |
+| Receiver receiving `(A,0)`    | `ABB`         |  `ε`              | `ABAa`            | `{(B,0)}`         |
+| Receiver sending `Ack0`       | `ABB`         | `Ack0`            | `ABA`             | `ε`               |
+| Sender receiving `Ack0`       | `Done`        | `ε`               | `ABA`             | `ε`               |
 
 In this instance, the receiver process did received `ABA` instead of `ABB`.
 This shows that ABP requires FIFO channel.
+
+## Extensions
+
+We will now discuss two simple extensions which does not actually increase the power of the model.
+
+### Receiving From Specific Sender
+
+In the case of p2p communication, we can have receive of the form $(ID×?×Σ)$, e.g., `q?a` for receiving message `a` from `q`.
+The receive rule can be adapted to:
+\\[{
+M[i] \stackrel{j?a}{→_i} s   \qquad   C[j,i] = a·w   \qquad  C' = C[(j,i) ←  w]  \qquad  M' = M[i ← s]
+} \over{
+                        (M, C) → (M', C')
+}
+\\]
+
+The same effect can be realized in the simpler model by expanding the alphabet of messages to $(ID×Σ)$, i.e., the message carry the identity of the sender.
+With this new alphabet, the sender also needs to adds it's id to the messages it sends and the receiver can distinguish be looking at the id in the message.
+
+### CSM with Internal Actions
+
+We can also add internal actions to the CSM, i.e., actions that modifies the state but do not change the channels.
+
+We modify the definitions of the machine to: $(id_i, S_i, Σ_i ∪ (ID × ! × Σ) ∪ (? × Σ) , →_i, s₀_i)$ with the constraints that $∀ i j.~ i≠j ⇒ Σ_i ∩ Σ_j = ∅$. 
+
+The corrsponding transition rule is:
+\\[{
+M[i] \stackrel{e}{→_i} s  \qquad  M' = M[i ← s]  \qquad (∀ a ∈ Σ.~ e ≠ ?a)  \qquad (∀ a ∈ Σ,~ j ∈ ID.~ e ≠ j!a)
+} \over{
+                        (M, C) → (M', C)
+}
+\\]
+
+Since, these internal transition does not affect the overall system, we can replace them by ε-transition and eliminate them using the algorithms from automata theory.
+
 
 
 ## CSM with unbounded reliable FIFO channels is a Turing complete model of computation
@@ -751,11 +705,12 @@ Let `P` and `Q` be two processes in a half-duplex systems.
 `P` can send a messages to `Q` only if the channel from `Q` to `P` is empty.
 
 The send rules become:
-```
-  → (M(i), j!a, s)       C(j,i) = ε
-─────────────────────────────────────────
-(M, C) → (M[i → s], C[(i,j) →  C(i,j)·a])
-```
+\\[{
+M[i] \stackrel{j!a}{→_i} s   \qquad   C[j,i] = ε  \qquad   C' = C[(i,j) ←  C[i,j]·a]  \qquad  M' = M[i ← s]
+} \over{
+                        (M, C) → (M', C')
+}
+\\]
 
 With only two machines, the problem becomes decidable.
 Intiutively, the channels need to become empty before the dirrection of the communication changes and, therefore, it is not possible to store more information than the (finite) local state of the two machines.

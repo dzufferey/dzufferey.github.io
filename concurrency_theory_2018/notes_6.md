@@ -386,55 +386,56 @@ The ABP appends `0` or `1` to messages in alternation and expect matching acknow
 If the sender does not receive an acknowledgment, it resends messages.
 The ABP work with unreliable channels as long as they are FIFO.
 
-In the example below, the _sender_ process tries to transmit the sequence `ABB` to the receiver process.
+In the example below, the sender process _S_ tries to transmit the sequence `ABB` to the receiver process _R_.
 
-* sender
+* sender _S_
+  ```graphviz
+  digraph finite_state_machine {
+      rankdir=LR;
+      init [shape = none, label = ""];
+      node [shape = circle, fixedsize = true, width=0.6];
+      init -> ε;
+      ε -> A [ label = "R!(A,0)" ];
+      A -> A [ label = "R!(A,0)" ];
+      A -> Aa [ label = "?Ack0" ];
+      Aa -> AB [ label = "R!(B,1)" ];
+      AB -> AB [ label = "R!(B,1), ?Ack0" ];
+      AB -> ABa [ label = "?Ack1" ];
+      ABa -> ABB [ label = "R!(B,0)" ];
+      ABB -> ABB [ label = "R!(B,0), ?Ack1" ];
+      ABB -> Done [ label = "?Ack0" ];
+      Done -> Done [ label = "?Ack0" ];
+  }
   ```
-      →  (ε)
-          ↓ receiver!(A,0)
-         (A) ⤸ receiver!(A,0)
-          ↓ ?Ack0
-         (Aa)
-          ↓ receiver!(B,1)
-         (AB) ⤸ receiver!(B,1), ?Ack0
-          ↓ ?Ack1
-         (ABa)
-          ↓ receiver!(B,0)
-         (ABB) ⤸ receiver!(B,0), ?Ack1
-          ↓ ?Ack0
-         (Done) ⤸ ?Ack0
-  ```
-* receiver (partial)
-  ```
-                                ↙ ?(A,0), ?(B,0) ┐
-             →  (ε) ─?(B,0)→ (Ba) ─sender!Ack0→ (B)  ...
-                 │                               │
-               ?(A,0)                          ?(A,1)
-                 ↓                               ↓
-                (Aa)                            (BAa) ...
-                 ↑│
-    ?(A,0), ?(B,0)│
-                 │sender!Ack0
-                 │↓ a            ↙ ?(A,1), ?(B,1) ┐                 ↙ ?(A,0), ?(B,0) ┐
-                (A) −?(B,1)→ (ABa) ─sender!Ack1→ (AB) ─?(B,0)→ (ABBa) ─sender!Ack0→ (ABB)
-                 │                                │
-               ?(A,1)                           ?(A,0)
-                 ↓                                ↓
-                (AAa)                            (ABAa)
-                 ↑│                               ↑│
-    ?(A,1), ?(B,1)│                  ?(A,0), ?(B,0)│
-                 │sender!Ack1                     │sender!Ack0
-                 │↓                               │↓ 
-                (AA) ─?(B,0)→ ...                (ABA)
-                 │
-               ?(A,0)
-                 ↓
-                (AAAa)
-                 ↑│
-    ?(A,0), ?(B,0)│
-                 │sender!Ack0
-                 │↓ 
-                (AAA)
+* receiver _R_ (partial)
+  ```graphviz
+  digraph finite_state_machine {
+      rankdir=LR;
+      init [shape = none, label = ""];
+      Bcont, AAcont [shape = none, label = "..."];
+      node [shape = circle, fixedsize = true, width=0.6];
+      init -> ε;
+      ε -> Aa [ label = "?(A,0)" ];
+      ε -> Ba [ label = "?(B,0)" ];
+      Aa -> A [ label = "S!Ack0" ];
+      A -> Aa [ label = "?(A,0), ?(B,0)"];
+      Ba -> B [ label = "S!Ack0" ];
+      B -> Ba [ label = "?(A,0), ?(B,0)"];
+      B -> Bcont [ label = "..." ];
+      A -> AAa [ label = "?(A,1)" ];
+      A -> ABa [ label = "?(B,1)" ];
+      AAa -> AA [ label = "S!Ack1" ];
+      AA -> AAa [ label = "?(A,1), ?(B,1)"];
+      ABa -> AB [ label = "S!Ack1" ];
+      AB -> ABa [ label = "?(A,1), ?(B,1)"];
+      AA -> AAcont [ label = "..." ];
+      AB -> ABAa [ label = "?(A,0)" ];
+      AB -> ABBa [ label = "?(B,0)" ];
+      ABAa -> ABA [ label = "S!Ack0" ];
+      ABA -> ABAa [ label = "?(A,0), ?(B,0)"];
+      ABBa -> ABB [ label = "S!Ack0" ];
+      ABB -> ABBa [ label = "?(A,0), ?(B,0)"];
+  }
   ```
 
 Let us first look at a trace with reliable FIFO channels.

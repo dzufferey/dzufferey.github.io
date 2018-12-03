@@ -58,8 +58,9 @@ _Proof._
   - The $x$ prefix comes from a bad sequence so it cannot contains increasing elements.
   - The $y$ suffix comes from a bad sequence so it cannot contains increasing elements.
   - We are left with comparing element from accross $x$ and $y$:
-    * By contradiction to the badness: assume $x_m < y_n$ for some $m < i$ and $n ≥ j$.
-    * This contradicts the minimality of $i$.
+    * By contradiction to the badness: assume $x_m ≤ y_n$ for some $m < i$ and $n ≥ j$.
+    * By definition of $Y$ we have $y_n < x_{i'}$ and by minimality of $i$ we have $i ≤ i'$.
+    * So we have $x_m ≤ y_n < x_{i'}$ and $m < i ≤ i'$, contradicting the badness of $x₀ ~ x₁ …$
 * $x₀ … x_{i-1} ~ y_j ~ y_{j+1} … $ contradicts the minimality of $x₀ ~ x₁ …$
 
 __Proposition.__

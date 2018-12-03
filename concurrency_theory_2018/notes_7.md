@@ -29,7 +29,7 @@ The proof is adapted from [these notes by Ian Hodkinson](http://www.doc.ic.ac.uk
 Given a quasiorder $(X,≤)$, a _bad sequence_ is an infinite sequence $x₀ ~ x₁ …$ such that $∀ i j.~ i < j ⇒ x_i ≰ x_j$.
 A WQO is a quasiorder without bad sequence.
 
-A sequence is _minimal bad_ iff it is bad and for any $i$ there is no bad sequence $x₀ ~ x₁ ~ … ~ x_{i-1} ~ y_i ~ y_{i+1} …$ with $y_n < x_n$.
+A sequence $x₀ ~ x₁ ~ …$  is _minimal bad_ iff it is bad and for any $i$ there is no bad sequence $x₀ ~ x₁ ~ … ~ x_{i-1} ~ y_i ~ y_{i+1} …$ with $y_n < x_n$.
 For all prefix of the sequence, it is not possible to extend the sequence to a bad sequence with a smaller element.
 
 __Proposition.__
@@ -73,13 +73,13 @@ To make a infinite descending chain, we must makes (1) some letter in the word s
 _Proof of Higman's lemma._
 1. Embedding is a quasiorder:
   * Embedding is reflexive: use identity as $f$ in the definition of embedding.
-  * Embedding is transitive: let $f$ and $f'$ the mapping in $x ≤ y$ and $y ≤ y$, $f'∘f$ define an embedding for $x ≤ z$.
+  * Embedding is transitive: let $x ≤ y ≤ z$ and $f$ and $f'$ the mapping in $x ≤ y$ and $y ≤ z$, $f'∘f$ define an embedding for $x ≤ z$.
 2. Embedding does not contains bad sequences:
   * By contradiction: assume $x₀~x₁…$ is a minimal bad sequence.
     * All the words in the sequence are non-empty because the empty word is smaller than any word and it cannot appear in a bad sequence.
-    * For each word $x_i$, we split the head and tail of the word.
-    * Let $Y = ∪_i tail(x_i)$. Y is a WQO because of $tail(x_i) < x_i$ and the proposition above.
-    * Because $Y$ is WQO, $Y$ contains a infnite increasing sequence $tail(x_{f(0)}) ≤ tail(x_{f(1)}) ≤ …$
+    * For each word $x_i$, we split the head ($x_i[0]$) and tail ($x_i[1:|x_i|]$) of the word.
+    * Let $Y = \\{ tail(x₀), tail(x₁), … \\}$. Y is a WQO because of $tail(x_i) < x_i$ and the proposition above.
+    * Because $Y$ is WQO, $Y$ contains a infinite increasing sequence $tail(x_{f(0)}) ≤ tail(x_{f(1)}) ≤ …$
     * Because $(X,≤)$ is a WQO the sequence $head(x_{f(0)}) ~ head(x_{f(1)}) …$ contains $i<j$ with $head(x_{f(i)}) ≤ head(x_{f(j)})$.
     * Therefore, $x_{f(i)} ≤ x_{f(j)}$ by mapping the mapping the first element of $x_{f(i)}$ to the first of $x_{f(j)}$ and using the mapping from $tail(x_{f(i)}) ≤ tail(x_{f(j)})$ for the rest.
     * This contradicts the badness of $x₀~x₁…$
@@ -115,7 +115,7 @@ LCS are WSTS.
 
 _Proof._
 1. Consider a LCS as some CSM $(Σ, M_1 … M_N)$ with unbounded p2p lossy FIFO channels, we need to build a WSTS $(S,→,≤)$.
-  * The (infinite) set of space $S$ is the set $∏_i S_i × ∏_{i,j} Σ$ where $i$,$j$ ranges from $1$ to $N$ and $S_i$ is the set of states of machine $M_i$. Note that this corresponds of $(M,C)$ we saw in [week 6](notes_6.md).
+  * The (infinite) set of space $S$ is the set $∏_i S_i × ∏_{i,j} Σ^\*$ where $i$,$j$ ranges from $1$ to $N$ and $S_i$ is the set of states of machine $M_i$. Note that this corresponds of $(M,C)$ we saw in [week 6](notes_6.md).
   * The transition relation $→$ is the relation defined by the send, receive, and message loss rules, i.e., $(C,M) → (C',M')$ can derived using the "Lossy p2p FIFO" inference rule from [notes 6](notes_6.md).
   * $(M₁,C₁) ≤ (M₂,C₂)$ iff $M₁ = M₂$ and $∀ i,j.~ C₁(i,j) ≤ C₂(i,j)$.
 2. $≤$ is a WQO because $M$ is a finite tuple of finite states, each $C(i,j)$ is a WQO by Higman's lemma and we put everything together using Dickson's lemma.
@@ -138,7 +138,7 @@ $
 \begin{array}{rcll}
    R & ::= & ε              & \text{(empty string)}   \\\\
      &   | & a              & \text{(letter} ~ a ∈ Σ \text{)}  \\\\
-     &   | & R ~ R          & \text{(concatenation)}  \\\\
+     &   | & R ~ R          & \text{(concatenation, also written} ~ R⋅R \text{)}  \\\\
      &   | & R + R   \qquad & \text{(alternation/choice/sum, also written} ~ R|R \text{)} \\\\
      &   | & R^\*           & \text{(finite repetition)}
 \end{array}
@@ -225,10 +225,12 @@ _Proof._
 
 _Remark._
 To get the complement of a regular expression, we need to:
+
 1. convert the regular expression to an NFA,
 2. determinize the NFA to get a DFA,
 3. compute the complement of the DFA,
 4. convert the complemented DFA to a regular expression.
+
 This procedure is worst case doubly exponential.
 Both the determinization and the conversion to regular expressions have an exponential worst case complexity.
 

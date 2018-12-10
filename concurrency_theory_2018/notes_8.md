@@ -56,8 +56,8 @@ Let us look at the following NFAs:
       init [shape = none, label = ""];
       init -> 0;
       0 -> 1 [ label = "a" ];
-      1 -> 2 [ label = "b" ];
-      2 -> 1 [ label = "a" ];
+      1 -> 2 [ label = "a" ];
+      2 -> 1 [ label = "b" ];
       0 -> 3 [ label = "a" ];
       3 -> 3 [ label = "a,b" ];
   }

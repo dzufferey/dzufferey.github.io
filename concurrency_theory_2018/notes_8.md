@@ -84,7 +84,7 @@ You can find more information in the [notes on CCS by Emanuele D’Osualdo](http
 
 __Example.__
 
-Let us revisit the ping─pong example and express it in CCS:
+Let us revisit the ping-pong example and express it in CCS:
 * ping:
   ```graphviz
   digraph finite_state_machine {
@@ -113,6 +113,8 @@ Let us revisit the ping─pong example and express it in CCS:
   }
   ```
   becomes \\[ pong() ≝~ ?\text{Ping}.!\text{Pong}.pong() \\]
+
+Notice that CCS does not send messages to particular process but just a given _name_.
 
 Furthermore, CCS allows us the processes to be parametric in the name they use:
 \\[
@@ -175,8 +177,9 @@ $
 $
 
 _Notations._
+* For reading processes, the priority of the operation from strongest to weakest: action, restriction, choice, parallel.
 * $!a$ and $?a$ is the CSP notation.
-  Most publication on CCS and the π─calculus uses $\overline a$ for $!a$ and $a$ for $?a$.
+  Most publication on CCS and the π-calculus uses $\overline a$ for $!a$ and $a$ for $?a$.
 * Sometimes $∥$ is used instead of $|$
 * The binary choice $P+Q$ can be generalized to indexed sum $∑_i P_i$.
 * For the labelled semantics, we write $\stackrel{π}{→}$ for a transition with the label $π$.
@@ -311,8 +314,8 @@ Let us look at a vending machine example:
 
 $\begin{array}{lcl}
 \text{Zero}() & ≝ & ?coin.\text{One}() \\\\
-\text{One}()  & ≝ & ?coin.\text{Two}() + !water.\text{Zero}() \\\\
-\text{Two}()  & ≝ & !coffee.\text{Zero}() + !water.\text{One}()
+\text{One}()  & ≝ & ?coin.\text{Two}() ~+~ !water.\text{Zero}() \\\\
+\text{Two}()  & ≝ & !coffee.\text{Zero}() ~+~ !water.\text{One}()
 \end{array}$
 
 __Example.__
@@ -370,7 +373,7 @@ In a process by using $!a.0 | P$ instead of $!a.P$ we can express asynchronous c
 For instance, the asynchronous version of ping-pong is:
 
 $\begin{array}{lcl}
-ping(x,y)  & ≝ & !x.0 | pong(y,x) \\\\
+ping(x,y)  & ≝ & !x.0 ~ | ~ pong(y,x) \\\\
 pong(x,y)  & ≝ & ?x.ping(y,x)
 \end{array}$
 

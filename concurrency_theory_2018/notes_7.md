@@ -29,7 +29,7 @@ The proof is adapted from [these notes by Ian Hodkinson](http://www.doc.ic.ac.uk
 Given a quasiorder $(X,≤)$, a _bad sequence_ is an infinite sequence $x₀ ~ x₁ …$ such that $∀ i j.~ i < j ⇒ x_i ≰ x_j$.
 A WQO is a quasiorder without bad sequence.
 
-A sequence $x₀ ~ x₁ ~ …$  is _minimal bad_ iff it is bad and for any $i$ there is no bad sequence $x₀ ~ x₁ ~ … ~ x_{i-1} ~ y_i ~ y_{i+1} …$ with $y_n < x_n$.
+A sequence $x₀ ~ x₁ ~ …$  is _minimal bad_ iff it is bad and for any $i$ there is no bad sequence $x₀ ~ x₁ ~ … ~ x_{i-1} ~ y_i ~ y_{i+1} …$ with $y_i < x_i$.
 For all prefix of the sequence, it is not possible to extend the sequence to a bad sequence with a smaller element.
 
 __Proposition.__

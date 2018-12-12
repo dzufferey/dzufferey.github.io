@@ -61,5 +61,5 @@ The syntax is the same as normal CSM and the semantics with p2p channels is:
 
 __Task.__
 * We are interested in the control-state reachability question for communicating state machines with insertion error.
-  Can you adapt results seen in the class to decide the control-state reachability?
-  (Hint: think of $→⁻¹$)
+  Give an algorithm to solve the control-state reachability problem for CSM with insertion error.
+  (Hints: control-state reachability is an instance of the covering problem and think of $→⁻¹$)

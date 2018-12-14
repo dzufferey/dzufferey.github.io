@@ -226,7 +226,7 @@ Restriction defines a local scope and the name bound in that scope is not visibl
 Processes are equivalent up to renaming of bound names.
 Renaming bound names is called α-conversion.
 
-_Substitution._
+__Substitution.__
 To rename free names in a formula, we use substitution.
 Substitution never change the bound names.
 $P[y/x]$ is the substitution of free instances of $x$ by $y$ in $P$.
@@ -241,6 +241,10 @@ Using α-conversion, we can always rename the bound names to make bound and free
 For instance, $(νz)(!z.0) | ?x.0$ is an equivalent process with respect the no clash assumption.
 
 Is it still possible to bind the same name in parallel: $(νx)(!x.0) | (νx)(?x.0)$.
+
+__Closed definitions.__
+Furthermore, when we have a definition $A(\vec a) ≝~ P$, we assume that $fn(P) ⊆ \\{\vec a \\}$.
+This can potentially require adding extra parameters to the argument until all the free names are bound by the definition.
 
 
 ## Semantics (version 1)
@@ -293,7 +297,7 @@ Is it still possible to bind the same name in parallel: $(νx)(!x.0) | (νx)(?x.
   }\\]
 * Definition
   \\[{
-    A(\vec x) ≝~ P \qquad  P[y/x] \stackrel{π}{→} P'
+    A(\vec x) ≝~ P \qquad  P[\vec y/ \vec x] \stackrel{π}{→} P' \qquad \\{\vec y\\} ∩ bn(P) = ∅
   }\over{
     A(\vec y) \stackrel{π}{→}  P'
   }\\]
@@ -442,7 +446,7 @@ Then there are rules to manipulate the operators:
   - $b ∉ fn(P) ∧ b ∉ bn(P) ⇒ (νa)P ≡ (νb)P[b/a]$
   - $P ≡ Q  ⇒  (νa)P ≡ (νa)Q$
 * definition
-  - $A(\vec x) ≝ P  ⇒  A(\vec y) ≡ P[\vec y/\vec x]$
+  - $A(\vec x) ≝ P ∧ \\{\vec y\\} ∩ bn(P) = ∅ ⇒  A(\vec y) ≡ P[\vec y/\vec x]$
 
 
 __Theorem.__
@@ -606,31 +610,6 @@ SGE is a bisimulation.
 
 __Theorem.__
 If $P$ and $Q$ are bisimilar and finite (no recursion) then $SGE ⊢ P = Q$.
-
-
-## Strong and Weak Bisimulations
-
-We have seen _strong_ (bi)simulation where every transition is matched by a single other transition.
-We can weaken that to allow the insertion of silent transitions.
-
-A _weak simulation relation_ $R$ a relation between the states of $A$ and $B$ with the following property:
-$∀ a ∈ Σ, s_A,t_A ∈ S_A, s_B ∈ S_B. R(s_A, s_B) ∧ s_A \stackrel{a}{→_A} t_A ⇒
-    ∃ x,y,t_B ∈ S_B. s_B \stackrel{τ^\*}{→_B} x ∧ x \stackrel{a}{→}  y ∧ y \stackrel{τ^\*}{→_B} t_B ∧ R(t_A, t_B)$.
-
-If both $R$ and its inverse $R⁻¹$ are weak simulation relations then $R$ is a weak bisimulation.
-
-Weak bisimulations are often written as $≈$.
-
-We can infere weak bisimulation by reinterpreting SGE with $≈$ instead of $=$ and adding the following axioms:
-* $α.τ.P ≈ α.P$
-* $P + τ.P ≈ τ.P$
-* $α.(P + τ.Q) + α.Q ≈ α.(P + τ.Q)$
-
-This axiomatization of weak bisimulation has been shown to be sound and it may be complete for finite processes
-(see Section 5.5 of [A Calculus of Mobile Processes Pt.1](http://www.lfcs.inf.ed.ac.uk/reports/89/ECS-LFCS-89-85/)).
-
-_Remarks._
-In the coin flip example, the two models of the $coin$ are not weakly bisimilar.
 
 
 ## Counting with CCS

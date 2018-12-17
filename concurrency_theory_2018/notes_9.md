@@ -3,9 +3,9 @@
 We have seen _strong_ (bi)simulation where every transition is matched by a single other transition.
 We can weaken that to allow the insertion of silent transitions.
 
-A _weak simulation relation_ $R$ a relation between the states of $A$ and $B$ with the following property:
-$∀ a ∈ Σ, s_A,t_A ∈ S_A, s_B ∈ S_B. R(s_A, s_B) ∧ s_A \stackrel{a}{→_A} t_A ⇒
-    ∃ x,y,t_B ∈ S_B. s_B \stackrel{τ^\*}{→_B} x ∧ x \stackrel{a}{→}  y ∧ y \stackrel{τ^\*}{→_B} t_B ∧ R(t_A, t_B)$.
+A _weak simulation relation_ $R$ a relation between the states of $A$ and $B$ with the following properties:
+* $∀ a ∈ Σ, s_A,t_A ∈ S_A, s_B ∈ S_B.\ a ≠ τ ∧ R(s_A, s_B) ∧ s_A \stackrel{a}{→}_A t_A ⇒ ∃ t_B ∈ S_B.\ s_B \stackrel{τ^\* a τ^\*}{→}_B t_B ∧ R(t_A, t_B)$
+* $∀ s_A,t_A ∈ S_A, s_B ∈ S_B.\ R(s_A, s_B) ∧ s_A \stackrel{τ}{→}_A t_A ⇒ ∃ t_B ∈ S_B.\ s_B \stackrel{τ^\*}{→}_B t_B ∧ R(t_A, t_B)$.
 
 If both $R$ and its inverse $R⁻¹$ are weak simulation relations then $R$ is a weak bisimulation.
 
@@ -185,7 +185,7 @@ The free names ($fn$) are the names that occurs in a processes but are not restr
 * $fn(0) = ∅$
 * $fn(τ.P) = fn(P)$
 * $fn(!a(\vec b).P) = fn(P) ∪ \\{a, \vec b\\}$
-* $fn(?a(\vec b).P) = fn(P) ∪ \\{a\\} ∖ \\{\vec b\\}$
+* $fn(?a(\vec b).P) = (fn(P) ∖ \\{\vec b\\}) ∪ \\{a\\}$
 * $fn(P + Q) = fn(P) ∪ fn(Q)$
 * $fn(P | Q) = fn(P) ∪ fn(Q)$
 * $fn((νa)P) = fn(P) ∖ \\{a\\}$
@@ -308,9 +308,9 @@ Therefore, all the transition silent and this semantics is unlabeled.
   }\\]
 * Congruence
   \\[{
-    P ≡ P' \qquad P' \stackrel{π}{→} Q' \qquad Q' ≡ Q
+    P ≡ P' \qquad P' → Q' \qquad Q' ≡ Q
   }\over{
-    P \stackrel{π}{→} Q
+    P → Q
   }\\]
 
 

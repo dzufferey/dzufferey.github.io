@@ -75,7 +75,7 @@ Then, using the parallel and restriction rules, we can build the following deriv
 
 Furthermore, we have $(ν \vec a) P' ≤ (ν \vec a) (P'|Q)$ by definition of $≤$.
 
-_Case 2: $P ≡ P' ∧ Q ≡ Q' ∧ P' ≤ Q' ⇒ P ≤ Q$
+_Case 2:_ $P ≡ P' ∧ Q ≡ Q' ∧ P' ≤ Q' ⇒ P ≤ Q$
 
 This correspond to an induction proof where the previous case is the base case that gets instantiated over $P' ≤ Q'$ and the proof is completed using the congruence rule:
 \\[{
@@ -693,14 +693,14 @@ For the subtyping of choice it is simpler to work with the n-ary version of the 
 1 ≤ n ≤ m \qquad
 ∃ f~ \text{injective function from} ~ [1;n] ~\text{to} ~ [1;m].~ ∀ i ∈ [1;n].~ l_i = l_{f(i)}' ∧ t_i <: t_{f(i)}'
 }\over{
-⊕_{i ∈ [1;n]} l_i;t_i  <:  ⊕_{j ∈ [1;m]} l'_j;t'_j
+⊕_{i ∈ [1;n]} l_i;t_i ~ <: ~ ⊕_{j ∈ [1;m]} l'_j;t'_j
 }\\]
 
 \\[{
 1 ≤ m ≤ n \qquad
 ∃ f~ \text{injective function from} ~ [1;m] ~\text{to} ~ [1;n].~ ∀ i ∈ [1;m].~ l_i = l_{f(i)}' ∧ t_i <: t_{f(i)}'
 }\over{
-\\&_{i ∈ [1;n]} l_i;t_i  <:  \\&_{j ∈ [1;m]} l_j';t_j'
+\\&\_{i ∈ [1;n]} l_i;t_i ~ <: ~ \\&\_{j ∈ [1;m]} l_j';t_j'
 }\\]
 
 Intuitively, subtypes can do fewer internal choices and allow more external choices.

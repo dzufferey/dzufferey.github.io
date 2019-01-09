@@ -13,7 +13,7 @@ _Instructions_
 In the [lecture notes 9](viewer.html?md=concurrency_theory_2018/notes_9.md) we introduced strong and weak bisimulations.
 Using the techniques we have seen in class to show that
 \\[
-(ν c) (?a.!c.0 | ?b.!c.0 | ?c.?c.P)  ~ ≈ ~ ?a.?b.P | ?b.?a.P   \qquad \text{assuming} ~ c ∉ fn(P)
+(ν c) (?a.!c.0 | ?b.!c.0 | ?c.?c.P)  ~ ≈ ~ ?a.?b.P + ?b.?a.P   \qquad \text{assuming} ~ c ∉ fn(P)
 \\]
 
 ## From ν-free Process Algebra to Petri Net

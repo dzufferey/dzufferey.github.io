@@ -366,7 +366,7 @@ It is not possible to type $arg$ as it is first used to send an $\mathit{INT}$ a
 To solve these limitations, another possibility is to type processes instead of names.
 
 
-## Typing Processes for Two Party Communication
+## Typing Processes for Two Party Communication (Binary Session Types)
 
 Channels carries bits, the type is used to give meaning to this bits.
 At different time point, a channel can carry different types.

@@ -1,6 +1,55 @@
 [
   {
     "tag": "recent",
+    "abstract": "Robotics applications are typically programmed in low-level imperative programming languages, leaving the programmer to deal with dynamic controllers affecting the physical state, geometric constraints on components, and concurrency and synchronization. The combination of these features —dynamics, geometry, and concurrency— makes developing robotic applications difficult. We present PGCD, a programming model for robotics applications consisting of assemblies of robotic components, together with its runtime and a verifier. PGCD combines message-passing concurrent processes with motion primitives, which represent continuous evolution of trajectories in geometric space under the action of dynamic controllers, and explicit modeling of geometric frame shifts, which allow relative coordinate transformations between components evolving in space. We describe a verification algorithm for PGCD programs based on model checking and SMT solvers that statically verify  concurrency-related properties such as absence of deadlocks and  geometric invariants such as absence of collision during motion. We have implemented a runtime for PGCD programs that compiles down to imperative code on top of ROS and runs directly on robotic hardware. We illustrate the programming model and reasoning principles by building a number of statically verified robotic manipulation programs on top of 3D-printed robotic arm and cart assemblies.",
+    "author": [
+      {
+        "family": "Banus̆ić",
+        "given": "Gregor B."
+      },
+      {
+        "family": "Majumdar",
+        "given": "Rupak"
+      },
+      {
+        "family": "Pirron",
+        "given": "Marcus"
+      },
+      {
+        "family": "Schmuck",
+        "given": "Anne-Kathrin"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "To appear in Proceedings of the 10th International Conference on Cyber-Physical Systems (ICCPS 2019)",
+    "editor": [
+      {
+        "family": "Xue",
+        "given": "Liu"
+      },
+      {
+        "family": "Tabuada",
+        "given": "Paulo"
+      }
+    ],
+    "id": "iccps19",
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "publisher": "ACM/IEEE",
+    "title": "PGCD: Robot Programming and Verification with Geometry, Concurrency, and Dynamics",
+    "type": "paper-conference"
+  },
+  {
+    "tag": "recent",
     "abstract": "We present an expressive, concise, and extendable domain specific language for planning of assembly systems, such as industrial human robot cooperation. Increased flexibility requirements in manufacturing processes call for more automation at the description and planning stages of manufacturing. Procedural models are good candidates to meet this demand as programs offer a high degree of flexibility and are easily composed.\nFurthermore, we aim to make our programs close to declarative specification and integrate automatic reasoning tools to help the users. The constraints come both from specific programs and preexisting knowledge base from the target domain. The case of human robot collaboration is interesting as there is a number of constraints and regulations around this domain. Unfortunately, automated reasoners are often too unpredictable and cannot be used directly by non-experts.\nIn this paper, we present our domain specific language “Tool Ontology and Optimization Language” (Tool) and describe how we integrated automated reasoners and planners in a way that makes them accessible to users which have little programming knowledge, but expertise in manufacturing domain and no previous experience with or knowledge about the underlying reasoners. We present encouraging results by applying Tool to a case study from the automotive and aerospace industry.",
     "author": [
       {

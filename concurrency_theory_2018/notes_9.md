@@ -144,6 +144,7 @@ where
 * $P$ is a process
 
 __Processes.__
+
 $
 \begin{array}{rcll}
    P & ::= & π.P            & \text{(action)}   \\\\
@@ -156,6 +157,7 @@ $
 $
 
 __Actions.__
+
 $
 \begin{array}{rcll}
    π & ::= & !a(\vec a)           & \text{(send)}   \\\\

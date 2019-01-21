@@ -298,7 +298,7 @@ The transitions for one process are defined as follow:
   }\\]
 * ARW
   \\[{
-    t = (q_p, arv(x, v₁, v₂), q_p') \qquad
+    t = (q_p, arw(x, v₁, v₂), q_p') \qquad
     q(p) = q_p \qquad
     q' = q[p ← q_p'] \qquad
     b[p] = ε \qquad
@@ -409,7 +409,7 @@ The transitions for one process are defined as follow:
   }\\]
 * ARW
   \\[{
-    t = (q_p, arv(x, v₁, v₂), q_p') \qquad
+    t = (q_p, arw(x, v₁, v₂), q_p') \qquad
     q(p) = q_p \qquad
     q' = q[p ← q_p'] \qquad
     b[p] = ε \qquad

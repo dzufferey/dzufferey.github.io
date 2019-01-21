@@ -32,4 +32,3 @@ __Tasks.__
 * Can you find a type for the ping-pong example in [lecture notes 6](viewer.html?md=concurrency_theory_2018/notes_6.md)?
 * Can you find a type for the juggling example in [lecture notes 6](viewer.html?md=concurrency_theory_2018/notes_6.md)?
 * Can you find an example which can be typed and where the channels may grow unboundedly?
-

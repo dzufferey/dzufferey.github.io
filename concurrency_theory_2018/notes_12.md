@@ -240,6 +240,8 @@ The state, or configuration, of a TSO system is a triple $(q,b,m)$ where
 * $b: \mathbb{P} →  (\mathbb{A}×\mathbb{D})^\*$ gives the content of the write buffers,
 * $m: \mathbb{A} → \mathbb{D}$ is the state of the memory.
 
+The initial state is $(q,b,m)$ where $∀ p ∈ \mathbb{P}.~ q[p] = q_0 ∧ b[p] = ε$ and $∀ x ∈ \mathbb{A}.~ m[x] = 0$ where $0 ∈ \mathbb{D}$ is default data value.
+
 The transitions for one process are defined as follow:
 
 * Nop
@@ -422,8 +424,9 @@ The transitions for one process are defined as follow:
 The Nop, Fence, ARW are as before but the other rules have been modified.
 
 __Remark.__
-
-... TODO about the typo in the conf paper
+When reading a paper and there are multiple papers on the subject, it is always good to compare them.
+Even though peer review is supposed to catch most mistake, there can still be errors.
+For instance, compare the "Read from Buffer" rules in the [conference version](http://drops.dagstuhl.de/opus/volltexte/2016/6171/) and the [journal version](https://lmcs.episciences.org/4228) of the paper.
 
 
 

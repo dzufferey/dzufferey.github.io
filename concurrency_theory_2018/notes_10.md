@@ -108,7 +108,9 @@ The syntax is the same as the π-calculus, only the semantics is different.
 
 We will need the notion of that we can _observe_ $α$ in a process $P$ if $?α(\vec b).A$ occurs unguarded in $P$ for some $A$ and some $\vec b$.
 It is written $P↓_α$.
-It is a variation of the commitments we discussed in [week 9](notes_9.md).
+It is a variation of the commitments we discussed in [week 8](viewer.html?md=concurrency_theory_2018/notes_8.md).
+The difference with the commitment is that we ignore the process coming after the action.
+We also ignore the payload but commitment was only defined for CCS (no payload).
 
 __Semantics.__
 * Silent action

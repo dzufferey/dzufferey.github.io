@@ -268,7 +268,7 @@ The semantics of the pi-calculus is very similar to CCS but it also carries the 
   }\\]
 
 _Notation._
-In the restriction rule, we use $␣$ to denote names that do not matter (implicitely unviersally quantified).
+In the restriction rule, we use $␣$ to denote names that do not matter (implicitly universally quantified).
 
 _Remark._
 Unfortunately, this semantics is not finitely branching.

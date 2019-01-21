@@ -402,5 +402,5 @@ We can construct such sequences with
 - $Σ = \\{a,b,c\\}$ gives the sequence $(((a^ωb)^ω)c)^ω$ which has length $ω³$
 - …
 
-However, in practice, this type of analysis has been applied to non-trivial protocols like the alternating bit protocol.
+However, in practice, this type of analysis has been applied successfully to non-trivial protocols like the alternating bit protocol.
 

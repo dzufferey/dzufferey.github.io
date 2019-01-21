@@ -727,6 +727,16 @@ Given well-typed $(P: t₁) ~|~ (Q: t₂)$ with $t₁ = dual(t₂)$ we need to c
 
 If we add some extra checks for the absence of loops with only τ steps, then progress also implies deadlock-freedom.
 
+### FIFO Communication
+
+We have seen the case of synchronous interaction.
+This is based on the work of Kohei Honda: [Types for Dyadic Interaction](http://citeseer.ist.psu.edu/viewdoc/summary?doi=10.1.1.45.1355), 1993.
+Similar results also hold when FIFO communication is used.
+The earliest work I found is by Matthias Neubauer and Peter Thiemann: [Session Types for Asynchronous Communication](http://www2.informatik.uni-freiburg.de/~thiemann/papers/stac.ps.gz), 2004.
+Even though this work is cited very often, this is an unpublished manuscript.
+Regarding published results, there is the work on [linear type theory for asynchronous session types](https://doi.org/10.1017/S0956796809990268) by Simon J. Gay and Vasco T. Vasconcelos, 2009.
+The setting and results are more general (and also more complicated).
+
 
 ### What we did not cover
 

@@ -534,24 +534,6 @@ We can "reorder" and get the SC execution `read; write` with the sequence `write
 In the DTSO, we get an execution that behave as the SC execution `write; read` with the sequence `write; propagate; read`.
 We can "reorder" and get the SC execution `read; write` with the sequence `propagate; write; read`.
 
-#### Example
-
-If we look back at the
-```
-initial state:
---------------
-    x = 0;
-    y = 0;
-
-program A   ∥   program B
-------------∥------------
-x = 1;      ∥   y = 1;
-print(y);   ∥   print(x);
-```
-
-DTSO also allows an execution that output `A:0, B:0`:
-`propagate_A(y, 0); propagate_B(x, 0); write_A(x, 1); write_B(y, 1); read_A(y, 0); read_B(x, 0);`
-
 #### Proof Sketch
 
 The [paper](https://lmcs.episciences.org/4228) has a detailed proof for the TSO-DTSO equivalence in Appendix A.
@@ -603,4 +585,52 @@ Also the traces where we match the operations must respect the ordering on opera
 1. the order of instructions in the program,
 2. the buffers (in the form of write-update or propagate-read dependencies).
 
-TODO example ...
+#### Example
+
+If we look back at
+```
+initial state:
+--------------
+    x = 0;
+    y = 0;
+
+program A   ∥   program B
+------------∥------------
+x = 1;      ∥   y = 1;
+print(y);   ∥   print(x);
+```
+
+Let us look at an execution that output `A:0, B:0` aligned for memory:
+```
+TSO                 DTSO                    memory          TSO store buffer    DTSO read buffer
+                                            x: 0, y: 0      A: ε, B: ε          A: ε, B: ε
+write_A(x, 1);
+                                            x: 0, y: 0      A: (x,1), B: ε      A: ε, B: ε
+write_B(y, 1);
+                                            x: 0, y: 0      A: (x,1), B: (y,1)  A: ε, B: ε
+read_A(y, 0);       propagate_A(y, 0);
+                                            x: 0, y: 0      A: (x,1), B: (y,1)  A: (y,0), B: ε
+read_B(x, 0);       propagate_B(x, 0);
+                                            x: 0, y: 0      A: (x,1), B: (y,1)  A: (y,0), B: (x,0)
+update_A(x, 1);     write_A(x, 1);
+                                            x: 1, y: 0      A: ε, B: (y,1)      A: (y,0), B: (x,0)
+update_B(y, 1);     write_B(y, 1);
+                                            x: 1, y: 1      A: ε, B: ε          A: (y,0), B: (x,0)
+                    read_A(y, 0);
+                                            x: 1, y: 1      A: ε, B: ε          A: ε, B: (x,0)
+                    read_B(x, 0);
+                                            x: 1, y: 1      A: ε, B: ε          A: ε, B: ε
+```
+
+Let us look at the same execution but aligned for local states:
+```
+TSO                 DTSO
+                    propagate_A(y, 0);
+                    propagate_B(x, 0);
+write_A(x, 1);      write_A(x, 1);
+write_B(y, 1);      write_B(y, 1);
+read_A(y, 0);       read_A(y, 0);
+read_B(x, 0);       read_B(x, 0);
+update_A(x, 1);
+update_B(y, 1);
+```

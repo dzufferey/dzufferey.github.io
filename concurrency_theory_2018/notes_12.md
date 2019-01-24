@@ -325,9 +325,14 @@ Rather than opting for the direct approach, we will use some more recent result 
 DTSO is much simpler to frame as a WSTS than TSO.
 
 DTSO replace the write buffers by read buffers.
+Writing directly affect the memory.
+On the other hand, to read a value a process looks at the first value in its read buffer and check if there is a read from the address it wants to read.
 An oracle guess the read that will be done in the future by a process and put the values in the read buffer.
-To simulate the "Read-Own" the values written by a process are always enqueued in its buffer.
-The read buffer are lossy.
+
+To simulate the "Read-Own" the values written by a process are always enqueued in its buffer and tagged.
+Reading "own" values take precedence over other read and starts from the tail of the buffer instead of the front.
+
+The read buffer are lossy, reads at the head of the buffer can be dropped non-deterministically at any time.
 A process can get stuck if there is not the appropriate value in the read buffer but this is fine as we only look at control-state reachability, not deadlock.
 
 ### Syntax
@@ -547,11 +552,55 @@ print(y);   ∥   print(x);
 DTSO also allows an execution that output `A:0, B:0`:
 `propagate_A(y, 0); propagate_B(x, 0); write_A(x, 1); write_B(y, 1); read_A(y, 0); read_B(x, 0);`
 
+#### Proof Sketch
 
-#### DTSO to TSO
+The [paper](https://lmcs.episciences.org/4228) has a detailed proof for the TSO-DTSO equivalence in Appendix A.
+This proof is quite detailed.
+DTSO → TSO takes 10 pages and TSO → DTSO takes 9 pages!
+We are only going to look at the high level idea.
 
-TODO sketch of equivalence ...
+We can look at an execusion from different perspective (projection to a specific element):
+1. the state of the memory,
+2. the local of a process,
+3. the state of the buffers.
 
-#### TSO to DTSO
+Between TSO and DTSO the instructions and transition rules have some "equivalent" (having the same effect) operation.
+Depending on the perspective, the operations are not matched the same in the two models:
 
-TODO sketch of equivalence ...
+__"Equivalent" operations from the memory perspective:__
+
+| TSO      | DTSO      |
+|----------|-----------|
+| Update   | Write     |
+| Write    | -         |
+| Read     | Propagate |
+| -        | Read      |
+| -        | Delete    |
+| Read-own | Read-own  |
+| Nop      | Nop       |
+| ARW      | ARW       |
+| Fence    | Fence     |
+
+__"Equivalent" operations from the local state perspective:__
+
+| TSO      | DTSO      |
+|----------|-----------|
+| Write    | Write     |
+| Read     | Read      |
+| Update   | -         |
+| -        | Propagate |
+| -        | Delete    |
+| Read-own | Read-own  |
+| Nop      | Nop       |
+| ARW      | ARW       |
+| Fence    | Fence     |
+
+To find equivalent traces in TSO ↔ DTSO, we need match these equivalent operations so we have equivalent memory/local states execution.
+Since the equivalent operation on the states and the memory are different, the matches are only in the subpart.
+There might be combinations of memory and local states, or even just local states for different processes which does not occur together.
+
+Also the traces where we match the operations must respect the ordering on operations induced by
+1. the order of instructions in the program,
+2. the buffers (in the form of write-update or propagate-read dependencies).
+
+TODO example ...

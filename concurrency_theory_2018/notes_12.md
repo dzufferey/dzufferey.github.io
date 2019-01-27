@@ -346,7 +346,7 @@ W.l.o.g. we assume that all the processes are copies of the same program.
 
 The state, or configuration, of a TSO system is a triple $(q,b,m)$ where
 * $q: \mathbb{P} → Q$ is the local state of each process,
-* $b: \mathbb{P} →  (\mathbb{A}×\mathbb{D} ~∪~ \mathbb{A}×\mathbb{D}×\\{own\\})^\*$ gives the content of the read buffers,
+* $b: \mathbb{P} →  ((\mathbb{A}×\mathbb{D}) ~∪~ (\mathbb{A}×\mathbb{D}×\\{own\\}))^\*$ gives the content of the read buffers,
 * $m: \mathbb{A} → \mathbb{D}$ is the state of the memory.
 
 The transitions for one process are defined as follow:
@@ -450,18 +450,18 @@ This will make it possible to consider an unbounded number of processes.
 
 __Ordering on a Read Buffer.__
 
-Given a strings $w$ in $(\mathbb{A}×\mathbb{D} ~∪~ \mathbb{A}×\mathbb{D}×\\{own\\})^\*$, we can format the string, written $w_{own}$ as
+Given a strings $w$ in $((\mathbb{A}×\mathbb{D}) ~∪~ (\mathbb{A}×\mathbb{D}×\\{own\\}))^\*$, we can format the string, written $w_{own}$ as
 \\[
 w_{own} = (w_1, (x_1,v_1,own), w_2, …, w_n, (x_n,v_n,own), w_{n+1})
 \\]
 with the following conditions:
 * $w = w_1⋅(x_1,v_1,own)⋅w_2⋅…⋅w_n⋅(x_n,v_n,own)⋅w_{n+1}$
 * $i ≠ j ⇒ x_i ≠ x_j$
-* $(x,v,own) ∈ w_i ⇒ ∃ j. j < i ∧ x = x_j$
+* $(x,v,own) ∈ w_i ⇒ ∃ j.~ j < i ∧ x = x_j$
 
 Intuitively $w_{own}$ identify the most recent own write in the buffer for each variable.
 
-Given two strings $w$ in $(\mathbb{A}×\mathbb{D} ~∪~ \mathbb{A}×\mathbb{D}×\\{own\\})^\*$, we can format the strings as
+Given two strings $w$ in $((\mathbb{A}×\mathbb{D}) ~∪~ (\mathbb{A}×\mathbb{D}×\\{own\\}))^\*$, we can format the strings as
 \\[
 w_{own} = (w_1, (x_1,v_1,own), w_2, …, w_n, (x_n,v_n,own), w_{n+1})
 \\]
@@ -585,7 +585,7 @@ Also the traces where we match the operations must respect the ordering on opera
 1. the order of instructions in the program,
 2. the buffers (in the form of write-update or propagate-read dependencies).
 
-#### Example
+#### Example 1
 
 If we look back at
 ```
@@ -634,3 +634,40 @@ read_B(x, 0);       read_B(x, 0);
 update_A(x, 1);
 update_B(y, 1);
 ```
+
+#### Example 2
+
+```
+initial state:
+--------------
+    x = 0;
+
+program A        ∥   program B
+-----------------∥------------
+A0: CAS(x,0,1);  ∥   B0: x = 2;
+A1:              ∥   B1:
+```
+
+Consider a TSO execution where the `CAS` succeed: `write_B(x, 2); arw_A(x, 0, 1); update_B(x, 2);`
+
+Here is the corresponding DTSO execution:
+```
+TSO                 DTSO                    memory      TSO local states    DTSO local states
+                                            x: 0        A0, B0              A0, B0
+write_B(x, 2);
+                                            x: 0        A0, B1              A0, B0
+arw_A(x, 0, 1);     arw_A(x, 0, 1);
+                                            x: 1        A1, B1              A1, B0
+update_B(x, 2);     write_B(x, 2);
+                                            x: 2        A1, B1              A1, B1
+```
+
+Notice that the sequence of states for each process is preserved:
+* for `A`: first `A0` then `A1`
+* for `B`: first `B0` then `B1`
+
+However, the pairs of `A`-`B` states are not:
+* `A0, B1` appears in the TSO execution but not in DTSO,
+* `A1, B0` appears in the DTSO execution but not in TSO.
+
+This is fine as the control state reachability is to a single process.

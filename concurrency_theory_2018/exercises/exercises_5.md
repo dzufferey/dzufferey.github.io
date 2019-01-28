@@ -64,4 +64,4 @@ __Example 4.__
 
 A finite multiset over $X$ is a function $m: X ⇒ ℕ$ such that $support(m) = \\{ x ~|~ m(x) > 0 \\}$ is finite.
 
-The _finite multiset embedding_ $(\mathcal{M}(X), ≤_{\mathcal{M}})$ is defeined as follow: $m_1 ≤_{\mathcal{M}} m_2$ iff there exists an injective function $f: support(m_1) → support(m_2)$ such that $∀ x.\ x ≤ f(x) ∧ m₁(x) ≤ m₂(f(x))$.
+The _finite multiset embedding_ $(\mathcal{M}(X), ≤_{\mathcal{M}})$ is defined as follow: $m_1 ≤_{\mathcal{M}} m_2$ iff there exists an injective function $f: support(m_1) → support(m_2)$ such that $∀ x.\ x ≤ f(x) ∧ m₁(x) ≤ m₂(f(x))$.

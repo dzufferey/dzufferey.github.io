@@ -4,11 +4,36 @@
 
 #### Task 1
 
-TODO ...
+$T$ extends the automaton with self-loops that do not change the state for the new element in the alphabet:
+
+$T((Q_M,Σ_M,δ_M,q_{0M},F_M),\Sigma) = (Q_M,\Sigma,\delta,q_{0 M},F_M)$ where
+
+$∀ a ∈ Σ.\ (a ∈ Σ_M ⇒ δ(q, a) = δ_M(q, a)) ∧ (a ∉ Σ_M ⇒ δ(q, a) = q)$
+
+By inlining the definition of $T$ in the simple product we get:
+* $a ∈ Σ_P ∧ a ∈ Σ_Q ⇒ δ((q_P,q_Q), a) = (δ_P(q_P, a), δ_Q(q_Q, a)) $
+* $a ∉ Σ_P ∧ a ∈ Σ_Q ⇒ δ((q_P,q_Q), a) = (q_P, δ_Q(q_Q, a)) $
+* $a ∈ Σ_P ∧ a ∉ Σ_Q ⇒ δ((q_P,q_Q), a) = (δ_P(q_P, a), q_Q) $
+* $a ∉ Σ_P ∧ a ∉ Σ_Q ⇒ δ((q_P,q_Q), a) = (q_P, q_Q) $
+
+Because $a ∈ Σ_P ∪ Σ_Q$, the last case never happens and this corresponds to the definition of the synchronized product.
+
 
 #### Task 2
 
-TODO ...
+Generalizing the synchronized product to NFA gives  $M_1 ⊗_{NFA} M_2 = M$ where
+
+* $Q = Q_1 × Q_2$
+* $Σ = Σ_1 ∪ Σ_2$
+* $δ$ is the transition function
+  - $δ((q_1,q_2), a) = \\{ (q_1',q_2') ~|~ q_1' ∈ δ_1(q_1, a) ∧ q_2' ∈  δ_2(q_2, a) \\}$ if $a ∈ Σ_1$ and $a ∈ Σ_2$
+  - $δ((q_1,q_2), a) = \\{ (q_1,q_2') ~|~ q_2' ∈  δ_2(q_2, a) \\}$ if $a ∉ Σ_1$ and $a ∈ Σ_2$
+  - $δ((q_1,q_2), a) = \\{ (q_1',q_2) ~|~ q_1' ∈ δ_1(q_1, a) \\}$ if $a ∈ Σ_1$ and $a ∉ Σ_2$
+* $q₀ = (q₀_1, q₀_2)$
+* $F = F_1 × F_2$
+
+The proof of correctness uses the same principle as the determinization.
+However, instead of keeping track of set of states, we have to keep track of pairs of set of states and sets of pairs of states.
 
 ## Petri nets
 

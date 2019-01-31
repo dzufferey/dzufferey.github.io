@@ -304,6 +304,8 @@ a ( ) ( ) b
 The converse of the propositions above are not true.
 Can you find an examples?
 
+To have a result which also goes in the other direction we need to look at a more limited type of nets.
+
 __Free-choice nets.__
 A Petri net is _free-choice_ iff $\forall s, t. W(s, t) = 1 \Rightarrow \forall s' \in \mathit{preset}(t), t' ∈ \mathit{postset}(s).  W(s', t') = 1$.
 
@@ -332,12 +334,18 @@ But this is not allowed (asymmetric choice/conflict):
   ( ) → |
   ```
 
+__Live net.__
+We say that a net $N$ is _live_ if, for every reachable marking $M ∈ R(M₀)$ and every transition $t$, there exists a marking $M' ∈ R(M)$ which enables $t$.
+
 
 __Theorem (Commoner's theorem).__
-Given a free-choice net $N$, $N$ is deadlock-free iff every proper siphon of $N$ includes an initially marked trap.
+Given a free-choice net $N$, $N$ is live iff every proper siphon of $N$ includes an initially marked trap.
 
 The proof can be found in the Chapter 4 of the [Free Choice Petri Nets](https://www7.in.tum.de/~esparza/bookfc.html) book.
 
+_Remark (31.01.19 update)._
+The earlier wrong statement of Commoner's theorem was about deadlock-freedom rather than being live.
+Live is a strictly stronger condition than deadlock-free.
 
 ## Monotonicity
 

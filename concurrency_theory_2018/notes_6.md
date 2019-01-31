@@ -567,7 +567,17 @@ The overall structure is:
 └───────┘ └────┘
 ```
 
-We now show how to implement each of these parts.
+The first observation is that a Turing machine in *one* transition only need to know the current position of the tape and the previous/next tape cells to move.
+So we can emulate a single transition using a finite state machine and we need to find a way of storing the other tape cells in the mean time.
+The "buffer" is the critical part of the encoding which keep this three cells local view and use the channels to store the rest of the tape.
+
+To store the remainder of the tape, we use the FIFO channel between the buffer and the echo machine.
+These two channels form a extensible *circular buffer*.
+The echo machine is just moving messages from one buffer to the other.
+A special symbol is use to mark the "end of tape".
+Since the buffer is circular, after the "end of tape" symbol we loop back to the beginning of the tape.
+
+We now show how to implement each of the differents parts in the encoding.
 
 __Buffer.__
 The buffer is the key part that interact with the channel and the head.
@@ -577,8 +587,8 @@ Compared to a tape, the buffer + channel combination can only move forward and, 
 The set of messages is between the buffer and echo are:
 * `Σ` (alphabet of the Turing machine)
 * blank symbol (also from Turing machine)
-* end of tape symbol
-* current position marker
+* end of tape symbol (`.`)
+* current position marker (`|`)
 
 The buffer synchronizes with the head on transitions of the form `Σ × Σ × {F/B}` where the 1st element is the read character, the 2nd is the character to write, and whether to move forward or backward.
 

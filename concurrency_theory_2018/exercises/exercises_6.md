@@ -150,11 +150,11 @@ Compare FIFO with mailbox with and without lookahead:
 __Task 4.__
 
 Compare FIFO with mailbox and lookahead against the bag semantics:
-* FIFO+mailbox+lookahead → FIFO+bag
-  - either give an example of CSM having traces with FIFO+mailbox+lookahead that are not possible with FIFO+bag
-  - or show that for any CMS every FIFO+mailbox+lookahead trace is also a FIFO+bag trace
-* FIFO+bag → FIFO+mailbox+lookahead
-  - either give an example of CSM having traces with FIFO+bag that are not possible with FIFO+mailbox+lookahead
-  - or show that for any CMS every FIFO+bag trace is also a FIFO+mailbox+lookahead trace
+* FIFO+mailbox+lookahead → mailbox+bag
+  - either give an example of CSM having traces with FIFO+mailbox+lookahead that are not possible with mailbox+bag
+  - or show that for any CMS every FIFO+mailbox+lookahead trace is also a mailbox+bag trace
+* mailbox+bag → FIFO+mailbox+lookahead
+  - either give an example of CSM having traces with mailbox+bag that are not possible with FIFO+mailbox+lookahead
+  - or show that for any CMS every mailbox+bag trace is also a FIFO+mailbox+lookahead trace
 
 

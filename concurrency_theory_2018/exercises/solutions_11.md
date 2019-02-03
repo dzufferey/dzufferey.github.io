@@ -28,17 +28,32 @@ In more details:
     -> ERROR both processes in the critical section
     ```
 
-2. This is perhaps the most interesting version.
-  Here is why the algorithm is correct:
-  * Writing the `flag` and directly using a `fence();` make this write like a write under SC.
-    So we don't need to care about the buffer here.
-  * In the case of the processes both trying to enter at the same time, because of the `fence`s we have that `flag: [1, 1]` therefore the second part of the while loop condition is false.
-  * The write to `turn` is always visible to the process that write (read from buffer) and that write makes the first part of the condition true.
-    This bias the process toward not entering the critical section.
-  * While the write to turns are in the buffer, the processes are both stuck in the while loop.
-  * To make sure that the algorithm is correct, we need to check what happens when the write to `turn` get from the buffers to the memory:
-    - The first process which write to `turn` get into the memory is still stuck as it does not change how `turn != id` evaluates.
-    - When the 2nd write to `turn` gets into the memory the process that write is still stuck but then the other process can enter the critical section.
+2. Also incorrect.
+   The problem is that we can delay the update of the `turn` to give the `turn` to a process that should not enter.
+    ```
+    TSO                 memory                      TSO store buffer
+                        flag: [0, 0], turn: 0       0: ε, 1: ε
+    write_0(flag[0], 1);
+                        flag: [0, 0], turn: 0       0: (flag[0], 1), 1: ε
+    update_0 (flag[0], 1);
+                        flag: [1, 0], turn: 0       0: ε, 1: ε
+    write_0(turn, 1);
+                        flag: [1, 0], turn: 0       0: (turn, 1), 1: ε
+    read_0(turn, 1);
+    read_0(flag[1], 0);
+    write_1(flag[1], 1);                                         
+                        flag: [1, 0], turn: 0       0: (turn, 1), 1: (flag[1], 1)
+    update_1 (flag[1], 1);
+                        flag: [1, 1], turn: 0       0: (turn, 1), 1: ε
+    write_1(turn, 0);
+                        flag: [1, 1], turn: 0       0: (turn, 1), 1: (turn, 0)
+    update_1(turn, 0);
+                        flag: [1, 1], turn: 0       0: (turn, 1), 1: ε
+    update_0(turn, 1);
+                        flag: [1, 1], turn: 1       0: ε, 1: ε
+    read_1(turn, 1);
+    -> ERROR both processes in the critical section
+    ```
 
 
 3. Actually, just the reordering makes the algorithm incorrect even under SC. So we can ignore the buffers.
@@ -63,6 +78,8 @@ In more details:
     ```
 
 4. As we are forcing the write to happens before reading, we the algorithm behaves as the SC version.
+   The buffers are empty and this forces the processes to read the actual value in memory.
+   So both processes will have the same view over the memory.
 
 
 ## On the Generality of our TSO Formalization

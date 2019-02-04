@@ -143,8 +143,34 @@ $w₁$ _embeds_ in $w₂$ if there is an injective mapping $f$ from $[0, |w₂|)
 *  $∀ i j.\ i < j ⇒ f(i) < f(j)$
 *  $∀ i.\ w₁[i] ≤ w₂[f(i)]$
 
-For instance:
+For instance, with words in $\mathbb{N}^\*$:
 * $0110$ embeds in $01234$ with the following mapping: $(0→0), (1→1), (2→2), (3→3)$.
+  Visually, this looks like:
+  ```graphviz
+    digraph PN{
+      rankdir=TD;
+      node [shape = record];
+      p1 [label="<a>0|<b>1|<c>1|<d>0" ];
+      p2 [label="<a>0|<b>1|<c>2|<d>3|<e>4" ];
+      p1:a -> p2:a;
+      p1:b -> p2:b;
+      p1:c -> p2:c;
+      p1:d -> p2:d;
+    }
+  ```
+* $020$ embeds in $01234$ with the following mapping: $(0→0), (1→2), (2→3)$.
+  Visually, this looks like:
+  ```graphviz
+    digraph PN{
+      rankdir=TD;
+      node [shape = record];
+      p1 [label="<a>0|<b>2|<c>0" ];
+      p2 [label="<a>0|<b>1|<c>2|<d>3|<e>4" ];
+      p1:a -> p2:a;
+      p1:b -> p2:c;
+      p1:c -> p2:d;
+    }
+  ```
 * $0101$ does not embed in $1230$.
 
 __Higman's lemma.__

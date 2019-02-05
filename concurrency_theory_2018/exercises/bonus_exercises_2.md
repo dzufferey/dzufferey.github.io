@@ -13,7 +13,7 @@ Here we will investigate further the boundedness question.
 
 There are two type of boundedness questions:
 - boundedness: if any place of the net can contain an unbounded number of token for some execution
-- place-boundedness: if a give place of the net can contain an unbounded number of token for some execution
+- place-boundedness: if a given place of the net can contain an unbounded number of token for some execution
 
 Until now we have focused on boundedness.
 

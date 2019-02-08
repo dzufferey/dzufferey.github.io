@@ -115,5 +115,5 @@ Here is a variation of the example for difference between p2p and mailbox:
     }
     ```
 
-With synchronous and 1-bounded semantics, in C we can only reach c₁, c₂, c₃, c₄.
-With unbounded FIFO, we can also reach c₅, c₆, c₇.
+With synchronous and 1-bounded+p2p semantics, in C we can only reach c₁, c₂, c₃, c₄.
+With unbounded FIFO+p2p, we can also reach c₅, c₆, c₇.

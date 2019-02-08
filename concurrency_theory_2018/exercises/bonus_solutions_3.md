@@ -71,22 +71,22 @@ $H$ is the identity function restricted to the common states.
 
 The definitions of $R ≤_P S$ expands to:
 
-$∀ T_R ∈ δ_R(s, P).\ ∃ T_S ∈ δ_S(s, P).\ ∀ R_S ∈ δ_S(s, Q).\ ∃ R_R ∈ δ_R(s, P).\ (T_S ∩ R_S) × (T_R ∩ R_R) ∈ H$
+$∀ T_R ∈ δ_R(s, P).\ ∃ T_S ∈ δ_S(s, P).\ ∀ R_S ∈ δ_S(s, Q).\ ∃ R_R ∈ δ_R(s, Q).\ (T_S ∩ R_S) × (T_R ∩ R_R) ∈ H$
 
 because $Q$ did not change  ($R_S = R_R$) and $H$ is the identity, the formula simplifies to:
 
 $∀ T_R ∈ δ_R(s, P).\ ∃ T_S ∈ δ_S(s, P).\ ∀ R_S ∈ δ_S(s, Q). \ (T_S ∩ R_S) = (T_R ∩ R_S)$
 
-because of our definition we have $δ_R(s, P) ⊆ δ_S(s, P)$.
-Therefore, we can pick $T_R = T_S$.
-Then we have
-
-$∀ T_R ∈ δ_R(s, P). \ ∀ R_S ∈ δ_S(s, Q). \ (T_R ∩ R_S) = (T_R ∩ R_S)$
-
-This is further simplifies to true.
-
-_R refines S from $P$'s perspective._
-
+Then we need to distinguish between send or receive:
+* _send:_
+  Because of our definition we have $δ_R(s, P) ⊆ δ_S(s, P)$.
+  Therefore, we can pick $T_R = T_S$ and it simplifies to $∀ T_R ∈ δ_R(s, P). \ ∀ R_S ∈ δ_S(s, Q). \ (T_R ∩ R_S) = (T_R ∩ R_S)$.
+  This is further simplifies to true.
+* _receive:_
+  Because of our definition we have $|δ_R(s, P)| = |δ_S(s, P)| = 1$.
+  Therefore there is not much choice for $T_S$ and $T_R$.
+  Furthermore, $T_S ⊆ T_R$ and since $Q$ is the sender $R_S ⊆ T_S$.
+  Therefore, we have $T_S ∩ R_S = T_R ∩ R_S$.
 
 __Symmetric case $S ≤_Q R$.__
 This follows the same proof strategy.

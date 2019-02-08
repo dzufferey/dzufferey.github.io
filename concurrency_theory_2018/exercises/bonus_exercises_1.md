@@ -76,7 +76,7 @@ construct_dfa(P)
 ```
 
 __Task.__
-Exlpain what the algorithm above is doing in terms of (bi)simulation.
+Explain what the algorithm above is doing in terms of (bi)simulation.
 
 ## CSM Synchronizability
 

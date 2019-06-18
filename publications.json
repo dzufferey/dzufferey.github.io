@@ -1,6 +1,48 @@
 [
   {
     "tag": "recent",
+    "title": "Motion Session Types for Robotic Interactions",
+    "abstract": "Robotics applications involve programming concurrent components synchronising through messages while simultaneously executing motion primitives that control the state of the physical world.  Today, these applications are typically programmed in low-level imperative programming languages which provide little support for abstraction or reasoning.\n We present a unifying programming model for concurrent message-passing systems that additionally control the evolution of physical state variables, together with a compositional reasoning framework based on multiparty session types. Our programming model combines message-passing concurrent processes with motion primitives.  Processes represent autonomous components in a robotic assembly, such as a cart or a robotic arm, and they  synchronise via discrete messages as well as via motion primitives.  Continuous evolution of trajectories under the action of controllers is also modelled by motion primitives, which operate in global, physical time.\n We use multiparty session types as specifications to orchestrate discrete message-passing concurrency and continuous flow of trajectories.  A global session type specifies the communication protocol among the components with joint motion primitives. A projection from a global type ensures that jointly executed actions at end-points are communication safe and deadlock-free, i.e., session-typed components do not get stuck.  Together, these checks provide a compositional verification methodology for assemblies of robotic components with respect to concurrency invariants such as a progress property of communications as well as dynamic invariants such as absence of collision.\n We have implemented our core language and, through initial experiments, have shown how multiparty session types can be used to specify and compositionally verify robotic systems implemented on top of off-the-shelf and custom hardware using standard robotics application libraries.",
+    "author": [
+      {
+        "family": "Majumdar",
+        "given": "Rupak"
+      },
+      {
+        "family": "Pirron",
+        "given": "Marcus"
+      },
+      {
+        "family": "Nobuko",
+        "given": "Yoshida"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "To appear in Proceedings of 33rd European Conference on Object-Oriented Programming (ECOOP 2019)",
+    "editor": [
+      {
+        "family": "Donaldson",
+        "given": "Alastair"
+      }
+    ],
+    "id": "ecoop19",
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "publisher": "Schloss Dagstuhl - Leibniz-Zentrum fuer Informatik",
+    "type": "paper-conference"
+  },
+  {
+    "tag": "recent",
+    "title": "PGCD: Robot Programming and Verification with Geometry, Concurrency, and Dynamics",
     "abstract": "Robotics applications are typically programmed in low-level imperative programming languages, leaving the programmer to deal with dynamic controllers affecting the physical state, geometric constraints on components, and concurrency and synchronization. The combination of these features —dynamics, geometry, and concurrency— makes developing robotic applications difficult. We present PGCD, a programming model for robotics applications consisting of assemblies of robotic components, together with its runtime and a verifier. PGCD combines message-passing concurrent processes with motion primitives, which represent continuous evolution of trajectories in geometric space under the action of dynamic controllers, and explicit modeling of geometric frame shifts, which allow relative coordinate transformations between components evolving in space. We describe a verification algorithm for PGCD programs based on model checking and SMT solvers that statically verify  concurrency-related properties such as absence of deadlocks and  geometric invariants such as absence of collision during motion. We have implemented a runtime for PGCD programs that compiles down to imperative code on top of ROS and runs directly on robotic hardware. We illustrate the programming model and reasoning principles by building a number of statically verified robotic manipulation programs on top of 3D-printed robotic arm and cart assemblies.",
     "author": [
       {
@@ -24,7 +66,7 @@
         "given": "Damien"
       }
     ],
-    "container-title": "To appear in Proceedings of the 10th International Conference on Cyber-Physical Systems (ICCPS 2019)",
+    "container-title": "In Proceedings of the 10th International Conference on Cyber-Physical Systems (ICCPS 2019)",
     "editor": [
       {
         "family": "Xue",
@@ -45,12 +87,11 @@
     },
     "keyword": "conf",
     "publisher": "ACM/IEEE",
-    "title": "PGCD: Robot Programming and Verification with Geometry, Concurrency, and Dynamics",
     "link-paper": "files/2019_PGCD_Robot_Programming_and_Verification_with_Geometry_Concurrency_and_Dynamics.pdf",
     "type": "paper-conference"
   },
   {
-    "tag": "recent",
+    "title": "Tool: Accessible Automated Reasoning for Human Robot Collaboration",
     "abstract": "We present an expressive, concise, and extendable domain specific language for planning of assembly systems, such as industrial human robot cooperation. Increased flexibility requirements in manufacturing processes call for more automation at the description and planning stages of manufacturing. Procedural models are good candidates to meet this demand as programs offer a high degree of flexibility and are easily composed.\nFurthermore, we aim to make our programs close to declarative specification and integrate automatic reasoning tools to help the users. The constraints come both from specific programs and preexisting knowledge base from the target domain. The case of human robot collaboration is interesting as there is a number of constraints and regulations around this domain. Unfortunately, automated reasoners are often too unpredictable and cannot be used directly by non-experts.\nIn this paper, we present our domain specific language “Tool Ontology and Optimization Language” (Tool) and describe how we integrated automated reasoners and planners in a way that makes them accessible to users which have little programming knowledge, but expertise in manufacturing domain and no previous experience with or knowledge about the underlying reasoners. We present encouraging results by applying Tool to a case study from the automotive and aerospace industry.",
     "author": [
       {
@@ -95,13 +136,12 @@
     },
     "keyword": "conf",
     "publisher": "ACM",
-    "title": "Tool: Accessible Automated Reasoning for Human Robot Collaboration",
     "link-paper": "files/2018_tool_preprint.pdf",
     "link-slides": "files/2018_tool_presentation.pdf",
     "type": "paper-conference"
   },
   {
-    "tag": "recent",
+    "title": "DroidStar: Callback Typestates for Android Classes",
     "abstract": "Event-driven programming frameworks, such as Android, are based on components with asynchronous interfaces. The protocols for interacting with these components can often be described by finite-state machines we dub callback typestates. Callback typestates are akin to classical typestates, with the difference that their outputs (callbacks) are produced asynchronously. While useful, these specifications are not commonly available, because writing them is difficult and error-prone.\nOur goal is to make the task of producing callback typestates significantly easier. We present a callback typestate assistant tool, DroidStar, that requires only limited user interaction to produce a callback typestate. Our approach is based on an active learning algorithm, L*. We improved the scalability of equivalence queries (a key component of L*), thus making active learning tractable on the Android system.\nWe use DroidStar to learn callback typestates for Android classes both for cases where one is already provided by the documentation, and for cases where the documentation is unclear. The results show that DroidStar learns callback typestates accurately and efficiently. Moreover, in several cases, the synthesized callback typestates uncovered surprising and undocumented behaviors.",
     "author": [
       {
@@ -158,12 +198,10 @@
     },
     "keyword": "conf",
     "publisher": "ACM",
-    "title": "DroidStar: Callback Typestates for Android Classes",
     "link-paper": "files/2018_DroidStar_Callback_Typestate_for_Android_Classes.pdf",
     "type": "paper-conference"
   },
   {
-    "tag": "recent",
     "abstract": "When a computational task tolerates a relaxation of its specification or when an algorithm tolerates the effects of noise in its execution, hardware, programming languages, and system software can trade deviations from correct behavior for lower resource usage. We present, for the first time, a synthesis of research results on computing systems that only make as many errors as their users can tolerate, from across the disciplines of computer aided design of circuits, digital system design, computer architecture, programming languages, operating systems, and information theory. Rather than over-provisioning resources at each layer to avoid errors, it can be more efficient to exploit the masking of errors occurring at one layer which can prevent them from propagating to a higher layer. We survey tradeoffs for individual layers of computing systems from the circuit level to the operating system level and illustrate the potential benefits of end-to-end approaches using two illustrative examples. To tie together the survey, we present a consistent formalization of terminology, across the layers, which does not significantly deviate from the terminology traditionally used by research communities in their layer of focus.",
     "author": [
       {

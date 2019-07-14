@@ -21,7 +21,7 @@
         "given": "Damien"
       }
     ],
-    "container-title": "To appear in Proceedings of 33rd European Conference on Object-Oriented Programming (ECOOP)",
+    "container-title": "In Proceedings of 33rd European Conference on Object-Oriented Programming (ECOOP)",
     "editor": [
       {
         "family": "Donaldson",
@@ -38,6 +38,7 @@
     },
     "keyword": "conf",
     "publisher": "Schloss Dagstuhl - Leibniz-Zentrum fuer Informatik",
+    "link-paper": "files/2019_Motion_Session_Types_for_Robotic_Interactions.pdf",
     "type": "paper-conference"
   },
   {

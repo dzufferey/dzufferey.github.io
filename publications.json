@@ -1,6 +1,72 @@
 [
   {
     "tag": "recent",
+    "title": "Incremental Synthesis of Symbolic Controllers in a Changing Environment",
+    "abstract": "Abstraction-Based Controller Synthesis (ABCS) is an emerging field for automatic synthesis of correct-by-design controllers for non-linear dynamical systems in the presence of bounded disturbances. An important drawback of existing ABCS techniques is the lack of flexibility against changes in the disturbance model; any change in the model results in a complete re-computation of the abstraction and the controller. This flexibility is relevant to situations when disturbances are learnt or estimated during operation in an environment which is previously not known precisely. As time passes, the disturbance model is progressively refined. The monolithic nature and high computational cost of existing algorithms make ABCS unsuited for such scenarios.\n In this paper, we present an incremental algorithm that makes the entire ABCS work-flow dynamically adapt to local changes in the disturbance model. Only the parts of the space which are affected by the changes are updated and the rest of the abstraction is reused. We empirically show the benefit of dynamic adaptation of abstraction on two large examples: a 5-dimensional vehicle model and a 12-dimensional quadrotor model. In both cases, the speed-up over complete re-computation is significant.",
+    "author": [
+      {
+        "family": "Bai",
+        "given": "Yunjun"
+      },
+      {
+        "family": "Majumdar",
+        "given": "Rupak"
+      },
+      {
+        "family": "Mallik",
+        "given": "Kaushik"
+      },
+      {
+        "family": "Schmuck",
+        "given": "Anne-Kathrin"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "To appear in Proceedings of the Conference on Decision and Control (CDC)",
+    "id": "cdc19",
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "publisher": "IEEE",
+    "type": "paper-conference"
+  },
+  {
+    "tag": "recent",
+    "title": "Mperl: Hardware and Software Co-design for Robotic Manipulators",
+    "abstract": "Building small custom robots is getting democratized thanks to affordable tools like 3D printers and microcontrollers. However, it still requires expertise from a wide range of domains: from designing the mechanical parts to writing the code that controls the robot. We present Mperl, a tool to help non-experts build custom robotic manipulators.\n Mperl starts from an abstract description of the robot’s kinematic structure which contains information about joints, actuators, and sensors. The structure is refined with an easily manufactured geometry. Furthermore, from the structure Mperl generates control code which can be used to move the robot to a target configuration. We evaluate Mperl on a range of common robotic manipulator architectures, both serial and parallel.",
+    "author": [
+      {
+        "family": "Pirron",
+        "given": "Marcus"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "To appear in Proceedings of the International Conference on Intelligent Robots and Systems (IROS)",
+    "id": "iros19",
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "publisher": "IEEE",
+    "type": "paper-conference"
+  },
+  {
+    "tag": "recent",
     "title": "Motion Session Types for Robotic Interactions",
     "abstract": "Robotics applications involve programming concurrent components synchronising through messages while simultaneously executing motion primitives that control the state of the physical world.  Today, these applications are typically programmed in low-level imperative programming languages which provide little support for abstraction or reasoning.\n We present a unifying programming model for concurrent message-passing systems that additionally control the evolution of physical state variables, together with a compositional reasoning framework based on multiparty session types. Our programming model combines message-passing concurrent processes with motion primitives.  Processes represent autonomous components in a robotic assembly, such as a cart or a robotic arm, and they  synchronise via discrete messages as well as via motion primitives.  Continuous evolution of trajectories under the action of controllers is also modelled by motion primitives, which operate in global, physical time.\n We use multiparty session types as specifications to orchestrate discrete message-passing concurrency and continuous flow of trajectories.  A global session type specifies the communication protocol among the components with joint motion primitives. A projection from a global type ensures that jointly executed actions at end-points are communication safe and deadlock-free, i.e., session-typed components do not get stuck.  Together, these checks provide a compositional verification methodology for assemblies of robotic components with respect to concurrency invariants such as a progress property of communications as well as dynamic invariants such as absence of collision.\n We have implemented our core language and, through initial experiments, have shown how multiparty session types can be used to specify and compositionally verify robotic systems implemented on top of off-the-shelf and custom hardware using standard robotics application libraries.",
     "author": [
@@ -90,6 +156,53 @@
     "keyword": "conf",
     "publisher": "ACM/IEEE",
     "link-paper": "files/2019_PGCD_Robot_Programming_and_Verification_with_Geometry_Concurrency_and_Dynamics.pdf",
+    "type": "paper-conference"
+  },
+  {
+    "tag": "recent",
+    "title": "Evaluating Branching Heuristics in Interval Constraint Propagation for Satisfiability",
+    "abstract": "Interval Constraint Propagation (ICP) is a powerful method for solving general nonlinear constraints over real numbers. ICP uses interval arithmetic to prune the space of potential solutions and, when the constraint propagation fails, divides the space into smaller regions and continues recursively. The original goal is to find paving boxes of all solutions to a problem. Already when the whole domain needs to be considered, branching methods do matter much. However, recent applications of ICP in decision procedures over the reals need only a single solution. Consequently, variable ordering in branching operations becomes even more important.\n In this work, we compare three different branching heuristics for ICP. The first method, most commonly used, splits the problem in the dimension with the largest lower and upper bound. The two other types of branching methods try to exploit an integration of analytical/numerical properties of real functions and search-based methods. The second method, called smearing, uses gradient information of constraints to choose variables that have the highest local impact on pruning. The third method, lookahead branching, designs a measure function to compare the effect of all variables on pruning operations in the next several steps.\n We evaluate the performance of our methods on over 11,000 benchmarks from various sources. While the different branching methods exhibit significant differences on larger instance, none is consistently better. This shows the need for further research on branching heuristics when ICP is used to find an unique solution rather than all solutions.",
+    "author": [
+      {
+        "family": "Huang",
+        "given": "Calvin"
+      },
+      {
+        "family": "Kong",
+        "given": "Soonho"
+      },
+      {
+        "family": "Gao",
+        "given": "Sicun"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "In Proceedings of the 12th International Workshop on Numerical Software Verification (NSV)",
+    "editor": [
+      {
+        "family": "Zamani",
+        "given": "Majid"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "id": "nsv19",
+    "issued": {
+      "date-parts": [
+        [
+          2019
+        ]
+      ]
+    },
+    "keyword": "workshop",
+    "publisher": "Springer",
+    "link-paper": "files/2019_Evaluating_Branching_Heuristics_in_Interval_Constraint_Propagation_for_Satisfiability.pdf",
+    "link-slides": "files/2019_Evaluating_Branching_Heuristics_in_Interval_Constraint_Propagation_for_Satisfiability_slides.odp",
     "type": "paper-conference"
   },
   {

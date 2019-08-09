@@ -157,6 +157,20 @@
   <div class="tab-content">
     <div id="research-project" class="tab-pane fade in active">
       <div class="list-group">
+        <a href="" class="list-group-item">
+          <h4 class="list-group-item-heading">Design, programming, and verification of robotic system</h4>
+          <p class="list-group-item-text">
+          Robotics applications involve programming concurrent components synchronising through messages while simultaneously executing motion primitives that control the state of the physical world.
+          These applications are typically programmed in low-level imperative programming languages which provide little support for abstraction or reasoning.
+          We are looking at a programming model which brings together software and hardware.
+          This project has multiple parts.
+          <br/>
+          With <a href="https://github.com/MPI-SWS/pgcd/">PGCD</a> we are working on an unifying programming model combining message-passing concurrency and control code which interacts with the physical world.
+          <br/>
+          With <a href="https://gitlab.mpi-sws.org/mpirron/mperl">MPerl</a> we look at how progress in rapid manufacturing tools like 3D printers influence the way we write code for robotic systems.
+          More precisely, we are working generating control code from parametric description of robotic designs.
+          </p>
+        </a>
         <a href="https://github.com/dzufferey/psync" class="list-group-item">
           <h4 class="list-group-item-heading">PSync</h4>
           <p class="list-group-item-text">
@@ -169,12 +183,9 @@
         <a href="https://cs.nyu.edu/wies/software/grasshopper/" class="list-group-item">
           <h4 class="list-group-item-heading">GRASShopper</h4>
           <p class="list-group-item-text">
-          GRASShopper is an experimental verification tool for programs that
-          manipulate dynamically allocated data structures. GRASShopper programs
-          can be annotated with specifications expressed in a decidable
-          specification logic to check functional correctness properties. The
-          logic supports mixing of separation logic and first-order logic
-          assertions, yielding expressive yet concise specifications.
+          GRASShopper is an experimental verification tool for programs that manipulate dynamically allocated data structures.
+          GRASShopper programs can be annotated with specifications expressed in a decidable specification logic to check functional correctness properties. 
+          The logic supports mixing of separation logic and first-order logic assertions, yielding expressive yet concise specifications.
           </p>
         </a>
       </div>
@@ -189,6 +200,7 @@
     <div id="research-tools" class="tab-pane fade">
       <p></p>
       <ul>
+        <li><a href="https://github.com/MPI-SWS/pgcd/">PGCD</a>: a programming and verification tool for robotic systems with an emphasis on coordination of multiple robots.</li>
         <li><a href="https://github.com/dzufferey/psync">PSync</a>: DSL for fault-tolerant distributed algorithms using partially-synchronous communication-closed rounds.</li>
         <li><a href="https://cs.nyu.edu/wies/software/grasshopper/">GRASShopper</a>: a verification tool that checks separation logic specifications of heap manipulating programs.</li>
         <li><a href="./picasso/">Picasso</a>: a PI-CAlculuS-based SOftware analyzer.</li>

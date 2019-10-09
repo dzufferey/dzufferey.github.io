@@ -2,8 +2,8 @@
 
 _Instructions_
 * Due on November 5.
-* Send your solution by email to Felix Stutz.
-* You can work in groups up to 3 people, be sure to include the names of all the participants.
+* Send your solution by email to Felix Stutz. Please prefix your email subject with `[Concurrency Theory]`.
+* You can work in groups up to 3 people, be sure to include the names of all the participants in the document.
 * You can submit your solution in pdf or text format. For the exercises using Spin give the promela source file as well. Place all your files in a single archive (zip or tar.gz).
 
 __Some Administration__

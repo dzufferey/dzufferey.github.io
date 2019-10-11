@@ -20,7 +20,6 @@ Trivial nets are easy to analyze on their own and for the case of _not_ connecte
 
 For the structural properties of Petri nets, you can find more detailed definitions and complete explanations in the [lecture notes by Roland Meyer](https://www.tcs.cs.tu-bs.de/documents/ConcurrencyTheory_WS_20112012/lecture_notes.pdf):
 * 2.2 Invariants
-* 2.3 Traps and Siphons
 
 
 ### Invariants
@@ -128,220 +127,6 @@ $C =
 $I^T = \begin{bmatrix}1 & 0 & 0 & 1 & 0\end{bmatrix}$ is a structural invariant and we have that $I^T\cdot M₀ = 1$.
 
 We can use that to conclude that there is at most 1 token in place $1$ and, therefore, mutual exclusion is preserved.
-
-### Siphons and Traps
-
-Consider the following net:
-```graphviz
-digraph PN{
-  rankdir=LR
-  ranksep=0.75;
-  node [shape = circle, fixedsize = true, width = 0.5, fontsize = 15];
-  a [label=" ", xlabel="a" ];
-  b [label=" ", xlabel="b" ];
-  c [label="∙", xlabel="c" ];
-  d [label=" ", xlabel="d" ];
-  node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15, fontsize=15];
-  a -> t1;
-  t1 -> b;
-  c -> t3;
-  t3 -> d;
-  b -> t5;
-  t5 -> c;
-  edge [style = invis];
-  a -> t2;
-  t2 -> b;
-  c -> t4;
-  t4 -> d;
-  edge [style = default, constraint = false];
-  b -> t2;
-  t2 -> a;
-  d -> t4;
-  t4 -> c;
-}
-```
-
-Can $\\{a,b\\}$ receive a token?
-
-Can $\\{c,d\\}$ become empty?
-
-__Auxiliary definitions:__
-* The _preset_ of a transition $t$ is $\mathit{preset}(t) = \\{ s ~|~ W(s,t) \geq 1 \\}$.
-* The _postset_ of a transition $t$ is $\mathit{postset}(t) = \\{ s ~|~ W(t,s) \geq 1 \\}$.
-* The _preset_ of a place $s$ is $\mathit{preset}(s) = \\{ t ~|~ W(t,s) \geq 1 \\}$.
-* The _postset_ of a place $s$ is $\mathit{postset}(s) = \\{ t ~|~ W(s,t) \geq 1 \\}$.
-
-The `preset` and `postset` generalize to sets of places/transitions by taking the union
-
-#### Siphons
-
-A _siphon_ is a set of places $D ⊆ S$ such that $\mathit{preset}(D) ⊆ \mathit{postset}(D)$.
-
-More concretely, every transition that puts a token in a siphon must also take a token from the siphon.
-A siphon that becomes empty stays empty.
-
-We say that a siphon $D$ is
-* _proper_ iff $D \neq \emptyset$,
-* _marked_ under $M$ iff $\exists s \in D. M(s) > 0$, and
-* _empty_ iff $\forall s \in D. M(s) = 0$.
-
-__Theorem.__
-If a siphon $D$ is empty under $M$ then for any $M [〉 M'$, $D$ is empty under $M'$.
-
-__Proof.__
-* By contradiction, assume there is a $t$ such that $M [t〉 M'$ and $D$ is marked under $M'$.
-* By definition of siphon, $t$ must consume a token from $D$ in $M$.
-* However, by hypothesis $D$ is empty under $M$ and, thus, $t$ is not enabled which gives a contradiction.
-
-__Corollary.__
-If $D$ is empty under $M$ then $D$ is empty under any marking in $R(M)$.
-
-#### Traps
-
-Traps are the dual of siphons.
-A marked trap will never become empty.
-
-A _trap_ is a set of places $Q ⊆ S$ such that $\mathit{postset}(Q) ⊆ \mathit{preset}(Q)$.
-
-More concretely, every transition that take a token from a trap must also put a token in the trap.
-
-__Theorem.__
-If a trap $Q$ is marked under $M$ then for any $M [〉 M'$, $Q$ is marked under $M'$.
-
-__Proof.__
-By contradiction, assume there is a $t$ such that $M [t〉 M'$ and $Q$ is empty under $M'$.
-Therefore, $t$ must have consumed all the token in $Q$.
-
-However, by definition of trap, $t$ must also put at least one token in $Q$ and, thus, $Q$ cannot be empty (contradiction).
-
-__Corollary.__
-If $Q$ is marked under $M$ then $Q$ is marked under every marking in $R(M)$.
-
-#### Example
-
-What are the siphons and traps in:
-```graphviz
-digraph PN {
-    rankdir=LR;
-    node [shape = circle, fixedsize = true, width = 0.5];
-    p1 [ xlabel="U", label="∙" ];
-    p2 [ xlabel="L", label="" ];
-    p3 [ xlabel="0", label="" ];
-    p4 [ xlabel="1", label="" ];
-    p5 [ xlabel="2", label="" ];
-    node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15];
-    t1 [xlabel="lock" ];
-    t2 [xlabel="unlock" ];
-    t4 [xlabel="spawn" ];
-    t5 [xlabel="exit" ];
-    t4 -> p3;
-    p1 -> t1 [ constraint = false ];
-    p3 -> t1;
-    t1 -> p2;
-    t1 -> p4;
-    p2 -> t2;
-    p4 -> t2;
-    t2 -> p1 [ constraint = false ];
-    t2 -> p5;
-    p5 -> t5;
-    p3 -> p1 [ style = invis];
-}
-```
-
-#### Applications of siphons and traps
-
-Siphons can offer a quick check for some reachability question.
-For instance, if a siphon empty under $M₀$ then no reachable marking can cover a marking where the siphon is not empty.
-
-__Assumptions.__
-The following two results are only valid to Petri net where:
-* 0-1 Petri net: the weights on the edges are either $0$ or $1$,
-
-__Proposition.__
-If $M$ is a deadlock (no transition is enabled) then $\\{ s | M(s) = 0 \\}$ is an empty proper siphon.
-
-__Proposition.__
-If every proper siphon of $M$ includes an initially marked trap then $M$ is deadlock-free.
-
-__Examples.__
-Find an empty/marked proper siphon/traps in:
-
-```
-a (∙) ( ) b
-   ↓ ⤱ ↓
-   −   −
-   ↑ ⤩ ↑
-c ( ) ( ) d
-```
-* traps & siphons: $\\{a,b\\}$, $\\{c,d\\}$, $\\{a,d\\}$, $\\{b, c\\}$, $\\{a,b,c\\}$, $\\{a,b,d\\}$, $\\{a,c,d\\}$, $\\{b,c,d\\}$, $\\{a,b,c,d\\}$
-* marked: $\\{a,b\\}$, $\\{a,d\\}$, $\\{a,b,c\\}$, $\\{a,b,d\\}$, $\\{a,c,d\\}$,$\\{a,b,c,d\\}$
-* empty: $\\{c,d\\}$, $\\{b, c\\}$, $\\{b,c,d\\}$
-
-```
-  a (∙) ( ) b
-     ↓ ⤱ ↓
-     −   −
-     ↑ ↘ ↑ ↘
-| → ( ) ( ) ( ) → |
-     c   d   e
-```
-* marked traps & siphons: $\\{a,b\\}$
-
-```
-a ( ) ( ) b
-   ↓ ⤱ ↓
-   −   −
-   ↑ ↘ ↑ ↘
-  (:) ( ) ( ) → |
-   c   d   e
-```
-* siphons: $\\{a,b\\}$, $\\{c,d,e\\}$, $\\{a,b,c,d,e\\}$
-* traps: $\\{a,b\\}$
-* marked: $\\{c,d,e\\}$, $\\{a,b,c,d,e\\}$
-* empty: $\\{a,b\\}$
-
-
-The converse of the propositions above are not true.
-Can you find an examples?
-
-To have a result which also goes in the other direction we need to look at a more limited type of nets.
-
-__Free-choice nets.__
-A Petri net is _free-choice_ iff $\forall s, t. W(s, t) = 1 \Rightarrow \forall s' \in \mathit{preset}(t), t' ∈ \mathit{postset}(s).  W(s', t') = 1$.
-
-The following patterns are allowed:
-* Synchronization:
-  ```
-  ( ) → |
-  ( ) ↗
-  ```
-* Choice:
-  ```
-  ( ) → |
-      ↘ |
-  ```
-* Conflict:
-  ```
-  ( ) → |
-      ⤨
-  ( ) → |
-  ```
-
-But this is not allowed (asymmetric choice/conflict):
-  ```
-  ( ) → |
-      ↘
-  ( ) → |
-  ```
-
-__Live net.__
-We say that a net $N$ is _live_ if, for every reachable marking $M ∈ R(M₀)$ and every transition $t$, there exists a marking $M' ∈ R(M)$ which enables $t$.
-
-
-__Theorem (Commoner's theorem).__
-Given a free-choice net $N$, $N$ is live iff every proper siphon of $N$ includes an initially marked trap.
-
-The proof can be found in the Chapter 4 of the [Free Choice Petri Nets](https://www7.in.tum.de/~esparza/bookfc.html) book.
 
 
 ## Monotonicity
@@ -597,3 +382,10 @@ We get the following tree:
                                         |             ↘ (0 1 0 1 0)
                                         ↳ (1 0 1 0 0)
 ```
+
+## How big can a bounded Petri net be?
+
+TODO
+* give the simple gadget to build tower of exponential
+* Introduce Ackerman function
+* Present the Mayr and Meyer

@@ -383,9 +383,137 @@ We get the following tree:
                                         ↳ (1 0 1 0 0)
 ```
 
+
 ## How big can a bounded Petri net be?
 
-TODO
-* give the simple gadget to build tower of exponential
-* Introduce Ackerman function
-* Present the Mayr and Meyer
+### 
+
+### Vector Addition System with States (VASS)
+
+For the first example, we will use a sightly different notation as it makes the example easier to explain.
+Instead of Petri nets, we use Vector addition system with states (VASS).
+VASS are extensions of states machines with counters.
+
+__Definition.__
+A VASS $V$ is a 4-tuple $(Q, n, δ, i₀)$ where
+* $Q$ is a finite set of states
+* $n$ is the dimension of the VASS (number of counters)
+* $δ$ is the transition relation ($Q × ℤ^n × Q$)
+* $i₀$ is the initial state and value of the counters ($i₀ ∈ Q×ℕ^n$)
+
+A transition $(q,v,q')$ can be applied to a state $(x,y)$ if $x=q$ and $v+y ≥ 0$.
+It results in the new state $(q',v+y)$.
+We write the transition $(q,y)→(q',v+y)$.
+
+_Example._
+Consider the following 2 dimensional VASS
+```graphviz
+digraph vass {
+	rankdir=LR;
+	node [shape = circle];
+	init [shape = none, label = ""];
+    init -> a;
+	a -> b [ label = "(-1,1)" ];
+	b -> a [ label = "(0,0)" ];
+	a -> a [ label = "(1,0)" ];
+}
+```
+and the initial state $(a, (0,1))$:
+- the transition to $b$ is not possible as $(0,1) + (-1,0) = (-1,1)$ which is not $≥ 0$.
+- the loop to $a$ can be taken and gives a new state $(a, (1,1))$
+
+__Claim.__
+VASS are equivalent to Petri nets.
+One can be reduced to the other and vice-versa.
+
+### Tower of exponential
+
+Let use a VASS such that the run with the highest counter value is a tower of exponential: $\underbrace{2^{2^{\cdot^{\cdot^{\cdot^{n}}}}}}_{m}$.
+
+First, let us build a gadget to do one expenential.
+Consider the following VASS:
+```graphviz
+digraph vass {
+	rankdir=TD;
+	node [shape = circle, label = ""];
+    subgraph top {
+	    rank = same;
+	    init_a [shape = none, label = ""];
+        init_a -> a_a;
+	    a_a:ne -> a_a:nw [ label = "(-1, 1, 0)" ];
+	    a_a -> b_a [ label = "( 0, 0, 0)" ];
+        b_a -> a_a [ label = "( 0, 0,-1)" ];
+        b_a -> b_a [ label = "( 2,-1, 0)" ];
+    }
+}
+```
+
+If the VASS start with counter values $(1,0,n)$, it can reach the counter values $(2^n,0,0)$.
+
+Then we can chain this gadget to apply multiple time the exponential:
+```graphviz
+digraph vass {
+	rankdir=TD;
+	node [shape = circle, label = ""];
+    subgraph top {
+	    rank = same;
+	    init_a [shape = none, label = ""];
+        init_a -> a_a;
+	    a_a:ne -> a_a:nw [ label = "(-1, 1, 0)" ];
+	    a_a -> b_a [ label = "( 0, 0, 0)" ];
+        b_a -> a_a [ label = "( 0, 0,-1)" ];
+        b_a -> b_a [ label = "( 2,-1, 0)" ];
+    }
+    subgraph bottom {
+	    rank = same;
+	    init_b [shape = none, label = ""];
+        init_b -> a_b [ style=invis ];
+	    a_b:nw -> a_b:sw [ label = "( 0, 1,-1)" ];
+	    a_b -> b_b [ label = "( 0, 0, 0)" ];
+        b_b -> a_b [ label = "(-1, 0, 0)" ];
+        b_b -> b_b [ label = "( 0,-1, 2)" ];
+    }
+	a_a -> a_b [ label = "(0,0,1)" ];
+	down [shape = none, label = "..."];
+    a_b -> down [ label = "(1,0,0)" ];
+}
+```
+
+Staring with $(1,0,n)$, the first stage reaches $(2^n,0,0)$, the second stage gets to $(0,0,2^{2^n})$, etc.
+
+To compute $\underbrace{2^{2^{\cdot^{\cdot^{\cdot^{n}}}}}}_{m}$, we use $3$ counters, $2m$ control state, and $n+1$ as the value of the counter in the initial state.
+
+In this example, we get larger values by increasing the number of state.
+However, the number of counters is constant.
+We can do better be increasing the number of counters as well.
+
+Here is a version with a 4th counter:
+```graphviz
+digraph vass {
+	rankdir=TD;
+	node [shape = circle, label = ""];
+    subgraph top {
+	    rank = same;
+	    init_a [shape = none, label = ""];
+        init_a -> a_a;
+	    a_a:ne -> a_a:nw [ label = "(-1, 1, 0, 0)" ];
+	    a_a -> b_a [ label = "( 0, 0, 0, 0)" ];
+        b_a -> a_a [ label = "( 0, 0,-1, 0)" ];
+        b_a -> b_a [ label = "( 2,-1, 0, 0)" ];
+    }
+	a_a -> a_b [ label = "( 0, 0, 0, 0)" ];
+    a_b -> a_b [ label = "(-1, 0, 1, 0)" ];
+    a_b -> a_a [ label = "( 1, 0, 0,-1)" ];
+}
+```
+
+Each time we consume a token in the 4th counter we can transfer the token from the 1st to the 3rd counter.
+Therefore, we get $\underbrace{2^{2^{\cdot^{\cdot^{\cdot^{n}}}}}}_{m}$, starting with counter value $(1,0,n,m)$.
+
+We can simplify that to only have one parameter and get $\underbrace{2^{2^{\cdot^{\cdot^{\cdot^{2}}}}}}_{m}$, starting with counter value $(0,0,0,m+1)$.
+
+### Ackerman function
+
+* TODO Introduce Ackerman function
+
+* Present the Mayr and Meyer (1.2 of Roland's notes)

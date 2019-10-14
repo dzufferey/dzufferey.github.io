@@ -514,6 +514,77 @@ We can simplify that to only have one parameter and get $\underbrace{2^{2^{\cdot
 
 ### Ackerman function
 
-* TODO Introduce Ackerman function
+Let us use the previous idea to build a VASS which generate even larger values.
 
-* Present the Mayr and Meyer (1.2 of Roland's notes)
+The goal is to "compute" [Ackerman function](https://en.wikipedia.org/wiki/Ackermann_function).
+
+Ackermann function is defined as:
+
+$
+A(m, n) =
+\left\\{
+\begin{array}{ll}
+  n+1 & \text{if } ~ m = 0 \\\\
+  A(m-1, 1) & \text{if } ~ m > 0 ∧ n = 0 \\\\
+  A(m-1, A(m, n-1)) & \text{if } ~ m > 0 ∧ n > 0
+\end{array}
+\right.
+$
+
+It is simple to see that unfolding the recursive definition always terminates.
+Either $m$ get smaller or $m$ stays constant and $n$ decreases.
+However, the value returned by the function is mindbogglingly huge!
+Ackermann function belongs to the class of non-primitive recursive functions.
+
+The idea is to use a construction similar to the one above: start with a simple operation and around to call this operation many time.
+In our construction, we us a gadget for each value of $m$.
+Each gadget has
+* an "in" counter,
+* a "start" state, and
+* a "stop" state.
+
+Furthermore there is an "out" counter shared by all the gadgets.
+We write $(in_m,in_{m-1},…,in_0,out)$
+
+The first gadget we use is for $A(0,n) = n+1$:
+```graphviz
+digraph vass {
+	rankdir=LR;
+	init [shape = none, label = ""];
+    a [label = "start"];
+    b [label = "stop"];
+    init -> a;
+	a -> a [ label = "(-1, 1)" ];
+	a -> b [ label = "( 0, 1)" ];
+}
+```
+
+Then, for the following gadgets we can the fact that $A(m+1,n) = \underbrace{A(m,A(m,…,A(m,}_{n+1} 1)…))$.
+
+Using the $m$th gadget, the construction for the $m+1$th gadget is:
+```graphviz
+digraph vass {
+	rankdir=LR;
+    subgraph cluster_inner {
+        color=grey;
+        start_inner [label = "start'"];
+        stop_inner [label = "stop'"];
+	    start_inner -> stop_inner [ color=gray, style=dotted ];
+    }
+	init [shape = none, label = ""];
+    start_outer [label = "start"];
+    stop_outer [label = "stop"];
+    copy [label = ""];
+    init -> start_outer;
+    start_outer -> start_inner [label = "(0,1,…,0)"];
+    start_inner -> copy [xlabel = "(0,0,…,0)",dir=both,arrowhead=none,arrowtail=normal];
+    stop_inner -> stop_outer [label = "(0,0,…,0)"];
+    stop_inner -> copy [xlabel = "(-1,0,…,0)", constraint = false];
+    copy -> copy [label = "(0,1,…,-1)"];
+}
+```
+
+To compute $A(m,n)$ the construction uses $3m+2$ control state, $m+1$ counters, and $m$,$n$ are part of the initial counter values.
+
+
+An alternative encoding purely based on Petri nets can be found in Section 1.2 of the [lecture notes by Roland Meyer](https://www.tcs.cs.tu-bs.de/documents/ConcurrencyTheory_WS_20112012/lecture_notes.pdf).

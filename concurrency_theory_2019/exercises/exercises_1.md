@@ -11,9 +11,9 @@ __Some Administration__
 We need to find a time for the exercise session.
 We will try to find a time which satisfies the most people.
 The options are:
-1. ???
-2. ???
-3. ???
+1. Tuesday 17:15 - 18:45, room 607 MPI building
+2. Wednesday 15:30 - 17:00, room 607 MPI building
+3. Thursday 17:15 - 18:45, room 607 MPI building
 
 Please send to Felix by email you availabilities.
 For the slots when you are available, you can also rank them by preference.

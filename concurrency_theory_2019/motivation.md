@@ -32,7 +32,7 @@ For instance:
 
 __Example.__ parametric lock-and-increment
 
-Consider the following program ins pseudo-code
+Consider the following program in pseudo-code
 ```c
 ℕ balance;
 
@@ -111,12 +111,16 @@ Don't worry about the obscure terminology, it will come clear during the class. 
 
 ## Other information
 
-* _Open-ended exercise questions._
-  Often exercises will be of the form: "how would you approach x?" where "x" may be sightly underdefined.
-  These exercises do not have a single solution as there may be multiple interpretations.
+* _Vague exercise questions._
+  Often exercises may looks underspecified.
+  These exercises do not have a single solution as there may be multiple approaches to solve them.
   Don't worry though.
   Our goal is not to setup traps to make you fail but to develop a different skill set.
   Often questioning the task itself is a crucial part in finding a solution.
 * _Oral exam._
   An oral exam require you to both solve some problem and explain you solution.
   Being able to clearly explain yourself is a very valuable skill but, unfortunately, not trained enough in CS.
+  The exam will have the following form:
+  * Questions: You will pick three questions at random from a pool and keep two.
+  * Preparation: You will have half an hour to think about the question and prepare. You will have access to the course material during that time.
+  * Examination: The examination will last half an hour in which you will discuss the question and we will ask further questions/clarifications.

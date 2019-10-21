@@ -1,3 +1,208 @@
+# Verifying Properties of Systems
+
+### Properties
+
+Properties of concurrent systems are broadly divided in two categories:
+* _Safety_: properties that are violated by finite traces
+* _Liveness_: properties that can only be violated by infinite traces
+
+In this class we focus on _safety_ properties and a few _eventuality_ properties.
+Eventuality properties are simple liveness properties that says something eventually happens, e.g., a program eventually terminates.
+General classes of temporal properties (LTL, CTL, μ-calculus, weak/strong fairness, …) are out of scope.
+
+#### Example
+
+* Assertion is a safety property.
+* Termination is a liveness property.
+* Termination within 15 steps is a safety property.
+* Deadlock-freedom is a safety property.
+* Livelock-freedom is a liveness property.
+
+
+## Verification
+
+As Paths in graphs:
+- Safety is reachability: path from the initial state to an error state.
+- Eventuality is nested reachability: lasso path with the stem starting at the initial state and the loop does not go to any "progress" state where the progress state are the states that should eventually happen.
+
+Verification can be done as automata construction.
+Let us assume we have a program $A$ and a safety property $B$ represented as automata with the same alphabet $Σ$.
+The program satisfy the property is a language inclusion check: $L(A) ⊆ L(B)$ which reduces to $L(A) ∩ (Σ^*∖L(B)) = L(A) ∩ L(¬B) = ∅$.
+
+Instead doing the check $L(A) ∩ L(¬B) = ∅$ on the language (potentially infinite sets), we can to it on the automata as $A ⊗ ¬B = ∅$.
+This formulation also work when $A$ and $B$ have different alphabets.
+
+
+#### Example
+
+Using the lock+program above, we can check that the program uses the lock correctly.
+
+First, we complement the lock:
+```graphviz
+digraph finite_state_machine {
+	rankdir=LR;
+	node [shape = circle]; U; L;
+	node [shape = doublecircle]; Err;
+	init [shape = none, label = ""];
+    init -> U;
+	U -> L [ label = "lock" ];
+	L -> U [ label = "unlock" ];
+    L -> Err [ label = "lock" ];
+    U -> Err [ label = "unlock" ];
+    Err -> Err [ label = "lock, unlock" ];
+}
+```
+We can also add the error state to the automaton representing the program and, then, take the product.
+
+The product is show below.
+The colors represent the following:
+* In blue, we show the "expected" reachable states.
+* In black, we show the remaining reachable states.
+* In grey, we show the unreachable states.
+Notice that, no accepting state is reachable and, therefore, the program is safe.
+
+```graphviz
+digraph finite_state_machine {
+    rankdir=LR;
+    node [shape = circle, color = blue, fontcolor = blue]; a0; a1; a2; a3;
+    node [shape = circle, color = black, fontcolor = black]; e4; e5; e6;
+    node [shape = doublecircle, color = grey, fontcolor = grey]; e0; e1; e2; e3;
+    node [shape = circle, color = grey, labelfontcolor = grey];
+    a0 [label = "0, U"];
+    a1 [label = "1, L"];
+    a2 [label = "2, L"];
+    a3 [label = "3, U"];
+    b0 [label = "0, L"];
+    b1 [label = "1, U"];
+    b2 [label = "2, U"];
+    b3 [label = "3, L"];
+    e0 [label = "0, Err"];
+    e1 [label = "1, Err"];
+    e2 [label = "2, Err"];
+    e3 [label = "3, Err"];
+    e4 [label = "Err, U"];
+    e5 [label = "Err, L"];
+    e6 [label = "Err, Err"];
+    edge [color = blue, fontcolor = blue];
+    init [shape = none, label = ""];
+    init -> a0;
+    a0 -> a1 [ label = "lock" ];
+    a1 -> a2 [ label = "balance += x" ];
+    a2 -> a3 [ label = "unlock" ];
+    edge [color = black, fontcolor = black];
+    a0 -> e4 [ label = "balance += x" ];
+    a0 -> e6 [ label = "unlock" ];
+    a1 -> e6 [ label = "lock" ];
+    a1 -> e4 [ label = "unlock" ];
+    a2 -> e6 [ label = "lock" ];
+    a2 -> e5 [ label = "balance += x" ];
+    a3 -> e5 [ label = "lock" ];
+    a3 -> e4 [ label = "balance += x" ];
+    a3 -> e6 [ label = "unlock" ];
+    
+    e4 -> e5 [ label = "lock" ];
+    e4 -> e4 [ label = "balance += x" ];
+    e4 -> e6 [ label = "unlock" ];
+    e5 -> e6 [ label = "lock" ];
+    e5 -> e5 [ label = "balance += x" ];
+    e5 -> e4 [ label = "unlock" ];
+    e6 -> e6 [ label = "*" ];
+
+    edge [color = grey, fontcolor = grey];
+    b0 -> e1 [ label = "lock" ];
+    b0 -> e5 [ label = "balance += x" ];
+    b0 -> e6 [ label = "unlock" ];
+    b1 -> e4 [ label = "lock" ];
+    b1 -> e2 [ label = "balance += x" ];
+    b1 -> e6 [ label = "unlock" ];
+    b2 -> e5 [ label = "lock" ];
+    b2 -> e4 [ label = "balance += x" ];
+    b2 -> e3 [ label = "unlock" ];
+    b3 -> e6 [ label = "lock" ];
+    b3 -> e5 [ label = "balance += x" ];
+    b3 -> e4 [ label = "unlock" ];
+    
+    e0 -> e1 [ label = "lock" ];
+    e0 -> e6 [ label = "balance += x, unlock" ];
+    e1 -> e6 [ label = "lock, unlock" ];
+    e1 -> e2 [ label = "balance += x" ];
+    e2 -> e6 [ label = "lock, balance += x" ];
+    e2 -> e3 [ label = "unlock" ];
+    e3 -> e6 [ label = "*" ];
+}
+```
+
+
+### State-space Exploration (Model Checking)
+
+Checking safety properties reduces to an emptiness check, we need to find an accepting path.
+Since we negate the property to check, an accepting path is a counterexample!
+
+Basic algorithm for checking safety properties:
+
+```c
+F := {q₀}    // frontier
+V := {}      // visited
+while F ≠ ∅  do
+    choose s in F
+    F := F ∖ {s}
+    if s ∉ V
+        V := V ∪ {s}
+        if ¬safe(s)
+            return UNSAFE
+        else
+            F := F ∪ {s′ | δ(s,s′)}
+return SAFE
+```
+The algorithm above has a complexity of $O(|Q|⋅|Σ|)$.
+
+Variations:
+* using a queue for F makes a BFS
+* using a stack for F makes a DFS
+* this is a forward search, it is also possible do a backward search (start from the error state and computes the predecessors)
+
+
+#### Encoding data as automaton
+
+We can encode _bounded_ datatypes as finite automaton:
+* boolean value `b`
+    ```graphviz
+    digraph finite_state_machine {
+        rankdir=LR;
+        node [shape = doublecircle];
+        init [shape = none, label = ""];
+        init -> false;
+        false -> false [ label = "b = false" ];
+        false -> true [ label = "b = true" ];
+        true -> false [ label = "b = false" ];
+        true -> true [ label = "b = true" ];
+    }
+    ```
+* integer `i`
+    ```graphviz
+    digraph finite_state_machine {
+        rankdir=LR;
+        node [shape = doublecircle]; 0; 1;
+        m1 [ label = "-1"];
+        node [shape = none, label = ""]; init; dummy0; dummy1;
+        mdots [shape = none, label = "..."];
+        dots [shape = none, label = "..."];
+        mdots -> m1 [style=invis];
+        m1 -> 0 [label = "i += 1"];
+        0 -> 1 [label = "i += 1"];
+        1 -> dots  [style=invis];
+        dummy0 -> dummy1  [style=invis];
+        dummy1 -> init  [style=invis];
+        edge [constraint = false];
+        init -> 0;
+        0 -> m1 [label = "i -= 1"];
+        1 -> 0 [label = "i -= 1"];
+    }
+    ```
+
+However, this is very expensive.
+Numbers are exponentially more succinct than automaton.
+
 # Petri Nets
 
 Petri nets are an important generalization of finite state machines with a restricted form of counting.

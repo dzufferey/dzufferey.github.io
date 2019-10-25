@@ -112,7 +112,7 @@ Don't worry about the obscure terminology, it will come clear during the class. 
 ## Other information
 
 * _Vague exercise questions._
-  Often exercises may looks underspecified.
+  At times exercises may looks underspecified.
   These exercises do not have a single solution as there may be multiple approaches to solve them.
   Don't worry though.
   Our goal is not to setup traps to make you fail but to develop a different skill set.

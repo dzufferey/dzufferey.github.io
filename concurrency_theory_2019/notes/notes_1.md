@@ -194,7 +194,7 @@ The full construction would generate extra states: `((0, L))`, `((1, U))`, `((2,
 _Assuming no ε-transitions_
 
 Given a NFA $N$ we construct a DFA $D$ with:
-* $Q_D = 2_{Q_N}$
+* $Q_D = 2^{Q_N}$
 * $Σ_D = Σ_N$
 * $δ_D(q_D, a) = \bigcup_{q∈q_D} δ_N(q, a) = \\{ q' ~|~ ∃ q ∈ q_D. q' ∈ δ_N(q, a) \\}$
 * $q_0^D = \\{ q_0^N \\} $

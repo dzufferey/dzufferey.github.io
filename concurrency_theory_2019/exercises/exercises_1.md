@@ -2,8 +2,8 @@
 
 _Instructions_
 * Due on November 5.
-* Send your solution by email to Felix Stutz. Please prefix your email subject with `[Concurrency Theory]`.
-* You can work in groups up to 3 people, be sure to include the names of all the participants in the document.
+* Send your solution by email to Felix Stutz. Please prefix your email subject with `[CT19-SUB]`.
+* We expect you to work in groups up to 3 people, be sure to include the names of all the participants in the document.
 * You can submit your solution in pdf or text format. For the exercises using Spin give the promela source file as well. Place all your files in a single archive (zip or tar.gz).
 
 __Some Administration__
@@ -11,12 +11,12 @@ __Some Administration__
 We need to find a time for the exercise session.
 We will try to find a time which satisfies the most people.
 The options are:
-1. Tuesday 17:15 - 18:45, room 607 MPI building
-2. Wednesday 15:30 - 17:00, room 607 MPI building
-3. Thursday 17:15 - 18:45, room 607 MPI building
+1. Tuesday 17:15 - 18:45
+2. Wednesday 15:30 - 17:00
+3. Thursday 17:15 - 18:45
 
-Please send to Felix by email you availabilities.
-For the slots when you are available, you can also rank them by preference.
+We will announce a link to a doodle-like poll later on. 
+For the slots when you are available, you can add your preference in the comments.
 We will do our best to accommodate the maximum number of people.
 
 __Remark.__

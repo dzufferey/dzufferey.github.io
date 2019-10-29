@@ -1,9 +1,9 @@
 # Homework 1
 
 _Instructions_
-* Due on November 5.
+* Due on November 4, Monday, at 5pm.
 * Send your solution by email to Felix Stutz. Please prefix your email subject with `[CT19-SUB]`.
-* We expect you to work in groups up to 3 people, be sure to include the names of all the participants in the document.
+* We expect you to work in groups of 3 people, be sure to include the names of all the participants in the document.
 * You can submit your solution in pdf or text format. For the exercises using Spin give the promela source file as well. Place all your files in a single archive (zip or tar.gz).
 
 __Some Administration__
@@ -22,7 +22,7 @@ We will do our best to accommodate the maximum number of people.
 __Remark.__
 
 We know that you can easily find the solutions of these exercises online.
-The goal of this exercise it so evaluate how you do solve them.
+The goal of this exercise is to evaluate how you do solve them.
 So please, try to do it by yourself.
 For the first week, we reuse exercises from previous years to give us a comparison point.
 Starting with the 2nd week we will use new exercises.
@@ -108,6 +108,14 @@ Let us further assume that the automaton are DFAs.
 * Can you construct an example that reaches your bound?
 * Prove your bound
 * What happens when there are many copies of the program (e.g. concurrency)? _hint._ this is one of the reason testing concurrent programs is hard.
+
+
+## The Need for Multiple Final States for DFAs
+
+Assume a DFA can have at most one final state. 
+Show that there is a regular language `L` over a unary alphabet ($\Sigma = \\{ a \\}$) which is not recognizable with this model,
+i.e. there is no DFA with a single final state whose language `L`.
+Prove your claim.
 
 
 ## [Optional] Install Spin

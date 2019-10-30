@@ -3,7 +3,7 @@
 _Instructions_
 * Due on November 4, Monday, at 5pm.
 * Send your solution by email to Felix Stutz. Please prefix your email subject with `[CT19-SUB]`.
-* We expect you to work in groups of 3 people, be sure to include the names of all the participants in the document.
+* We expect you to work in groups of 3 to 4 people, be sure to include the names of all the participants in the document.
 * Please submit your solutions in one readable pdf file. For the exercises using Spin give the promela source file as well. Place all your files in a single archive (zip or tar.gz).
 
 __Some Administration__

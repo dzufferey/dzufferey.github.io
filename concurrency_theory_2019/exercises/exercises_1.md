@@ -10,14 +10,12 @@ __Some Administration__
 
 We need to find a time for the exercise session.
 We will try to find a time which satisfies the most people.
-The options are:
-1. Tuesday 17:15 - 18:45
-2. Wednesday 15:30 - 17:00
-3. Thursday 17:15 - 18:45
-
-We will announce a link to a doodle-like poll later on. 
+The originally intended slots seem to have a lot of conflicts so we will come up with new options 
+and announce a link to a doodle-like poll later on. 
 For the slots when you are available, you can add your preference in the comments.
-We will do our best to accommodate the maximum number of people.
+We will do our best to accommodate the maximum number of people and announce it as soon as possible.
+ 
+Please **check the website regularly** (or subscribe to the mailing list) so that you do not miss the possibility to vote.
 
 __Remark.__
 

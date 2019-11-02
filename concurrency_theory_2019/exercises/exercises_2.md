@@ -8,7 +8,7 @@ _Instructions_
 
 
 
-## Shuffle Product for Automaton
+## Shuffle Product for Automata
 
 The shuffle product $⧢$ for two words over $Σ$ is inductively defined as:
 * $au ~ ⧢ ~ bv = \\{ aw ~|~ w \in (u ~ ⧢ ~ bv) \\} \cup \\{ bw ~|~ w \in (au ~ ⧢ ~ v) \\}$,
@@ -19,21 +19,21 @@ for $a,b ∈ Σ$ and $u,v ∈ Σ^\*$.
 
 Here is an example: $ab ~ ⧢  ~ xy = \\{ abxy, ~ axby, ~ xaby, ~ axyb, ~ xayb, ~ xyab \\}$.
 
-The shuffle product generate all the sequences that can be obtained with a single riffle shuffle.
+The shuffle product generates all the sequences that can be obtained with a single riffle shuffle.
 (Special technique to mix two decks of cards.)
 
-A finite automaton is a finite description of a (potentially infinite) set of words.
+Note that a finite automaton is a finite description of a (potentially infinite) set of words.
 
-Our goal is to define a construction which correspond to the shuffle of the words accepted by two automatons.
+Our goal is to define a construction which corresponds to the shuffle of the words accepted by two automata.
 
 
 #### Tasks
-* Define a new operation which takes as input two automatons and returns an automaton which accepts a word iff this word is a shuffle of two words accepted by the automatons.
-  More formally, given two automatons $A$, $B$ define a shuffle product $A ~ ⧢ ~ B$ such that:
+* Define a new operation which takes as input two finite automata and returns a finite automaton which accepts a word iff this word is a shuffle of two words accepted by the automata.
+  More formally, given two finite automata $A$, $B$ define a shuffle product $A ~ ⧢ ~ B$ such that:
   \\[w ∈ L(A ~ ⧢ ~ B) ⇔ ∃ u,v.\ w = u ~ ⧢ ~ v ∧ u ∈ L(A) ∧ v ∈ L(B)\\]
 * Prove that your definition is correct.
-* Briefly discuss the differences of between the synchronized and shuffle product.
-  Try to give some examples where on product is more suitable than the other.
+* Briefly discuss the differences of the synchronized and the shuffle product.
+  Try to give some examples for which one product is more suitable than the other.
 
 
 ## Counting with an Automaton
@@ -43,10 +43,9 @@ Give an NFA that recognizes the language $L := \\{ a^i ~|~ i \neq 30 \\}$ with l
 
 ## Automata and Petri Nets
 
-Let us discuss in more details how we can compare operations on automata with Petri Nets.
+Let us discuss in more details how to compare operations on automata and Petri nets.
 
-To compare both we need to extend Petri nets with a labeling function.
-The labeling function has the role of the alphabet for automaton.
+To this end, we extend Petri nets with a labeling function that has the role of the alphabet for an automaton. 
 
 A _labeled Petri Net_ is a tuple $(S, T, Σ, W, L)$ where
 * $S$ is a finite set of places
@@ -55,23 +54,23 @@ A _labeled Petri Net_ is a tuple $(S, T, Σ, W, L)$ where
 * $W$ is a weight function over $(S × T) ∪ (T × S) → ℕ$
 * $L$ is a labeling function $T → Σ$
 
-Given an initial marking $M₀$ we say that a work $w ∈ Σ^*$ is accepted if there exists a sequence of transitions $t₁ t₂ … t_n$ such that $M₀ [t₁〉 M₁ [t₂〉 M₂ … [t_n〉 M$ and $w = L(t₁) L(t₂) … L(t_n)$.
+Given an initial marking $M₀$ we say that a word $w ∈ Σ^*$ is accepted if there exists a sequence of transitions $t₁ t₂ … t_n$ such that $M₀ [t₁〉 M₁ [t₂〉 M₂ … [t_n〉 M$ and $w = L(t₁) L(t₂) … L(t_n)$.
 
-For the automaton, in this exercise, we look at _prefix-closed_ automata.
+For this exercise, we consider _prefix-closed_ automata.
 
-An automata $A$ is prefix-closed iff every prefix of an accepted word is also accepted.
-Formally:\\[ ∀ w ∈ L(A), i ∈ [0, |w|].~ w₁ … w_i ∈ L(A). \\]
+An automaton $A$ is prefix-closed iff every prefix of an accepted word is also accepted.
+Formally:\\[ ∀ ~ w=w₁ … w_{|w|}  ∈ L(A), i ∈ [0, |w|].~ w₁ … w_i ∈ L(A). \\]
 Concretely, if $A$ is a DFA then all the states of $A$ are accepting except a single non-accepting sink state (all transitions from that state go back to that state).
 If $A$ is an NFA then if it has more than one state, all the states are accepting.
 
 #### Tasks
 * From prefix-closed automata to labelled Petri nets
   - Give a translation from prefix-closed automata to labelled Petri nets.
-  - Give a construction which take two prefix-closed automaton and returns a labelled Petri net corresponding to the synchronized product.
-  - Give a construction which take two prefix-closed automaton and returns a labelled Petri net corresponding to the shuffle product.
+  - Give a construction which takes two prefix-closed automata and returns a labelled Petri net corresponding to the synchronized product.
+  - Give a construction which takes two prefix-closed automata and returns a labelled Petri net corresponding to the shuffle product.
 * Product constructions for automaton like the synchronized or shuffle product are exponential.
-  The product of $m$ automaton with $n$ states give an automaton with $n^m$ states.
-  With labelled Petri nets we can have more compact result.
+  The product of $m$ automata with $n$ states yields  an automaton with $n^m$ states.
+  With labelled Petri nets we can have more compact results.
   - What is the worst case size of your constructions for the synchronized product as labelled Petri net?
   - What is the worst case size of your constructions for the shuffle product as labelled Petri net?
 
@@ -84,13 +83,13 @@ We focus on the [Chandy/Misra solution](https://www.cs.utexas.edu/users/misra/sc
 
 #### Tasks
 * Encode the dining philosophers problem in Spin without any synchronization and show there can be deadlocks.
-* Implement the Chandy/Misra solution and shows that there is no deadlock anymore.
+* Implement the Chandy/Misra solution and show that there is no deadlock anymore.
 
-In both cases, make your solution parametric.
+In both cases, make your solution is parametric.
 Then you can vary the parameter to experience what is know as the "state-space explosion" problem which is the exponential complexity of the product construction.
 
 _Remark._
-When writing paper authors focus on exlpaining the idea and often simplify the setting as much a possible.
+When writing papers, authors focus on exlpaining the idea and often simplify the setting as much a possible.
 While this makes for more readable papers, implementing the proposed solution requires bringing back some of the so-called "implementation details".
 Using a tool like Spin is an intermediate step.
-There are more details but it is still usually simpler than a normal implementation and Spin can help debug.
+There are more details but it is still usually simpler than a normal implementation and Spin can help to debug.

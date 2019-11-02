@@ -1,7 +1,7 @@
 # Homework 2
 
 _Instructions_
-* Due on November 11, Monday, at 5pm.
+* Due on November 11, Monday, at 8am.
 * Send your solution by email to Felix Stutz. Please prefix your email subject with `[CT19-SUB]`.
 * We expect you to work in groups of 3 to 4 people, be sure to include the names of all the participants in the document.
 * Please submit your solutions in one readable pdf file. For the exercises using Spin give the promela source file as well. Place all your files in a single archive (zip or tar.gz).
@@ -33,7 +33,7 @@ Our goal is to define a construction which corresponds to the shuffle of the wor
   \\[w ∈ L(A ~ ⧢ ~ B) ⇔ ∃ u,v.\ w = u ~ ⧢ ~ v ∧ u ∈ L(A) ∧ v ∈ L(B)\\]
 * Prove that your definition is correct.
 * Briefly discuss the differences of the synchronized and the shuffle product.
-  Try to give some examples for which one product is more suitable than the other.
+  Try to give some examples realted to concurrency theory for which one product is more suitable than the other.
 
 
 ## Counting with an Automaton

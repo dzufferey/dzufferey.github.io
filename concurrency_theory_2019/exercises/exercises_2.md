@@ -33,7 +33,7 @@ Our goal is to define a construction which corresponds to the shuffle of the wor
   \\[w ∈ L(A ~ ⧢ ~ B) ⇔ ∃ u,v.\ w = u ~ ⧢ ~ v ∧ u ∈ L(A) ∧ v ∈ L(B)\\]
 * Prove that your definition is correct.
 * Briefly discuss the differences of the synchronized and the shuffle product.
-  Try to give some examples realted to concurrency theory for which one product is more suitable than the other.
+  Try to give some examples related to concurrency theory for which one product is more suitable than the other.
 
 
 ## Counting with an Automaton

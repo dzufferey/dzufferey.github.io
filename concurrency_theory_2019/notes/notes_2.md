@@ -642,14 +642,19 @@ $X$ is a vector of size $|T|$.
 $X$ represents the number of time each transition fires.
 
 We can create the following LP program:
-```
-    Variables:      M, X
-    Optimize:       ----
-    Subject to:     M ≥ 0
-                    X ≥ 0
-                    M = M₀ + C⋅X
-                    A⋅M ≥ B
-```
+
+---
+\\[
+\begin{array}{ll}
+\text{Variables:}   & M, X \\\\
+\text{Subject to:}  & M ≥ 0 \\\\
+                    & X ≥ 0 \\\\
+                    & M = M₀ + C⋅X \\\\
+                    & A⋅M ≥ B 
+\end{array}
+\\]
+
+---
 
 __Theorem.__
 If the LP system above is infeasible then $N$ is safe. (It cannot reach a marking $M$ that satisfies $A⋅M ≥ B$.)
@@ -745,3 +750,78 @@ $\begin{bmatrix} -1 & 1 \\\\
 Given the objective $M = \begin{bmatrix} 0 \\\\ 1 \end{bmatrix}$, the LP gives $X = \begin{bmatrix} 1 \\\\ 1 \end{bmatrix}$.
 However, it is not possible to turn $X$ into a trace.
 No transition is enabled.
+
+
+### LP for Termination
+
+We can also use linear programming to show liveness properties of Petri nets. 
+Consider the termination problem: is there an infinite sequence of transition which can be fired? 
+
+Before we give a solution, we need to think about what kind of sequence of marking result in an infinite run.
+In an automaton, a loop with or leading to an accepting state can generate infinite runs.
+We want to find something similar but for markings.
+
+Let us assume we start with a marking $M$ execute a sequence $t$ of transitions which results in the marking $M'$.
+We we compare $M$ and $M'$ there can be the following cases:
+1. $M = M'$ 
+2. $M > M'$ (All the places contain at least as many in $M'$ as in $M$ and one place contains strictly more tokens.)
+3. $M < M'$ (All the places contain at most as many in $M'$ as in $M$ and one place contains strictly fewer tokens.)
+4. $M ≠ M'$ (None of the above apply: at least one place has more token and at least one other place has fewer token.)
+
+If we have case (1) we can apply $t$ again and not terminate.
+
+If the case (2), we can apply $t$ again and get an ever larger marking.
+Since we have more tokens the transitions in $t$ are enabled.
+We can repeat that and not terminate.
+
+For (3) and (4), there is at least one place with fewer tokens.
+Therefore, we cannot repeat $t$ forever.
+At some point the place with fewer tokens will be empty and disable some transition in $t$. 
+
+Therefore, to find a $t$ we can iterate forever we are looking for _non-decreasing_ cycle.
+
+We can encode the presence of non-decreasing cycles in a linear program as follows:
+
+---
+\\[
+\begin{array}{ll}
+\text{Variables:}   & X \\\\
+\text{Subject to:}  & X > 0 \\\\
+                    & C \cdot X ≥ 0 
+\end{array}
+\\]
+
+---
+Here, $C$ is the connectivity matrix and $X$ is a vector that represent the number of times each transition fires.
+We require that $X$ contains at least one transition.
+(Otherwise, $X=0$ trivially satisfies the last constraint.)
+Finally, $C \cdot X$ is the net result of firing $X$ and we require it to be non-negative, i.e., a non-decreasing cycle.
+
+Notice that the constraints do not talk about the initial marking.
+So, the method is sound and not complete w.r.t. to an initial marking.
+For instance, consider following net:
+```graphviz
+digraph PN{
+  rankdir=LR
+  ranksep=0.75;
+  node [shape = circle, fixedsize = true, width = 0.5, fontsize = 15];
+  c [label=" " ];
+  d [label=" " ];
+  node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15, fontsize=15]; 
+  c -> t3;
+  t3 -> d;
+  d -> t5;
+  t5 -> c;
+}
+```
+It has terminated (no transition can fire).
+But it cannot be proved using the linear program.
+
+The incompleteness of the analysis stems from the fact that the LP can have a negative number of token during the firing of the non-decreasing cycle.
+The LP only relates the start and end marking.
+It does not say anything about the intermediate marking.
+
+However, if we are allowed to pick then the analysis is also complete.
+We can always pick an initial marking with enough tokens such that every transition in the non-decreasing cycle can be fired.
+Given a non-decreasing cycle, we create an initial marking which corresponds to the sum of all the token consumed during the cycle.
+Therefore, we can apply the transition at least once and, because the cycle is non-decreasing, we end up with at least as many token.

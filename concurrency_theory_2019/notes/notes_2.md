@@ -494,7 +494,7 @@ Let look back at the "lock and increment" example from [the first week](viewer.h
       p3 -> p1 [ style = invis];
   }
   ```
-4. We can even add many more threads by adding a transition $spawn$ with: $M(spawn, 0) = 1$.
+4. We can even add many more threads by adding a transition $spawn$ with: $W(spawn, 0) = 1$.
   ```graphviz
   digraph PN {
       rankdir=LR;

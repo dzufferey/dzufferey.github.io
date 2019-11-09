@@ -3,8 +3,10 @@
 _Instructions_
 * Due on November 11, Monday, at 8am.
 * Send your solution by email to Felix Stutz. Please prefix your email subject with `[CT19-SUB]`.
-* We expect you to work in groups of 3 to 4 people, be sure to include the names of all the participants in the document.
-* Please submit your solutions in one readable pdf file. For the exercises using Spin give the promela source file as well. Place all your files in a single archive (zip or tar.gz).
+* We expect you to work in groups of 3 to 4 people, be sure to include the names of all the participants **and your group number** in the document.
+* Please submit your solutions in one readable pdf file. Based on the experiences for the first exercise sheet, we require you to **typeset your solutions** as announced in the tutorial.
+  We exclude automata, petri nets etc. from this requirement for now but please ensure that they are legible and scanned (no photos).
+  For the exercises using Spin give the promela source file as well. Place all your files in a single archive (zip or tar.gz).
 
 
 
@@ -89,7 +91,7 @@ In both cases, make your solution is parametric.
 Then you can vary the parameter to experience what is know as the "state-space explosion" problem which is the exponential complexity of the product construction.
 
 _Remark._
-When writing papers, authors focus on exlpaining the idea and often simplify the setting as much a possible.
+When writing papers, authors focus on explaining the idea and often simplify the setting as much a possible.
 While this makes for more readable papers, implementing the proposed solution requires bringing back some of the so-called "implementation details".
 Using a tool like Spin is an intermediate step.
 There are more details but it is still usually simpler than a normal implementation and Spin can help to debug.

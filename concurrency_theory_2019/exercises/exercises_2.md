@@ -1,6 +1,7 @@
 # Homework 2
 
 _Instructions_
+* **Please fill in the [poll for the tutorial slot](https://terminplaner4.dfn.de/CT19-Tut)**.
 * Due on November 11, Monday, at 8am.
 * Send your solution by email to Felix Stutz. Please prefix your email subject with `[CT19-SUB]`.
 * We expect you to work in groups of 3 to 4 people, be sure to include the names of all the participants **and your group number** in the document.

@@ -26,6 +26,10 @@ A safety property is a set of states, $A \cdot M ≥ B$ is a special kind of set
 
 ## (Weak) Computations with Petri nets, part 1
 
+Petri nets are good model for concurrent programs.
+But to use them we need to undertand what problem can be solved by Petri nets.
+In other word we need to understand what Petri nets can compute.
+
 Let us try to compute functions using Petri nets.
 The goal is to create gadgets, i.e. small nets which can later be combined to create larger nets.
 
@@ -108,6 +112,7 @@ digraph PN {
 
 ### Tasks
 
+* Can you find an example of a synchronization primitive which cannot be encoded as a Petri net but can be encoded using inhibitory edges?
 * Use inhibitory edges to modify the construction you have developed in the 1st part to exactly compute diophantine equations.
 * Generalize the construction to reduce [Hilbert's tenth problem](https://en.wikipedia.org/wiki/Hilbert%27s_tenth_problem) to reachability in nets with inhibitory edges.
 

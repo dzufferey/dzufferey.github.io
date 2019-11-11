@@ -113,8 +113,10 @@ digraph PN {
 ### Tasks
 
 * Can you find an example of a synchronization primitive which cannot be encoded as a Petri net but can be encoded using inhibitory edges?
-* Use inhibitory edges to modify the construction you have developed in the 1st part to exactly compute diophantine equations.
-* Generalize the construction to reduce [Hilbert's tenth problem](https://en.wikipedia.org/wiki/Hilbert%27s_tenth_problem) to reachability in nets with inhibitory edges.
+* Use inhibitory edges to modify the construction you have developed in the 1st part or come up with a new gadget to exactly compute the multiplication: $M(o) ≤ m⋅n$.
+* Finding solutions of diophantine equations is undecidable ([Hilbert's tenth problem](https://en.wikipedia.org/wiki/Hilbert%27s_tenth_problem).)
+  Explain how to use the gadgets you build to reduce that problem to reachability in nets with inhibitory edges.
+  This show that nets with inhibitory edges are a Turing complete model of compuation.
 
 
 ## (Weak) Computations with Petri nets, part 3
@@ -196,9 +198,12 @@ __FIXME graphviz the pictures__
 ### Tasks
 
 Let us check how transfer and reset edges compare to inhibitory edges.
+Surprisingly, for reachability questions they are as powerful as inhibitory edges.
 
-* Can you update your construction from part 2 to work with transfer edges?
-* Can you update your construction from part 2 to work with reset edges?
+* Create a gadget to emulate an inhibitory edge with only normal and transfer edges.
+* Create a gadget to emulate an inhibitory edge with only normal and reset edges.
+
+In both cases, you are allowed to introduce new places and add constraints on these places as part of the reachability objective.
 
 (_Hint_: You need to use the property of the edge in conjunction with the reachability objective.
 It is not possible to exactly emulate inhibitory edge but it is possible to detect when an inhibitory transition has not been properly emulated.)

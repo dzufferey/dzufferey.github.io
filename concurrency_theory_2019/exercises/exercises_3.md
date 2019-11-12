@@ -39,7 +39,8 @@ $x$ and $y$ are the input places and $o$ will is the output place.
 ### Task
 
 * Create net such that if $M₀(x) = m$, $M₀(y) = n$, and $M₀(o) = 0$ then when the net terminates the final marking $M$ has $M(o) = m+n$.
-* Create net such that if $M₀(x) = m$, $M₀(y) = n$, and $M₀(o) = 0$ then when the net terminates the final marking $M$ has $0 ≤ M(o) ≤ m⋅n$.
+* Create net such that if $M₀(x) = m$, $M₀(y) = n$, and $M₀(o) = 0$ satisfying the following constraint.
+   For every number l with $0 ≤ l ≤ m⋅n$, there is a sequence of firing leading to marking $M$ such that $M(o) = l$.
 
 In both cases provide the initial marking of the additional places you might have added and argument why your Petri nets do what they should.
 The fact that the multiplication cannot be done exactly but only achieve in a maximal run is referred to as _weakly_ computing a function (in this case the multiplication).

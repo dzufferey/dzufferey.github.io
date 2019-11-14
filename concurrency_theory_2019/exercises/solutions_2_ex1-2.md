@@ -106,7 +106,18 @@ The idea behind the construction is to have two parts:
 For the first part, we can decompose that further into numbers which are not a multiple of 2, 3, and 5.
 Here we can take advantage of the non-determinism to _guess_ which of these factor is the important one.
 
-The 2nd part can be realized by observing that $∀ k > 0.~ ∃ x, y ≥ 0. ~ 30k = 6x + 7y$. 
+The 2nd part can be realized by observing that $∀ k > 1.~ ∃ x, y ≥ 0. ~ 30k = 1 + 6x + 7y$. 
+One can prove this by induction on $k$. 
+* Base: k = 2: 
+	To show: $∃ x, y ≥ 0. ~ 60 = 1 + 6x + 7y$. 
+	Solution: x = 4, y = 5.
+* Induction Hypothesis: For some $k$, there exist $x, y ≥ 0$ such that $30k = 1 + 6x + 7y$. 
+* Induction Step: 
+	Given that IH holds for some k, we find parameters for $k+1$.
+	To show: $∃ x', y' ≥ 0. ~ 30(k+1) = 1 + 6x' + 7y'$. 
+	The parameters $x' = x + 5$ and $y' = y$ solve the equation and hence prove the claim.
+
+
 
 The resulting automaton is:
 ```graphviz
@@ -143,17 +154,19 @@ digraph not_30 {
     }
     subgraph cluster_6or7 {
       color=grey;
-      label = " i = 6x + 7y";
+      label = " i = 1 + 6x + 7y";
       node0
+      nodeA
       node [shape = circle];
-      node0 -> node1;
+      node0 -> nodeA;
+      nodeA -> node1;
       node1 -> node2;
       node2 -> node3;
       node3 -> node4;
       node4 -> node5;
       node5 -> node6;
-      node5 -> node0;
-      node6 -> node0;
+      node5 -> nodeA;
+      node6 -> nodeA;
     }
     start -> not2 [ label = "ε" ];
     start -> not3 [ label = "ε" ];

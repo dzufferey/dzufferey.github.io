@@ -43,7 +43,7 @@ To prove this, it is simpler if we can reason about the traces of the automaton.
 
 _Notation._
 Let $q \stackrel{w}{→}_M q'$ denote the fact that there exists a trace of the NFA $M$ over the word $w$ from the state $q$ to the state $q'$.
-Remeber that a trace does not need to be accepting.
+Remember that a trace does not need to be accepting.
 
 Before we prove the final result, we show an intermediate result:
 \\[ (q_A,q_B) \stackrel{w}{→}_{A⧢B} (q_A',q_B') ⇔ ∃ u,v. ~ w ∈ u ~⧢~ v ∧ q_A \stackrel{u}{→}_A q_A' ∧ q_B \stackrel{v}{→}_B q_B' \\]
@@ -76,7 +76,9 @@ __$\Leftarrow$__ We prove this by induction over $w$.
 
 This shows the intermediate statement.
 
-To show the original goal, we first apply the definition of language and get an accepting runs, i.e. runs where the final state is accepting. 
+We sketch how to use the intermediate statement to prove the original goal: 
+\\[ w \in L(A ~⧢~ B) ⇔ ∃ u,v.~ u \in L(A) ∧ v \in L(B) ∧ w \in u ~⧢~ v \\].
+First we apply the definition of the language accepted by an automaton $L(-)$ and get accepting runs, i.e. runs where the final state is accepting. 
 Then we apply the result that we have just proved and the fact that $(q_A,q_B) ∈ F_A × F_B ~~ ⇔ ~~ q_A ∈ F_A ∧ q_B ∈ F_B$.
 
 
@@ -104,7 +106,7 @@ The idea behind the construction is to have two parts:
 For the first part, we can decompose that further into numbers which are not a multiple of 2, 3, and 5.
 Here we can take advantage of the non-determinism to _guess_ which of these factor is the important one.
 
-The 2nd part can be realized by observing that $∀ k > 0.~ ∃ x, y ≥ 0. ~ 30k = 6x + 7y$.
+The 2nd part can be realized by observing that $∀ k > 0.~ ∃ x, y ≥ 0. ~ 30k = 6x + 7y$. 
 
 The resulting automaton is:
 ```graphviz

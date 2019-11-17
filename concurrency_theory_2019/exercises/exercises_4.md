@@ -23,7 +23,7 @@ A valuations of the parameters $ρ: P ⇒ ℕ$ give concrete values to the param
 Given a Petri net $N$, a parametric initial marking $\text{PM₀}$, a target marking $M$.
 We can ask the following questions:
 - _existential covering_: is there a valuation $ρ$ such that $(N,ρ(\text{PM₀}))$ can cover $M$?
-- _universal covering_: Does $(N,ρ(\text{PM₀}))$ covers $M$ for all valuation $ρ$?
+- _universal covering_: Does $(N,ρ(\text{PM₀}))$ cover $M$ for all valuation $ρ$?
 
 For each question:
 - Explain how to answer the question. (Hint: reduce to normal Petri nets)

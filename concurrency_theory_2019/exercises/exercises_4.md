@@ -15,6 +15,7 @@ Let $N$ be a Petri net and $P$ by a finite set of parameters.
 
 A _parametric marking_ of $N$ is a function $\text{PM}: S → L[ℕ ∪ P]$ where $L[ℕ ∪ P]$ denotes linear expressions over $ℕ ∪ P$.
 For instance, a place in a marking could have $3 x + 5$ tokens where $x$ is a parameter.
+Note that we do not consider substraction as possible operator in linear expressions.
 
 A valuations of the parameters $ρ: P ⇒ ℕ$ give concrete values to the parameters $P$.
 

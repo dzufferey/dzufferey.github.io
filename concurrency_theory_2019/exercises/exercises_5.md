@@ -1,4 +1,4 @@
-# Homework 5
+#Homework 5
 
 _Instructions_
 * Due on Dec 2, Monday, at 8am.
@@ -34,18 +34,18 @@ More formally, a _Parametric Petri Net_ $N$ is a 4-tuple $(S, T, P, W)$ where
 * $P$ is a finite set of parameters
 * $W$ is a weight function over $(S × T) ∪ (T × S) → (ℕ ∪ P)$
 
-Given a valuations of the parameters $ρ: P ⇒ ℕ$ and a parametric net with parameters $P$, we can replace every $p ∈ P$ by $ρ(p)$ and we get an normal Petri net.
+Given a valuation of the parameters $ρ: P ⇒ ℕ$ and a parametric net with parameters $P$, we can replace every $p ∈ P$ by $ρ(p)$ and we get an normal Petri net.
 
 PPN are very expressive and, therefore, we are going to limit ourself to particular kinds of PPN:
 - a pre-PPN only allows parameters in the edges from places to transitions;
 - a post-PPN only allows parameters in the edges from transitions to places;
 - a distinct-PPN does not have transitions with parameters in both the incoming and outgoing edges.
 
-The example above of a post-PPN.
+The example above is a post-PPN.
 
-Given a PPN and an initial marking, the covering question is a bit modified to existential covering:
-- existential covering: Does there exists a valuation of the parameter such that the net can cover a marking?
-- universal covering: Can the net cover a marking for all parameter valuations?
+Given a PPN $N$ and an initial marking $M$, the covering question is a bit modified to existential covering:
+- existential covering: Does there exist a valuation of the parameters such that the $N$ can cover $M$?
+- universal covering: Can $N$ cover $M$ for all parameter valuations?
 
 ### Questions
 * How would you approach the existential covering problem for post-PPN?
@@ -54,12 +54,13 @@ Given a PPN and an initial marking, the covering question is a bit modified to e
 * How would you approach the universal covering problem for post-PPN?
 * How would you approach the universal covering problem for pre-PPN?
 * How would you approach the universal covering problem for distinct-PPN?
+Justify your answers.
 
 
 
 # Karp-Miller Automaton
 
-Most of the analysis we did on Petri nets only looks at markings.
+Most of the analyses we did for Petri nets only consider at markings.
 
 Let us try to reuse some of the theory we developed to also reason about traces of Petri nets.
 In particular, we are going to modify the Karp-Miller tree and turn it into an NFA.
@@ -93,7 +94,7 @@ KarpMillerTree(M₀)
   How does this algorithm compare to the one seen in class (week 3)?
   Is it still correct?
 * Assuming that the algorithm is correct, let us look at the automata returned by the algorithm.
-  - Is a sequence of transitions accepted by the automaton is fireable from `M₀`?
+  - Is a sequence of transitions accepted by the automaton fireable from `M₀`?
   - Is any sequence fireable form `M₀` accepted by the automaton?
 * Let us optimize the algorithm and replace line 5.
   The original version is 

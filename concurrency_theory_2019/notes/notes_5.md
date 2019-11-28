@@ -269,11 +269,11 @@ __Proposition.__
 $(X_R, ≤_R)$ is a WQO.
 
 _Proof._
-* By contradiction, assume a bad sequence $(a₀,b₀) (a₁,b₁) …$
-* By definition of $≤_R$ and bad sequence: $∀ j>0.\ a_j ≤ b₀$
-* Since, we have finitely many values smaller than $b₀$, there is an infinite subsequence $(b,b_{i₀}) (b,b_{i₁}) (b,b_{i₂}) …$ for some $b ≤ b₀$.
-* Since $(ℕ,≤)$ is a WQO we have $k<l$ such that $b_{i_k} ≤ b_{i_l}$.
-* Therefore, $(b,b_{i_k}) ≤_R (b,b_{i_l})$ which is a contradiction.
+* By contradiction, assume a bad sequence $(m₀,n₀) (m₁,n₁) …$
+* By definition of $≤_R$ and bad sequence: $∀ j>0.\ m_j ≤ n₀$
+* Since, we have finitely many values smaller than $n₀$, there is an infinite subsequence $(n,n_{i₀}) (n,n_{i₁}) (n,n_{i₂}) …$ for some $n ≤ n₀$.
+* Since $(ℕ,≤)$ is a WQO we have $k<l$ such that $n_{i_k} ≤ n_{i_l}$.
+* Therefore, $(n,n_{i_k}) ≤_R (n,n_{i_l})$ which is a contradiction.
 
 
 Let us look at sets of elements.
@@ -353,7 +353,7 @@ _Proof._
 * Therefore, $ψ₁ ψ₂ …$ is a bad sequence.
 
 
-More details in [Better is Better than Well: On Efficient Verification of Infinite-State Systems](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.25.7970).
+More details in [Better is Better than Well: On Efficient Verification of Infinite-State Systems](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.25.7970).
 
 
 #### BQO
@@ -362,8 +362,8 @@ BQO are a subclass of WQO closed under infinitary operations.
 
 __Theorems.__
 * A BQO is a WQO.
-* $(X,≤)$ is a BQO then $(X^k,\text{componentwise ordering})$ is a BQO.
-* $(X,≤)$ is a BQO then $(X^\*,\text{lexicographic ordering})$ is a BQO.
+* $(X,≤)$ is a BQO then ($X^k$,\text{componentwise ordering})$ is a BQO. (Dickson's lemma lifted to BQO.)
+* $(X,≤)$ is a BQO then $(X^\*,\text{embedding})$ is a BQO. (Higman's lemma lifted to BQO.)
 * $(X,≤)$ is a BQO then $(2^X,⊑)$ is a BQO (powerset).
 
 The definition is quite technical so we are skipping it, but is can easily be found online.
@@ -381,7 +381,7 @@ If $(X,≤)$ is a ω²-WQO then $(Idl(X),⊆)$ is a WQO.
 
 BQO are ω²-WQO.
 
-More details in [A Note on Well Quasi-Orderings for Powersets](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.35.673).
+More details in [A Note on Well Quasi-Orderings for Powersets](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.35.673).
 
 
 #### Relevance in our context

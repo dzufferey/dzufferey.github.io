@@ -393,7 +393,7 @@ The algorithm relies needs that there is no infinite antichains in $Idl(X)$.
 ## Completion of WSTS
 
 Given a WSTS $(S,Σ,→,≤)$ where $≤$ is a ω²-WQO, we can define the _completion_ of S as a WSTS $(Idl(S),Σ,⇝,⊆)$ such that
-$⇝(I, a, J)  ⇔  J ∈ IdealDecomposition(↓post(I,a))$
+$I \stackrel{a}{⇝} J  ⇔  J ∈ IdealDecomposition(↓post(I,a))$
 
 The completion defines a new WSTS that operates on the ideals of the original system and lifts the transition relation to these ideals.
 
@@ -408,18 +408,18 @@ This is captured by the following proposition:
 __Proposition.__
 Let $\mathcal{S} = (S,Σ,→,≤)$ be a WSTS with strong monotonicity and its completion $\mathcal{C} = (Idl(S),Σ,⇝,⊆)$.
 \\[
-    ∀ x,y ∈ S, w ∈ Σ*, I ∈ Idl(S). →(x,w,y) ∧ x ∈ I  ⇒  ∃ J ∈ Idl(S). y ∈ J ∧ ⇝(I, w, J)
+    ∀ x,y ∈ S, w ∈ Σ*, I ∈ Idl(S).~ x \stackrel{w}{→} y ∧ x ∈ I  ⇒  ∃ J ∈ Idl(S).~ y ∈ J ∧ I \stackrel{w}{⇝} J
 \\]
 
 _Proof._
 By induction on $w$
 - case $w = ε$: $J=I$
 - case $w = a w'$:
-  * we have $x →_a x' →_{w'} y$
+  * we have $x \stackrel{a}{→} x' \stackrel{w'}{→} y$
   * $x' ∈ post_\mathcal{S}(x, a) ⊆ ↓post_\mathcal{S}(x, a)$
   * $↓post_\mathcal{S}(x, a)$ can be decomposed into ideals, one of them containing $x'$. Let call that ideal $I'$.
-  * by definition: $⇝(I, a, I')$
-  * by the induction hypothesis: $∃ J ∈ Idl(S). ⇝(I', w', J) ∧ y ∈ J$
+  * by definition: $I \stackrel{a}{⇝} I'$
+  * by the induction hypothesis: $∃ J ∈ Idl(S).~ I' \stackrel{w'}{⇝} J ∧ y ∈ J$
 
 
 Second, we show that if the completion can cover a state then the original system can do the same.
@@ -429,17 +429,18 @@ This is captured by the following proposition:
 __Proposition.__
 Let $\mathcal{S} = (S,Σ,→,≤)$ be a WSTS with strong monotonicity and its completion $\mathcal{C} = (Idl(S),Σ,⇝,⊆)$.
 \\[
-    ∀ I,J ∈ Idl(S),\ w ∈ Σ^\*.\ ∃ y ∈ S. ⇝(I, w, J) ∧ y ∈ J  ⇒  ∃ x ∈ I. y' ∈ S. →(x, w, y') ∧ y ≤ y'
+    ∀ I,J ∈ Idl(S),\ w ∈ Σ^\*.~ ∃ y ∈ S.~ I \stackrel{w}{⇝} J ∧ y ∈ J  ⇒  ∃ x ∈ I, y' ∈ S.~ x \stackrel{w}{→} y' ∧ y ≤ y'
 \\]
 
 _Proof._
 By induction on $w$:
-- case $w = ε$: $x=y=y'$
+- case $w = ε$:
+  * $x=y=y'$
 - case $w = a w'$:
-  * we have $I ⇝_a I' ⇝_{w'} J$
+  * we have $I \stackrel{a}{⇝} I' \stackrel{w'}{⇝} J$
   * by induction hypothesis: $∃ z y'. z ∈ I' ∧ y' ∈ J ∧ y ≤ y'$
-  * by definition of $⇝$: $∃ x z'. x ∈ I ∧ z' ∈ I' ∧ →(x, a, z') ∧ z ≤ z'$
-  * by strong monotonicity we get $y″$ such that  $→(x, w, y″) ∧ y ≤ y' ≤ y″$
+  * by definition of $⇝$: $∃ x z'. x ∈ I ∧ z' ∈ I' ∧ x \stackrel{a}{→} z' ∧ z ≤ z'$
+  * by strong monotonicity we get $y″$ such that  $x \stackrel{w}{→} y'' ∧ y ≤ y' ≤ y''$
 
 
 Putting both propositions together, we get the following:
@@ -455,10 +456,10 @@ Two parts ($⊆$, $⊇$):
 - $↓post_\mathcal{S}(I, w) ⊆ \bigcup_{J ∈ post_\mathcal{C}(I, w)} J$
   * pick $y ∈ ↓post_\mathcal{S}(I, w)$
   * by definition, $∃ x y'. x∈I ∧ y≤y'$
-  * applying the 1st proposition: there is $J$ such that $↓y' ∈ J$ and $⇝(I, w, J)$
+  * applying the 1st proposition: there is $J$ such that $↓y' ∈ J$ and $I \stackrel{w}{⇝} J$
   * Therefore, $y ∈ ↓y' ⊆ J$ and $J ∈ post_\mathcal{C}(I, w)$
 - $\bigcup_{J ∈ post_\mathcal{C}(I, w)} J ⊆ ↓post_\mathcal{S}(I, w)$
-  * for any $J$ pick $y ∈ J$ and apply the 2nd proposition: we get $x ∈ I$ and $y'$ such that $→(x, w, y') ∧ y ≤ y'$
+  * for any $J$ pick $y ∈ J$ and apply the 2nd proposition: we get $x ∈ I$ and $y'$ such that $x \stackrel{w}{→} y' ∧ y ≤ y'$
   * This means $y ∈ ↓post_\mathcal{S}(x, w) ⊆ post_\mathcal{S}(I, w)$
 
 
@@ -533,7 +534,7 @@ For (4) we get
 An infinite sequence of ideals $I₀ I₁ I₂ …$ is an _acceleration candidate_ if $I₀ ⊂ I₁ ⊂ I₂ ⊂ …$.
 
 Let $S = (S,Σ,→,≤)$ be a WSTS with completion $C$ and $C$ has strong-strict monotonicity.
-Let $w ∈ Σ*$ and $I ∈ Idl(S)$.
+Let $w ∈ Σ^*$ and $I ∈ Idl(S)$.
 The _acceleration_ of $I$ under $w$ is:
 \\[
 post_C^∞(I,w) = 
@@ -555,7 +556,7 @@ lvl(X, n) =
 \left\\{
 \begin{array}{ll}
    Idl(X)                       & \quad  \text{if} ~~ n = 0  \\\\
-   \\{ \mathcal{I} | \mathcal{I} = \bigcup_{k∈ℕ} I_k ~~ \text{where} ~~ I_k ∈ lvl(X, n-1) ~~ \text{and} ~~ I₀ ~ I₁~ I₂ ~ … ~~ \text{is an acceleration candidate} \\} & \quad \text{if} ~~ n > 0
+   \\{ \mathcal{I} ~|~ \mathcal{I} = \bigcup_{k∈ℕ} I_k ~~ \text{where} ~~ I_k ∈ lvl(X, n-1) ~~ \text{and} ~~ I₀ ~ I₁~ I₂ ~ … ~~ \text{is an acceleration candidate} \\} & \quad \text{if} ~~ n > 0
 \end{array}
 \right.
 \\]
@@ -655,6 +656,8 @@ Later in this class, we will discuss about lossy channel systems and depth-bound
 For both types of system, we know what the completion is (simple regular expressions, and nested graphs), but both types of systems are not flat.
 
 #### Example
+
+_We are using transfer net for illustration purpose. The ideal KM Tree does not always work on transfer nets because the completion is not strong-stric monotonic. But it works on this example._
 
 Let us look at the following transfer net:
 ```

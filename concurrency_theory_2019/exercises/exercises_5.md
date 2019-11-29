@@ -39,7 +39,7 @@ Given a valuation of the parameters $ρ: P ⇒ ℕ$ and a parametric net with pa
 PPN are very expressive and, therefore, we are going to limit ourself to particular kinds of PPN:
 - a pre-PPN only allows parameters in the edges from places to transitions;
 - a post-PPN only allows parameters in the edges from transitions to places;
-- a distinct-PPN does not have transitions with parameters in both the incoming and outgoing edges.
+- a distinct-PPN the set of parameters appearing on incoming and outgoing edges are distinct. **(29.11.2019 that part was upated.)**
 
 The example above is a post-PPN.
 
@@ -54,6 +54,7 @@ Given a PPN $N$ and an initial marking $M$, the covering question is a bit modif
 * How would you approach the universal covering problem for post-PPN?
 * How would you approach the universal covering problem for pre-PPN?
 * How would you approach the universal covering problem for distinct-PPN?
+
 Justify your answers.
 
 

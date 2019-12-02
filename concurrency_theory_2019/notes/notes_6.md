@@ -633,7 +633,7 @@ Notice that only one of the two channels need to be unbounded for this reduction
 
 _Example._
 
-Let us look at the tape of a turing machine where the tape contains `abc`, the head points to the 2nd position, and make transition that read `b`, write `d`, and move backward:
+Let us look at the tape of a Turing machine where the tape contains `abc`, the head points to the 2nd position, and make transition that read `b`, write `d`, and move backward:
 ```
  ↓                   ↓
 abc ─(b,d,backward)⇒ adc

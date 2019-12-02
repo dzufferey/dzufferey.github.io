@@ -36,6 +36,7 @@ We are interested in:
 
 Which of these questions can we (not) solve? 
 What algorithms are (not) applicable?
+Justify.
 
 
 ## Defining More Operations on Channels
@@ -58,7 +59,7 @@ The operations we will look at are
 ### Tasks
 For all the operations above and their variations, do the following:
 - If we already saw an inference rule for this operation, point to the relevant rule.
-- Otherwise, give an inference rule for the operation.
+- Otherwise, give an inference rule which models the operation.
 
 
 ## Santa Claus Problem
@@ -76,3 +77,7 @@ Then we can try to check some of the proposed solutions.
 * Come up with a solution to the problem or take an existing solutions.
   Model this solution in Spin and try to check that it satisfies the expected properties.
   For this exercise just look at safety properties, you can ignore fairness/liveness properties.
+
+  Spin may not have the appropriate synchronization primitives (for instance barriers).
+  Therefore, you may need to model both the program and the synchronization primitives used.
+

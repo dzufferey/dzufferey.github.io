@@ -14,29 +14,32 @@ _Instructions_
 AN generalize Petri, reset, and transfer nets.
 AN allow both normal token operation like Petri nets and whole-place operations like resets and transfers.
 
-An _Affine Net_ $N$ is a 4-tuple $(S, T, W, R)$ where
+An _Affine Net_ is a 4-tuple $(S, T, W, R)$ where
 * $S$ is a finite set of places
 * $T$ is a finite set of transitions
 * $W$ is a weight function over $(S × T) ∪ (T × S) → ℕ$
 * $R$ is a function $T → ℕ^{|S|} × ℕ^{|S|}$
 
-A transition is enabled as like in the Petri net case.
+Let $W( \\_ ,t)$ and $W(t, \\_ )$ are the forward and backward vector for $t$.
 
-$M \stackrel{t}{→} M'$ is defined as: $M' = R(T)⋅(M - W( \\_ ,t)) + W(t, \\_ )$ where $W( \\_ ,t)$ and $W(t, \\_ )$ are the forward and backward vector for $t$.
+A transition is enabled as like in the Petri net case: $M ≥ W( \\_ ,t)$.
+
+$M \stackrel{t}{→} M'$ is defined as: $M' = R(t)⋅(M - W( \\_ ,t)) + W(t, \\_ )$
+
+Petri nets are special case of AN where $R(t)$ is the identity matrix for all $t$.
 
 ### Tasks
+* Explain how transfer and reset nets can be encoded as AN. (hint: $R(t)$)
+* Let us look at how we can analyze affine nets.
+  We are interested in:
+  1. reachability
+  2. covering
+  3. boundedness (same definitions as for Petri net)
+  4. termination
 
-Let us look at how we can analyze affine nets.
-We are interested in:
-1. reachability
-2. covering
-3. boundedness (same definitions as for Petri net)
-4. termination
-
-
-Which of these questions can we (not) solve? 
-What algorithms are (not) applicable?
-Justify.
+  Which of these questions can we (not) solve? 
+  What algorithms are (not) applicable?
+  Justify.
 
 
 ## Defining More Operations on Channels

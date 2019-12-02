@@ -11,7 +11,7 @@ _Instructions_
 
 ## Affine Nets (AN)
 
-AN generalize both Petri, reset, and transfer nets.
+AN generalize Petri, reset, and transfer nets.
 AN allow both normal token operation like Petri nets and whole-place operations like resets and transfers.
 
 An _Affine Net_ $N$ is a 4-tuple $(S, T, W, R)$ where
@@ -42,11 +42,11 @@ Justify.
 ## Defining More Operations on Channels
 
 In class we have seen inference rules for different types of communicating state machines.
-We have covered the common operations,
+We have covered the common operations.
 However, many systems have a richer set of operations.
 
 Let us look at the operations on channels in Spin and come up with inference rules for them.
-In Spin channels are independent of processes, [here](https://spinroot.com/spin/Man/chan.html) is an explanation for the declaration of channels.
+In Spin, channels are independent of processes - [here](https://spinroot.com/spin/Man/chan.html) is an explanation for the declaration of channels.
 For this exercise, you can assume that each process has its own channel.
 
 The operations we will look at are
@@ -76,8 +76,9 @@ Then we can try to check some of the proposed solutions.
   Give a mathematical formalization for these properties.
 * Come up with a solution to the problem or take an existing solutions.
   Model this solution in Spin and try to check that it satisfies the expected properties.
-  For this exercise just look at safety properties, you can ignore fairness/liveness properties.
+  For this exercise, do only consider safety properties, you can ignore fairness/liveness properties.
 
   Spin may not have the appropriate synchronization primitives (for instance barriers).
   Therefore, you may need to model both the program and the synchronization primitives used.
+  Remember to comment your code properly and explain in your pdf the expected results and their meaning, please. 
 

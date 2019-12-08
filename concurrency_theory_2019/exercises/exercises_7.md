@@ -59,7 +59,7 @@ Is there an initial state (in the set of initial states) from which we can cover
 Let us look at how these extended LCS models relate to normal LCS:
 - For model 1: can you either reduce it to normal LCS or find an example which cannot be modeled by an LCS?
 - For model 2: can you either reduce it to normal LCS or find an example which cannot be modeled by an LCS?
-- For model 3: can you find assumptions so that this model can be reduced to either LCS, model 1 or 2? 
+- For model 3: can you find assumptions so that this model can be reduced to LCS, model 1 or 2? 
 		You may need to find different sets of assumptions for the different reductions - depending on the reductions presented before.
 
 

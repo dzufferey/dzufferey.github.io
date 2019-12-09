@@ -532,7 +532,7 @@ Between this week and next week we will discuss the following questions:
 
 * _Reachability_: Is a marking $M$ reachable? Is there a sequence of transitions $t₁ t₂ … t_n$ such that $M₀ [t₁〉 M₁ [t₂〉 M₂ … [t_n〉 M$?
 * _Coverability_: Is it possible to cover $M$, i.e., reach a marking $M'$ such that $M' ≥ M$?
-* _Boundedness_: Is there a bound $k$ such that for all reachable marking $M$ and state $s$ the number of tokens is bounded by $k$ ($|M(s)| ≤ k$) ?
+* _Boundedness_: Is there a bound $k$ such that for all reachable marking $M$ and place $s$ the number of tokens is bounded by $k$ ($|M(s)| ≤ k$) ?
 * _Termination_: Is there an infinite firing sequence starting at $M₀$?
 
 #### Example

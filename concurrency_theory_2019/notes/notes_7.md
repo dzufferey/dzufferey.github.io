@@ -43,11 +43,11 @@ _Proof._
     $x₀$ is a minimum in the set of elements starting a bad sequence.
 * inductions step: we have a prefix $x₀…x_{n-1}$
   - Chose $x_n$ to be a minimal element among the set of elements such that $x₀…x_n$ extends to a bad sequence.
-  Such element exsits by the same reasoning as above.
+  Such element exists by the same reasoning as above.
 
 __Proposition.__
 Let $(X,≤)$ be a quasiorder with $<$ well-founded and $x₀ ~ x₁ …$ be a minimal bad sequence.
-Define the set $Y = \\{ x ∈ X ~|~ ∃ i. x < x_i \\}$.
+Define the set $Y = \\{ x ∈ X ~|~ ∃ i.~ x < x_i \\}$.
 $(Y,≤)$ is a WQO.
 
 _Proof._
@@ -57,14 +57,14 @@ _Proof._
 * The sequence $x₀ … x_{i-1} ~ y_j ~ y_{j+1} … $ is bad:
   - The $x$ prefix comes from a bad sequence so it cannot contains increasing elements.
   - The $y$ suffix comes from a bad sequence so it cannot contains increasing elements.
-  - We are left with comparing element from accross $x$ and $y$:
+  - We are left with comparing element from across $x$ and $y$:
     * By contradiction to the badness: assume $x_m ≤ y_n$ for some $m < i$ and $n ≥ j$.
     * By definition of $Y$ we have $y_n < x_{i'}$ and by minimality of $i$ we have $i ≤ i'$.
     * So we have $x_m ≤ y_n < x_{i'}$ and $m < i ≤ i'$, contradicting the badness of $x₀ ~ x₁ …$
 * $x₀ … x_{i-1} ~ y_j ~ y_{j+1} … $ contradicts the minimality of $x₀ ~ x₁ …$
 
 __Proposition.__
-Strict embedding is a well-founded relation over finite words from a WQO letters.
+Strict embedding is a well-founded relation over finite words from a WQO alphabet.
 
 _Proof Sketch._
 To make a infinite descending chain, we must makes (1) some letter in the word smaller or (2) make the word shorter.
@@ -78,7 +78,7 @@ _Proof of Higman's lemma._
 2. Embedding does not contains bad sequences:
   * By contradiction: assume $x₀~x₁…$ is a minimal bad sequence.
     * All the words in the sequence are non-empty because the empty word is smaller than any word and it cannot appear in a bad sequence.
-    * For each word $x_i$, we split the head ($x_i[0]$) and tail ($x_i[1:|x_i|]$) of the word.
+    * For each word $x_i$, we split the $head$ ($x_i[0]$) and $tail$ ($x_i[1:|x_i|]$) of the word.
     * Let $Y = \\{ tail(x₀), tail(x₁), … \\}$. Y is a WQO because of $tail(x_i) < x_i$ and the proposition above.
     * Because $Y$ is WQO, $Y$ contains a infinite increasing sequence $tail(x_{f(0)}) ≤ tail(x_{f(1)}) ≤ …$
     * Because $(X,≤)$ is a WQO the sequence $head(x_{f(0)}) ~ head(x_{f(1)}) …$ contains $i<j$ with $head(x_{f(i)}) ≤ head(x_{f(j)})$.
@@ -123,7 +123,7 @@ _Proof._
 3. Using the proposition above on each channel, we get stuttering compatibility.
 
 
-Showing that LCS are WSTS is enough to give decidability of the covering problem using the backward algorithm, assuming an algorithm to compute the predecessor basis.
+Showing that LCS are WSTS is enough to give decidability of the covering problem using the backward algorithm, assuming we have an algorithm to compute the predecessor basis.
 
 
 ## Forward analysis of LCS
@@ -209,7 +209,7 @@ Let $w = a₁ ~ a₂ ~ … ~ a_n$, the upward closure of $w$ can be described by
 
 
 __Theorem.__
-The upward/downward-closed language are regular languages.
+The upward/downward-closed languages are regular languages.
 
 _Proof._
 1. upward-closed case:

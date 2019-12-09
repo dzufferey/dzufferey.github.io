@@ -38,7 +38,7 @@ For both tasks:
 
 When analyzing LCS, we always assumed that the channels are empty in the initial state.
 We are going to investigate whether this is a real restriction or not.
-Recall that LCS are communicating state machines with unbounded lossy FIFO channels.
+Recall that LCS are communicating state machines with unbounded lossy FIFO p2p channels.
 
 Let us look at some possibilities from simple to more difficult.
 
@@ -49,7 +49,7 @@ __Model 2.__
 For each channel, an initial channel state is allowed if it is recognized by a regular expression.
 
 __Model 3.__
-For each channel, an initial channel state stems from a given but arbitrary set.
+For each channel, an initial channel state stems from a given but arbitrary set of finite words.
 
 We still look at the property of control-state reachability but in contrast to the normal LCS, 
 there is a set of initial states and hence the question reads as follows:
@@ -61,7 +61,11 @@ Let us look at how these extended LCS models relate to normal LCS:
 - For model 2: can you either reduce it to normal LCS or find an example which cannot be modeled by an LCS?
 - For model 3: can you find assumptions so that this model can be reduced to LCS, model 1 or 2? 
 		You may need to find different sets of assumptions for the different reductions - depending on the reductions presented before.
-
+- Let us change the channel model from p2p to mailbox.
+  * Are mailbox LCS still WSTS?
+  * Consider the mailbox variation of models 1-3 and the questions above.
+    Are the reductions from mailbox models 1-3 to mailbox LCS possible?
+  
 
 # Partially Lossy Channel System
 
@@ -91,3 +95,4 @@ For the two kinds of PLCSs above:
   The goal is to give a coherent modified definition for PLCS.
 - Is the control-state reachability (covering) still decidable for PLCS?
   Give a proof (find a WQO which is compatible with the new semantics) or a counterexample.
+  (hint: the channels can grow unbounded but they only reliably store a finite amount of information.)

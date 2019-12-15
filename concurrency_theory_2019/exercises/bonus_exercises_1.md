@@ -11,7 +11,7 @@ _Instructions_
 
 ## Effective Predecessor Basis for LCS
 
-To apply the backward algorithm for WSTS on LCS we need a prcedure to compute the predecessor basis of an upward-closed set of states.
+To apply the backward algorithm for WSTS on LCS we need a procedure to compute the predecessor basis of an upward-closed set of states.
 
 ### Tasks
 * Give a procedure to compute the predecessor basis for LCS
@@ -62,7 +62,7 @@ Let us assume that the alphabet $Σ$ of the automaton always contains a special 
 * Define a new restriction operation for an automata.
   The operation takes as argument an automaton $M$ and a letter $a$ in $Σ$ the alphabet of $M$.
   The operation returns an automaton $M'$ over the alphabet $Σ ∖ \\{!a, ?a\\}$.
-  $M'$ accepts all the words accepted by $M$ which do not contain $\\{!a, ?a\\}$.
+  $M'$ accepts all the words accepted by $M$ containing neither $!a$ nor $?a$.
 
 
 ## Modeling the Occam with CCS

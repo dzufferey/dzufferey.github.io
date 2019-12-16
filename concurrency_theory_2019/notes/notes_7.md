@@ -41,9 +41,9 @@ _Proof._
   - Pick $x₀$ a minimal element which extends to a bad sequence.
     Such element must exists because because $(X,≤)$ is not a WQO (it contains bad sequences) and since $<$ is well-founded any set has a minimal element.
     $x₀$ is a minimum in the set of elements starting a bad sequence.
-* inductions step: we have a prefix $x₀…x_{n-1}$
-  - Chose $x_n$ to be a minimal element among the set of elements such that $x₀…x_n$ extends to a bad sequence.
-  Such element exists by the same reasoning as above.
+* induction step: we have a prefix $x₀…x_{n-1}$
+  - Choose $x_n$ to be a minimal element among the set of elements such that $x₀…x_n$ extends to a bad sequence.
+  Such an element exists by the same reasoning as above.
 
 __Proposition.__
 Let $(X,≤)$ be a quasiorder with $<$ well-founded and $x₀ ~ x₁ …$ be a minimal bad sequence.
@@ -55,9 +55,9 @@ _Proof._
 * Let $y₀ ~ y₁ … $ be a bad sequence in $Y$.
 * Let $i$ be the minimal $i$ such that $∃ j.~ y_j < x_i$.
 * The sequence $x₀ … x_{i-1} ~ y_j ~ y_{j+1} … $ is bad:
-  - The $x$ prefix comes from a bad sequence so it cannot contains increasing elements.
-  - The $y$ suffix comes from a bad sequence so it cannot contains increasing elements.
-  - We are left with comparing element from across $x$ and $y$:
+  - The $x$ prefix comes from a bad sequence so it cannot contain increasing elements.
+  - The $y$ suffix comes from a bad sequence so it cannot contain increasing elements.
+  - We are left with comparing elements from across $x$ and $y$:
     * By contradiction to the badness: assume $x_m ≤ y_n$ for some $m < i$ and $n ≥ j$.
     * By definition of $Y$ we have $y_n < x_{i'}$ and by minimality of $i$ we have $i ≤ i'$.
     * So we have $x_m ≤ y_n < x_{i'}$ and $m < i ≤ i'$, contradicting the badness of $x₀ ~ x₁ …$
@@ -75,14 +75,14 @@ _Proof of Higman's lemma._
 1. Embedding is a quasiorder:
   * Embedding is reflexive: use identity as $f$ in the definition of embedding.
   * Embedding is transitive: let $x ≤ y ≤ z$ and $f$ and $f'$ the mapping in $x ≤ y$ and $y ≤ z$, $f'∘f$ define an embedding for $x ≤ z$.
-2. Embedding does not contains bad sequences:
+2. Embedding does not contain bad sequences:
   * By contradiction: assume $x₀~x₁…$ is a minimal bad sequence.
     * All the words in the sequence are non-empty because the empty word is smaller than any word and it cannot appear in a bad sequence.
     * For each word $x_i$, we split the $head$ ($x_i[0]$) and $tail$ ($x_i[1:|x_i|]$) of the word.
     * Let $Y = \\{ tail(x₀), tail(x₁), … \\}$. Y is a WQO because of $tail(x_i) < x_i$ and the proposition above.
-    * Because $Y$ is WQO, $Y$ contains a infinite increasing sequence $tail(x_{f(0)}) ≤ tail(x_{f(1)}) ≤ …$
+    * Because $Y$ is WQO, $Y$ contains an infinite increasing sequence $tail(x_{f(0)}) ≤ tail(x_{f(1)}) ≤ …$
     * Because $(X,≤)$ is a WQO the sequence $head(x_{f(0)}) ~ head(x_{f(1)}) …$ contains $i<j$ with $head(x_{f(i)}) ≤ head(x_{f(j)})$.
-    * Therefore, $x_{f(i)} ≤ x_{f(j)}$ by mapping the mapping the first element of $x_{f(i)}$ to the first of $x_{f(j)}$ and using the mapping from $tail(x_{f(i)}) ≤ tail(x_{f(j)})$ for the rest.
+    * Therefore, $x_{f(i)} ≤ x_{f(j)}$ by mapping the first element of $x_{f(i)}$ to the first of $x_{f(j)}$ and using the mapping from $tail(x_{f(i)}) ≤ tail(x_{f(j)})$ for the rest.
     * This contradicts the badness of $x₀~x₁…$
 
 __Corollary.__
@@ -98,8 +98,8 @@ $(Σ,=)$ is a WQO and applying Higman's lemma give the WQO $(Σ^\*,≤)$.
 The subsequence will form the basis of the WQO for LCS.
 
 __Proposition.__
-Let $i$ be a process in a LCS with the word $w₁$ as the content of an incoming channel and let $w₂$ be a word such that $w₁ ≤ w₂$.
-Form a state where the content of a channel is $w₂$ it is possible to apply the transition rule for losing message to get to a state where the content of the channel is $w₁$.
+Let $i$ be a process in an LCS with the word $w₁$ as the content of an incoming channel and let $w₂$ be a word such that $w₁ ≤ w₂$.
+Form a state where the content of a channel is $w₂$ it is possible to apply the transition rule for loosing message to get to a state where the content of the channel is $w₁$.
 
 _Proof._
 * If $w₁ = w₂$ we are done. Let us look at the case $w₁ < w₂$
@@ -115,8 +115,8 @@ __Theorem.__
 LCS are WSTS.
 
 _Proof._
-1. Consider a LCS as some CSM $(Σ, M_1 … M_N)$ with unbounded p2p lossy FIFO channels, we need to build a WSTS $(S,→,≤)$.
-  * The (infinite) set of space $S$ is the set $∏_i S_i × ∏_{i,j} Σ^\*$ where $i$,$j$ ranges from $1$ to $N$ and $S_i$ is the set of states of machine $M_i$. Note that this corresponds of $(M,C)$ we saw in [week 6](notes_6.md).
+1. Consider an LCS as some CSM $(Σ, M_1 … M_N)$ with unbounded p2p lossy FIFO channels, we need to build a WSTS $(S,→,≤)$.
+  * The (infinite) set of space $S$ is the set $∏_i S_i × ∏_{i,j} Σ^\*$ where $i$,$j$ ranges from $1$ to $N$ and $S_i$ is the set of states of machine $M_i$. Note that this corresponds to $(M,C)$ we saw in [week 6](notes_6.md).
   * The transition relation $→$ is the relation defined by the send, receive, and message loss rules, i.e., $(C,M) → (C',M')$ can derived using the "Lossy p2p FIFO" inference rule from [notes 6](notes_6.md).
   * $(M₁,C₁) ≤ (M₂,C₂)$ iff $M₁ = M₂$ and $∀ i,j.~ C₁(i,j) ≤ C₂(i,j)$.
 2. $≤$ is a WQO because $M$ is a finite tuple of finite states, each $C(i,j)$ is a WQO by Higman's lemma and we put everything together using Dickson's lemma.
@@ -128,7 +128,7 @@ Showing that LCS are WSTS is enough to give decidability of the covering problem
 
 ## Forward analysis of LCS
 
-To have more efficient analysis of LCS people have looked at representation of downward-closed sets for LCS.
+To have a more efficient analysis of LCS people have looked at representations of downward-closed sets for LCS.
 
 
 ### Regular expressions
@@ -258,7 +258,7 @@ The empty product is written as $∅$ (empty language).
 __Theorem.__
 A language $L$ is downward-closed iff it can be described by an SRE.
 
-The [paper](https://www.irif.fr/~abou/lcs-cav98.ps.gz) propose a proof by induction on the structure of regular expressions, at each step giving an SRE for the downward-closure.
+The [paper](https://www.irif.fr/~abou/lcs-cav98.ps.gz) proposes a proof by induction on the structure of regular expressions, at each step giving an SRE for the downward-closure.
 However, we can do better with what we have already seen.
 
 __Lemma.__
@@ -288,7 +288,7 @@ _Proof sketch of the Lemma._
   - Let $w₃ = merge(e₁, f_p(e₁, w₁), f_p(e₁, w₂)) ~ merge(e₂, f_p(e₂, w₁), f_p(e₂, w₂)) ~ … ~ merge(e_n, f_p(e_n, w₁), f_p(e_n, w₂))$.
 
 _Proof of the Theorem._
-* Downward-closed sets can be represented by a finite union of ideal.
+* Downward-closed sets can be represented by a finite union of ideals.
 * Products are ideals and the semantics of $+$ is the union of languages.
 
 #### Operations on SRE
@@ -338,7 +338,7 @@ We can check that $(0+ε)(1+2)^\* ≤ (1+ε)0^\*(1+2)^\*$ with the following ste
 
 
 __Post.__
-In order to apply lift the transitions rules of LCS to SRE, we need to work out the effect of send and receive on products.
+In order to lift the transitions rules of LCS to SRE, we need to work out the effect of send and receive on products.
 Since SRE are downward-closed, we can ignore the rule that drop messages.
 Then, we can apply the operation to all the products to get the effect on the SRE.
 

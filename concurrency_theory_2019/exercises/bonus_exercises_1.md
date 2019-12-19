@@ -11,10 +11,10 @@ _Instructions_
 
 ## Effective Predecessor Basis for LCS
 
-The backward algorithm for WSTS needs to compute the predecessor basis of an upward-closed set of states.
+To apply the backward algorithm for WSTS on LCS we need a procedure to compute the predecessor basis of an upward-closed set of states.
 
 ### Tasks
-* Give an algorithm to compute the predecessor basis for LCS
+* Give a procedure to compute the predecessor basis for LCS
 * Apply your algorithm to the following LCS
     ```graphviz
     digraph finite_state_machine {
@@ -43,12 +43,12 @@ The backward algorithm for WSTS needs to compute the predecessor basis of an upw
     }
     ```
     where we try to cover the control state `Z` in the 1st machine.
-* Prove that your algorithm is correct
+* Prove that your procedure is correct
 
 
 ## Open and Closed World with Finite State Machines
 
-When we discussed CCS (week 8), we looked at the difference between a closed-world vs an open-world modelling assumption.
+When we discussed CCS (week 8), we looked at the difference between a closed-world and an open-world modelling assumption.
 Process algebras are the first model we discussed that could accommodate both (with the help of the $ν$ operator).
 
 Most models we discussed are operating under a closed-world assumption.
@@ -59,9 +59,10 @@ Let us assume that the alphabet $Σ$ of the automaton always contains a special 
 
 ### Tasks
 * Modify the synchronized product of automatons to mimic the parallel and communication rules of CCS.
-* Define a new restriction operation for an automaton $M$.
-  The operation takes as argument a letter $a$ and returns an automaton over the alphabet $Σ ∖ \\{!a, ?a\\}$.
-  This automaton accepts all the words which do not contain $\\{!a, ?a\\}$ that $M$ accepts.
+* Define a new restriction operation for an automata.
+  The operation takes as argument an automaton $M$ and a letter $a$ in $Σ$ the alphabet of $M$.
+  The operation returns an automaton $M'$ over the alphabet $Σ ∖ \\{!a, ?a\\}$.
+  $M'$ accepts exactly the words accepted by $M$ containing neither $!a$ nor $?a$.
 
 
 ## Modeling the Occam with CCS

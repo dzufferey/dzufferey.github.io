@@ -354,7 +354,7 @@ In that case the process $(νhead)(νtail)(flip() | gambler())$ can get to $(νh
 ## Open vs Closed World
 
 The semantics above is an _open world_ semantics.
-It is possible to make sens/receive steps that are not matched.
+It is possible to make send/receive steps that are not matched.
 
 For instance, we have $?x.0 \stackrel{?x}{→ } 0$.
 

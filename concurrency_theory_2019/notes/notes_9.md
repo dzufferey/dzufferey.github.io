@@ -20,7 +20,7 @@ This axiomatization of weak bisimulation has been shown to be sound and it may b
 (see Section 5.5 of [A Calculus of Mobile Processes Pt.1](http://www.lfcs.inf.ed.ac.uk/reports/89/ECS-LFCS-89-85/)).
 
 _Remarks._
-In the coin flip example from [notes 8](viewer.html?md=concurrency_theory_2019/notes_8.md), the two models of the $coin$ are not weakly bisimilar.
+In the coin flip example from [notes 8](viewer.html?md=concurrency_theory_2019/notes/notes_8.md), the two models of the $coin$ are not weakly bisimilar.
 
 
 # The π-calculus
@@ -211,7 +211,7 @@ Like for CCS, we assume that $fn(P) ∩ bn(P) = ∅$.
 ## Structural congruence
 
 The structural congruence rules are the same as in CSS with the addition of renaming of the names bound by input prefixes:
-- $c ∉ fn(P) ∧ c ∉ bn(P) ⇒ ?a(b).P ≡ ?a(c).P[c/b]$
+- $c ∉ fn(P) ∧ c ∉ bn(P) ~⇒~ ?a(b).P ≡ ?a(c).P[c/b]$
 
 
 ## Semantics
@@ -415,7 +415,7 @@ The syntax is the same as the π-calculus, only the semantics is different.
 
 We will need the notion of that we can _observe_ $α$ in a process $P$ if $?α(\vec b).A$ occurs unguarded in $P$ for some $A$ and some $\vec b$.
 It is written $P↓_α$.
-It is a variation of the commitments we discussed in [week 8](viewer.html?md=concurrency_theory_2019/notes_8.md).
+It is a variation of the commitments we discussed in [week 8](viewer.html?md=concurrency_theory_2019/notes/notes_8.md).
 The difference with the commitment is that we ignore the process coming after the action.
 We also ignore the payload but commitment was only defined for CCS (no payload).
 

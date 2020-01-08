@@ -46,14 +46,14 @@ In the literature, the replication operator is $!P$ rather than $P^\*$.
 We use this modified notation to avoid confusion with sending a message.
 
 ### Tasks
-* For an equivalence notion of your choice, can you find a encoding of the π-calculus version we saw during the lecture to the π-calculus with replication?
-* For an equivalence notion of your choice, can you find a encoding of the π-calculus with replication to the version of the π-calculus we saw during the lecture?
+* For an equivalence notion of your choice, can you find an encoding of the π-calculus version we saw during the lecture to the π-calculus with replication?
+* For an equivalence notion of your choice, can you find an encoding of the π-calculus with replication to the version of the π-calculus we saw during the lecture?
 
 
 ## Higher Order π-calculus
 
 Let us look at an extension of the π-calculus where processes can also send processes as part of the message.
-This extension is called the higher order π-calculus by reference to high order functions in functional programming.
+This extension is called the higher order π-calculus - as a reference to high order functions in functional programming.
 
 It is defined by extending the grammar for actions:
 
@@ -110,4 +110,4 @@ We can compare the configuration as follows:
 * closing $≤$ under $≡$: $P ≡ P' ∧ Q ≡ Q' ∧ P' ≤ Q' ⇒ P ≤ Q$
 
 ### Task
-* Given the ordering defined above, show that the $ν$-free π-calculus is a WSTS.
+* Given the ordering defined above, show that the $ν$-free π-calculus is a WSTS and make sure to address all subclaims properly.

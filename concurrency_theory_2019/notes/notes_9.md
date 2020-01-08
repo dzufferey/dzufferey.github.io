@@ -528,3 +528,41 @@ Notice that the first message is received by two subscribers while the second me
 __Monotonicity of the Broadcast semantics.__
 In this broadcast semantics, sending is non-blocking and only the processes that listen on the channel when a message is sent receive the message.
 Intuitively, this means that it is also possible to define an WSTS for fragments of the broadcast calculus.
+
+
+## Using (Weak) Bisimulation
+
+A _context_ $C$ a process with a "hole" in which we can put another process.
+This captures the fact that a process can interact with an external environment.
+The context is the environment.
+
+A context is defined as:
+
+$
+\begin{array}{rcll}
+   C & ::= & []      & \\\\
+     &   | & π.C     & \\\\
+     &   | & C + P   & \\\\
+     &   | & P + C   & \\\\
+     &   | & C ~|~ P  & \\\\
+     &   | & P ~|~ C  & \\\\
+     &   | & (νa) C
+\end{array}
+$
+
+$C[P]$ is the process obtained by replacing $[]$ by $P$ in $C$.
+
+_Example._
+$(ν a) [] ~|~ ?a.0$ is a context.
+Let call it $C$ and $C[!a.0]$ is $(ν a) !a.0 ~|~ ?a.0$
+
+__Theorem.__
+If two processes $P$, $Q$ are bisimular then for any context $C$.
+$C[P]$ and $C[Q]$ are bisimlar.
+
+
+_Remark._ 
+Unfortunately, things are not always simple and there are [multiple kinds of bisimulations with sightly different properties](https://en.wikipedia.org/wiki/%CE%A0-calculus#Bisimulations_in_the_%CF%80-calculus).
+In this class we looked at the notion of bisimulation based on the transitions that a process can take.
+For the π-calculus, this bisimulation is called _barbed bisimulation_.
+

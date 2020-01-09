@@ -560,6 +560,12 @@ __Theorem.__
 If two processes $P$, $Q$ are bisimular then for any context $C$.
 $C[P]$ and $C[Q]$ are bisimlar.
 
+_Proof sketch._
+If $P$ and $Q$ are bisimlar then we have a bisimulation $R$.
+Using $R$ we can build $R'$ a bisimulation for $C[P]$ and $C[Q]$.
+To construct $R'$ we can split on the structure of $C$.
+Intuitively, the terms which are different from $[]$ get mapped to themselves and when we get to $[]$ we rely on $R$ to fill the gap in $R'$.
+
 
 _Remark._ 
 Unfortunately, things are not always simple and there are [multiple kinds of bisimulations with sightly different properties](https://en.wikipedia.org/wiki/%CE%A0-calculus#Bisimulations_in_the_%CF%80-calculus).

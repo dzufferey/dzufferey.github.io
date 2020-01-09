@@ -1,7 +1,7 @@
 # Homework 8
 
 _Instructions_
-* Due on Jan 13, Monday, at 8am.
+* Due on Jan 20, Monday, at 8am.
 * Send your solution by email to Felix Stutz. Please prefix your email subject with `[CT19-SUB]`.
 * We expect you to work in groups of 3 to 4 people, be sure to include the names of all the participants **and your group number** in the document.
 * Please submit your solutions in one readable pdf file. Based on the experiences for the first exercise sheet, we require you to **typeset your solutions** as announced in the tutorial.

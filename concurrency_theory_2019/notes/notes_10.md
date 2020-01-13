@@ -1,8 +1,8 @@
-# Typing System for the π-calculus
+# Typing System for Communication
 
 When we look at processes, we have always assumed that names are used in a "correct" way, e.g., if two arguments are send in a message then the receiver expects two arguments.
 However, we just assumed this and did not check it.
-Orthogonal to the question of reachability/covering that are the focus of this lecture, there is an area of research dedicated to typing processes/channels to make sure the communication happens properly, e.g., messages have the right type, deadlock-freedom.
+Orthogonal to the question of reachability/covering that are the focus of this lecture, there is an area of research dedicated to typing processes/channels to make sure the communication happens properly, e.g., messages have the right type, deadlock-freedom, when process terminates there is no pending messages.
 Here we will just scratch the surface of this topic.
 
 #### Properties of Type Systems
@@ -18,7 +18,7 @@ Actually, we will see that $A ≝ τ.A$ can have any type.
 However, progress si strong enough to implies the absence of deadlock.
 And it is not possible to have all the processes stuck on send/receive operations.
 
-## Typing Names
+## Typing Names in the π-calculus
 
 The first tentative to type the π-calculus is to give types to the names.
 The type of name is the type of the names it carries when exchanging messages.

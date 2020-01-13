@@ -5,6 +5,19 @@ However, we just assumed this and did not check it.
 Orthogonal to the question of reachability/covering that are the focus of this lecture, there is an area of research dedicated to typing processes/channels to make sure the communication happens properly, e.g., messages have the right type, deadlock-freedom.
 Here we will just scratch the surface of this topic.
 
+#### Properties of Type Systems
+
+The main properties of type system are:
+* preservation: A well-typed progrcess is still well typed after taking a step.
+* progress: either the program has finished or it it possible to take a step.
+
+Notice that progress, in this context, is a very local condition and it is weaker than termination.
+For instance, a process stuck in an infinite loop without message ($A ≝ τ.A$) can make progress.
+Actually, we will see that $A ≝ τ.A$ can have any type.
+
+However, progress si strong enough to implies the absence of deadlock.
+And it is not possible to have all the processes stuck on send/receive operations.
+
 ## Typing Names
 
 The first tentative to type the π-calculus is to give types to the names.
@@ -163,7 +176,7 @@ __Notation.__
 Since we work with two processes, we implicitly assume that they are called $P$ and $Q$ and omit the addresses when sending/receiving.
 To avoid confusion between integer and $0$ as the "terminated process", we use $end$ for termination.
 
-### Model (version 1)
+### Model
 
 __System.__
 A list of definitions of the 
@@ -215,8 +228,6 @@ Compared to the π-calculus the definition do not have parameters, process do no
 Messages do not carry name but values: integer, boolean, string, etc.
 
 This model inherits the applicable $≡$ rules.
-
-The model will be refined later.
 
 __Semantics.__
 The semantics is a mix between π-calculus (process algebra notation) and communicating state machines (fixed number of participant).
@@ -483,11 +494,7 @@ For the subtyping of choice it is simpler to work with the n-ary version of the 
 Intuitively, subtypes can do fewer internal choices and allow more external choices.
 
 
-### Properties of the Type System
-
-The main properties of type system are:
-* preservation: An evaluation step does not change the type
-* progress: either the program has finished or it it possible to take a step
+### Progress and Preservation 
 
 Progress and Preservation is proven by induction on the syntax of the processes and types.
 Here we give a sketch of how to prove it.
@@ -500,7 +507,6 @@ Given well-typed $(P: t₁) ~|~ (Q: t₂)$ with $t₁ = dual(t₂)$ we need to c
   - finally, we apply to induction hypothesis to get that progress also holds for $(P':t') ~|~ (Q[b/a]:dual(t'))$
 * Case ...
 
-If we add some extra checks for the absence of loops with only τ steps, then progress also implies deadlock-freedom.
 
 ### FIFO Communication
 

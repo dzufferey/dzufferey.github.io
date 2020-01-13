@@ -236,6 +236,7 @@ The semantics of the pi-calculus is very similar to CCS but it also carries the 
   }\over{
     ?a(\vec b).P  \stackrel{?a(\vec c)}{→}  P[c/b]
   }\\]
+* Choice
   \\[{
     P  \stackrel{π}{→}  P'
   }\over{

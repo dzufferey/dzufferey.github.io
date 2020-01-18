@@ -14,9 +14,9 @@ _Instructions_
 Let us look at an extension of the π-calculus with test for name equality $[x=y]P$ and $[x≠y]P$.
 
 This extension can be useful to model which programs passing names to model addresses (url or pointer) or data and acting differently depending on the value.
-For instance, one can model a firewall which drops messages from a set of addresses and forward mesages from the others addresses.
+For instance, one can model a firewall which drops messages from a set of addresses and forward messages from the others addresses.
 
-More formally, the grammar of processes is extended with:
+Formally, the grammar of processes is extended with:
 
 $
 \begin{array}{rcll}
@@ -49,21 +49,21 @@ Mobile ad hoc networks (MANET) are networks which do not depend on a static infr
 Since devices are free to move independently of each other, the communication links constantly change as they are limited by the transmission range of the devices.
 Two devices which move too far away cannot communicate anymore and devices which get closer can suddenly communicate.
 
-Let us investigate a model for simple MANET and the decidability of control-state reachability in that context.
+Let us investigate a model for a simple MANET and the decidability of control-state reachability in that context.
 
-The model is a variation of communicating state machines with the following changes:
+The model is a variation of communicating state machines incorporating the following changes:
 * the communication modality is synchronous broadcast (no channel),
-* instead of channels between every pairs of processes we have a graph which says which node can communicates together.
+* instead of channels between every pair of processes we have a graph which says which node can communicates together.
 
 Like in communicating state machines, every process is a finite state machine sending and receiving messages over a finite message alphabet.
-The state of the systems is a pair $(M, G)$ where $M$ maps each machine to its local state and $G$ is the communication graph.
+The state of the system is a pair $(M, G)$ where $M$ maps each machine to its local state and $G$ is the communication graph.
 We write $G(i)$ to get the neighbours of $i$ in $G$.
 
-Then the transitions are defined by the following two rules:
+The transitions are defined by the following two rules:
 
 _Communication_
 \\[{
-M[i] \stackrel{!a}{→_i} M'[i] \qquad ∀ j≠i.\ (j ∈ G(i) ⇒ M[j] \stackrel{?a}{→_j} M'[j]) ∧ (j ∉ G(i) ⇒ M[j] = M'[j])
+M[i] \stackrel{!a}{→_i} M'[i] \qquad ∀ j≠i.\ (j ∈ G(i) ⇒ M[j] \stackrel{?a}{→_j} M'[j]) ∧ (j ∉ G(i) ⇒ (M[j] = M'[j]))
 } \over {
 (M, G) → (M', G)
 }
@@ -116,4 +116,4 @@ Our goal is to ensure that both programs together execute correctly.
 
 ###  Questions
 * Can you find a binary session type that shows that the two processes communicate correctly?
-  (hint: the subtyping rule is crutial for this example, one process' local type can be a subtype of multiple types.)
+  (hint: the subtyping rule is crucial for this example, one process' local type can be a subtype of multiple types.)

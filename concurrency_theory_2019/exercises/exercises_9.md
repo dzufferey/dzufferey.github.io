@@ -25,7 +25,6 @@ $
      &   | & [a ≠ a]P       & \text{(test)}
 \end{array}
 $
-where $a$ and $b$ are actual names.
 
 In the grammar $a$ is the rule for names, so each $a$ can be a different name.
 
@@ -36,6 +35,8 @@ The free and bound names are extended with:
 And the semantics has the following new rules:
 * equal names: \\[{ }\over{ [a = a]P  \stackrel{τ}{→} P }\\]
 * disequal names: \\[{ }\over{ [a ≠ b]P  \stackrel{τ}{→} P }\\]
+
+where $a$ and $b$ are actual names.
 
 ### Task
 As the π-calculus is a Turing complete model of computation, we looked at restricted models to obtain some decidability results.

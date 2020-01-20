@@ -25,6 +25,7 @@ $
      &   | & [a ≠ a]P       & \text{(test)}
 \end{array}
 $
+where $a$ and $b$ are actual names.
 
 In the grammar $a$ is the rule for names, so each $a$ can be a different name.
 
@@ -36,10 +37,10 @@ And the semantics has the following new rules:
 * equal names: \\[{ }\over{ [a = a]P  \stackrel{τ}{→} P }\\]
 * disequal names: \\[{ }\over{ [a ≠ b]P  \stackrel{τ}{→} P }\\]
 
-### Question
+### Task
 As the π-calculus is a Turing complete model of computation, we looked at restricted models to obtain some decidability results.
 In particular, we looked at the $ν$-free π-calculus.
-Can you solve the covering problem for the $ν$-free π-calculus with test for name equality?
+Extend the method to solve the covering problem for the $ν$-free π-calculus with test for name equality.
 
 
 
@@ -72,7 +73,7 @@ M[i] \stackrel{!a}{→_i} M'[i] \qquad ∀ j≠i.\ (j ∈ G(i) ⇒ M[j] \stackre
 _Reconfiguration_
 \\[ {} \over { (M, G) → (M, G') } \\]
 
-### Questions
+### Tasks
 * For the new model above, is the control-state reachability question decidable? Justify.
 * Consider a generalization of the model.
   For communicating state machines, we have a fixed number of processes.
@@ -85,7 +86,7 @@ _Reconfiguration_
 
 Let us look at the following at the two processes communicating with each other.
 
-The code is given in scala pseudo code.
+The code is given in pseudo code inspired by scala actors.
 Sending is `!` and `receive` returns a message which can be inspected using pattern matching.
 
 __Process 1.__
@@ -112,8 +113,9 @@ while(true) {
 }
 ```
 
-Our goal is to ensure that both programs together execute correctly.
+Our goal is to ensure that both programs together execute correctly with asynchronous reliable FIFO channels, i.e., no deadlock ad when the two processes terminates all the messages have been received.
 
 ###  Questions
 * Can you find a binary session type that shows that the two processes communicate correctly?
+  Explain how the typing work in this case.
   (hint: the subtyping rule is crucial for this example, one process' local type can be a subtype of multiple types.)

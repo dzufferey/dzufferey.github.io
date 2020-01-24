@@ -1,17 +1,17 @@
 # Equivalence of Transition Systems: Simulation, Symmetric Simulation, and Bisimulation
 
-Until now, we have discuss properties of systems through the lens of reachability properties, e.g., can a system get to a particular state.
+Until now, we have discussed properties of systems through the lens of reachability properties, e.g., whether a system can get to a particular state.
 
 Other types of questions we may want to ask  are
-* How does a system interact with his environment? (its input/output behaviors)
-* What it means for two systems to be equivalent? or implement the same interface?
+* How does a system interact with its environment? (its input/output behaviors)
+* What does it mean for two systems to be equivalent? or to implement the same interface?
 
 Surely, two different implementations of the same protocol can have different states, so comparing them using state-based properties is not possible.
 Simulation relations for labeled systems try to answer such questions.
 
 ## Labeled Transition Systems
 
-A _labeled transition systems_ (LTS) is a triple $(S,Σ,→)$ with:
+A _labeled transition system_ (LTS) is a triple $(S,Σ,→)$ with:
 * $S$ is a set of states (can be infinite),
 * $Σ$ is a finite set of labels (the alphabet),
 * $→ ⊆ S × Σ × S$ is a transition relation.
@@ -22,7 +22,7 @@ We already saw an instance of simulation with the compatibility of WSTS.
 In this case, it was a particular case of simulation relation within the same process.
 However, this idea is more general and applicable to different processes.
 
-Let $A$, $B$ be two LTS with the same alphabet $Σ$.
+Let $A$, $B$ be two LTSs with the same alphabet $Σ$.
 A _simulation relation_ $R$ a relation between the states of $A$ and $B$ with the following property:
 $∀ a ∈ Σ,~ s_A,t_A ∈ S_A,~ s_B ∈ S_B.~ R(s_A, s_B) ∧ s_A \stackrel{a}{→_A} t_A ⇒ ∃ t_B ∈ S_B.~ s_B \stackrel{a}{→_B} t_B ∧ R(t_A, t_B)$.
 
@@ -72,11 +72,11 @@ However, $A$ and $B$ are not bisimilar.
 
 # Calculus of Communicating Systems (CCS)
 
-All the model we have seen until now are state/automata-based models of concurrent systems.
+All the models we have seen until now are state/automata-based models of concurrent systems.
 Process calculi (CCS, CSP, π-calculus) provide an alternative approach to model concurrent system.
-There models describe concurrent systems using equations and can reason about these systems by algebraic manipulations.
+These models describe concurrent systems using equations and can reason about these systems by algebraic manipulations.
 
-A key element of CCS is the distinction between _names_ and _process_.
+A key element of CCS is the distinction between _names_ and _processes_.
 _Names_ are channels and they are orthogonal to processes, e.g., a process can send or receive messages from _any_ name in its scope.
 In the world of CSM, only a single process can receive from a channel.
 
@@ -176,10 +176,10 @@ $
 \end{array}
 $
 
-_Notations._
+_Notation._
 * For reading processes, the priority of the operation from strongest to weakest: action, restriction, choice, parallel.
 * $!a$ and $?a$ is the CSP notation.
-  Most publication on CCS and the π-calculus uses $\overline a$ for $!a$ and $a$ for $?a$.
+  Most publications on CCS and the π-calculus uses $\overline a$ for $!a$ and $a$ for $?a$.
 * Sometimes $∥$ is used instead of $|$
 * The binary choice $P+Q$ can be generalized to indexed sum $∑_i P_i$.
 * For the labelled semantics, we write $\stackrel{π}{→}$ for a transition with the label $π$.
@@ -581,7 +581,7 @@ SGE ⊢ !a.0 | !b.0 = !a.(0 | !b.0) + !b.(!a.0 | 0)
 $
 
 _SGE_ is the combination of $≡$ and the expansion law:
-* structural congruence:i
+* structural congruence:
   
   $P≡Q  ⇒  SGE ⊢ P=Q$
 

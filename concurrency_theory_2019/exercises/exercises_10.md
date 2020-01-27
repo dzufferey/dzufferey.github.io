@@ -1,7 +1,7 @@
 # Homework 10
 
 _Instructions_
-* Remember to fill the poll if you intend to take the exam: <a href="https://terminplaner4.dfn.de/CT19-Exams">https://terminplaner4.dfn.de/CT19-Exams</a>
+* Please remember to fill the poll if you intend to take the exam: [https://terminplaner4.dfn.de/CT19-Exams](https://terminplaner4.dfn.de/CT19-Exams).
 * Due on Feb 3, Monday, at 8am.
 * Send your solution by email to Felix Stutz. Please prefix your email subject with `[CT19-SUB]`.
 * We expect you to work in groups of 3 to 4 people, be sure to include the names of all the participants **and your group number** in the document.

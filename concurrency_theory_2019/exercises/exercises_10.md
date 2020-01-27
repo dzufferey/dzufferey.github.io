@@ -1,6 +1,7 @@
 # Homework 10
 
 _Instructions_
+* Remember to fill the poll if you intend to take the exam: <a href="https://terminplaner4.dfn.de/CT19-Exams">https://terminplaner4.dfn.de/CT19-Exams</a>
 * Due on Feb 3, Monday, at 8am.
 * Send your solution by email to Felix Stutz. Please prefix your email subject with `[CT19-SUB]`.
 * We expect you to work in groups of 3 to 4 people, be sure to include the names of all the participants **and your group number** in the document.
@@ -19,7 +20,7 @@ Only the initial configuration can use $|$.
 This means that the maximum number of processes is bounded by the number of processes in the initial configuration.
 
 ### Questions
-* Can you solve the covering problem for the $|$-free π-calculus? Justify
+* Can you solve the covering problem for the $|$-free π-calculus? Justify your answer. 
 
 
 ## On the Two Threads Reduction in Bulk Synchronization
@@ -34,7 +35,7 @@ Why did we not do a reduction to finite systems?
 ### Questions
 * Do you think a single thread reduction is possible for the control-state reachability problem is LCS?
   Discuss what made the two threads reduction possible and, if possible, what would be the equivalent for the control-state reachability.
-* Same question but for a fixed number of token and covering in Petri Nets.
+* Same question but for a fixed number of tokens and covering in Petri Nets.
 
 
 ## Model for Monitors (Synchronization Primitives)
@@ -52,7 +53,7 @@ Here is a short description and code sample.
 ```c
 RingBuffer queue; // A thread-unsafe ring-buffer of tasks.
 Lock queueLock;   // A mutex for the buffer of tasks.
-CV queueFullOrEmptyCV; // A condition variable for when the queue is empty of full
+CV queueFullOrEmptyCV; // A condition variable for when the queue is empty or full
                        // Its associated lock is "queueLock".
 
 public method producer(){

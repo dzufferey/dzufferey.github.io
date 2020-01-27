@@ -33,7 +33,7 @@ This property depended only on a single process or a fixed number of token.
 Why did we not do a reduction to finite systems?
 
 ### Questions
-* Do you think a single thread reduction is possible for the control-state reachability problem is LCS?
+* Is a single thread reduction is possible for the control-state reachability problem for LCS?
   Discuss what made the two threads reduction possible and, if possible, what would be the equivalent for the control-state reachability.
 * Same question but for a fixed number of tokens and covering in Petri Nets.
 

@@ -15,10 +15,10 @@ Let us look at the memory operations of concurrently executing programs.
 
 We assume that initially, all the memory locations are initialized with `0`.
 
-Consider the following traces of for pairs of programs.
+Consider the following traces for pairs of programs.
 We do not specify the interleaving between the two programs.
 
-_examples 1_ (writes are the same, only the reads changes)
+_examples 1_ (writes are the same, only the reads change)
 ```
 thread A    ∥   thread B            thread A    ∥   thread B
 ------------∥------------           ------------∥------------
@@ -57,7 +57,7 @@ write(y, 2) ∥                       write(y, 2) ∥
 
 ## Weak Memory Control Automaton from Code
 
-When discussed weak memory models, we saw programs as NFA with the following operations on the transitions:
+When we discussed weak memory models, we saw programs as NFAs with the following operations on the transitions:
 * $nop$ (no operation)
 * $read(\mathbb{A}, \mathbb{D})$
 * $write(\mathbb{A}, \mathbb{D})$
@@ -108,7 +108,7 @@ bool CAS(int* p, int old, int new) {
 ```
 
 ### Questions
-* What we did in class was at the level of memory operations and we did not discuss in details how we got these operations.
+* What we did in class was at the level of memory operations and we did not discuss in detail how we got these operations.
   Explain how we can extract an automaton with memory operations as transitions from code.
   Give the automaton corresponding to `peterson(0)` and `negate(x)`.
 
@@ -124,8 +124,8 @@ A multiset of messages is usually modeled as map from message type to natural nu
 Petri nets have a limited ability to "count" and can encode such map.
 
 __Control-state reachability.__
-Control-state reachability is a specific type of covering/reachability question in the case of concurrent systems.
-For a systems composed of a finite number processes interacting either through shared memory or message passing, the control-state reachability asks if a distinguished process can reach a particular local state.
+Control-state reachability is a specific type of covering/reachability question for the case of concurrent systems.
+For a system composed of a finite number of processes interacting either through shared memory or message passing, the control-state reachability asks if a distinguished process can reach a particular local state.
 This question is indifferent to the state of the other processes or means of synchronization (memory, channels).
 
 
@@ -138,9 +138,9 @@ From the definition of CSM we have:
 * CSM → PN
   - Give a reduction from CSM with bag mailbox to Petri net that preserves control-state reachability.
     By preserving control-state reachability, we mean that a machine `M_i` in the CSMs can reach a given state `s_i` iff the PN obtained with the reduction can cover a marking `M`.
-    For a given `M_i` and `s_i` explain what `M` you get with your reduction.
-  - How many places and transitions does the PN has as a function of `N`, `m`, and `|Σ|` ?
+    For a given `M_i` and `s_i` explain the marking `M` one gets with your reduction.
+  - How many places and transitions does the PN have? Describe it as function with parameters `N`, `m`, and `|Σ|`.
 * PN → CSM
-  - Give are reduction from Petri net to communicating state machines such that a covering question for the Petri net can be encoded as a control-state reachability question in the CSM.
-  Your reduction can use the marking to cover and produce different CSM depending on that marking.
+  - Give a reduction from Petri net to communicating state machines such that a covering question for the Petri net can be encoded as a control-state reachability question in the CSM.
+  Your reduction may use the marking to cover and produce different CSM depending on that marking.
 

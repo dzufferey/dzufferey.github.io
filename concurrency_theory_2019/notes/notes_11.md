@@ -150,8 +150,8 @@ We decompose the transition rules into local rules for the execution of the stat
 We will use $t$ to denote the state a thread.
 * $t.l$ means accessing $l$ at thread $t$.
 * $t.l ← e$ returns a new state where $l$ has value $e$ and the rest is unchanged.
-* $R$, $W$ are special variables to represent the read and written memory locations. They do not occur in the origial program.
-* $i$, $N$ can be access but not written.
+* $R$, $W$ are special variables to represent the read and written memory locations. They do not occur in the original program.
+* $i$, $N$ can be accessed but not written.
 
 __Shadow memory.__
 To simplify the semantics, each thread keeps a local copy of the global memory.
@@ -193,7 +193,7 @@ __Synchronization rules.__
 
 Let $T = (t₁, ~…, ~ t_N)$ be the state of all threads and $T[j]$ the $j$th thread in $T$ ($T[j].i = j$).
 
-To check for data race we use the following predicate:
+To check for data races we use the following predicate:
 
 $
 race(T) ~~ ⇔ ~~ ∃ k,l.~ k≠l ∧ T[k].W ∩ (T[l].R ∪ T[l].W) ≠ ∅
@@ -245,7 +245,7 @@ __Control-flow rules.__
 Finally, we need a few rules for the control flow.
 These rules work on sequences of statements.
 
-We write "$a :: b$" to extract the head of a sequence of statement or extend a sequence.
+We write "$a :: b$" to extract the head of a sequence of statements or extend a sequence.
 $::$ is not the same as $;$.
 $::$ is for predicated statement and $;$ for statements.
 $⇒$ binds more strongly than $::$, i.e.,  "$p ⇒ s :: s$" is "$(p ⇒ s) :: s$".
@@ -312,10 +312,10 @@ To simplify the problem, we need to apply some abstraction.
 The paper proposes an adversarial abstraction.
 
 The shared state is ignored.
-Read operations are replaced nondeterministic assignments.
+Read operations are replaced by nondeterministic assignments.
 The intuition is that the properties we look at most often depends on the control-flow and the local variables rather than the data.
 
-The abstraction replace the read and write rules with:
+The abstraction replaces the read and write rules with:
 * read
   \\[{
   t.p \qquad  v = e↓t \qquad  t' = (t.l ← v').R ← t.R ∪ v
@@ -329,20 +329,20 @@ The abstraction replace the read and write rules with:
   (t, (p ⇒ shared[e₁] := e₂)) → t'
   }\\]
 
-With an adversarial abstraction, the problem become simpler as it is not possible anymore to encode a Turing machine.
+With an adversarial abstraction, the problem becomes simpler as it is not possible to encode a Turing machine anymore.
 The abstraction still contains the traces of the original program.
 Therefore, if the abstracted program is correct then the original program is also correct.
 However, it is possible that a correct program becomes incorrect with the adversarial abstraction.
 
 
-[The paper](https://www.doc.ic.ac.uk/~afd/homepages/papers/pdfs/2015/TOPLAS.pdf) also describe a more advanced "equality abstraction".
+[The paper](https://www.doc.ic.ac.uk/~afd/homepages/papers/pdfs/2015/TOPLAS.pdf) also describes a more advanced "equality abstraction".
 
 
 ### Two threads reduction (cut-off bound)
 
 Even though we want to check that a program is correct for any `N`.
 We can look at only two threads.
-This property that all the bug show up for a finite `N` is called a cut-off bound.
+This property that all the bugs show up for a finite `N` is called a cut-off bound.
 In this case, it is `2`.
 
 Applying the adversarial abstraction _decouples_ the threads.
@@ -379,7 +379,7 @@ sum(global int[] a, int size, global int[] tmp_sum, global int* sum)
 }
 ```
 
-The first part is to partially instrument for our semantics (read/write, loops):
+The first part is to partially instrumented for our semantics (read/write, loops):
 ```c
 sum(global int[] a, int size, global int[] tmp_sum, global int* sum)
 {

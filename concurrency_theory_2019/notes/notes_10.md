@@ -1,13 +1,13 @@
 # Typing System for Communication
 
-When we look at processes, we have always assumed that names are used in a "correct" way, e.g., if two arguments are send in a message then the receiver expects two arguments.
+When we look at processes, we have always assumed that names are used in a "correct" way, e.g., if two arguments are sent in a message then the receiver expects two arguments.
 However, we just assumed this and did not check it.
 Orthogonal to the question of reachability/covering that are the focus of this lecture, there is an area of research dedicated to typing processes/channels to make sure the communication happens properly, e.g., messages have the right type, deadlock-freedom, when process terminates there is no pending messages.
 Here we will just scratch the surface of this topic.
 
 #### Properties of Type Systems
 
-The main properties of type system are:
+The main properties of a type system are:
 * preservation: A well-typed progrcess is still well typed after taking a step.
 * progress: either the program has finished or it it possible to take a step.
 
@@ -15,16 +15,16 @@ Notice that progress, in this context, is a very local condition and it is weake
 For instance, a process stuck in an infinite loop without message ($A ≝ τ.A$) can make progress.
 Actually, we will see that $A ≝ τ.A$ can have any type.
 
-However, progress si strong enough to implies the absence of deadlock.
+However, progress is strong enough to imply the absence of deadlocks.
 And it is not possible to have all the processes stuck on send/receive operations.
 
 ## Typing Names in the π-calculus
 
-The first tentative to type the π-calculus is to give types to the names.
-The type of name is the type of the names it carries when exchanging messages.
+The first tentative to type the π-calculus is to give types to names.
+The type of a name is the type of the names it carries when exchanging messages.
 
 #### Types
-Let $S$ by a set of sort identifier.
+Let $S$ be a set of sort identifier.
 Each type is a pair in $(s, o) ∈ S × S^\*$ where
 * $s$ is the subject sort, i.e., name of the type.
 * $o$ is the object sort, i.e., the list of sort names that are sent as payload with the subject name.
@@ -39,7 +39,7 @@ We have the following types:
 * `(SWITCH, (TALK,SWITCH))`
 * `(TALK, ())`
 
-And the definitions annotated with types are:
+And the definitions' annotated with types are:
 ```
 Car(talk: TALK, switch: SWITCH) ≝
       ?talk.Car(talk, switch)
@@ -123,7 +123,7 @@ __Remark.__
 The typing systems focuses on the arity of names but by giving differently named types to names with the same artiy, it can do some finer checks.
 For instance, in the example above `ALERT` and `TALK` are used in the same way (no payload) but since their type is named differently, it is not possible to put an `ALERT` name instead of a `TALK` name.
 
-This make is possible to have different granularity when typing names.
+This makes it possible to have different granularity when typing names.
 At one extreme, we can just keep track of the arity for instance, we can type CCS processes using only the type `(NAME, ())` and the monadic π-calculus with `(NAME, (NAME))`.
 Or as with the example, give a finer distinctions by give naming differently what essentially is the same type.
 

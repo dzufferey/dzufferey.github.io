@@ -7,6 +7,7 @@ _Instructions_
 * Please submit your solutions in one readable pdf file. Based on the experiences for the first exercise sheet, we require you to **typeset your solutions** as announced in the tutorial.
   We exclude automata, petri nets etc. from this requirement for now but please ensure that they are legible and scanned (no photos).
   For the exercises using Spin give the promela source file as well. Place all your files in a single archive (zip or tar.gz).
+* People who submit just be themselves will get a 2x multiplier toward qualifying for the exam.
 
 
 ## Litmus Tests for Weak Memory Models
@@ -52,7 +53,7 @@ write(y, 2) ∥                       write(y, 2) ∥
 ```
 
 ### Questions
-* For each example, try to identify if the execution is possible under any of the memory model that we saw.
+* For each example, try to identify if the execution is possible under any of the memory model that we saw (SC, TSO, PSO.)
 
 
 ## Weak Memory Control Automaton from Code
@@ -116,7 +117,7 @@ bool CAS(int* p, int old, int new) {
 
 ## On CSM with bags
 
-At the end of week 6, we said that communicating state machines with bags instead of FIFO are the same as Petri nets.
+At the end of week 6, we said that communicating state machines with bags instead of FIFO have the same expressive power as Petri nets.
 However, we did not prove this claim.
 
 __Models for bags.__

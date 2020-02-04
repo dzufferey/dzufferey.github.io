@@ -1,13 +1,13 @@
 # Bonus Homework 2
 
 _Instructions_
+* Students providing **individual submissions** (submitting by themselves) will get a **2x multiplier** on their result w.r.t. the admission to the exam.
 * Due on Feb 10, Monday, at 8am.
 * Send your solution by email to Felix Stutz. Please prefix your email subject with `[CT19-SUB]`.
 * We expect you to work in groups of 3 to 4 people, be sure to include the names of all the participants **and your group number** in the document.
 * Please submit your solutions in one readable pdf file. Based on the experiences for the first exercise sheet, we require you to **typeset your solutions** as announced in the tutorial.
   We exclude automata, petri nets etc. from this requirement for now but please ensure that they are legible and scanned (no photos).
   For the exercises using Spin give the promela source file as well. Place all your files in a single archive (zip or tar.gz).
-* People who submit just be themselves will get a 2x multiplier toward qualifying for the exam.
 
 
 ## Litmus Tests for Weak Memory Models
@@ -53,7 +53,7 @@ write(y, 2) ∥                       write(y, 2) ∥
 ```
 
 ### Questions
-* For each example, try to identify if the execution is possible under any of the memory model that we saw (SC, TSO, PSO.)
+* For each example, try to identify if the execution is possible under any of the memory model that we saw (SC, TSO, PSO).
 
 
 ## Weak Memory Control Automaton from Code

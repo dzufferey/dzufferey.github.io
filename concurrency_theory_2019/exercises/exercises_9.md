@@ -95,7 +95,7 @@ __Process 1.__
 process2!Request1(1, 2)
 receive match {
   case Reply1(_) =>
-    process!Exit
+    process2!Exit
     exit()
 }
 ```

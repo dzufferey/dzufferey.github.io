@@ -101,11 +101,11 @@ SC, TSO, PSO
       Z [shape = doublecircle];
       init -> A;
       A -> B0 [ label = "read(x, 0)" ];
-      B0 -> C0 [ label = "cas(x, 0, 1)" ];
+      B0 -> C0 [ label = "arw(x, 0, 1)" ];
       B0 -> A [ label = "nop" ];
       C0 -> Z [ label = "nop" ];
       A -> B1 [ label = "read(x, 1)" ];
-      B1 -> C1 [ label = "cas(x, 1, 0)" ];
+      B1 -> C1 [ label = "arw(x, 1, 0)" ];
       B1 -> A [ label = "nop" ];
       C1 -> Z [ label = "nop" ];
   }

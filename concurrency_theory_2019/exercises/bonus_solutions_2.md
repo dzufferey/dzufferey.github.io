@@ -84,8 +84,8 @@ SC, TSO, PSO
       A -> B [ label = "write(flag[0], 1)" ];
       B -> C [ label = "write(turn, 1)" ];
       C -> D [ label = "fence" ];
-      D -> D [ label = "read(turn, 1)" ];
-      D -> E [ label = "read(turn, 0)" ];
+      D -> E [ label = "read(turn, 1)" ];
+      D -> F [ label = "read(turn, 0)" ];
       E -> D [ label = "read(flag[1], 1)" ];
       E -> F [ label = "read(flag[1], 0)" ];
       F -> G [ label = "nop" ];

@@ -134,16 +134,50 @@ The restriction of $M$ by $a$ is the NFA M' where
 
 ## Modeling the Occam with CCS
 
+Given an expression $e$, we write $↓e$ for the big-step evaluation of $e$ into a value $c$.
+
+This model is acutally very close to the π-calculus but sending values instead of names.
+
+Let us assume that bound and free variables are defined as bound and free names in the π-calculus.
+
 > Modify the rules for communication to allow sending and receiving data values.
 
-__TODO ...__
+\\[{
+  \vec c = ↓\vec e
+}\over{
+  !a(\vec e).P  \stackrel{!a(\vec c)}{→}  P
+}\\]
+  
+\\[{
+  \\{\vec v\\} ∩ bn(P) = ∅
+}\over{
+  ?a(\vec v).P  \stackrel{?a(\vec c)}{→}  P[c/v]
+}\\]
 
 > Modify the choice rule for guarded choice.
 > The "normal" choice is a special case of guarded choice where all the guards are true.
 
-__TODO ...__
+\\[{
+  ↓e = \mathit{true} \qquad P  \stackrel{π}{→}  P'
+}\over{
+  [e]P+ [e']Q  \stackrel{π}{→}  P'
+}\\]
 
 > Encode the program above in this extended CCS
 
-__TODO ...__
-
+```
+loop(count1, count2) ≝   [count1 < 100] ?c1(data).(
+                                !compute(count1+1) ~|~
+                                !merged(data).!barrier ~|~
+                                ?compute(count1').?barrier.loop(count1', count2)
+                             )
+                       + [count2 < 100] ?c2(data).(
+                                !compute(count2+1) ~|~
+                                !merged(data).!barrier ~|~
+                                ?compute(count2').?barrier.loop(count1, count2')
+                             )
+                       + ?status(request).
+                                !out(count1).
+                                !out(count2).
+                                loop(count1, count2)
+```

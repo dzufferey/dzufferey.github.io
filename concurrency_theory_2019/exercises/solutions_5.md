@@ -109,4 +109,6 @@ What is the minimum of $ℤ$? or $(0,1]$ in $ℝ$?
 > In the case of strong-strict monotonicity, explain why strong monotonicity and strict monotonicity together are still weaker than strong-strict monotonicity.
 > Try to build an example which has strong and strict monotonicity but not strong-strict monotonicity.
 
-__TODO ...__
+- $S ~= \\{ a, b, c, d, e\\}$
+- $< ~= \\{ (a, b), (c, e) \\}$
+- $→ ~= \\{ (a, c), (b, c), (b, d), (d, e) \\}$

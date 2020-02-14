@@ -42,24 +42,71 @@ This algorithm works on any WSTS.
 
 > [send](https://spinroot.com/spin/Man/send.html)
 
-__TODO ...__
+\\[{
+ M[i] \stackrel{j!a}{→_i} q \qquad   C' = C[j ← C[j]·a]  \\qquad  M' = M[i ← q]
+} \over {
+                    (M, C) → (M', C')
+}
+\\]
+
+\\[{
+ M[i] \stackrel{j!!a}{→_i} q \qquad   C' = C[j ← a·C[j]]  \\qquad  M' = M[i ← q]
+} \over {
+                    (M, C) → (M', C')
+}
+\\]
 
 > [receive](https://spinroot.com/spin/Man/receive.html)
 
-__TODO ...__
+\\[{
+M[i] \stackrel{?a}{→_i} q   \qquad   C[i] = a·w   \qquad  C' = C[i ←  w]  \qquad  M' = M[i ← q]
+} \over{
+                        (M, C) → (M', C')
+}
+\\]
+
+\\[{
+M[i] \stackrel{??a}{→_i} q   \qquad   C[i] = w·a·w' \qquad ∀x ∈ w. x≠a   \qquad  C' = C[i ←  w·w']  \qquad  M' = M[i ← q]
+} \over{
+                        (M, C) → (M', C')
+}
+\\]
 
 > [poll](https://spinroot.com/spin/Man/poll.html)
 
-__TODO ...__
+\\[{
+M[i] \stackrel{?[a]}{→_i} q   \qquad   C[i] = a·w  \qquad  M' = M[i ← q]
+} \over{
+                        (M, C) → (M', C)
+}
+\\]
+
+\\[{
+M[i] \stackrel{??[a]}{→_i} q   \qquad   C[i] = w·a·w'  \qquad  M' = M[i ← q]
+} \over{
+                        (M, C) → (M', C)
+}
+\\]
 
 > [full](https://spinroot.com/spin/Man/full.html)
 
-__TODO ...__
+If the channel has a bound of $k$:
+
+\\[{
+M[i] \stackrel{full}{→_i} q   \qquad   |C[i]| = k   \qquad  M' = M[i ← q]
+} \over{
+                        (M, C) → (M', C)
+}
+\\]
 
 > [empty](https://spinroot.com/spin/Man/empty.html)
 
-__TODO ...__
-
+\\[{
+M[i] \stackrel{empty}{→_i} q   \qquad   |C[i]| = 0   \qquad  M' = M[i ← q]
+} \over{
+                        (M, C) → (M', C)
+}
+\\]
 
 ## Santa Claus Problem
 

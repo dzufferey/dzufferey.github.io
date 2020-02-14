@@ -7,12 +7,36 @@
 We simulate the parametric initial marking by guessing the valuation.
 For each parameter we create a transition that "increment" the parameter by one, i.e., no incoming edges only outgoing edges with weight corresponding to the parameter coefficient.
 
+For instance, if the parametric initial marking is $[2x + y, x + z]$, we would create
+```graphviz
+digraph PN {
+	rankdir=LR;
+    node [shape = circle, fixedsize = true, width = 0.5, label = ""];
+    p, q;
+    node [shape = box, style = filled, fillcolor = black, fixedsize = true, width = 0.15];
+    x [ xlabel="x" ];
+    y [ xlabel="y" ];
+    z [ xlabel="z" ];
+    x -> p [label=2];
+    x -> q ;
+    y -> p;
+    z -> q;
+}
+```
+For every run of the parameterized system we can find a corresponding execution in the non-parameterized one.
+First, we fire the transition which corresponds to the parameters' value then the net executes as normal.
+
+Similarly, for every run in the non-parameterized net, we can find a valuation for the parameters by counting how many time the added transitions where fired.
+
 > _universal covering_: Does $(N,ρ(\text{PM₀}))$ cover $M$ for all valuation $ρ$?
 
 Because of monotonicity, the smallest valuation of the initial marking is simulated by the larger ones.
 Therefore, we simply pick the valuation which maps all the parameters to $0$.
 
-__TODO proofs ...__
+Because all the other valuation give larger marking then if the smallest marking can cover $M$ then $M$ is covered by any other valuation.
+Let $ρ₀$ be the valuation that maps the parameters for $0$.
+$∀ρ.$ if $(N,ρ₀(\text{PM₀}))$ covers $M$, then $(N,ρ(\text{PM₀}))$ covers $N$.
+Because $ρ(\text{PM₀}) ≥ ρ₀(\text{PM₀})$.
 
 
 ## Karp-Miller Tree for ℤ Petri Nets

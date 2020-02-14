@@ -1,4 +1,4 @@
-# Bonus Solution 2
+# Bonus Solutions 2
 
 
 ## Litmus Tests for Weak Memory Models

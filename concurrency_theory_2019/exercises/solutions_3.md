@@ -1,4 +1,4 @@
-# Solution 3
+# Solutions 3
 
 __TODO this is a rough outline. Still need to add more explanations/proofs.__
 
@@ -9,7 +9,7 @@ __TODO this is a rough outline. Still need to add more explanations/proofs.__
 > Given a co-linear property, we are interested if that property is maintained for $t$ transitions.
 > Give the formulation of this problem as an ILP.
 
-Let us take the ILP formulation for normal colinear properties and add an extra constraints which limits the number of transitions to $t$.
+Let us take the ILP formulation for normal colinear properties and add an extra constraint which limits the number of transitions to $t$.
 
 Given a Petri Net $N = (S,T,W,M₀)$, let
 $C$ be the connectivity matrix,
@@ -41,15 +41,15 @@ So we will write the constraints in booleans form.
 
 Let $F$ be the forward matrix.
 
-Deadlock freemdom is the complement of $\\{ M ~|~ ⋀_{0≤i<|T|} ⋁_{0≤j<|S|} M(j) < F(j,i) \\}$.
+Deadlock freedom is the complement of $\\{ M ~|~ ⋀_{0≤i<|T|} ⋁_{0≤j<|S|} M(j) < F(j,i) \\}$.
 
 We use the complement (deadlock) of the property as it can directly be used by an ILP solver to find a counterexample to deadlock freedom.
 
 > Can you find an example of a safety property which is _not_ co-linear?
 
-A safety property is simply a set of markings, and therefor, we just need to exhibit a set of marking which cannot be characterized by linear constraints.
+A safety property is simply a set of markings, and therefore, we just need to exhibit a set of marking which cannot be characterized by linear constraints.
 
-Given a Petri net with two places we can defined the set of makring $\\{ M ~|~ M(0) ≥ M(1)² \\}$.
+Given a Petri net with two places we can define the set of markings $\\{ M ~|~ M(0) ≥ M(1)² \\}$.
 
 ## (Weak) Computations with Petri nets, part 1
 
@@ -76,9 +76,9 @@ __TODO ...__
 > Given an diophantine equation explain how to use the gadgets you developed above to create a net which weakly compute its result.
 
 Diophantine equations are over the integer domain.
-However, Petri nets have natural number of tokens.
+However, places in Petri nets can only contain a natural number of tokens.
 To represent a variable $x$ in the Petri net, we split is into a positive ($x₊$) and negative part ($x₋$) such that $x = x₊ - x₋$.
-Taking to negate a number we just exchange the role of the negative and positive places.
+If we want to negate a number, we just swap the tokens in the negative and positive place.
 
 Then the nets follow the steps:
 * For each monomial:
@@ -89,7 +89,7 @@ Then the nets follow the steps:
   - create transitions which "guess" the values of the variables. For each variable create two transitions (one positive, one negative) which put tokens in the corresponding places for each monomials using the variable.
 
 Finally, we need to define the reachability objective.
-If we just put the contraints that the output place is zero then have a trivial solution corresponding to the initial state.
+If we just put the constraints that the output place is zero then have a trivial solution corresponding to the initial state.
 Therefore, we create one more "active place" (initially empty) and modify every transition to put a token in that place.
 The final reachability objective is that all places must be empty except for the "active place" which has at least one token.
 
@@ -114,7 +114,7 @@ __TODO ...__
 
 In this part, we exploit the fact that we are looking at the reachability question.
 The idea is to add extra places in the gadget and guess when inhibitory edges block transition.
-A wrong guess will put a token in one of the extra place.
+A wrong guess will put a token in one of the extra places.
 Then we use modify the reachability to force that the extra places are empty, and therefore, only correct guesses were made.
 
 > Create a gadget to emulate an inhibitory edge with only normal and transfer edges.
@@ -143,7 +143,7 @@ digraph PN {
 }
 ```
 
-And change the marking $M$ we want to reach to add the constraint $M(G) = 0$.
+And change the marking $M$ we want to reach adding the constraint $M(G) = 0$.
 
 > Create a gadget to emulate an inhibitory edge with only normal and reset edges.
 
@@ -175,6 +175,6 @@ digraph PN {
 ```
 extend the transitions with $W(A,t) = W(A',t)$ and $W(t,A) = W(t,A')$, and update the reachability objective to requires that $M(A) = M(A')$.
 
-For each transition that fires correctly, the number of token in the normal place and the twin place stays the same.
-If a transition in the gadget does fire when there are tokens in $A$ then the number of tokens in $A$ and $A'$ will differ.
+For each transition that fires correctly, the number of tokens in the normal place and the twin place stays the same.
+If a transition in the gadget does fire when there are tokens in $A$, then the number of tokens in $A$ and $A'$ will differ.
 

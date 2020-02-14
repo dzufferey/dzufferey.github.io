@@ -1,10 +1,10 @@
-# Solution 2
+# Solutions 2
 
 We thank Tobias Jeske, Andreas Klein, and Alexander Schneiders for helping us with their solution.
 
 ## Shuffle Product for Automata
 
-The shuffle product of two words generates all the interleaving of the words.
+The shuffle product of two words generates all the interleavings of the words.
 We achieve this behavior by simulating both automata, but instead of both automata making a step, only one of them is allowed to make a step at each point.
 In case both automata could make a step with the same symbol they don't perform the step together (like in the synchronized product), but separately.
 Meaning there will be two outgoing edges with the same symbol in our product automaton (introducing non-determinism). 
@@ -36,7 +36,7 @@ This alternative definition is:
 
 It is easy to show that the two definitions are equivalent, so we omit this. 😎
 
-The correctness is showing the following statement:
+For correctness, the following statement suffices:
 \\[ w \in L(A ~⧢~ B) ⇔ ∃ u,v.~ u \in L(A) ∧ v \in L(B) ∧ w \in u ~⧢~ v \\]
 
 To prove this, it is simpler if we can reason about the traces of the automaton.
@@ -77,7 +77,7 @@ __$\Leftarrow$__ We prove this by induction over $w$.
 This shows the intermediate statement.
 
 We sketch how to use the intermediate statement to prove the original goal: 
-\\[ w \in L(A ~⧢~ B) ⇔ ∃ u,v.~ u \in L(A) ∧ v \in L(B) ∧ w \in u ~⧢~ v \\].
+\\[ w \in L(A ~⧢~ B) ⇔ ∃ u,v.~ u \in L(A) ∧ v \in L(B) ∧ w \in u ~⧢~ v. \\]
 First we apply the definition of the language accepted by an automaton $L(-)$ and get accepting runs, i.e. runs where the final state is accepting. 
 Then we apply the result that we have just proved and the fact that $(q_A,q_B) ∈ F_A × F_B ~~ ⇔ ~~ q_A ∈ F_A ∧ q_B ∈ F_B$.
 

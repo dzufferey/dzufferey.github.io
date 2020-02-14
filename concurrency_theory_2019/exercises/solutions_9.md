@@ -1,4 +1,4 @@
-# Solution 9
+# Solutions 9
 
 ## π-calculus with Test for Name Equality
 

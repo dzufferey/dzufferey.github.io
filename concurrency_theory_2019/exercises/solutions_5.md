@@ -1,4 +1,4 @@
-# Solution 5
+# Solutions 5
 
 ## Parametric Petri Nets (PPN)
 
@@ -20,8 +20,7 @@ Set the parameter values to $0$.
 
 > How would you approach the universal covering problem for pre-PPN?
 
-Remove an transition which has a parameter.
-Such transition can never fire.
+Set the parameter values to $ω$. (You are allowed to fire if there are $ω$ tokens and they remain.)
 
 > How would you approach the universal covering problem for distinct-PPN?
 
@@ -39,14 +38,14 @@ __TODO justifications...__
 Yes, it is correct.
 
 It is slightly less optimal as it stops exploring when it sees _exactly_ the same state.
-Decreasing branches will be explore for longer (until they cannot fire anymore).
+Decreasing branches will be explored for longer (until they cannot fire anymore).
 
 > Assuming that the algorithm is correct, let us look at the automata returned by the algorithm.
 > - Is a sequence of transitions accepted by the automaton fireable from `M₀`?
 
-No, the automaton over-approximate the traces of the net.
+No, the automaton over-approximates the traces of the net.
 The problem occurs with acceleration.
-Acceleration makes a loop in the automaton but the automaton does not count how many time the loop needs to be executed.
+Acceleration makes a loop in the automaton but the automaton does not count how many times the loop needs to be executed.
 
 Consider the net:
 ```graphviz
@@ -80,11 +79,11 @@ Yes, for each transition which can fire the automaton will have an edge.
 > ```
 > Revisit the first two questions with this optimization.
 
-The answer do not change.
+The answer does not change.
 
 _Remarks._
 The version with `=` contains some more information though.
-In particular it can deal better with questions related to termination.
+In particular it can deal better with questions related to termination as it will explore descending chains exhaustively.
 
 
 ## QO with Finite Basis

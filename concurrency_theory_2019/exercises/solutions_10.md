@@ -1,4 +1,4 @@
-# Solution 10
+# Solutions 10
 
 ## |-free π-calculus
 
@@ -30,10 +30,10 @@ On the other hand, in LCS the type of messages is important and such abstraction
 
 > Same question but for a fixed number of tokens and covering in Petri Nets.
 
-There are transitions which consume more tokens than they produces.
-Therefore, to get to the marking that we want to cover we may need more token than there is in that marking.
+There can be transitions that consume more tokens than they produce.
+Therefore, to get to the marking to be covered we may need more tokens than there are in that marking.
 
-Bounding the number of token only works for specific class of nets; the nets where transitions produce more token than they consume.
+Bounding the number of tokens only works for a specific class of nets; the nets where transitions produce more tokens than they consume.
 
 
 ## Model for Monitors (Synchronization Primitives)

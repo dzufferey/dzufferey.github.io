@@ -8,8 +8,8 @@
 We use weak bisimulation.
 
 * For each definition $X ≝ P$, we introduce a new "guard" $g_X$ and a replicated process $(?g_X.P)^\*$.
-* Each occurrance of $X$ is replaced by $!g_X$
-* restrict $g_X$ in the state so that synchronization on $g_X$ appears as $τ$ from the outside.
+* Each occurrance of $X$ is replaced by $!g_X$.
+* We restrict $g_X$ in the state so that synchronization on $g_X$ appears as $τ$ from the outside.
 
 > For an equivalence notion of your choice, can you find an encoding of the π-calculus with replication to the version of the π-calculus we saw during the lecture?
 
@@ -75,9 +75,9 @@ If we have a step of the $P$ then using the parallel rule, $P|Q$ can do the same
 We need to
 * Case split on the $A_i(\vec a_i)$ in $(ν \vec a) ∏_i A_i(\vec a_i)$
 * Case split on the transitions which result in $A_i(\vec a_i)$
-* For transition which need more than one process (send/receive) find all the processes to execute the transition backward.
-  If such processes are not there, just add them.
+* For transition which need more than one process (send/receive) find all the processes to execute the transition backwards.
+  If such processes do not exist, just add them.
   Remember we are working with the upward-closed sets.
-* Apply the transition backward.
+* Apply the transition backwards.
 
 __TODO ...__

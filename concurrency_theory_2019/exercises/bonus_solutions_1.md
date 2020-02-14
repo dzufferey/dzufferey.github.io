@@ -1,4 +1,4 @@
-# Bonus Solution 1
+# Bonus Solutions 1
 
 
 ## Effective Predecessor Basis for LCS

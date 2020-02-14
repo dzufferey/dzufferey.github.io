@@ -7,7 +7,7 @@
 For each $t$ we need to build a $R(t)$.
 
 $R(t)[i,j]$ is
-* $1$ if $i$ is the target of a tranfer and $j$ the source of the tranfer
+* $1$ if $i$ is the target of a transfer and $j$ the source of the transfer
 * $1$ if $i=j$ and the place is not connected to any reset of transfer edge.
 * $0$ otherwise
 
@@ -23,8 +23,8 @@ Yes.
 Affine nets are monotonic.
 This follows from the fact that $R$ contains only natural numbers.
 
-We need to use the backward algorithms for WSTS.
 Computing acceleration is not possible, and therefore, we cannot use the Karp-Miller tree.
+We need to use the backward algorithms for WSTS.
 
 > * boundedness (same definitions as for Petri net)
 
@@ -33,7 +33,7 @@ No.
 
 > * termination
 
-We an use the algorithm we saw in week 3 which extends the finite reachability tree to decide termination.
+We can use the algorithm we saw in week 3 which extends the finite reachability tree to decide termination.
 This algorithm works on any WSTS.
 
 

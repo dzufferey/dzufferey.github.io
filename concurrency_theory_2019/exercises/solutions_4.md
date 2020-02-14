@@ -1,4 +1,4 @@
-# Solution 4
+# Solutions 4
 
 ## Petri Nets with Parametric Initial Marking
 
@@ -28,12 +28,12 @@ First, we fire the transition which corresponds to the parameters' value then th
 
 Similarly, for every run in the non-parameterized net, we can find a valuation for the parameters by counting how many time the added transitions where fired.
 
-> _universal covering_: Does $(N,ρ(\text{PM₀}))$ cover $M$ for all valuation $ρ$?
+> _universal covering_: Does $(N,ρ(\text{PM₀}))$ cover $M$ for all valuations $ρ$?
 
 Because of monotonicity, the smallest valuation of the initial marking is simulated by the larger ones.
 Therefore, we simply pick the valuation which maps all the parameters to $0$.
 
-Because all the other valuation give larger marking then if the smallest marking can cover $M$ then $M$ is covered by any other valuation.
+Note that all the other valuations give larger markings. Hence, if the smallest marking can cover $M$ then $M$ is covered by any other valuation.
 Let $ρ₀$ be the valuation that maps the parameters for $0$.
 $∀ρ.$ if $(N,ρ₀(\text{PM₀}))$ covers $M$, then $(N,ρ(\text{PM₀}))$ covers $N$.
 Because $ρ(\text{PM₀}) ≥ ρ₀(\text{PM₀})$.
@@ -41,10 +41,10 @@ Because $ρ(\text{PM₀}) ≥ ρ₀(\text{PM₀})$.
 
 ## Karp-Miller Tree for ℤ Petri Nets
 
-> Does the Karp-Miller algorithms still work on $ℤ$ Petri net? Justify
+> Does the Karp-Miller algorithm still work on $ℤ$ Petri net? Justify
 
 No.
-There can be infinite antichains and the algorithms does not terminate.
+There can be infinite antichains and the algorithm does not terminate.
 
 Consider the net
 ```graphviz
@@ -58,9 +58,9 @@ digraph PN {
 }
 ```
 
-The set of reachable marking is $\\{ (-i,i) ~|~ i ∈ ℕ \\}$ which forms an infinite antichain.
+The set of reachable markings is $\\{ (-i,i) ~|~ i ∈ ℕ \\}$ which forms an infinite antichain.
 
-> Does the backward algorithms still work on $ℤ$ Petri net? Justify
+> Does the backward algorithm still work on $ℤ$ Petri net? Justify
 
 No.
 On top of the antichain problem above, there is one more problem.
@@ -116,7 +116,7 @@ We have that in the lecture notes. 😁
 
 > - covering a marking in a given set of markings
 
-1. It is not possible to reduce reachability to co-linear anymore.
+1. It is not possible to reduce coverability to co-linear anymore.
 
 > - finite union of co-linear properties
 
@@ -128,8 +128,8 @@ We have that in the lecture notes. 😁
 
 >  Is the covering problem solvable for LN?
 
-Yes, this reduce to Reset nets.
-There is two changes to do:
+Yes, we can reduce this version to Reset nets.
+There are two changes to do:
 1. replace the inhibitory edges by reset edges.
 2. for each place add a transition which consumes one token from that place.
 

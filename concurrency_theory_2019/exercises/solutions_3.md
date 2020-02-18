@@ -71,7 +71,36 @@ digraph PN {
 > Create net such that if $M₀(x) = m$, $M₀(y) = n$, and $M₀(o) = 0$ satisfying the following constraint.
 > For every number l with $0 ≤ l ≤ m⋅n$, there is a sequence of firing leading to marking $M$ such that $M(o) = l$.
 
-__TODO ...__
+```graphviz
+digraph PN {
+	rankdir=LR;
+    node [shape = circle, fixedsize = true, width = 0.5] x;
+    node [shape = circle, fixedsize = true, width = 0.5] y;
+    node [shape = circle, fixedsize = true, width = 0.5] o;
+    node [shape = circle, fixedsize = true, width = 0.5, label = ""] a;
+    node [shape = circle, fixedsize = true, width = 0.5, label = ""] b;
+    node [shape = circle, fixedsize = true, width = 0.5, label = ""] c;
+
+    node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15];
+    x -> t1;
+    t1 -> a;
+    a -> t2;
+    t2 -> o;
+    t2 -> x;
+    y -> t3;
+    t3 -> b;
+    b -> t4;
+    t4 -> c;
+    c -> t5;
+    b -> t1;
+    t1 -> b;
+    c -> t2;
+    t2 -> c;
+    
+    {rank = same; x; y;}
+    {rank = same; t1; t3;}
+}
+```
 
 > Given an diophantine equation explain how to use the gadgets you developed above to create a net which weakly compute its result.
 
@@ -103,12 +132,50 @@ The transition corresponding to move past the barrier is inhibited as long as th
 
 > Use inhibitory edges to modify the construction you have developed in the 1st part or come up with a new gadget to exactly compute the multiplication: $M(o) = m⋅n$.
 
-__TODO ...__
+```graphviz
+digraph PN {
+	rankdir=LR;
+    node [shape = circle, fixedsize = true, width = 0.5] x;
+    node [shape = circle, fixedsize = true, width = 0.5] y;
+    node [shape = circle, fixedsize = true, width = 0.5] o;
+    node [shape = circle, fixedsize = true, width = 0.5, label = ""] a;
+    node [shape = circle, fixedsize = true, width = 0.5, label = ""] b;
+    node [shape = circle, fixedsize = true, width = 0.5, label = ""] c;
+
+    node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15];
+    x -> t1;
+    t1 -> a;
+    a -> t2;
+    t2 -> o;
+    t2 -> x;
+    y -> t3;
+    t3 -> b;
+    b -> t4;
+    t4 -> c;
+    c -> t5;
+    b -> t1;
+    t1 -> b;
+    c -> t2;
+    t2 -> c;
+    
+    {rank = same; x; y;}
+    {rank = same; t1; t3;}
+
+    edge [ arrowhead = odot];
+    x -> t4;
+    b -> t3;
+    a -> t5;
+    c -> t3;
+}
+```
+
 
 > Finding solutions of diophantine equations is undecidable ([Hilbert's tenth problem](https://en.wikipedia.org/wiki/Hilbert%27s_tenth_problem).)
 > Explain how to use the gadgets you build to reduce that problem to reachability in nets with inhibitory edges.
 
-__TODO ...__
+This is similar to the above with some extra difficulty.
+In particular, when assembling the gadgets, one must make sure that the computation starts after guessing the initial values is done.
+(Prevent commputation on transient values.)
 
 ## (Weak) Computations with Petri nets, part 3
 

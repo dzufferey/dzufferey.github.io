@@ -69,7 +69,8 @@ digraph PN {
 ```
 
 > Create net such that if $M₀(x) = m$, $M₀(y) = n$, and $M₀(o) = 0$ satisfying the following constraint.
-> For every number l with $0 ≤ l ≤ m⋅n$, there is a sequence of firing leading to marking $M$ such that $M(o) = l$.
+> For every number l with $0 ≤ l ≤ m⋅n$, there is a sequence of firing leading to marking $M$ such that $M(o) = l$. 
+This Petri net is based on the solution by Xuan Xie, Marco Maida, Marco Perronet, and James Robb.
 
 ```graphviz
 digraph PN {

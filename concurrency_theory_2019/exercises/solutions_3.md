@@ -80,6 +80,7 @@ digraph PN {
     node [shape = circle, fixedsize = true, width = 0.5, label = ""] a;
     node [shape = circle, fixedsize = true, width = 0.5, label = ""] b;
     node [shape = circle, fixedsize = true, width = 0.5, label = ""] c;
+    node [shape = circle, fixedsize = true, width = 0.5, label = "∙"] d;
 
     node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15];
     x -> t1;
@@ -96,6 +97,8 @@ digraph PN {
     t1 -> b;
     c -> t2;
     t2 -> c;
+    t5 -> d;
+    d -> t3;
     
     {rank = same; x; y;}
     {rank = same; t1; t3;}
@@ -141,6 +144,7 @@ digraph PN {
     node [shape = circle, fixedsize = true, width = 0.5, label = ""] a;
     node [shape = circle, fixedsize = true, width = 0.5, label = ""] b;
     node [shape = circle, fixedsize = true, width = 0.5, label = ""] c;
+    node [shape = circle, fixedsize = true, width = 0.5, label = "∙"] d;
 
     node [shape = box, label = "", style = filled, fillcolor = black, fixedsize = true, width = 0.15];
     x -> t1;
@@ -157,17 +161,19 @@ digraph PN {
     t1 -> b;
     c -> t2;
     t2 -> c;
+    t5 -> d;
+    d -> t3;
     
     {rank = same; x; y;}
     {rank = same; t1; t3;}
 
-    edge [ arrowhead = odot];
+    edge [ arrowhead = odot, constraint = false, color = red ];
     x -> t4;
-    b -> t3;
     a -> t5;
-    c -> t3;
 }
 ```
+
+The extra inhibitory edges make sure that the "loops" moving the tokens from $x$ get completed before moving to another iteration.
 
 
 > Finding solutions of diophantine equations is undecidable ([Hilbert's tenth problem](https://en.wikipedia.org/wiki/Hilbert%27s_tenth_problem).)

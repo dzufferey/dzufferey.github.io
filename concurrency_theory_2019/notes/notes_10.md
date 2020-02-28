@@ -8,7 +8,7 @@ Here we will just scratch the surface of this topic.
 #### Properties of Type Systems
 
 The main properties of a type system are:
-* preservation: A well-typed progrcess is still well typed after taking a step.
+* preservation: A well-typed process is still well-typed after taking a step.
 * progress: either the program has finished or it it possible to take a step.
 
 Notice that progress, in this context, is a very local condition and it is weaker than termination.

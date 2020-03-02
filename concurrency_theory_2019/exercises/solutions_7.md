@@ -62,7 +62,7 @@ The problem is that we do not control the scheduler and processes can interfere 
 We need a different approach.
 The idea is to simulate what the initial state does to each machine and then continue as normal.
 For each machine:
-* Create an automaton which "receive" the initial content of the channel.
+* Create an automaton which "receives" the initial content of the channel; augment the automaton to have an ε-transition in parallel with any other transition to imitate loss of a message.
 * Create one copy of the machine and take the synchronized product (week 1) with the automaton for the initial channel state.
   Erase the message reception from that automaton.
   This automaton now simulates what the original machine does (change of local state, sending message) when it receives the initial content of the channel.

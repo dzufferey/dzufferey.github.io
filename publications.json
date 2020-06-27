@@ -1,6 +1,121 @@
 [
   {
     "tag": "recent",
+    "title": "Exploiting Errors for Efficiency: A Survey from Circuits to Applications",
+    "abstract": "When a computational task tolerates a relaxation of its specification or when an algorithm tolerates the effects of noise in its execution, hardware, system software, and programming language compilers or their runtime systems can trade deviations from correct behavior for lower resource usage. We present, for the first time, a synthesis of research results on computing systems that only make as many errors as their end-to-end applications can tolerate. The results span the disciplines of computer-aided design of circuits, digital system design, computer architecture, programming languages, operating systems, and information theory. Rather than over-provisioning the resources controlled by each of these layers of abstraction to avoid errors, it can be more efficient to exploit the masking of errors occurring at one layer and thereby prevent those errors from propagating to a higher layer.\n We demonstrate the potential benefits of end-to-end approaches using two illustrative examples. We introduce a formalization of terminology that allows us to present a coherent view across the techniques traditionally used by different research communities in their individual layer of focus. Using this formalization, we survey tradeoffs for individual layers of computing systems at the circuit, architecture, operating system, and programming language levels as well as fundamental information-theoretic limits to tradeoffs between resource usage and correctness.",
+    "author": [
+      {
+        "family": "Stanley-Marbell",
+        "given": "Phillip"
+      },
+      {
+        "family": "Alaghi",
+        "given": "Armin"
+      },
+      {
+        "family": "Carbin",
+        "given": "Michael"
+      },
+      {
+        "family": "Darulova",
+        "given": "Eva"
+      },
+      {
+        "family": "Dolecek",
+        "given": "Lara"
+      },
+      {
+        "family": "Gerstlauer",
+        "given": "Andreas"
+      },
+      {
+        "family": "Gillani",
+        "given": "Ghayoor A"
+      },
+      {
+        "family": "Jevdjic",
+        "given": "Djordje"
+      },
+      {
+        "family": "Moreau",
+        "given": "Thierry"
+      },
+      {
+        "family": "Cacciotti",
+        "given": "Mattia"
+      },
+      {
+        "family": "Daglis",
+        "given": "Alexandros"
+      },
+      {
+        "family": "Enright Jerger",
+        "given": "Natalie "
+      },
+      {
+        "family": "Falsafi",
+        "given": "Babak"
+      },
+      {
+        "family": "Misailovic",
+        "given": "Sasa "
+      },
+      {
+        "family": "Sampson",
+        "given": "Adrian"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "ACM Computing Surveys",
+    "id": "csur20",
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "keyword": "journal",
+    "publisher": "ACM",
+    "link-paper": "files/2020_Exploiting_Errors_for_Efficiency_A_Survey_from_Circuits_to_Applications.pdf",
+    "type": "paper-journal"
+  },
+  {
+    "tag": "recent",
+    "title": "Interactive Programming for Parametric CAD",
+    "abstract": "Parametric CAD enables description of a family of objects wherein each valid combination of parameter values results in a different final form. Though GUI-based CAD tools are significantly more popular, GUI operations do not carry a semantic description, and are therefore brittle with respect to changes in parameter values. Programmatic interfaces, on the other hand, are more robust due to an exact specification of how the operations are applied. However, programming is unintuitive and has a steep learning curve. In this work, we link the interactivity of GUI with the robustness of programming. Inspired by program synthesis by example, our technique synthesizes code representative of selections made by users in a GUI interface. Through experiments, we demonstrate that our technique can synthesize relevant and robust sub-programs in a reasonable amount of time. A user study reveals that our interface offers significant improvements over a programming-only interface.",
+    "author": [
+      {
+        "family": "Mathur",
+        "given": "Aman"
+      },
+      {
+        "family": "Pirron",
+        "given": "Marcus"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "Computer Graphics Forum",
+    "id": "cgf20",
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "keyword": "journal",
+    "publisher": "John Wiley & Sons, Inc.",
+    "type": "paper-journal"
+  },
+  {
+    "tag": "recent",
     "title": "Incremental Synthesis of Symbolic Controllers in a Changing Environment",
     "abstract": "Abstraction-Based Controller Synthesis (ABCS) is an emerging field for automatic synthesis of correct-by-design controllers for non-linear dynamical systems in the presence of bounded disturbances. An important drawback of existing ABCS techniques is the lack of flexibility against changes in the disturbance model; any change in the model results in a complete re-computation of the abstraction and the controller. This flexibility is relevant to situations when disturbances are learnt or estimated during operation in an environment which is previously not known precisely. As time passes, the disturbance model is progressively refined. The monolithic nature and high computational cost of existing algorithms make ABCS unsuited for such scenarios.\n In this paper, we present an incremental algorithm that makes the entire ABCS work-flow dynamically adapt to local changes in the disturbance model. Only the parts of the space which are affected by the changes are updated and the rest of the abstraction is reused. We empirically show the benefit of dynamic adaptation of abstraction on two large examples: a 5-dimensional vehicle model and a 12-dimensional quadrotor model. In both cases, the speed-up over complete re-computation is significant.",
     "author": [
@@ -25,7 +140,7 @@
         "given": "Damien"
       }
     ],
-    "container-title": "To appear in Proceedings of the Conference on Decision and Control (CDC)",
+    "container-title": "In Proceedings of the Conference on Decision and Control (CDC)",
     "id": "cdc19",
     "issued": {
       "date-parts": [
@@ -52,7 +167,7 @@
         "given": "Damien"
       }
     ],
-    "container-title": "To appear in Proceedings of the International Conference on Intelligent Robots and Systems (IROS)",
+    "container-title": "In Proceedings of the International Conference on Intelligent Robots and Systems (IROS)",
     "id": "iros19",
     "issued": {
       "date-parts": [

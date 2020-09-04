@@ -1,6 +1,74 @@
 [
   {
     "tag": "recent",
+    "title": "Automated Controller and Sensor Configuration Synthesis using Dimensional Analysis",
+    "abstract": "Automated controller synthesis methods for cyber-physical systems (CPS) often require precise knowledge of the system’s state. Unfortunately, parts of the state may not be directly measurable, which limits the application of these methods. We present a design methodology for the co-design of software controllers and the required sensing capabilities. Our method leverages the knowledge of physical units in the model of a system to find ways of indirectly measuring parts of the system’s state which cannot be measured directly. The method contains a search procedure which uses dimensional analysis to explore the space of physically well-typed expressions and it generates as an intermediate result possible sensor combinations.The integration between the physical and software design for CPS that we present make automated controller synthesis techniques more widely applicable. We have implemented our method and applied it to the design of robotic manipulators.",
+    "author": [
+      {
+        "family": "Pirron",
+        "given": "Marcus"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      },
+      {
+        "family": "Stanley-Marbell",
+        "given": "Phillip"
+      }
+    ],
+    "container-title": "IEE TCAD",
+    "id": "emsoft20a",
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "keyword": "journal",
+    "publisher": "IEEE",
+    "link-paper": "files/2020_Automated_Controller_and_Sensor_Configuration_Synthesis_using_Dimensional_Analysis.pdf",
+    "type": "paper-journal"
+  },
+  {
+    "tag": "recent",
+    "title": "Assume-Guarantee Distributed Synthesis",
+    "abstract": "Distributed reactive synthesis is the problem of algorithmically constructing controllers of distributed, communicating systems so that each closed loop system satisfies a given temporal specification. We  present an algorithm, called negotiation, for sound (but necessarily incomplete) distributed reactive synthesis based on assume-guarantee decompositions. The negotiation algorithm iteratively constructs assumptions and  guarantees for each system. In each iteration, each system attempts to fulfill its specification and its guarantee (from the previous round), under the current assumption on the other systems, by solving a reactive synthesis problem. If the specificationis not realizable, the algorithm computes a sufficient assumption on the other systems that ensures it can realize the specification and guarantee. This additional assumption further constrains the behavior of other systems and they might require an additional assumption, leading to the next round in the negotiation. The process terminates when a compatible assumption-guarantee pair is found for each system, which is  sufficient to also satisfy the specification of each system. We have built a tool called Agnes that implements this algorithm. Using Agnes, we empirically demonstrate the effectiveness of our proposed algorithm on two case studies.",
+    "author": [
+      {
+        "family": "Majumdar",
+        "given": "Rupak"
+      },
+      {
+        "family": "Mallik",
+        "given": "Kaushik"
+      },
+      {
+        "family": "Schmuck",
+        "given": "Anne-Kathrin"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "IEEE TCAD",
+    "id": "emsoft20b",
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "keyword": "journal",
+    "publisher": "IEEE",
+    "link-paper": "files/2020_Assume-Guarantee_Distributed_Synthesis.pdf",
+    "type": "paper-journal"
+  },
+  {
+    "tag": "recent",
     "title": "Exploiting Errors for Efficiency: A Survey from Circuits to Applications",
     "abstract": "When a computational task tolerates a relaxation of its specification or when an algorithm tolerates the effects of noise in its execution, hardware, system software, and programming language compilers or their runtime systems can trade deviations from correct behavior for lower resource usage. We present, for the first time, a synthesis of research results on computing systems that only make as many errors as their end-to-end applications can tolerate. The results span the disciplines of computer-aided design of circuits, digital system design, computer architecture, programming languages, operating systems, and information theory. Rather than over-provisioning the resources controlled by each of these layers of abstraction to avoid errors, it can be more efficient to exploit the masking of errors occurring at one layer and thereby prevent those errors from propagating to a higher layer.\n We demonstrate the potential benefits of end-to-end approaches using two illustrative examples. We introduce a formalization of terminology that allows us to present a coherent view across the techniques traditionally used by different research communities in their individual layer of focus. Using this formalization, we survey tradeoffs for individual layers of computing systems at the circuit, architecture, operating system, and programming language levels as well as fundamental information-theoretic limits to tradeoffs between resource usage and correctness.",
     "author": [
@@ -116,7 +184,6 @@
     "type": "paper-journal"
   },
   {
-    "tag": "recent",
     "title": "Incremental Synthesis of Symbolic Controllers in a Changing Environment",
     "abstract": "Abstraction-Based Controller Synthesis (ABCS) is an emerging field for automatic synthesis of correct-by-design controllers for non-linear dynamical systems in the presence of bounded disturbances. An important drawback of existing ABCS techniques is the lack of flexibility against changes in the disturbance model; any change in the model results in a complete re-computation of the abstraction and the controller. This flexibility is relevant to situations when disturbances are learnt or estimated during operation in an environment which is previously not known precisely. As time passes, the disturbance model is progressively refined. The monolithic nature and high computational cost of existing algorithms make ABCS unsuited for such scenarios.\n In this paper, we present an incremental algorithm that makes the entire ABCS work-flow dynamically adapt to local changes in the disturbance model. Only the parts of the space which are affected by the changes are updated and the rest of the abstraction is reused. We empirically show the benefit of dynamic adaptation of abstraction on two large examples: a 5-dimensional vehicle model and a 12-dimensional quadrotor model. In both cases, the speed-up over complete re-computation is significant.",
     "author": [
@@ -152,10 +219,10 @@
     },
     "keyword": "conf",
     "publisher": "IEEE",
+    "link-paper": "files/2019_Incremental_Abstraction_Computation_for_Symbolic_Controller_Synthesis_in_a_Changing_Environment",
     "type": "paper-conference"
   },
   {
-    "tag": "recent",
     "title": "Mperl: Hardware and Software Co-design for Robotic Manipulators",
     "abstract": "Building small custom robots is getting democratized thanks to affordable tools like 3D printers and microcontrollers. However, it still requires expertise from a wide range of domains: from designing the mechanical parts to writing the code that controls the robot. We present Mperl, a tool to help non-experts build custom robotic manipulators.\n Mperl starts from an abstract description of the robot’s kinematic structure which contains information about joints, actuators, and sensors. The structure is refined with an easily manufactured geometry. Furthermore, from the structure Mperl generates control code which can be used to move the robot to a target configuration. We evaluate Mperl on a range of common robotic manipulator architectures, both serial and parallel.",
     "author": [
@@ -182,7 +249,6 @@
     "type": "paper-conference"
   },
   {
-    "tag": "recent",
     "title": "<em>[Updated]</em> Motion Session Types for Robotic Interactions",
     "abstract": "<em>Update (2020.4.8):</em> Theorem 4.9, Corollary 4.10, and Theorem 4.11 have been strengthened.\n\nRobotics applications involve programming concurrent components synchronising through messages while simultaneously executing motion primitives that control the state of the physical world.  Today, these applications are typically programmed in low-level imperative programming languages which provide little support for abstraction or reasoning.\n We present a unifying programming model for concurrent message-passing systems that additionally control the evolution of physical state variables, together with a compositional reasoning framework based on multiparty session types. Our programming model combines message-passing concurrent processes with motion primitives.  Processes represent autonomous components in a robotic assembly, such as a cart or a robotic arm, and they  synchronise via discrete messages as well as via motion primitives.  Continuous evolution of trajectories under the action of controllers is also modelled by motion primitives, which operate in global, physical time.\n We use multiparty session types as specifications to orchestrate discrete message-passing concurrency and continuous flow of trajectories.  A global session type specifies the communication protocol among the components with joint motion primitives. A projection from a global type ensures that jointly executed actions at end-points are communication safe and deadlock-free, i.e., session-typed components do not get stuck.  Together, these checks provide a compositional verification methodology for assemblies of robotic components with respect to concurrency invariants such as a progress property of communications as well as dynamic invariants such as absence of collision.\n We have implemented our core language and, through initial experiments, have shown how multiparty session types can be used to specify and compositionally verify robotic systems implemented on top of off-the-shelf and custom hardware using standard robotics application libraries.",
     "author": [
@@ -225,7 +291,6 @@
     "type": "paper-conference"
   },
   {
-    "tag": "recent",
     "title": "PGCD: Robot Programming and Verification with Geometry, Concurrency, and Dynamics",
     "abstract": "Robotics applications are typically programmed in low-level imperative programming languages, leaving the programmer to deal with dynamic controllers affecting the physical state, geometric constraints on components, and concurrency and synchronization. The combination of these features —dynamics, geometry, and concurrency— makes developing robotic applications difficult. We present PGCD, a programming model for robotics applications consisting of assemblies of robotic components, together with its runtime and a verifier. PGCD combines message-passing concurrent processes with motion primitives, which represent continuous evolution of trajectories in geometric space under the action of dynamic controllers, and explicit modeling of geometric frame shifts, which allow relative coordinate transformations between components evolving in space. We describe a verification algorithm for PGCD programs based on model checking and SMT solvers that statically verify  concurrency-related properties such as absence of deadlocks and  geometric invariants such as absence of collision during motion. We have implemented a runtime for PGCD programs that compiles down to imperative code on top of ROS and runs directly on robotic hardware. We illustrate the programming model and reasoning principles by building a number of statically verified robotic manipulation programs on top of 3D-printed robotic arm and cart assemblies.",
     "author": [
@@ -275,7 +340,6 @@
     "type": "paper-conference"
   },
   {
-    "tag": "recent",
     "title": "Evaluating Branching Heuristics in Interval Constraint Propagation for Satisfiability",
     "abstract": "Interval Constraint Propagation (ICP) is a powerful method for solving general nonlinear constraints over real numbers. ICP uses interval arithmetic to prune the space of potential solutions and, when the constraint propagation fails, divides the space into smaller regions and continues recursively. The original goal is to find paving boxes of all solutions to a problem. Already when the whole domain needs to be considered, branching methods do matter much. However, recent applications of ICP in decision procedures over the reals need only a single solution. Consequently, variable ordering in branching operations becomes even more important.\n In this work, we compare three different branching heuristics for ICP. The first method, most commonly used, splits the problem in the dimension with the largest lower and upper bound. The two other types of branching methods try to exploit an integration of analytical/numerical properties of real functions and search-based methods. The second method, called smearing, uses gradient information of constraints to choose variables that have the highest local impact on pruning. The third method, lookahead branching, designs a measure function to compare the effect of all variables on pruning operations in the next several steps.\n We evaluate the performance of our methods on over 11,000 benchmarks from various sources. While the different branching methods exhibit significant differences on larger instance, none is consistently better. This shows the need for further research on branching heuristics when ICP is used to find an unique solution rather than all solutions.",
     "author": [

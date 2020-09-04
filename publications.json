@@ -219,7 +219,7 @@
     },
     "keyword": "conf",
     "publisher": "IEEE",
-    "link-paper": "files/2019_Incremental_Abstraction_Computation_for_Symbolic_Controller_Synthesis_in_a_Changing_Environment",
+    "link-paper": "files/2019_Incremental_Abstraction_Computation_for_Symbolic_Controller_Synthesis_in_a_Changing_Environment.pdf",
     "type": "paper-conference"
   },
   {
@@ -246,6 +246,7 @@
     },
     "keyword": "conf",
     "publisher": "IEEE",
+    "link-paper": "files/2019_MPERL_Hardware_and_Software_Co-design_for_Robotic_Manipulators.pdf",
     "type": "paper-conference"
   },
   {

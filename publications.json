@@ -1,6 +1,68 @@
 [
   {
     "tag": "recent",
+    "title": "Multiparty Motion Coordination: From Choreographies to Robotics Programs",
+    "abstract": "We present a programming model and typing discipline for complex multi-robot coordination programming. Our model encompasses both synchronisation through message passing and continuous-time dynamic motion primitives in physical space. We specify continuous-time motion primitives in an assume-guarantee logic that ensures compatibility of motion primitives as well as collision freedom. We specify global behaviour of programs in a choreographic type system that extends multiparty session types with jointly executed motion primitives, predicated refinements, as well as a separating conjunction that allows reasoning about subsets of interacting robots. We describe a notion of well-formedness for global types that ensures motion and communication can be correctly synchronised and provide algorithms for checking well-formedness, projecting a type, and local type checking. A well-typed program is communication safe, motion compatible, and collision free. Our type system provides a compositional approach to ensuring these properties.\n We have implemented our model on top of the ROS framework. This allows us to program multi-robot coordination scenarios on top of commercial and custom robotics hardware platforms. We show through case studies that we can model and statically verify quite complex manoeuvres involving multiple manipulators and mobile robots—such examples are beyond the scope of previous approaches.",
+    "author": [
+      {
+        "family": "Majumdar",
+        "given": "Rupak"
+      },
+      {
+        "family": "Nobuko",
+        "given": "Yoshida"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "Proceedings of the ACM on Programming Languages (OOPSLA)",
+    "id": "oopsla20a",
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "keyword": "journal",
+    "publisher": "ACM",
+    "type": "paper-journal"
+  },
+  {
+    "tag": "recent",
+    "title": "Programming at the Edge of Synchrony",
+    "abstract": "Synchronization primitives for fault-tolerant distributed systems that ensure an effective and efficient cooperation among processes are an important challenge in the programming languages community. We present a new programming abstraction, ReSync, for implementing benign and Byzantine fault-tolerant protocols. ReSync has a new round structure that offers a simple abstraction for group communication, like it is customary in synchronous systems, but also allows messages to be received one by one, like in the asynchronous systems. This extension allows implementing network and algorithm-specific policies for the message reception, which is not possible in classic round models.\n The execution of ReSync programs is based on a new generic round switch protocol that generalizes the famous theoretical result of Dwork et al. [1988]. We evaluate experimentally the performance of ReSync’s execution platform, by comparing consensus implementations in ReSync with LibPaxos3, etcd, and Bft-SMaRt, three consensus libraries tolerant to benign, resp. byzantine faults.",
+    "author": [
+      {
+        "family": "Drăgoi",
+        "given": "Cezara"
+      },
+      {
+        "family": "Widder",
+        "given": "Josef"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "Proceedings of the ACM on Programming Languages (OOPSLA)",
+    "id": "oopsla20b",
+    "issued": {
+      "date-parts": [
+        [
+          2020
+        ]
+      ]
+    },
+    "keyword": "journal",
+    "publisher": "ACM",
+    "type": "paper-journal"
+  },
+  {
+    "tag": "recent",
     "title": "Automated Controller and Sensor Configuration Synthesis using Dimensional Analysis",
     "abstract": "Automated controller synthesis methods for cyber-physical systems (CPS) often require precise knowledge of the system’s state. Unfortunately, parts of the state may not be directly measurable, which limits the application of these methods. We present a design methodology for the co-design of software controllers and the required sensing capabilities. Our method leverages the knowledge of physical units in the model of a system to find ways of indirectly measuring parts of the system’s state which cannot be measured directly. The method contains a search procedure which uses dimensional analysis to explore the space of physically well-typed expressions and it generates as an intermediate result possible sensor combinations.The integration between the physical and software design for CPS that we present make automated controller synthesis techniques more widely applicable. We have implemented our method and applied it to the design of robotic manipulators.",
     "author": [

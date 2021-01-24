@@ -1,6 +1,45 @@
 [
   {
     "tag": "recent",
+    "title": "Paracosm: A Test Framework for Autonomous Driving Simulations",
+    "abstract": "Systematic testing of autonomous vehicles operating in complex real-world scenarios is a difficult and expensive problem. We present Paracosm, a framework for writing systematic test scenarios for autonomous driving simulations. Paracosm allows users to programmatically describe complex driving situations with specific features, e.g., road layouts and environmental conditions, as well as reactive temporal behaviors of other cars and pedestrians. A systematic exploration of the state space, both for visual features and for reactive interactions with the environment is made possible. We define a notion of test coverage for parameter configurations based on combinatorial testing and low dispersion sequences. Using fuzzing on parameter configurations, our automatic test generator can maximize coverage of various behaviors and find problematic cases. Through empirical evaluations, we demonstrate the capabilities of Paracosm in programmatically modeling parameterized test environments, and in finding problematic scenarios.",
+    "author": [
+      {
+        "family": "Majumdar",
+        "given": "Rupak"
+      },
+      {
+        "family": "Mathur",
+        "given": "Aman Shankar"
+      },
+      {
+        "family": "Pirron",
+        "given": "Marcus"
+      },
+      {
+        "family": "Stegner",
+        "given": "Laura"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "In Proceedings of the Conference on Fundamental Approaches to Software Engineering (FASE)",
+    "id": "fase21",
+    "issued": {
+      "date-parts": [
+        [
+          2021
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "publisher": "Springer",
+    "type": "paper-conference"
+  },
+  {
+    "tag": "recent",
     "title": "Multiparty Motion Coordination: From Choreographies to Robotics Programs",
     "abstract": "We present a programming model and typing discipline for complex multi-robot coordination programming. Our model encompasses both synchronisation through message passing and continuous-time dynamic motion primitives in physical space. We specify continuous-time motion primitives in an assume-guarantee logic that ensures compatibility of motion primitives as well as collision freedom. We specify global behaviour of programs in a choreographic type system that extends multiparty session types with jointly executed motion primitives, predicated refinements, as well as a separating conjunction that allows reasoning about subsets of interacting robots. We describe a notion of well-formedness for global types that ensures motion and communication can be correctly synchronised and provide algorithms for checking well-formedness, projecting a type, and local type checking. A well-typed program is communication safe, motion compatible, and collision free. Our type system provides a compositional approach to ensuring these properties.\n We have implemented our model on top of the ROS framework. This allows us to program multi-robot coordination scenarios on top of commercial and custom robotics hardware platforms. We show through case studies that we can model and statically verify quite complex manoeuvres involving multiple manipulators and mobile robots—such examples are beyond the scope of previous approaches.",
     "author": [

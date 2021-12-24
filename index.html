@@ -36,10 +36,12 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <!--li><a href="#sec-bio">Bio</a></li-->
+        <li><a href="#sec-consulting">Consulting</a></li>
         <li><a href="#sec-pub">Publications</a></li>
         <li><a href="#sec-proj">Projects</a></li>
         <li><a href="#sec-prof">Professional Activities</a></li>
         <li><a href="#sec-tools">Tools</a></li>
+        <li><a href="#sec-misc">Misc.</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <!--li><a href="http://www.csail.mit.edu/">MIT CSAIL</a></li-->
@@ -57,10 +59,13 @@
     </div>
     <div class="col-sm-5">
       <p>
-      I'm a computer scientist.
-      My research interests lie in program analysis and verification, programming languages, distributed systems and automated reasoning.
-      Currently working on some cool projects.
-      More information will come soon.
+      I'm a computer scientist specialized in the areas of
+      <ul>
+      <li>program analysis and verification,</li>
+      <li>programming languages and session types,</li>
+      <li>distributed, embedded, and cyber-physical systems.</li>
+      </ul>
+      I focus on developing programming abstractions designed that are amenable to  automated verification, i.e., the automatic analysis of software to find mathematical proofs showing the code meets its specification.
       </p>
       <p>
       Between 2016 and 2021, I was a research group leader at <a href="https://www.mpi-sws.org/">MPI-SWS</a>.
@@ -70,7 +75,11 @@
       Prior to that I received a Master in computer science from <a href="https://www.epfl.ch/">EPFL</a> in 2009.
       </p>
       <p>
-      For more information about my career, see my <a href="files/damien_cv.pdf">complete CV</a>.
+      For more information about my career, see my <a href="files/damien_cv.pdf">CV</a>.
+      </p>
+      <p>
+      Currently also working on some other cool projects.
+      More information will come soon.
       </p>
     </div>
     <div class="col-sm-4">
@@ -89,23 +98,24 @@
       <script type="text/javascript" language="javascript">
       <!--
       // Email obfuscator script 2.1 by Tim Williams, University of Arizona
-      // Random encryption key feature coded by Andrew Moulden
+      // Random encryption key feature by Andrew Moulden, Site Engineering Ltd
       // This code is freeware provided these four comment lines remain intact
-      // A wizard to generate this code is at http://www.jottings.com/obfuscator/
-      { c = "RtzzU1UM@urm-AdA.b1V"
-        k = "yuBRsUlXwNGvhTr7cD45MtIiAfkEdoPaLF1n6CWQg0YmZz2e8bjHJK3Opqx9VS"
-        s=c.length
-        l=""
-        for (i=0; i<c.length; i++) {
-            if (k.indexOf(c.charAt(i))==-1) {
-                t = c.charAt(i)
-                l += (t)
-            } else {
-                t = (k.indexOf(c.charAt(i))-s+k.length) % k.length
-                l += (k.charAt(t))
-            }
+      // A wizard to generate this code is at http://www.justudin.com/anti-spam-email/
+      { coded = "iMAqNV.CvIINGNk@MmvAVq.NbIm.Xs"
+        key = "opV1IQPmrRg7TNhxM0F3SukOBzKc8iZbtUnDfAGl9Jw5seWEaj2v6LyC4XYqHd"
+        shift=coded.length
+        link=""
+        for (i=0; i<coded.length; i++) {
+          if (key.indexOf(coded.charAt(i))==-1) {
+            ltr = coded.charAt(i)
+            link += (ltr)
+          }
+          else {
+            ltr = (key.indexOf(coded.charAt(i))-shift+key.length) % key.length
+            link += (key.charAt(ltr))
+          }
         }
-        document.write("<a href='mailto:"+l+"'>"+l+"</a>")
+        document.write("<a href='mailto:"+link+"'>"+link+"</a>")
       }
       //-->
       </script><noscript>
@@ -114,6 +124,24 @@
       </p>
     </div>
   </div>
+</div>
+
+<div class="container separation"></div>
+
+<div class="container" id="sec-consulting">
+
+<h2>Consulting</h2>
+
+<p>
+I offer consulting in my specialization area (see above).
+In particular, if you are developing safety-critical software and you are interested in using formal methods (model checking, theorem proving, etc.) I can help you.
+To get a better idea of what I can do, check my publication record below.
+</p>
+
+<p>
+If something looks interesting to you, just send me an email to discuss your need and what I can bring to that table.
+</p>
+
 </div>
 
 <div class="container separation"></div>
@@ -153,7 +181,7 @@
 <div class="container" id="sec-proj">
   <ul class="nav nav-tabs">
     <li class="navbar-text"><h2>Research:</h2></li>
-    <li class="active"><a data-toggle="tab" href="#research-project"><h2>Current Projects</h2></a></li>
+    <li class="active"><a data-toggle="tab" href="#research-project"><h2>Older Projects</h2></a></li>
     <li>               <a data-toggle="tab" href="#research-group"><h2>Group</h2></a></li>
     <li>               <a data-toggle="tab" href="#research-tools"><h2>Tools</h2></a></li>
   </ul>
@@ -200,7 +228,10 @@
       </ul>
     </div>
     <div id="research-tools" class="tab-pane fade">
-      <p></p>
+      <p>
+      A list of the various tools that I developed and participated in the development.
+      Most of these tools are academic prototypes and are not maintained anymore.
+      </p>
       <ul>
         <li><a href="https://github.com/MPI-SWS/pgcd/">PGCD</a>: a programming and verification tool for robotic systems with an emphasis on coordination of multiple robots.</li>
         <li><a href="https://gitlab.mpi-sws.org/mpirron/mperl">MPerl</a>: automating the generation of control code for robotic manipulators.</li>
@@ -227,16 +258,16 @@
   </ul>
   <div class="tab-content">
     <div id="prof-pc" class="tab-pane fade in active">
-      <p>PC co-chair</p>
+      <h3>PC co-chair</h3>
       <ul>
         <li><a href="https://popl20.sigplan.org/home/VMCAI-2020">VMCAI 2020</a>, 21st International Conference on Verification, Model Checking, and Abstract Interpretation.</li>
         <li><a href="http://nsv19.mpi-sws.org/">NSV 19</a>, 12th International Workshop on Numerical Software Verification.</li>
         <li><a href="http://cavconference.org/2017/verification-mentoring-workshop/">VMW 2017</a>, Verification Mentoring Workshop 2017.</li>
       </ul>
-      <p>PC member</p>
+      <h3>PC member</h3>
       <ul>
         <li><a href="https://popl21.sigplan.org/">POPL 2021</a>, 48th ACM SIGPLAN Symposium on Principles of Programming Languages.</li>
-        <li>ESOP 2021, 30th European Symposium on Programming.</li>
+        <li><a href="https://etaps.org/2021/esop">ESOP 2021</a>, 30th European Symposium on Programming.</li>
         <li><a href="https://sri-csl.github.io/VSTTE20/">VSTTE 2020</a>, 12th Working Conference on Verified Software: Theories, Tools, and Experiments.</li>
         <li><a href="https://conf.researchr.org/home/aplas-2019">APLAS 2019</a>, 17th Asian Symposium on Programming Languages and Systems.</li>
         <li><a href="https://synasc.ro/2019/">SYNASC 2019</a>, 21st International Symposium on Symbolic and Numeric Algorithms for Scientific Computing.</li>

@@ -1,6 +1,34 @@
 [
   {
     "tag": "recent",
+    "title": "Comparing Channel Restrictions of Communicating State Machines, High-level Message Sequence Charts, and Multiparty Session Types",
+    "abstract": "Communicating state machines provide a formal foundation for distributed computation. Unfortunately, they are Turing-complete and, thus, challenging to analyse. In this paper, we classify restrictions on channels which have been proposed to work around the undecidability of verification questions. We compare half-duplex communication, existential B-boundedness, and k-synchronisability. These restrictions do not prevent the communication channels from growing arbitrarily large but still restrict the power of the model. Each restriction gives rise to a set of languages so, for every pair of restrictions, we check whether one subsumes the other or if they are incomparable. We investigate their relationship in two different contexts: first, the one of communicating state machines, and, second, the one of communication protocol specifications using high-level message sequence charts. Surprisingly, these two contexts yield different conclusions. In addition, we integrate multiparty session types, another approach to specify communication protocols, into our classification. We show that multiparty session type languages are half-duplex, existentially 1-bounded, and 1-synchronisable. To show this result, we provide the first formal embedding of multiparty session types into high-level message sequence charts.",
+    "author": [
+      {
+        "family": "Stutz",
+        "given": "Felix"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "In Proceedings of the 13th International Symposium on Games, Automata, Logics and Formal Verification(GandALF)",
+    "id": "gandalf22",
+    "issued": {
+      "date-parts": [
+        [
+          2022
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "publisher": "Open Publishing Association",
+    "link-paper": "https://cgi.cse.unsw.edu.au/~eptcs/paper.cgi?GandALF2022.13.pdf",
+    "type": "paper-conference"
+  },
+  {
+    "tag": "recent",
     "title": "Constraint Synthesis for Parametric CAD",
     "abstract": "Parametric CAD, in conjunction with 3D-printing, is democratizing design and production pipelines. End-users can easily change parameters of publicly available designs, and 3D-print the customized objects. In research and industry, parametric designs are being used to find optimal, or unique final objects. Unfortunately, for most designs, many combinations of parameter values are invalid. Restricting the parameter space of designs to only the valid configurations is a difficult problem. Most publicly available designs do not contain this information. Using ideas from program analysis, we synthesize constraints on parameters of parametric designs. Some constraints are synthesized statically, by exploiting implicit assumptions of the design process. Several others are inferred by evaluating the design on many different samples, and then constructing and solving hypotheses. Our approach is effective at finding constraints on parameter values for a wide variety of parametric designs, with a very small runtime cost, in the order of seconds.",
     "author": [
@@ -13,7 +41,7 @@
         "given": "Damien"
       }
     ],
-    "container-title": "Pacific Graphics",
+    "container-title": "Pacific Graphics Short Papers, Posters, and Work-in-Progress Papers",
     "id": "pg21",
     "issued": {
       "date-parts": [
@@ -23,6 +51,7 @@
       ]
     },
     "keyword": "conf",
+    "publisher": "The Eurographics Association",
     "link-paper": "https://people.mpi-sws.org/~mathur/papers/ConstraintSynthesisCAD.pdf",
     "type": "paper-conference"
   },

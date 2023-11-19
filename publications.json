@@ -1,6 +1,42 @@
 [
   {
     "tag": "recent",
+    "title": "Complete Multiparty Session Type Projection with Automata",
+    "abstract": "Multiparty session types (MSTs) are a type-based approach to verifying communication protocols. Central to MSTs is a projection operator: a partial function that maps protocols represented as global types to correct-by-construction implementations for each participant, represented as a communicating state machine. Existing projection operators are syntactic in nature, and trade efficiency for completeness. We present the first projection operator that is sound, complete, and efficient. Our projection separates synthesis from checking implementability. For synthesis, we use a simple automata-theoretic construction; for checking implementability, we present succinct conditions that summarize insights into the property of implementability. We use these conditions to show that MST implementability is PSPACE-complete. This improves upon a previous decision procedure that is in EXPSPACE and applies to a smaller class of MSTs. We demonstrate the effectiveness of our approach using a prototype implementation, which handles global types not supported by previous work without sacrificing performance.",
+    "author": [
+      {
+        "family": "Li",
+        "given": "Elaine"
+      },
+      {
+        "family": "Stutz",
+        "given": "Felix"
+      },
+      {
+        "family": "Wies",
+        "given": "Thomas"
+      },
+      {
+        "family": "Zufferey",
+        "given": "Damien"
+      }
+    ],
+    "container-title": "In Proceedings of the 35th International Conference on Computer Aided Verification (CAV)",
+    "id": "cav23",
+    "issued": {
+      "date-parts": [
+        [
+          2023
+        ]
+      ]
+    },
+    "keyword": "conf",
+    "publisher": "Springer",
+    "link-paper": "https://doi.org/10.1007/978-3-031-37709-9_17",
+    "type": "paper-conference"
+  },
+  {
+    "tag": "recent",
     "title": "Comparing Channel Restrictions of Communicating State Machines, High-level Message Sequence Charts, and Multiparty Session Types",
     "abstract": "Communicating state machines provide a formal foundation for distributed computation. Unfortunately, they are Turing-complete and, thus, challenging to analyse. In this paper, we classify restrictions on channels which have been proposed to work around the undecidability of verification questions. We compare half-duplex communication, existential B-boundedness, and k-synchronisability. These restrictions do not prevent the communication channels from growing arbitrarily large but still restrict the power of the model. Each restriction gives rise to a set of languages so, for every pair of restrictions, we check whether one subsumes the other or if they are incomparable. We investigate their relationship in two different contexts: first, the one of communicating state machines, and, second, the one of communication protocol specifications using high-level message sequence charts. Surprisingly, these two contexts yield different conclusions. In addition, we integrate multiparty session types, another approach to specify communication protocols, into our classification. We show that multiparty session type languages are half-duplex, existentially 1-bounded, and 1-synchronisable. To show this result, we provide the first formal embedding of multiparty session types into high-level message sequence charts.",
     "author": [
@@ -13,7 +49,7 @@
         "given": "Damien"
       }
     ],
-    "container-title": "In Proceedings of the 13th International Symposium on Games, Automata, Logics and Formal Verification(GandALF)",
+    "container-title": "In Proceedings of the 13th International Symposium on Games, Automata, Logics and Formal Verification (GandALF)",
     "id": "gandalf22",
     "issued": {
       "date-parts": [
@@ -92,7 +128,6 @@
     "type": "paper-conference"
   },
   {
-    "tag": "recent",
     "title": "Paracosm: A Test Framework for Autonomous Driving Simulations",
     "abstract": "Systematic testing of autonomous vehicles operating in complex real-world scenarios is a difficult and expensive problem. We present Paracosm, a framework for writing systematic test scenarios for autonomous driving simulations. Paracosm allows users to programmatically describe complex driving situations with specific features, e.g., road layouts and environmental conditions, as well as reactive temporal behaviors of other cars and pedestrians. A systematic exploration of the state space, both for visual features and for reactive interactions with the environment is made possible. We define a notion of test coverage for parameter configurations based on combinatorial testing and low dispersion sequences. Using fuzzing on parameter configurations, our automatic test generator can maximize coverage of various behaviors and find problematic cases. Through empirical evaluations, we demonstrate the capabilities of Paracosm in programmatically modeling parameterized test environments, and in finding problematic scenarios.",
     "author": [
